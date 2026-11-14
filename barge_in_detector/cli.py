@@ -49,7 +49,7 @@ def cmd_plan(args: argparse.Namespace) -> int:
     config = PlanConfig.from_file(args.plan)
     store = Store.open(args.db)
     try:
-        plan = build_plan(cat, config, existing=store.existing_targets())
+        plan = build_plan(cat, config, existing=store.existing_targets(used_only=True))
         audit = split_audit(
             cat,
             plan.targets,
@@ -74,7 +74,7 @@ def cmd_plan(args: argparse.Namespace) -> int:
         if args.dry_run:
             print("dry run: nothing written")
             return 0
-        revision_id = store.apply_plan(cat, plan)
+        revision_id = store.apply_plan(cat, plan, retire_missing=args.retire_missing)
         if revision_id is None:
             print("plan unchanged: no new criteria or counts")
             return 0
@@ -215,8 +215,8 @@ def cmd_show_prompt(args: argparse.Namespace) -> int:
     if args.system:
         print("=" * 30 + " generator system prompt (cached)")
         print(prompts.render_generator_system(cat))
-        print("=" * 30 + " judge system prompt (cached)")
-        print(prompts.render_judge_system(cat))
+        print("=" * 30 + f" judge questions ({prompts.JUDGE_TEMPLATE}, Decisions API)")
+        print((prompts.PROMPT_DIR / f"{prompts.JUDGE_TEMPLATE}.yaml").read_text(encoding="utf-8"))
         return 0
     store = Store.open(args.db)
     try:
@@ -260,6 +260,11 @@ def main(argv: list[str] | None = None) -> int:
     p = with_db(sub.add_parser("plan", help="build a plan revision and apply it"))
     p.add_argument("plan", type=Path, help="plan file, e.g. generation/plans/en-hi-pilot.yaml")
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument(
+        "--retire-missing",
+        action="store_true",
+        help="retire this plan's earlier criteria that the rebuilt plan no longer has",
+    )
     p.set_defaults(func=cmd_plan)
 
     p = with_db(sub.add_parser("generate", help="fill every criterion to its required count"))
@@ -284,7 +289,11 @@ def main(argv: list[str] | None = None) -> int:
     with_db(sub.add_parser("status", help="filled and short counts")).set_defaults(func=cmd_status)
 
     p = with_db(sub.add_parser("show-prompt", help="print the prompts for review"))
-    p.add_argument("--system", action="store_true", help="print the cached system prompts")
+    p.add_argument(
+        "--system",
+        action="store_true",
+        help="print the generator system prompt and judge questions",
+    )
     p.add_argument("--index", type=int, default=0, help="which target (plan order)")
     p.add_argument("--count", type=int, default=10, help="samples per request (batch size)")
     p.set_defaults(func=cmd_show_prompt)

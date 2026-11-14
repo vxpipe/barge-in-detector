@@ -10,33 +10,49 @@ DEFAULT_PATH = Path(__file__).resolve().parents[2] / "generation" / "config.yaml
 
 @dataclass(frozen=True)
 class GenerationConfig:
-    generator_model: str = "gemini-3.8-flash"
-    judge_model: str = "gemini-3.8-flash"
+    generator_model: str = "gemini-3.5-flash-lite"
+    judge_model: str = "gemini-decision-1"
     batch_size: int = 10
     max_attempts_per_sample: int = 3
     concurrency: int = 4
     temperature: float | None = None
     thinking_level: str | None = None
-    judge_thinking_level: str | None = None
     explicit_cache: bool = True
     cache_ttl_seconds: int = 3600
     barge_in_word_tolerance: int = 1
-    prices_usd_per_million_tokens: dict[str, float | None] = field(
-        default_factory=lambda: {"input": None, "cached_input": None, "output": None}
+    # Judge questions that reject a sample when answered no; see
+    # responses.HARD_CHECKS. All other questions are recorded only.
+    judge_hard_checks: tuple[str, ...] = (
+        "language_ok",
+        "script_ok",
+        "cut_ok",
+        "factor_listener_intent",
     )
+    # model -> {input, cached_input, output} in USD per million tokens.
+    prices_usd_per_million_tokens: dict[str, dict[str, float | None]] = field(default_factory=dict)
 
     @classmethod
     def from_file(cls, path: Path = DEFAULT_PATH) -> GenerationConfig:
-        return cls(**yaml.safe_load(Path(path).read_text(encoding="utf-8")))
+        data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+        if "judge_hard_checks" in data:
+            data["judge_hard_checks"] = tuple(data["judge_hard_checks"])
+        return cls(**data)
+
+    def _prices(self, model: str) -> dict[str, float | None]:
+        return self.prices_usd_per_million_tokens.get(model) or {}
 
     @property
     def has_prices(self) -> bool:
-        return all(v is not None for v in self.prices_usd_per_million_tokens.values())
+        """Prices are known for the generator and the judge model."""
+        return all(
+            all(self._prices(m).get(k) is not None for k in ("input", "cached_input", "output"))
+            for m in (self.generator_model, self.judge_model)
+        )
 
-    def cost(self, usage: dict[str, int | None]) -> float | None:
-        if not self.has_prices:
+    def cost(self, usage: dict[str, int | None], model: str) -> float | None:
+        p = self._prices(model)
+        if any(p.get(k) is None for k in ("input", "cached_input", "output")):
             return None
-        p = self.prices_usd_per_million_tokens
         cached = usage.get("cached_input_tokens") or 0
         fresh = max((usage.get("input_tokens") or 0) - cached, 0)
         output = usage.get("output_tokens") or 0

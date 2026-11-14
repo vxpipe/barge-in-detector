@@ -20,6 +20,12 @@ backchannel and becomes an interruption.
 The detector reads a short text window of the conversation and returns a
 calibrated probability that the most recent caller utterance is a barge-in.
 
+The training data is not written from an agent's point of view: it is
+conversations between any people in the catalogue's situations (a hotel
+manager and a guest, David and Irina), where one person has the floor (the
+speaker) and another says the last line (the listener). Names never reach the
+model; the cleaner turns them into `s1`, `s2`, `s3`.
+
 ## Requirements
 
 ### Hard requirements
@@ -31,9 +37,10 @@ calibrated probability that the most recent caller utterance is a barge-in.
     probability. Faster is better.
   - **Whole path ≤ 50 ms**: including the Vxpipe integration boundary
     (serialization, NIF or sidecar call, queueing) around the model path.
-- **Multilingual: at least 100 languages**, listed explicitly in a versioned
-  language manifest with tiers (see below). "Supports 100 languages" means each
-  listed language has evaluation results, not that the tokenizer covers it.
+- **Multilingual: 36 languages** (user decision, 2026-11-14, replacing the
+  earlier "at least 100"), listed explicitly in the versioned language manifest
+  with tiers (see below): English, Hindi, Kannada, Tamil, Telugu, Malayalam, Bengali, Gujarati, Marathi, Punjabi, Urdu, Assamese, Mandarin, Cantonese, Japanese, Korean, Malay (Bahasa Malaysia), Indonesian (Bahasa Indonesia), Filipino, Thai, Vietnamese, Arabic (Modern Standard), French, German, Spanish, Portuguese, Italian, Dutch, Irish, Swedish, Danish, Norwegian (Bokmål), Finnish, Hungarian, Russian, Polish. "Supports a
+  language" means it has evaluation results, not that the tokenizer covers it.
   Rollout starts with **English and Hindi**, then Kannada and Tamil, then the
   remaining languages.
 - **Text input only** (ASR transcripts). Prosody/audio is out of scope for v1.
@@ -200,10 +207,14 @@ recorded in that document.
 
 ### Generator rules
 
-- Use the `google-genai` Python package with **Gemini 3.8 Flash**
-  (model ID `gemini-3.8-flash`) as the default generator. Record the model ID in
-  each conversation and snapshot manifest. A stronger Gemini model may
-  be used as a second-pass judge if the milestone records why.
+- Use the `google-genai` Python package with **Gemini 3.5 Flash-Lite**
+  (model ID `gemini-3.5-flash-lite`) as the default generator (user decision,
+  2026-11-14, for cost); switching to **Gemini 3.8 Flash** (`gemini-3.8-flash`)
+  is the user's call, made in `generation/config.yaml`. Record the model ID in
+  each conversation and snapshot manifest. The blind judge is the Gemini
+  Decisions API (model `gemini-decision-1`, `client.decisions.create`, needs
+  `google-genai` 3.3+): one request per sample with closed questions and
+  calibrated probabilities (see [docs/generation.md](docs/generation.md)).
 - Read the API key from the environment (`GEMINI_API_KEY`/`GOOGLE_API_KEY`).
   Never commit, print or log keys, raw authorization headers or `.env` contents.
 - Use structured output (`response_schema`/JSON) and validate every record

@@ -33,3 +33,18 @@ def test_speaker_labels_by_first_appearance():
 def test_empty_turn_is_rejected():
     with pytest.raises(cleaner.EmptyTurnError):
         cleaner.clean_window([("A", "hello"), ("B", "…!")])
+
+
+def test_words_are_original_tokens_with_content():
+    assert cleaner.words("Mm-hmm, — wait!") == ["Mm-hmm,", "wait!"]
+
+
+def test_raw_window_keeps_casing_and_punctuation():
+    window = cleaner.raw_window(
+        [
+            ("Hotel Manager", "Sir,  we have a suite on the\u00a0highest floor, and"),
+            ("Guest", "OK!"),
+        ]
+    )
+    assert window.transcript == "s1: Sir, we have a suite on the highest floor, and\ns2: OK!"
+    assert window.speaker_labels == ["s1", "s2"]

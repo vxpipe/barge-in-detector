@@ -40,3 +40,9 @@ def test_new_id_is_time_ordered_v7():
     first, second = ids.new_id(), ids.new_id()
     assert first.version == 7
     assert first < second
+
+
+def test_factors_at_their_default_value_are_left_out_of_the_id():
+    spec = {"language": "en", "caller_intent": "continuer"}
+    assert ids.combination_id({**spec, "mixed_in_script": "default"}) == ids.combination_id(spec)
+    assert ids.combination_id({**spec, "mixed_in_script": "native"}) != ids.combination_id(spec)

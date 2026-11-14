@@ -2,11 +2,11 @@
 # See docs/factor-catalogue.md for the rationale and review notes.
 #
 # The plan builder picks one value per spec factor, applies constraints.yaml,
-# and derives the label from the caller intent. Each resulting combination is a
+# and derives the label from the listener's intent. Each resulting combination is a
 # criterion (a row in the targets table) with a required sample count. Gemini only writes text that
 # satisfies the chosen values.
 
-version: 0.7.0
+version: 0.9.1
 status: draft  # awaiting user review
 
 files:
@@ -30,7 +30,7 @@ spec_factors:
     values_from: languages.regional_variants
 
   - id: script_form
-    description: How the caller's words are written in the transcript.
+    description: How the people's words are written in the transcript.
     values:
       - id: native
         description: The language's usual script (Devanagari for Hindi, Latin for English).
@@ -42,7 +42,7 @@ spec_factors:
           "haan हाँ ठीक है".
 
   - id: code_switching
-    description: Whether and how the caller mixes in another language.
+    description: Whether and how the people mix in another language.
     values:
       - id: none
         description: Only the conversation language.
@@ -63,6 +63,20 @@ spec_factors:
       (e.g. Kannada + English + Hindi).
     values_from: languages.code_switch_sets
 
+  - id: mixed_in_script
+    description: >
+      How the mixed-in language is written, for code-switch sets that allow a
+      choice (mixed_in_scripts in languages.yaml), e.g. Mandarin in Malaysian
+      English as Chinese characters or as pinyin. `default` everywhere else;
+      a factor at `default` is left out of the combination_id.
+    values:
+      - id: default
+        description: The manifest's default for the set.
+      - id: native
+        description: In the mixed-in language's own script, e.g. Chinese characters.
+      - id: romanized
+        description: Romanized, e.g. pinyin or Jyutping.
+
   - id: domain
     description: Conversation category. Values come from domains.yaml.
     values_from: domains
@@ -78,21 +92,25 @@ spec_factors:
       lines always have different speakers. 2-line windows are always s1, s2.
     values:
       - id: returning_speaker
-        description: The judged speaker also said the first line (s1, s2, s1).
+        description: >
+          The listener (the person judged) also said the first line, before
+          the speaker's turn (s1, s2, s1).
       - id: new_speaker
         description: >
-          A third person, who has not spoken in the window, is the one judged
-          (s1, s2, s3).
+          A third person said the first line; the listener, who is judged, has
+          not spoken yet in the window (s1, s2, s3).
 
   - id: agent_activity
-    description: What the agent is doing in the turn the caller speaks over.
+    description: >
+      What the speaker (the person with the floor) is doing in the turn the
+      listener speaks over or right after.
     values:
       - id: greeting_opening
-        description: Opening the call, introducing itself or the purpose.
+        description: Opening the conversation, greeting or introducing themselves or the purpose.
       - id: explaining
         description: Explaining a policy, process, status or reason.
       - id: giving_instructions
-        description: Step-by-step instructions the caller is following.
+        description: Step-by-step instructions the listener is following.
       - id: listing_options
         description: Listing choices, plans, slots or products.
       - id: reading_numbers
@@ -100,7 +118,7 @@ spec_factors:
       - id: reading_names_addresses
         description: Reading out names, addresses, emails or spellings.
       - id: confirming_details
-        description: Reading back details for the caller to confirm.
+        description: Reading back details for the listener to confirm.
       - id: asking_yes_no_question
         description: Asking a closed question.
       - id: asking_open_question
@@ -108,20 +126,20 @@ spec_factors:
       - id: disclosure
         description: Legal, recording or terms-and-conditions text.
       - id: empathizing
-        description: Apologizing or acknowledging the caller's problem.
+        description: Apologizing or acknowledging the listener's problem.
       - id: hold_message
-        description: Telling the caller it is checking something or asking them to wait.
+        description: Telling the listener they are checking something, or asking them to wait.
       - id: pitching
         description: Promoting an offer, upgrade or product.
       - id: small_talk
-        description: Pleasantries, weather, how the caller is.
+        description: Pleasantries, weather, how the listener is.
       - id: closing
         description: >
-          Wrapping up the call: summarising, asking whether anything else is
-          needed, saying goodbye.
+          Wrapping up the conversation: summarising, asking whether anything
+          else is needed, saying goodbye.
 
   - id: cut_position
-    description: How much of the agent's turn had been spoken when the caller started.
+    description: How much of the speaker's turn had been spoken when the listener started.
     values:
       - id: start
         description: Within the first few words.
@@ -132,11 +150,11 @@ spec_factors:
       - id: near_end
         description: The last few words still to come.
       - id: just_finished
-        description: The agent had just finished its turn (short grace window).
+        description: The speaker had just finished their turn (short grace window).
 
   - id: caller_intent
     description: >
-      What the caller means by the candidate utterance. Values come from
+      What the listener means by the last line. Values come from
       intents.yaml, and each intent determines the label.
     values_from: intents
 
@@ -152,7 +170,7 @@ spec_factors:
       - id: filler_then_barge_in
         description: >
           Starts with hesitation or filler and then becomes the barge-in
-          intent, e.g. "umm... actually, can I".
+          intent, e.g. "umm, actually, can I".
 
   - id: repetition
     description: Whether the key tokens are repeated, e.g. "yeah yeah yeah", "no no no".
@@ -173,13 +191,13 @@ spec_factors:
         description: Nine or more words.
 
   - id: register
-    description: Formality of the caller's speech.
+    description: Formality of the people's speech.
     values:
       - id: formal
       - id: casual
 
   - id: caller_mood
-    description: The caller's emotional state, which shapes wording.
+    description: The listener's emotional state, which shapes wording.
     values:
       - id: neutral
       - id: friendly
@@ -190,7 +208,9 @@ spec_factors:
 # Values computed from spec factors, not chosen independently.
 derived_factors:
   - id: agent_state
-    description: Model input; derived from cut_position.
+    description: >
+      Model input: whether the speaker was still speaking or had just
+      finished; derived from cut_position.
     rule:
       just_finished: just_finished
       default: speaking
@@ -216,6 +236,12 @@ not_spec_factors:
   turn_shape: Stage 4 builds both 2-turn and 3-turn examples from every conversation.
   prefix: Stage 4 expands every interim prefix of the candidate utterance.
 
-# Out of scope: inputs are cleaned-up transcripts of the caller speaking to the
-# agent. ASR noise, echo, background speech and media audio are handled
+# People: every conversation has a speaker (who has the floor) and a listener
+# (who says the last line); a third person may say the first line. They can be
+# any people in the domain's situation, named by role or by name. In
+# deployment the speaker is usually a voice agent, but the data never assumes
+# it. Factor and column names that say "agent" mean the speaker.
+#
+# Out of scope: inputs are cleaned-up transcripts of the listener speaking to the
+# speaker. ASR noise, echo, background speech and media audio are handled
 # upstream, so nothing here simulates them. Generated text is clean.

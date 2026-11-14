@@ -6,14 +6,23 @@ name: en-hi-pilot
 seed: 20261114
 languages: [en, hi]
 
-# Samples per criterion. One generator request carries up to batch_size
-# (generation/config.yaml) samples, so 10 means one request per criterion.
-required_count: 10
+# Samples per criterion (user decision, 2026-11-14: 5, down from 10, for
+# cost). One generator request carries up to batch_size (generation/config.yaml)
+# samples, so each criterion is one request; a contrastive pair is 5 sets.
+required_count: 5
 
 # Share of stratified criteria per intended label; intents within a label are
 # filled round-robin.
 label_shares: {backchannel: 0.45, barge_in: 0.5, ambiguous: 0.05}
 criteria_per_language: 100
+
+# Share of criteria per regional variant (stratified and contrastive). Plain US
+# English and Indian English (with and without code-switching) are the two main
+# English slices; Malaysian and Singaporean English carry English-Mandarin
+# mixing and Hong Kong English English-Cantonese, each in characters and romanized. Languages
+# not listed spread evenly over their variants.
+variant_shares:
+  en: {en-US: 0.35, en-IN: 0.35, en-MY: 0.08, en-HK: 0.04, en-SG: 0.04, en-GB: 0.04, en-AU: 0.04, en-NG: 0.02, en-PH: 0.02, en-ZA: 0.02}
 
 # Instances of every contrastive group, per language.
 contrastive_instances_per_group: 2

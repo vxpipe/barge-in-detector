@@ -67,8 +67,46 @@ class Store:
         row = self.con.execute("SELECT value FROM meta WHERE key = 'schema_version'").fetchone()
         if row is None:
             self.con.execute("INSERT INTO meta VALUES ('schema_version', ?)", [SCHEMA_VERSION])
+            return
+        if row[0] in ("1", "2"):
+            self._migrate(row[0])
         elif row[0] != SCHEMA_VERSION:
             raise RuntimeError(f"database schema {row[0]}, code expects {SCHEMA_VERSION}")
+
+    def _migrate(self, version: str) -> None:
+        """Bring a schema 1 or 2 database to schema 3.
+
+        2 adds `locales`; 3 adds the `mixed_in_script` factor (`default` for
+        every existing row, which keeps combination_ids) and recomputes
+        `locales` with script subtags.
+        """
+        from barge_in_detector.catalogue import load_catalogue
+
+        cat = load_catalogue()
+        keys = ("language", "regional_variant", "script_form", "code_switching", "code_switch_set")
+        with self.transaction():
+            self.con.execute("ALTER TABLE examples ADD COLUMN IF NOT EXISTS transcript_raw VARCHAR")
+            for table in ("targets", "conversations", "examples"):
+                self.con.execute(f"ALTER TABLE {table} ADD COLUMN IF NOT EXISTS locales VARCHAR[]")
+                self.con.execute(
+                    f"ALTER TABLE {table} ADD COLUMN IF NOT EXISTS mixed_in_script VARCHAR "
+                    "DEFAULT 'default'"
+                )
+                self.con.execute(
+                    f"UPDATE {table} SET mixed_in_script = 'default' WHERE mixed_in_script IS NULL"
+                )
+                for values in self.con.execute(
+                    f"SELECT DISTINCT {', '.join(keys)}, mixed_in_script FROM {table}"
+                ).fetchall():
+                    spec = dict(zip((*keys, "mixed_in_script"), values, strict=True))
+                    self.con.execute(
+                        f"UPDATE {table} SET locales = ? WHERE "
+                        + " AND ".join(f"{k} = ?" for k in (*keys, "mixed_in_script")),
+                        [cat.locales(spec), *values],
+                    )
+            self.con.execute(
+                "UPDATE meta SET value = ? WHERE key = 'schema_version'", [SCHEMA_VERSION]
+            )
 
     def cursor(self) -> Store:
         """A store on its own cursor, for use from another thread."""
@@ -107,7 +145,27 @@ class Store:
             params += list(languages)
         return self._dicts(sql + " ORDER BY priority, quota_group, combination_id", params)
 
-    def existing_targets(self) -> list[ExistingTarget]:
+    def used_combination_ids(self) -> set[uuid.UUID]:
+        """Criteria with at least one generate request (directly or via their group)."""
+        rows = self.con.execute(
+            """
+            SELECT combination_id FROM requests
+            WHERE kind = 'generate' AND combination_id IS NOT NULL
+            UNION
+            SELECT t.combination_id FROM targets t
+            JOIN plan_revisions p ON p.revision_id = t.added_in_revision
+            JOIN requests r ON r.contrastive_group_id = t.contrastive_group_id
+            -- Only criteria that existed when the request was made: group ids
+            -- from before they were derived from members could be reused.
+            WHERE r.kind = 'generate' AND p.created_at <= r.created_at
+            """
+        ).fetchall()
+        return {r[0] for r in rows}
+
+    def existing_targets(self, *, used_only: bool = False) -> list[ExistingTarget]:
+        """Existing criteria for the plan builder. With used_only, only those whose
+        plan-assigned fields are fixed: criteria with generation requests."""
+        used = self.used_combination_ids() if used_only else None
         return [
             ExistingTarget(
                 combination_id=r["combination_id"],
@@ -117,6 +175,7 @@ class Store:
                 required_count=r["required_count"],
             )
             for r in self._dicts("SELECT * FROM targets")
+            if used is None or r["combination_id"] in used
         ]
 
     def request(self, request_id: uuid.UUID) -> dict[str, Any]:
@@ -138,13 +197,20 @@ class Store:
                 row["response"] = json.loads(row["response"])
         return rows
 
-    def judge_request_for(self, parent_id: uuid.UUID) -> dict[str, Any] | None:
+    def judge_requests_for(self, parent_id: uuid.UUID) -> dict[int, dict[str, Any]]:
+        """Judge requests with a response for a generate request, by item index."""
         rows = self._dicts(
             "SELECT request_id FROM requests WHERE kind = 'judge' AND parent_request_id = ? "
-            "AND status IN ('received', 'processed') ORDER BY request_id DESC LIMIT 1",
+            "AND status IN ('received', 'processed') ORDER BY request_id",
             [parent_id],
         )
-        return self.request(rows[0]["request_id"]) if rows else None
+        judged: dict[int, dict[str, Any]] = {}
+        for row in rows:
+            req = self.request(row["request_id"])
+            index = req["response"].get("item_index")
+            if isinstance(index, int):
+                judged[index] = req
+        return judged
 
     def conversation(self, conversation_id: uuid.UUID) -> dict[str, Any]:
         return self._dicts(
@@ -198,20 +264,63 @@ class Store:
 
     # ---------------------------------------------------------------- plan
 
-    def apply_plan(self, cat: Catalogue, plan: Plan) -> uuid.UUID | None:
+    def apply_plan(
+        self, cat: Catalogue, plan: Plan, *, retire_missing: bool = False
+    ) -> uuid.UUID | None:
         """Record a plan revision, insert new criteria and raise required counts.
 
-        Returns None, and records nothing, when the plan changes no target.
+        Generation order (`priority`) follows the latest plan. With
+        retire_missing, active criteria first added under this plan's name that
+        the plan no longer contains are retired (their data is kept). Returns
+        None, and records nothing, when the plan changes no target.
         """
         revision_id = ids.new_id()
         config = plan.config
         record = config.as_record()
         existing = {r["combination_id"]: r for r in self._dicts("SELECT * FROM targets")}
-        if all(
-            t.combination_id in existing
-            and existing[t.combination_id]["required_count"] == t.required_count
-            for t in plan.targets
-        ):
+        planned = {t.combination_id for t in plan.targets}
+        missing = []
+        if retire_missing:
+            missing = [
+                r["combination_id"]
+                for r in self._dicts(
+                    "SELECT t.combination_id FROM targets t JOIN plan_revisions p "
+                    "ON t.added_in_revision = p.revision_id "
+                    "WHERE t.status = 'active' AND p.name = ?",
+                    [config.name],
+                )
+                if r["combination_id"] not in planned
+            ]
+        used = self.used_combination_ids()
+        updates: dict[uuid.UUID, dict[str, Any]] = {}
+        for t in plan.targets:
+            old = existing.get(t.combination_id)
+            if old is None:
+                continue
+            change: dict[str, Any] = {}
+            if old["required_count"] != t.required_count:
+                change |= {"required_count": t.required_count, "count_set_in_revision": revision_id}
+            if old["priority"] != t.priority:
+                change["priority"] = t.priority
+            if old["status"] == "retired" and (old["retired_reason"] or "").startswith(
+                "not in plan"
+            ):
+                change |= {"status": "active", "retired_reason": None, "retired_at": None}
+            if t.combination_id not in used:
+                # No generation yet, so the plan may still reassign these.
+                for field, value in (
+                    ("split", t.split),
+                    ("split_group_id", t.split_group_id),
+                    ("quota_group", t.quota_group),
+                    ("contrastive_group_id", t.contrastive_group_id),
+                    ("contrastive_role", t.contrastive_role),
+                ):
+                    if old[field] != value:
+                        change[field] = value
+            if change:
+                updates[t.combination_id] = change
+        new = [t for t in plan.targets if t.combination_id not in existing]
+        if not missing and not updates and not new:
             return None
         with self.transaction():
             self.con.execute(
@@ -234,6 +343,7 @@ class Store:
                         "combination_id": t.combination_id,
                         "factor_catalogue_version": cat.version,
                         **{f: t.spec[f] for f in SPEC_FACTORS},
+                        "locales": cat.locales(t.spec),
                         "agent_state": t.agent_state,
                         "label": t.intended_label,
                         "contrastive_group_id": t.contrastive_group_id,
@@ -250,12 +360,19 @@ class Store:
                         "retired_at": None,
                     }
                     self._insert("targets", row)
-                elif old["required_count"] != t.required_count:
+                elif t.combination_id in updates:
+                    change = updates[t.combination_id]
                     self.con.execute(
-                        "UPDATE targets SET required_count = ?, count_set_in_revision = ? "
+                        f"UPDATE targets SET {', '.join(f'{k} = ?' for k in change)} "
                         "WHERE combination_id = ?",
-                        [t.required_count, revision_id, t.combination_id],
+                        [*change.values(), t.combination_id],
                     )
+            for combination_id in missing:
+                self.con.execute(
+                    "UPDATE targets SET status = 'retired', retired_reason = ?, retired_at = ? "
+                    "WHERE combination_id = ?",
+                    [f"not in plan revision {revision_id} of {config.name}", now(), combination_id],
+                )
         return revision_id
 
     def retire_target(self, combination_id: uuid.UUID, reason: str) -> None:

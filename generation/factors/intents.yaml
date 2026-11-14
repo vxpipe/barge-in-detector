@@ -1,13 +1,16 @@
-# Caller intents. Each intent fixes the label of the final utterance.
+# Listener intents. Each intent fixes the label of the last line, said by the
+# listener while the speaker (the person with the floor) is talking or right
+# after they finish.
 #
-# Scope: every candidate utterance is the caller speaking to the agent. Echo,
+# Scope: every last line is the listener speaking to the speaker. Echo,
 # background speech, media audio and transcription glitches are handled by
 # noise cancellation and audio cleaning upstream, not by this model.
 #
 # Labels:
-#   backchannel        Caller does not want the floor; the agent keeps talking.
-#   barge_in           Caller takes the floor. With agent_state=just_finished
-#                      this means "a real caller turn", not an interruption.
+#   backchannel        The listener does not want the floor; the speaker keeps
+#                      talking.
+#   barge_in           The listener takes the floor. With agent_state=just_finished
+#                      this means "a real turn", not an interruption.
 #   ambiguous          Reasonable listeners disagree. Evaluation only; never
 #                      used for training.
 #
@@ -17,7 +20,7 @@
 # length_buckets: allowed final-utterance lengths for the intent.
 # repeatable: whether repetition=repeated is allowed.
 
-version: 0.5.0
+version: 0.6.0
 
 intents:
   # ---------------- backchannel ----------------
@@ -35,7 +38,7 @@ intents:
     description: >
       Signals the information was received or understood. A bare "ok" (or
       "achha", "theek hai", "sari", "I see") is always this, even right after
-      the agent finishes a statement. After a finished question it is
+      the speaker finishes a statement. After a finished question it is
       answer_to_question instead.
     length_buckets: [w1, w2_3, w4_8]
     repeatable: true
@@ -70,7 +73,7 @@ intents:
 
   - id: gratitude_token
     label: backchannel
-    description: Thanks said in passing while the agent continues.
+    description: Thanks said in passing while the speaker continues.
     length_buckets: [w1, w2_3]
     repeatable: true
     examples:
@@ -80,7 +83,7 @@ intents:
   - id: tracking_repeat
     label: backchannel
     description: >
-      Caller repeats part of what the agent is reading (digits, a name) to
+      The listener repeats part of what the speaker is reading (digits, a name) to
       track or write it down, without correcting it.
     length_buckets: [w1, w2_3, w4_8]
     repeatable: false
@@ -89,7 +92,7 @@ intents:
 
   - id: go_ahead
     label: backchannel
-    description: Invites the agent to carry on.
+    description: Invites the speaker to carry on.
     length_buckets: [w1, w2_3]
     repeatable: true
     examples:
@@ -99,7 +102,7 @@ intents:
   # ---------------- barge_in ----------------
   - id: floor_request
     label: barge_in
-    description: Asks the agent to stop, wait or give the caller a moment.
+    description: Asks the speaker to stop, wait or give the listener a moment.
     length_buckets: [w1, w2_3, w4_8, w9_plus]
     repeatable: true
     examples:
@@ -108,7 +111,7 @@ intents:
 
   - id: correction
     label: barge_in
-    description: Corrects something the agent said or read.
+    description: Corrects something the speaker said or read.
     length_buckets: [w1, w2_3, w4_8, w9_plus]
     repeatable: true
     examples:
@@ -117,7 +120,7 @@ intents:
 
   - id: disagreement
     label: barge_in
-    description: Objects to or rejects what the agent is saying.
+    description: Objects to or rejects what the speaker is saying.
     length_buckets: [w1, w2_3, w4_8, w9_plus]
     repeatable: false
     examples:
@@ -126,7 +129,7 @@ intents:
 
   - id: clarification_question
     label: barge_in
-    description: Asks what the agent means or which item it refers to.
+    description: Asks what the speaker means or which item they mean.
     length_buckets: [w1, w2_3, w4_8, w9_plus]
     repeatable: false
     examples:
@@ -136,7 +139,7 @@ intents:
   - id: repeat_request
     label: barge_in
     description: >
-      Asks the agent to repeat, slow down or speak up, or says they could not
+      Asks the speaker to repeat, slow down or speak up, or says they could not
       hear.
     length_buckets: [w1, w2_3, w4_8]
     repeatable: true
@@ -155,7 +158,7 @@ intents:
   - id: early_answer
     label: barge_in
     description: >
-      Answers or chooses before the agent has finished asking or listing,
+      Answers or chooses before the speaker has finished asking or listing,
       making the rest of the turn unnecessary. It must carry content: name or
       point to an option ("the second one", "Tuesday"), or add content to a
       yes/no ("yes book it"). Never a bare "yes" or "ok" on its own.
@@ -168,7 +171,7 @@ intents:
   - id: answer_to_question
     label: barge_in
     description: >
-      Answers a question the agent has just finished asking. May be a single
+      Answers a question the speaker has just finished asking. May be a single
       word that would otherwise look like a backchannel ("yes", "ok", "haan").
     length_buckets: [w1, w2_3, w4_8, w9_plus]
     repeatable: true
@@ -180,7 +183,7 @@ intents:
     label: barge_in
     description: >
       Expresses frustration or urgency that demands a response, including
-      something time-sensitive the caller must say now.
+      something time-sensitive the listener must say now.
     length_buckets: [w4_8, w9_plus]
     repeatable: false
     examples:
@@ -189,11 +192,13 @@ intents:
 
   - id: request_human
     label: barge_in
-    description: Asks for a human agent or a supervisor.
+    description: >
+      Asks to talk to someone else instead: a manager, a supervisor, a
+      colleague, or a human instead of an automated assistant.
     length_buckets: [w1, w2_3, w4_8, w9_plus]
     repeatable: false
     examples:
-      en: ["agent", "human please", "can I talk to a person"]
+      en: ["manager", "can I talk to your supervisor", "human please"]
       hi: ["kisi insaan se baat karao"]
 
   - id: end_call
@@ -208,7 +213,7 @@ intents:
   - id: turn_continuation
     label: barge_in
     description: >
-      The caller picks their own earlier point back up, adding to or
+      The listener picks their own earlier point back up, adding to or
       continuing what they said in their previous turn.
     length_buckets: [w2_3, w4_8, w9_plus]
     repeatable: false
@@ -218,7 +223,7 @@ intents:
 
   - id: skip_request
     label: barge_in
-    description: Asks the agent to skip ahead or get to the point.
+    description: Asks the speaker to skip ahead or get to the point.
     length_buckets: [w1, w2_3, w4_8, w9_plus]
     repeatable: false
     examples:
@@ -227,7 +232,7 @@ intents:
 
   - id: hello_check
     label: barge_in
-    description: Checks whether the agent or the line is still there.
+    description: Checks whether the speaker is still there, listening or audible.
     length_buckets: [w1, w2_3, w4_8]
     repeatable: true
     examples:
@@ -236,7 +241,7 @@ intents:
 
   - id: language_switch_request
     label: barge_in
-    description: Asks the agent to speak another language.
+    description: Asks the speaker to speak another language.
     length_buckets: [w2_3, w4_8, w9_plus]
     repeatable: false
     examples:
@@ -248,12 +253,12 @@ intents:
   # 0.4.0's mixed_signal intent was removed in favour of them.
   - id: collaborative_completion
     label: ambiguous
-    description: The caller finishes the agent's sentence for it.
+    description: The listener finishes the speaker's sentence for them.
     length_buckets: [w1, w2_3, w4_8]
     repeatable: false
 
   - id: thinking_filler_after_question
     label: ambiguous
-    description: "\"hmm\" or \"umm\" right after the agent asks a question: thinking, not yet answering."
+    description: "\"hmm\" or \"umm\" right after the speaker asks a question: thinking, not yet answering."
     length_buckets: [w1, w2_3]
     repeatable: true

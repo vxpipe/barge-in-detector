@@ -1,8 +1,11 @@
 # Generation run settings. See docs/data-format.md (fill to count) and
 # docs/generation.md.
 
-generator_model: gemini-3.8-flash
-judge_model: gemini-3.8-flash
+# Default generator: the cheaper Flash-Lite (user decision, 2026-11-14).
+# gemini-3.8-flash is the alternative if quality needs it; the user decides.
+generator_model: gemini-3.5-flash-lite
+# The judge uses the Gemini Decisions API (calibrated probabilities, no text).
+judge_model: gemini-decision-1
 
 # Samples per generator request (one criterion), or the upper bound on
 # samples per request for a contrastive group (sets × members).
@@ -18,7 +21,6 @@ concurrency: 4
 # null keeps the model's default.
 temperature: null
 thinking_level: null
-judge_thinking_level: null
 
 # Cache the common system prompt with an explicit Gemini context cache. When
 # the cache cannot be created (for example, the prompt is below the model's
@@ -31,9 +33,22 @@ cache_ttl_seconds: 3600
 # barge_in_from_word for a developing utterance.
 barge_in_word_tolerance: 1
 
-# Fill these in from Google's current price list to enable cost tracking and
-# --budget-usd. null means unknown: tokens are still recorded.
+# Judge questions that reject a sample when answered no (P(yes) < 0.5). The
+# label questions (backchannel or barge-in) and the turning-point questions
+# always decide the label. Every other question is a variety factor
+# (repetition, mood, register, scenario, speaker activity, development) or
+# naturalness: its P(yes) is recorded in judge_notes and the raw response,
+# but it never rejects a sample (user decision, 2026-11-14).
+judge_hard_checks: [language_ok, script_ok, cut_ok, factor_listener_intent]
+
+# USD per million tokens, per model. Fill these in from Google's current price
+# list to enable cost tracking and --budget-usd; null means unknown, and tokens
+# are still recorded. The Decisions API bills input tokens only (output is 0).
+# Prices from third-party listings checked 2026-11-14 (Google's own page was
+# not found); verify at https://ai.google.dev/gemini-api/docs/pricing.
+# gemini-3.8-flash is reported at an introductory rate until 2026-12-31,
+# then $1.50 / $7.50.
 prices_usd_per_million_tokens:
-  input: null
-  cached_input: null
-  output: null
+  gemini-3.5-flash-lite: {input: 0.30, cached_input: 0.03, output: 2.50}
+  gemini-3.8-flash: {input: 0.75, cached_input: 0.075, output: 3.75}
+  gemini-decision-1: {input: 0.10, cached_input: 0.0, output: 0.0}  # no caching; output is never billed

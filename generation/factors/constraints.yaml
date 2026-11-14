@@ -10,7 +10,7 @@
 # code_switch_set within the language's sets for that regional_variant) are
 # implied by values_from.
 
-version: 0.6.0
+version: 0.7.0
 
 rules:
   # ---- scripts and code-switching ----
@@ -29,7 +29,7 @@ rules:
     when: {code_switching: [none]}
     require: {code_switch_set: [none]}
 
-  # ---- agent state and intents ----
+  # ---- speaker state and intents ----
   - id: answer_needs_finished_question
     description: Answering a question needs a finished question.
     when: {caller_intent: [answer_to_question]}
@@ -80,7 +80,7 @@ rules:
       cut_position: [just_finished]
 
   - id: tracking_repeat_needs_readout
-    description: Repeating to track needs the agent to be reading something out.
+    description: Repeating to track needs the speaker to be reading something out.
     when: {caller_intent: [tracking_repeat]}
     require:
       agent_activity: [reading_numbers, reading_names_addresses, confirming_details, giving_instructions]
@@ -98,12 +98,12 @@ rules:
     require: {cut_position: [middle, near_end]}
 
   - id: interruption_intents_while_speaking
-    description: These only make sense while the agent is still talking.
+    description: These only make sense while the speaker is still talking.
     when: {caller_intent: [floor_request, tracking_repeat, skip_request]}
     forbid: {cut_position: [just_finished]}
 
   - id: hello_check_after_agent_stops
-    description: Checking the line makes sense once the agent has gone quiet.
+    description: Checking whether anyone is there makes sense once the speaker has gone quiet.
     when: {caller_intent: [hello_check]}
     require: {cut_position: [just_finished]}
 

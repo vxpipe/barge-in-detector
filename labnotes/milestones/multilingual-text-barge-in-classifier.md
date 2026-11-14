@@ -10,7 +10,7 @@ partial caller transcript, with the agent turn cut at the point the caller
 started speaking) and returns a calibrated barge-in probability. Tokenization to
 output takes **at most 20 ms at p99** on the reference CPU, and the whole call
 from Vxpipe takes **at most 50 ms at p99**. It is evaluated per language across
-at least 100 languages, human-verified for English, Hindi, Kannada and Tamil,
+the 36 manifest languages, human-verified for English, Hindi, Kannada and Tamil,
 and released as open source under a permissive licence.
 
 ## Prerequisites and sources
@@ -72,8 +72,8 @@ Decided with the user on 2026-11-14.
 
 ### Languages and scripts
 
-- At least 100 languages in a versioned manifest with scripts, romanization
-  usage and tier.
+- 36 languages in a versioned manifest with scripts, romanization usage and
+  tier (user decision, 2026-11-14, replacing "at least 100"): English, Hindi, Kannada, Tamil, Telugu, Malayalam, Bengali, Gujarati, Marathi, Punjabi, Urdu, Assamese, Mandarin, Cantonese, Japanese, Korean, Malay (Bahasa Malaysia), Indonesian (Bahasa Indonesia), Filipino, Thai, Vietnamese, Arabic (Modern Standard), French, German, Spanish, Portuguese, Italian, Dutch, Irish, Swedish, Danish, Norwegian (Bokmål), Finnish, Hungarian, Russian, Polish.
 - Tier A, human-verified by the user: **English and Hindi first**, then
   **Kannada and Tamil**. Tier B: native-speaker spot checks if available.
   Tier C: synthetic-only, reported as unverified.
@@ -107,14 +107,15 @@ Decided with the user on 2026-11-14.
 - Code, model and generated data released under a permissive licence. Google
   allows using Gemini output to generate synthetic training data. Prefer base
   models with compatible licences.
-- Generator: `gemini-3.8-flash` via `google-genai`. All generated data,
+- Generator: `gemini-3.5-flash-lite` by default (user decision, 2026-11-14;
+  `gemini-3.8-flash` if the user decides quality needs it) via `google-genai`. All generated data,
   including raw generations, is committed to git with its manifests and the
   code that produced it. All Parquet and JSON files are stored in Git LFS.
 
 ## Open decisions (resolve in Checkpoint A)
 
 - Reference CPU (vendor, generation, AVX2/AVX-512/ARM, cores, threads allowed).
-- Final 100+ language list and Tier B availability.
+- Tier B availability (the language list is decided: 36 languages).
 - Serving boundary inside Vxpipe (in-process ONNX via an Elixir NIF vs. sidecar).
 - Storage for model artefacts (datasets are committed to git); whether to
   mirror datasets on Hugging Face; licence choice (e.g. Apache-2.0 or MIT).
@@ -129,7 +130,7 @@ Decided with the user on 2026-11-14.
 - [ ] Write a `docs/` decision covering the input/output contract, labels,
   `agent_state`, partial-transcript behaviour, 2/3-turn shapes, token budget and
   truncation.
-- [ ] Write the language manifest (≥100 languages, scripts, romanization,
+- [ ] Write the language manifest (36 languages, scripts, romanization,
   tiers). Draft the factor catalogue (see AGENTS.md) for review with the user
   before Checkpoint B builds on it.
   Draft 0.1.0 written 2026-11-14: [factor catalogue](../../docs/factor-catalogue.md)
@@ -256,7 +257,7 @@ project code picks every sample's conditions; Gemini only writes the text.
 
 ## Acceptance gates
 
-- [ ] Per-language results for every manifest language (≥100); English, Hindi,
+- [ ] Per-language results for every manifest language (36); English, Hindi,
   Kannada and Tamil human-verified results meet the Checkpoint C thresholds.
 - [ ] Beats every Checkpoint A baseline on false-interruption and
   missed-interruption rates on the human-verified sets.

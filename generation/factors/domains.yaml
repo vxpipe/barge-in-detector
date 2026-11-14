@@ -3,7 +3,7 @@
 # prompt_notes are extra generation rules for that domain, added to the
 # per-batch prompt.
 
-version: 0.2.0
+version: 0.3.0
 
 domains:
   - id: banking
@@ -80,8 +80,8 @@ domains:
   - id: healthcare
     description: Clinics and hospitals, administrative calls only.
     prompt_notes: >
-      Administrative only (appointments, refills, reports, bills). The agent
-      never diagnoses, gives medical advice or discusses treatment.
+      Administrative only (appointments, refills, reports, bills). Staff never
+      diagnose, give medical advice or discuss treatment.
     scenarios:
       - {id: healthcare_appointment, description: Booking or moving an appointment.}
       - {id: healthcare_prescription_refill, description: Prescription refill request.}
@@ -126,8 +126,9 @@ domains:
   - id: collections
     description: Payment reminders.
     prompt_notes: >
-      The agent stays polite and non-threatening: no threats, shaming, legal
-      intimidation or mention of contacting family or employers.
+      The person collecting stays polite and non-threatening: no threats,
+      shaming, legal intimidation or mention of contacting family or
+      employers.
     scenarios:
       - {id: collections_payment_reminder, description: Reminding of an overdue payment.}
       - {id: collections_payment_plan, description: Arranging a payment plan.}

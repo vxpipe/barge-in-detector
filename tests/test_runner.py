@@ -2,7 +2,7 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
-from fake_llm import FakeLlm
+from fake_llm import FakeLlm, LlmError
 
 from barge_in_detector.catalogue import load_catalogue
 from barge_in_detector.generation.config import GenerationConfig
@@ -52,8 +52,9 @@ def test_run_fills_every_criterion_to_its_count(store):
     report = run(store, client)
     assert set(filled(store).values()) == {3}
     assert client.calls["generate"] == 4  # one request of 3 per criterion
+    assert client.calls["judge"] == 12  # one Decisions request per sample
     assert report.accepted == 12
-    assert len(client.system_prompts) == 2  # one generator and one judge system prompt
+    assert len(client.system_prompts) == 1  # the same cached generator system prompt
 
 
 def test_second_run_makes_no_calls_and_keeps_the_export(store, tmp_path):
@@ -151,3 +152,46 @@ def test_contrastive_groups_fill_in_lockstep(tmp_path):
     assert set(counts.values()) == {3}
     assert client.calls["generate"] == len(CAT.contrastive)
     s.close()
+
+
+def test_resume_reuses_items_already_judged(store):
+    class FailsAfter(FakeLlm):
+        def decide(self, **kwargs):
+            if self.calls["judge"] >= 2:
+                raise LlmError("503: unavailable")
+            return super().decide(**kwargs)
+
+    run(store, FailsAfter(), limit=1)
+    assert len(store.requests(kind="judge", status="received")) == 2
+    client = FakeLlm()
+    run(store, client, limit=0)
+    assert client.calls == {"generate": 0, "judge": 1}  # only the missing item
+
+
+def test_first_request_runs_alone_to_warm_the_prompt_cache(store):
+    import threading
+    import time
+
+    class Tracking(FakeLlm):
+        def __init__(self):
+            super().__init__()
+            self.active = 0
+            self.events = []
+            self.guard = threading.Lock()
+
+        def generate(self, **kwargs):
+            with self.guard:
+                self.active += 1
+                self.events.append(("start", self.active))
+            time.sleep(0.05)
+            try:
+                return super().generate(**kwargs)
+            finally:
+                with self.guard:
+                    self.active -= 1
+                    self.events.append(("end", self.active))
+
+    client = Tracking()
+    Runner(store, CAT, client, replace(SETTINGS, concurrency=4)).run()
+    assert client.events[:2] == [("start", 1), ("end", 0)]  # the first call runs alone
+    assert max(n for kind, n in client.events if kind == "start") > 1  # the rest in parallel

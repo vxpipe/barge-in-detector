@@ -1,6 +1,8 @@
 # Data generation and storage format
 
-Status: decided 2026-11-14; schema version 1 implemented in
+Status: decided 2026-11-14; schema version 3 implemented (2 added `locales`; 3
+added `mixed_in_script`, script subtags in `locales` and
+`examples.transcript_raw`; older databases are migrated on open) in
 `barge_in_detector/storage/` (`schema.py` owns the columns, `store.py` every
 write). Column lists change only through a schema version bump recorded here.
 Gemini calls, prompts and acceptance are described in
@@ -85,9 +87,9 @@ data/
 
 | Never changes once written | May be updated |
 | --- | --- |
-| Generated text and everything in `requests.response` | `targets.required_count` (raised or lowered by a plan revision) |
-| Factor values, `combination_id`, label | `targets.status` and `conversations.status` (`active`/`retired`) with reason and time |
-| A criterion's `split` and `split_group_id` | Cleaned columns and `cleaner_version` in `examples` |
+| Generated text and everything in `requests.response` | `targets.required_count` (raised or lowered by a plan revision) and `targets.priority` (generation order only) |
+| Factor values, `combination_id`, label | `targets.status` and `conversations.status` (`active`/`retired`) with reason and time; a rebuilt plan applied with `--retire-missing` retires its own earlier criteria it no longer contains |
+| A criterion's `split` and `split_group_id`, once it has generation requests | Cleaned columns and `cleaner_version` in `examples`; plan-assigned fields (split, split group, quota group, contrastive group) of criteria with no generation requests yet |
 | Request records (other than status while in flight) | `examples` rows: derived, so they can be rebuilt for a new builder version |
 
 A single storage module owns all writes. It allows only the updates in the
@@ -184,8 +186,10 @@ Every sample's label comes from Gemini, the reference model, not from our code:
 2. The generation call returns the sample **and its classification**: the
    label of the final utterance, the word where a developing utterance becomes a
    barge-in (if it does), and a short rationale.
-3. A separate **blind judge call** classifies the same sample without seeing the
-   intended label or the generator's answer.
+3. A separate **blind judge**, the Gemini Decisions API (`gemini-decision-1`),
+   classifies each sample in its own request without seeing the intent, the
+   intended label or the generator's answer, and returns calibrated
+   probabilities (see [the generator](generation.md)).
 4. The sample is accepted only if the generator's classification, the judge's
    classification and the intended label all agree. Otherwise it is rejected
    with stage `label_mismatch`; the criterion stays short and a later attempt
@@ -222,7 +226,7 @@ change every derived ID.
 | `revision_id` | v7 | plan revision; also has a human-readable `name` |
 | `run_id` | v7 | generation run; also has a `name` |
 | `snapshot_id` | v7 | snapshot; also has a `name` |
-| `combination_id` | v5 | `criterion:` + sorted `factor=value` pairs joined by `;`. Identifies one criterion. Independent of the catalogue version, so it is stable as the catalogue grows |
+| `combination_id` | v5 | `criterion:` + sorted `factor=value` pairs joined by `;`, leaving out factors at the value `default`. Identifies one criterion. Independent of the catalogue version, and a new factor whose existing criteria take `default` keeps their IDs, so it is stable as the catalogue grows |
 | `split_group_id` | v5 | `split_group:` + the smallest `combination_id` in the group |
 | `request_id` | v7 | one Gemini request attempt |
 | `conversation_id` | v7 | one accepted conversation |
@@ -253,6 +257,8 @@ value such as `none` when the factor applies and is absent.
 | `script_form` | VARCHAR | `native`, `romanized`, `mixed_script` |
 | `code_switching` | VARCHAR | `none`, `between_sentences`, `within_sentence` |
 | `code_switch_set` | VARCHAR | language(s) mixed in, joined by `+`, e.g. `en`, `en+hi`; `none` when `code_switching=none` |
+| `mixed_in_script` | VARCHAR | `default`, `native` or `romanized`: how the mixed-in language is written, for sets that allow a choice (Mandarin in Malaysian English as characters or pinyin) |
+| `locales` | VARCHAR[] | every locale in the transcript, the conversation's first, then each mixed-in language's in the same region, with a script subtag when a language is not in its usual script or is Chinese: `[en-US]`, `[en-MY, zh-Hans-MY]`, `[en-MY, zh-Latn-MY]`, `[en-HK, yue-Hant-HK]`, `[en-IN, hi-Latn-IN, kn-Latn-IN]`, `[hi-Latn-IN, en-IN]`. Derived from the language factors and the manifest; not part of `combination_id` |
 | `domain` | VARCHAR | conversation category |
 | `scenario` | VARCHAR | scenario within the domain |
 | `speaker_pattern` | VARCHAR | `returning_speaker` (s1, s2, s1) or `new_speaker` (s1, s2, s3) for the 3-line window |
@@ -266,7 +272,7 @@ value such as `none` when the factor applies and is absent.
 | `register` | VARCHAR | formal, casual |
 | `caller_mood` | VARCHAR | neutral, friendly, hurried, confused, frustrated |
 | `label` | VARCHAR | `backchannel`, `barge_in`, `ambiguous` (evaluation only). On `targets` it is the intended label from the intent; on `conversations` and `examples` it is Gemini's classification, see [Labels](#labels) |
-| `contrastive_group_id` | VARCHAR | links minimal pairs; null otherwise |
+| `contrastive_group_id` | VARCHAR | links minimal pairs: `<group>:<language>:<12 hex of the members' split group id>`, unique to its members so a rebuilt plan never reuses it; null otherwise |
 | `split_group_id` | UUID | |
 | `split` | VARCHAR | `train`, `validation`, `test`, `heldout`; fixed when the criterion is created, see [Splits](#splits) |
 
@@ -305,17 +311,17 @@ Common factor columns, plus:
 | --- | --- | --- |
 | `request_id` | UUID | primary key |
 | `kind` | VARCHAR | `generate` or `judge` |
-| `parent_request_id` | UUID | for a judge request, the generate request it judges |
+| `parent_request_id` | UUID | for a judge request, the generate request whose sample it judges |
 | `run_id` | UUID | |
 | `combination_id` | UUID | the criterion; null for a contrastive group request |
 | `contrastive_group_id` | VARCHAR | the group, for a contrastive group request |
 | `language` | VARCHAR | |
-| `requested_count` | INTEGER | samples asked for (judge: items judged) |
+| `requested_count` | INTEGER | samples asked for (judge: 1, one sample per Decisions request) |
 | `batch_job_id` | VARCHAR | null for direct calls |
 | `model_id`, `prompt_template`, `prompt_hash` | VARCHAR | |
 | `status` | VARCHAR | `submitted`, `received`, `processed`, `api_error`, `schema_invalid` |
 | `error` | VARCHAR | for `api_error` and `schema_invalid`, with any key redacted |
-| `response` | JSON | curated raw response: the returned text exactly, model version, response ID, finish reason, token usage. No headers |
+| `response` | JSON | curated raw response, no headers. Generate: the returned text exactly, model version, response ID, finish reason, token usage. Judge: `item_index` (the sample's position among the validated samples), every answer with its probabilities, usage; or `blocked` |
 | `input_tokens`, `cached_input_tokens`, `output_tokens` | INTEGER | output includes thinking tokens |
 | `cost_usd` | DOUBLE | |
 | `created_at`, `completed_at` | TIMESTAMP | |
@@ -331,11 +337,11 @@ Common factor columns, plus:
 | `conversation_id` | UUID | primary key |
 | `request_id`, `judge_request_id`, `run_id` | UUID | provenance |
 | `sample_index` | INTEGER | position of the sample in the response |
-| `turns` | STRUCT(speaker VARCHAR, role VARCHAR, text VARCHAR)[] | the turns before the overlapped agent turn, oldest first, exactly as generated (currently one: the context turn); `speaker` is the name or role Gemini used, `role` is `caller` or `other` |
-| `agent_speaker` | VARCHAR | the agent's name as generated |
+| `turns` | STRUCT(speaker VARCHAR, role VARCHAR, text VARCHAR)[] | the turns before the overlapped agent turn, oldest first, exactly as generated (currently one: the context turn); `speaker` is the name or role Gemini used, `role` is `listener` (the judged person) or `other` (a third person) |
+| `agent_speaker` | VARCHAR | the speaker's name as generated (the person being spoken over; `agent_*` columns mean the speaker, `candidate_*` the listener) |
 | `agent_full_text` | VARCHAR | what the agent intended to say in the overlapped turn, as generated |
 | `agent_spoken_text` | VARCHAR | the part spoken before the caller started, as generated |
-| `candidate_speaker`, `candidate_role` | VARCHAR | as generated; role `caller` or `other` |
+| `candidate_speaker`, `candidate_role` | VARCHAR | the listener's name as generated; role `listener` |
 | `candidate_text` | VARCHAR | the caller's full final utterance, as generated |
 | `intended_label` | VARCHAR | from the criterion's intent |
 | `gemini_label` | VARCHAR | the generator's classification of the final utterance |
@@ -344,7 +350,7 @@ Common factor columns, plus:
 | `judge_label` | VARCHAR | the blind judge's classification |
 | `judge_barge_in_from_word` | INTEGER | the judge's word index, for agreement checks |
 | `model_id`, `prompt_template`, `judge_model_id` | VARCHAR | |
-| `judge_notes` | VARCHAR | |
+| `judge_notes` | VARCHAR | the judge's probability for its label, and for any failed check |
 | `text_hash` | VARCHAR | SHA-256 of the cleaned three-line window, for exact deduplication |
 | `status` | VARCHAR | `active` or `retired` |
 | `retired_reason`, `retired_at` | VARCHAR, TIMESTAMP | |
@@ -376,6 +382,7 @@ variants are produced. Common factor columns, plus:
 | `turns_original` | STRUCT(speaker VARCHAR, role VARCHAR, text VARCHAR)[] | the window as generated; the agent turn holds `agent_spoken_text`; the last turn is the candidate prefix |
 | `transcript_original` | VARCHAR | the window as `<speaker>: <text>` lines, as generated |
 | `transcript_clean` | VARCHAR | the model input: `s<n>: <text>` lines after cleaning, see [transcript format](transcript-format.md) |
+| `transcript_raw` | VARCHAR | the alternative model input: `s<n>: <text>` lines with casing and punctuation kept (NFC and whitespace only), for comparing training with and without cleaning |
 | `speaker_labels` | VARCHAR[] | the `s<n>` label of each line, e.g. `[s1, s2, s1]` |
 | `candidate_original` | VARCHAR | the candidate prefix as generated |
 | `candidate_clean` | VARCHAR | the candidate prefix after cleaning |

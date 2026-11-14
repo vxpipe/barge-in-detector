@@ -137,3 +137,89 @@ def test_pilot_plan_passes_the_split_audit(cat):
         min_support=pilot.split_min_support,
     )
     assert audit.failures == []
+
+
+def test_contrastive_groups_are_spread_through_the_generation_order(cat, plan):
+    order = sorted(plan.targets, key=lambda t: (t.priority, t.quota_group, str(t.combination_id)))
+    first = order[: len(order) // 4]
+    assert {t.quota_group for t in first} == {"stratified", "contrastive"}
+    contrastive = [t.priority for t in plan.targets if t.quota_group == "contrastive"]
+    assert max(contrastive) >= CONFIG.criteria_per_language // 2
+
+
+def test_variant_shares_are_followed(cat):
+    config = replace(
+        CONFIG,
+        languages=["en"],
+        criteria_per_language=80,
+        contrastive_instances_per_group=0,
+        variant_shares={"en": {"en-US": 0.5, "en-IN": 0.5}},
+    )
+    plan = build_plan(cat, config)
+    variants = Counter(t.spec["regional_variant"] for t in plan.targets)
+    assert variants == {"en-US": 40, "en-IN": 40}
+    # en-US has no code-switching partner: always plain English.
+    assert {
+        t.spec["code_switching"] for t in plan.targets if t.spec["regional_variant"] == "en-US"
+    } == {"none"}
+
+
+def test_code_switching_is_chosen_before_the_set(cat):
+    config = replace(
+        CONFIG,
+        languages=["en"],
+        criteria_per_language=90,
+        contrastive_instances_per_group=0,
+        variant_shares={"en": {"en-IN": 1.0}},
+    )
+    switching = Counter(t.spec["code_switching"] for t in build_plan(cat, config).targets)
+    # 1 of 55 en-IN options has no code-switching; choosing it first gives about a third.
+    assert switching["none"] >= 15
+
+
+def test_variants_default_to_equal_shares(cat):
+    config = replace(
+        CONFIG, languages=["en"], criteria_per_language=100, contrastive_instances_per_group=0
+    )
+    variants = Counter(t.spec["regional_variant"] for t in build_plan(cat, config).targets)
+    assert set(variants.values()) == {10}
+
+
+def test_pilot_keeps_plain_indian_english(cat):
+    pilot = PlanConfig.from_file(
+        Path(__file__).resolve().parents[1] / "generation/plans/en-hi-pilot.yaml"
+    )
+    en_in = [t for t in build_plan(cat, pilot).targets if t.spec["regional_variant"] == "en-IN"]
+    plain = sum(t.spec["code_switching"] == "none" for t in en_in)
+    assert plain / len(en_in) >= 0.20  # drawn at 1/3; random spread on ~50 criteria
+
+
+def test_contrastive_group_ids_depend_on_their_members(cat, plan):
+    other = build_plan(cat, replace(CONFIG, seed=CONFIG.seed + 1))
+    ids_a = {t.contrastive_group_id for t in plan.targets if t.contrastive_group_id}
+    ids_b = {t.contrastive_group_id for t in other.targets if t.contrastive_group_id}
+    assert ids_a and not ids_a & ids_b  # a rebuilt plan never reuses a group id for other members
+    again = build_plan(cat, CONFIG)
+    assert ids_a == {t.contrastive_group_id for t in again.targets if t.contrastive_group_id}
+
+
+def test_mixed_in_chinese_is_drawn_both_ways(cat):
+    config = replace(
+        CONFIG,
+        languages=["en"],
+        criteria_per_language=60,
+        contrastive_instances_per_group=0,
+        variant_shares={"en": {"en-MY": 1.0}},
+    )
+    scripts = Counter(
+        t.spec["mixed_in_script"]
+        for t in build_plan(cat, config).targets
+        if t.spec["code_switching"] != "none"
+    )
+    assert scripts["native"] >= 10 and scripts["romanized"] >= 10
+
+
+def test_split_audit_tolerance_is_inclusive(cat, plan):
+    # A share exactly at the tolerance edge (e.g. 0.08 vs 0.10) is within it.
+    audit = split_audit(cat, plan.targets, CONFIG.split_ratios, tolerance=0.02, min_support=1)
+    assert not any(f.endswith(": 0.080 vs 0.100") for f in audit.failures)

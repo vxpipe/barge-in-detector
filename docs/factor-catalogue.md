@@ -1,7 +1,7 @@
 # Factor catalogue
 
-Status: draft 0.7.0, 2026-11-14: Fable's review applied and accepted by the
-user. The catalogue itself is
+Status: draft 0.8.0, 2026-11-14: Fable's review applied and accepted by the
+user; wording made neutral between speaker and listener (no agent assumed). The catalogue itself is
 versioned data under [`generation/factors/`](../generation/factors/); this
 document explains it.
 
@@ -11,13 +11,20 @@ Every generated sample is defined by a spec: one value for each factor below.
 Each distinct spec is a criterion in the `targets` table with a required sample
 count.
 The plan builder chooses specs deterministically, applies the constraints and
-derives the label from the caller intent. Gemini only writes text that matches
+derives the label from the listener's intent. Gemini only writes text that matches
 the spec. See [data format](data-format.md) for how specs, conversations and
 examples are stored.
 
 ## Scope
 
-Every input is the caller speaking to the agent. Echo of the agent's own voice,
+Every sample is a conversation between people in the domain's situation: the
+**speaker** has the floor and the **listener** says the last line, the one
+judged (user decision, 2026-11-14). The model is deployed where the speaker
+is a voice agent, but the data does not assume one. Factor names that say
+`agent` (`agent_activity`, `agent_state`) mean the speaker; `caller_intent`
+and `caller_mood` mean the listener.
+
+Every input is the listener speaking to the speaker. Echo of the speaker's own voice,
 background speech, TV or radio, and transcription glitches from noise are out of
 scope: noise cancellation and audio cleaning upstream handle them. Transcripts
 arrive cleaned up, so generated text is clean and no ASR noise is simulated.
@@ -29,9 +36,9 @@ these.
 | File | Contents |
 | --- | --- |
 | `catalogue.yaml` | Factor list, values and descriptions; derived and plan-assigned fields |
-| `languages.yaml` | 116 languages: scripts, romanization usage, code-switch partners, regional variants, tier, rollout phase |
+| `languages.yaml` | 36 languages: scripts, romanization usage, code-switch partners, regional variants, tier, rollout phase |
 | `domains.yaml` | 22 conversation categories with 77 concrete scenarios; optional `prompt_notes` per domain |
-| `intents.yaml` | 24 caller intents, each with its label, allowed lengths and example hints |
+| `intents.yaml` | 24 listener intents, each with its label, allowed lengths and example hints |
 | `constraints.yaml` | 20 rules removing impossible or meaningless combinations |
 | `contrastive.yaml` | 9 groups of specs generated together so the same words get different labels |
 
@@ -45,14 +52,14 @@ intent and contrastive member has at least one valid combination.
 
 | Factor | Values | Why it matters |
 | --- | --- | --- |
-| `language` | 116 languages | Coverage requirement |
+| `language` | 36 languages | Coverage requirement (user's list, 2026-11-14) |
 | `regional_variant` | e.g. en-IN, en-US, es-MX, pt-BR | Vocabulary and backchannel habits differ by region |
 | `script_form` | native, romanized, mixed_script | Transcripts arrive in native script or Latin characters, sometimes mixed |
 | `code_switching` | none, between_sentences, within_sentence | Callers mix languages, e.g. romanized Hindi with English |
 | `code_switch_set` | e.g. `en`, `en+hi`, from the language's sets | Which language(s) are mixed in; may be two, e.g. Kannada + English + Hindi |
-| `domain` / `scenario` | 22 / 77 | Vocabulary and what callers react to |
+| `domain` / `scenario` | 22 / 77 | Vocabulary and what listeners react to |
 | `speaker_pattern` | returning_speaker, new_speaker | 3-line windows can be `s1, s2, s1` or `s1, s2, s3`; the last speaker is always the one judged |
-| `agent_activity` | 15, from greeting to reading numbers, asking a question and closing | What the caller is reacting to; the strongest context signal after cut position |
+| `agent_activity` | 15, from greeting to reading numbers, asking a question and closing | What the listener is reacting to; the strongest context signal after cut position |
 | `cut_position` | start, early, middle, near_end, just_finished | Mid-sentence vs. just asked a question |
 | `caller_intent` | 24 intents | Determines the label |
 | `development` | stable, backchannel_then_barge_in, filler_then_barge_in | Interim transcripts that change meaning as they grow |
@@ -85,15 +92,15 @@ Generator/judge disagreements on the other intents are also kept (in
 `rejections` and the raw responses) as a pool of ambiguous candidates for
 evaluation review.
 
-With `agent_state=just_finished`, `barge_in` means "the caller takes a real
-turn", for example answering the agent's question with "yes".
+With `agent_state=just_finished`, `barge_in` means "the listener takes a real
+turn", for example answering the speaker's question with "yes".
 
 **A bare "ok" is always a backchannel** (user decision, 2026-11-14), whether
-the agent is mid-sentence, paused between sentences or finished with a
+the speaker is mid-sentence, paused between sentences or finished with a
 statement. This avoids identical inputs with opposite labels: the transcript
-cannot show whether a complete-looking agent sentence had more queued. The one
+cannot show whether a complete-looking sentence had more queued. The one
 exception is a finished question, where "ok" answers it (`answer_to_question`,
-for example "shall I book it?" → "ok"). What the agent does after a
+for example "shall I book it?" → "ok"). What the speaker does after a
 backchannel at `just_finished` (continue, or wait briefly and move on) is the
 runtime's choice.
 
@@ -102,9 +109,22 @@ runtime's choice.
 Sets in `languages.yaml` follow the user's rule (2026-11-14):
 
 - Hindi mixes English, or English + a regional language.
-- Regional Indian languages (kn, ta, te, ml, mr, gu, pa, bn, or, as, kok, mai,
-  bho) mix English, or English + Hindi.
+- Regional Indian languages (kn, ta, te, ml, mr, gu, pa, bn, as) mix English,
+  or English + Hindi.
 - Indian English (`en-IN`) mixes Hindi, a regional language, or both.
+
+Mandarin–English and Cantonese–English (user decisions, 2026-11-14):
+Malaysian and Singaporean English (`en-MY`, `en-SG`) mix in Mandarin, and Hong
+Kong English (`en-HK`) mixes in Cantonese. The mixed-in Chinese is generated
+both ways, chosen by the `mixed_in_script` factor: in characters (Simplified
+for Mandarin, Traditional for Cantonese) and romanized (pinyin, Jyutping).
+They are one language in two scripts, not two languages; locales tell them
+apart with script subtags (`zh-Hans-MY` vs `zh-Latn-MY`). Mandarin- and
+Cantonese-led conversations get both through `script_form`. Malaysian
+Mandarin (`zh-MY`) and Hong Kong Cantonese (`yue-HK`) mix in English. Plans give English variants explicit shares
+(`variant_shares`): the pilot uses en-US 35%, en-IN 35%, en-MY 10%, and the
+rest for the other six, so plain US English and Indian English (plain and
+code-switched) are separate, sizable slices.
 
 Sets involving Hindi are limited to Indian varieties (`ta-IN`, `bn-IN`,
 `pa-IN`); Pakistani Punjabi mixes Urdu instead. English is written in Latin
@@ -121,9 +141,9 @@ script only, so Hindi or regional words in English-led speech are romanized.
   finished question (there, "yes" is an answer), and affirmative backchannels
   are not generated near the end of a yes/no question or read-back, where they
   read as early answers.
-- `tracking_repeat` needs the agent to be reading something out; corrections
-  need something already said; floor and skip requests need the agent still
-  speaking; `hello_check` needs the agent to have gone quiet;
+- `tracking_repeat` needs the speaker to be reading something out; corrections
+  need something already said; floor and skip requests need the speaker still
+  speaking; `hello_check` needs the speaker to have gone quiet;
   `turn_continuation` needs the judged speaker's earlier turn in the window.
 - Only barge-in intents can develop from a backchannel or filler, and only in
   utterances of four or more words.
@@ -155,7 +175,10 @@ training data.
    Hindi hints.
 3. **Domains and scenarios**: anything missing for the calls Vxpipe handles?
 4. **Language manifest**: romanization usage, code-switch sets and variants
-   for tier C languages are first estimates.
+   for tier C languages are first estimates. The manifest holds exactly the
+   36 languages the user chose on 2026-11-14 (0.5.0 removed 80 others, with
+   every code-switch set that mixed one of them in; they remain in git
+   history).
 
 ## Rejected alternatives
 

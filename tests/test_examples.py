@@ -11,6 +11,7 @@ CONVERSATION = {
     "factor_catalogue_version": "0.7.0",
     **{f: "x" for f in SPEC_FACTORS},
     "language": "hi",
+    "locales": ["hi-IN", "en-IN"],
     "speaker_pattern": "returning_speaker",
     "agent_state": "speaking",
     "label": "barge_in",
@@ -61,6 +62,10 @@ def test_windows_and_ids():
     assert final3["example_id"] == ids.example_id(
         CONVERSATION["conversation_id"], turn_shape=3, prefix_index=6
     )
+    assert final3["transcript_raw"] == (
+        "s1: Haan, theek hai; lekin...\ns2: Aapka order kal tak pahunch jayega, aur\n"
+        "s1: Haan haan, but — change the time!"
+    )
     final2 = rows[(2, 6)]
     assert final2["transcript_clean"] == (
         "s1: aapka order kal tak pahunch jayega aur\ns2: haan haan but change the time"
@@ -84,3 +89,16 @@ def test_backchannel_and_ambiguous_conversations():
 def test_output_is_deterministic():
     other = {**CONVERSATION, "conversation_id": uuid.UUID("019a8a2e-0000-7000-8000-000000000002")}
     assert build_examples([CONVERSATION, other]) == build_examples([other, CONVERSATION])
+
+
+def test_hyphenated_word_before_the_barge_in_point():
+    conv = {**CONVERSATION, "candidate_text": "Uh-huh, wait a second", "barge_in_from_word": 1}
+    rows = sorted(
+        (r for r in build_examples([conv]) if r["turn_shape"] == 2), key=lambda r: r["prefix_index"]
+    )
+    assert [(r["candidate_clean"], r["label"]) for r in rows] == [
+        ("uh huh", "backchannel"),
+        ("uh huh wait", "barge_in"),
+        ("uh huh wait a", "barge_in"),
+        ("uh huh wait a second", "barge_in"),
+    ]

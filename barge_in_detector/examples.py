@@ -4,14 +4,21 @@ One example per (turn shape x candidate prefix). Prefixes are cut at the
 original candidate's whitespace tokens, then each window is cleaned; a token
 that adds no cleaned word (a lone dash) yields no new prefix. The prefix label
 follows the conversation's label: for a barge-in, prefixes before
-barge_in_from_word (counted in cleaned words) are backchannel.
+barge_in_from_word are backchannel. Words are counted as cleaner.words does
+("Mm-hmm," is one word), the same way the generator and validator count them.
 """
 
 from collections.abc import Iterable, Mapping
 from typing import Any
 
 from barge_in_detector import ids
-from barge_in_detector.cleaner import CLEANER_VERSION, clean_text, clean_window
+from barge_in_detector.cleaner import (
+    CLEANER_VERSION,
+    clean_text,
+    clean_window,
+    raw_window,
+    words,
+)
 from barge_in_detector.storage.schema import FACTOR_COLUMNS
 
 BUILDER_VERSION = "1"
@@ -19,11 +26,11 @@ LABEL_IDS = {"backchannel": 0, "barge_in": 1, "ambiguous": None}
 _FACTORS = [c for c, _ in FACTOR_COLUMNS if c != "label"]
 
 
-def _prefix_label(conversation: Mapping[str, Any], cleaned_words: int) -> str:
+def _prefix_label(conversation: Mapping[str, Any], word_count: int) -> str:
     label = conversation["label"]
     if label != "barge_in":
         return label
-    return "barge_in" if cleaned_words > conversation["barge_in_from_word"] else "backchannel"
+    return "barge_in" if word_count > conversation["barge_in_from_word"] else "backchannel"
 
 
 def build_examples(conversations: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
@@ -50,7 +57,7 @@ def build_examples(conversations: Iterable[Mapping[str, Any]]) -> list[dict[str,
                 turns = ([context] if shape == 3 else []) + [agent, candidate]
                 window = clean_window([(t["speaker"], t["text"]) for t in turns])
                 candidate_clean = window.texts[-1]
-                label = _prefix_label(c, len(candidate_clean.split()))
+                label = _prefix_label(c, len(words(text)))
                 rows.append(
                     {
                         "example_id": ids.example_id(
@@ -67,6 +74,9 @@ def build_examples(conversations: Iterable[Mapping[str, Any]]) -> list[dict[str,
                             f"{t['speaker']}: {t['text']}" for t in turns
                         ),
                         "transcript_clean": window.transcript,
+                        "transcript_raw": raw_window(
+                            [(t["speaker"], t["text"]) for t in turns]
+                        ).transcript,
                         "speaker_labels": window.speaker_labels,
                         "candidate_original": text,
                         "candidate_clean": candidate_clean,

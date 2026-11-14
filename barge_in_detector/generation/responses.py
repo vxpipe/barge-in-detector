@@ -7,20 +7,20 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from barge_in_detector.catalogue import UNSPACED_SCRIPTS, Catalogue
-from barge_in_detector.cleaner import clean_text
+from barge_in_detector.cleaner import clean_text, words
 
 LENGTH_BOUNDS = {"w1": (1, 1), "w2_3": (2, 3), "w4_8": (4, 8), "w9_plus": (9, 10_000)}
 SENTENCE_END = set(".?!।॥。？！؟۔")
+CUT_MARKS = ("…", "...", "-", "—", "–", "‒")
 _SAMPLE_KEYS = {
     "set_index": int,
     "member_index": int,
     "context_turn": dict,
-    "agent_speaker": str,
-    "agent_full_text": str,
-    "agent_spoken_text": str,
-    "candidate_speaker": str,
-    "candidate_role": str,
-    "candidate_text": str,
+    "speaker": str,
+    "speaker_full_text": str,
+    "speaker_spoken_text": str,
+    "listener": str,
+    "listener_text": str,
     "label": str,
     "rationale": str,
 }
@@ -57,10 +57,6 @@ class ParsedGeneration:
     fatal: str | None = None
 
 
-def words(text: str) -> list[str]:
-    return clean_text(text).split()
-
-
 def _unspaced(cat: Catalogue, spec: Mapping[str, str]) -> bool:
     scripts = set(cat.languages[spec["language"]]["scripts"])
     return spec["script_form"] != "romanized" and bool(scripts & UNSPACED_SCRIPTS)
@@ -74,13 +70,33 @@ def _same(a: str, b: str) -> bool:
     return a.strip().casefold() == b.strip().casefold()
 
 
+def _cut_matches(cut: str, spoken: str, full: str) -> bool:
+    """Whether the spoken share of the speaker's turn fits the cut position.
+
+    start: at most 4 words said; early: 8-45% of the words; middle: 30-75%;
+    near_end: at least 60% with at most 6 words still to come. The bands
+    overlap so natural cuts are not rejected at the edges.
+    """
+    said, planned = len(words(spoken)), len(words(full))
+    share = said / planned
+    if cut == "start":
+        return said <= 4
+    if cut == "early":
+        return 0.08 <= share <= 0.45
+    if cut == "middle":
+        return 0.30 <= share <= 0.75
+    if cut == "near_end":
+        return share >= 0.60 and planned - said <= 6
+    return True
+
+
 def _check_sample(cat: Catalogue, spec: Mapping[str, str], s: Mapping[str, Any]) -> str | None:
     """The first problem with one sample, or None."""
     for key, kind in _SAMPLE_KEYS.items():
         if not isinstance(s.get(key), kind):
             return "malformed_sample"
     context = s["context_turn"]
-    if not all(isinstance(context.get(k), str) for k in ("speaker", "role", "text")):
+    if not all(isinstance(context.get(k), str) for k in ("speaker", "text")):
         return "malformed_sample"
     word = s.get("barge_in_from_word")
     if word is not None and not isinstance(word, int):
@@ -90,37 +106,49 @@ def _check_sample(cat: Catalogue, spec: Mapping[str, str], s: Mapping[str, Any])
 
     for text in (
         context["text"],
-        s["agent_spoken_text"],
-        s["agent_full_text"],
-        s["candidate_text"],
+        s["speaker_spoken_text"],
+        s["speaker_full_text"],
+        s["listener_text"],
     ):
         if not clean_text(text):
             return "empty_after_cleaning"
 
-    full, spoken = _norm(s["agent_full_text"]), _norm(s["agent_spoken_text"])
+    # Speech-to-text output never contains ellipses, in a cut or anywhere else.
+    if any(
+        "…" in x or "..." in x
+        for x in (context["text"], s["speaker_full_text"], s["listener_text"])
+    ):
+        return "ellipsis_used"
+
+    full, spoken = _norm(s["speaker_full_text"]), _norm(s["speaker_spoken_text"])
     unspaced = _unspaced(cat, spec)
     if not full.startswith(spoken):
-        return "agent_spoken_not_prefix"
+        return "spoken_not_prefix"
     if (
         not unspaced
         and len(spoken) < len(full)
         and unicodedata.category(full[len(spoken)])[0] in "LMN"
     ):
-        return "agent_spoken_not_at_word_boundary"
+        return "spoken_not_at_word_boundary"
     finished = clean_text(spoken) == clean_text(full)
     if finished != (spec["cut_position"] == "just_finished"):
         return "cut_position_mismatch"
+    if not finished and spoken.rstrip().endswith(CUT_MARKS):
+        # Transcripts just stop where the speaker was cut off: no ellipsis or dash.
+        return "cut_marked"
     if not finished and spoken.rstrip()[-1] in SENTENCE_END:
-        return "agent_cut_at_sentence_end"
+        return "cut_at_sentence_end"
+    if not finished and not unspaced and not _cut_matches(spec["cut_position"], spoken, full):
+        return "cut_position_mismatch"
 
-    agent, candidate = s["agent_speaker"], s["candidate_speaker"]
-    if _same(agent, candidate) or context["role"] == "agent" or _same(context["speaker"], agent):
+    speaker, listener = s["speaker"], s["listener"]
+    if _same(speaker, listener) or _same(context["speaker"], speaker):
         return "speaker_pattern_mismatch"
-    returning = _same(context["speaker"], candidate)
+    returning = _same(context["speaker"], listener)
     if returning != (spec["speaker_pattern"] == "returning_speaker"):
         return "speaker_pattern_mismatch"
 
-    candidate_words = words(s["candidate_text"])
+    candidate_words = words(s["listener_text"])
     if not unspaced:
         low, high = LENGTH_BOUNDS[spec["length_bucket"]]
         if not low <= len(candidate_words) <= high:
@@ -141,15 +169,15 @@ def _check_sample(cat: Catalogue, spec: Mapping[str, str], s: Mapping[str, Any])
 def _shared_key(group: Mapping[str, Any], s: Mapping[str, Any]) -> tuple[str, ...]:
     shared = group["shared"]
     if shared == "candidate_text":
-        return (clean_text(s["candidate_text"]),)
-    if shared == "agent_turn":
+        return (clean_text(s["listener_text"]),)
+    if shared == "speaker_turn":
         return (
             clean_text(s["context_turn"]["text"]),
-            clean_text(s["agent_full_text"]),
-            clean_text(s["agent_spoken_text"]),
+            clean_text(s["speaker_full_text"]),
+            clean_text(s["speaker_spoken_text"]),
         )
     if shared == "candidate_opening":
-        return tuple(words(s["candidate_text"])[:1])
+        return tuple(words(s["listener_text"])[:1])
     raise ValueError(f"unknown shared element {shared}")
 
 
@@ -242,35 +270,57 @@ class Verdict:
     barge_in_from_word: int | None
     checks_failed: list[str]
     notes: str
+    # Soft checks answered no: recorded with their P(yes), never a rejection.
+    soft: dict[str, float] = field(default_factory=dict)
 
 
 _CHECKS = ("language_ok", "script_ok", "cut_ok", "natural_ok")
+# Checks that reject a sample: the label is right only if the intent, the cut,
+# the language and the script are. Every other question (variety factors such
+# as repetition, mood, register, scenario, speaker activity, development, and
+# naturalness) is soft: recorded, never a rejection.
+HARD_CHECKS = ("language_ok", "script_ok", "cut_ok", "factor_listener_intent")
+YES = 0.5
 
 
-def parse_judgement(text: str, *, count: int) -> dict[int, Verdict]:
+def parse_decision(
+    response: Mapping[str, Any], *, hard_checks: Sequence[str] = HARD_CHECKS
+) -> Verdict:
+    """A verdict from one stored Decisions API response (yes/no answers).
+
+    - label: barge_in when P(is_barge_in) >= 0.5 and P(is_backchannel) < 0.5;
+      backchannel for the reverse; ambiguous when both or neither are yes.
+    - barge_in_from_word: for a barge-in, the first prefix_<k> answered yes
+      gives word k - 1; with none, the full turn decides (its last word).
+    - a check answered no (P(yes) < 0.5) rejects the sample only if it is one
+      of `hard_checks`; the others are kept in `soft` and the notes. A blocked
+      input fails every check.
+    """
+    if response.get("blocked"):
+        return Verdict(-1, "ambiguous", None, [f"blocked:{response['blocked']}"], "input blocked")
     try:
-        items = json.loads(text)["items"]
-        verdicts = {}
-        for item in items:
-            index = item["index"]
-            if not isinstance(index, int) or item["label"] not in (
-                "backchannel",
-                "barge_in",
-                "ambiguous",
-            ):
-                raise TypeError("bad item")
-            word = item.get("barge_in_from_word")
-            if word is not None and not isinstance(word, int):
-                raise TypeError("bad barge_in_from_word")
-            verdicts[index] = Verdict(
-                index=index,
-                label=item["label"],
-                barge_in_from_word=word,
-                checks_failed=[c for c in _CHECKS if item.get(c) is not True],
-                notes=str(item.get("notes", "")),
-            )
-    except (ValueError, KeyError, TypeError) as exc:
-        raise JudgementError(f"unparseable judgement: {type(exc).__name__}") from exc
-    if set(verdicts) != set(range(count)):
-        raise JudgementError(f"judgement covers {sorted(verdicts)}, expected 0..{count - 1}")
-    return verdicts
+        answers = response["answers"]
+        p = {key: float(answer["noul"]) for key, answer in answers.items()}
+        back, barge = p["is_backchannel"], p["is_barge_in"]
+        checks = {c: p[c] for c in _CHECKS}
+        checks |= {k: v for k, v in p.items() if k.startswith("factor_")}
+    except (KeyError, TypeError, ValueError) as exc:
+        raise JudgementError(f"incomplete decision: {type(exc).__name__}: {exc}") from exc
+    if barge >= YES > back:
+        label = "barge_in"
+    elif back >= YES > barge:
+        label = "backchannel"
+    else:
+        label = "ambiguous"
+    word = None
+    if label == "barge_in":
+        prefixes = sorted(int(k.removeprefix("prefix_")) for k in p if k.startswith("prefix_"))
+        word = next((k - 1 for k in prefixes if p[f"prefix_{k}"] >= YES), len(prefixes))
+    failed = [c for c in checks if checks[c] < YES and c in hard_checks]
+    soft = {c: checks[c] for c in checks if checks[c] < YES and c not in hard_checks}
+    notes = f"P(backchannel)={back:.2f}; P(barge_in)={barge:.2f}" + "".join(
+        f"; P({c})={checks[c]:.2f}" for c in failed
+    )
+    if soft:
+        notes += "; soft: " + ", ".join(f"P({c})={v:.2f}" for c, v in soft.items())
+    return Verdict(-1, label, word, failed, notes, soft)

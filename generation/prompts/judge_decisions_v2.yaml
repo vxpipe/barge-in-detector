@@ -1,0 +1,91 @@
+# Blind judge for the Gemini Decisions API (model gemini-decision-1).
+#
+# One request per generated sample. The input is only the conversation, as
+# JSON: {"conversation": [{"speaker": ..., "transcript": ...}, ...]}, oldest
+# first; the last entry is the turn being judged. Every question is a yes/no
+# (noul) question and runs independently, returning a calibrated P(yes).
+# The judge never sees the intent, the intended label or the generator's label.
+#
+# Placeholders, filled per sample by barge_in_detector/generation/prompts.py:
+#   ${speaker}   the person with the floor (second-to-last entry)
+#   ${listener}  the person who said the last turn
+#   ${moment}    "While Hotel Manager is speaking" or
+#                "Right after Hotel Manager finished speaking"
+#   ${language}, ${switching}, ${script}: what the sample was meant to show
+#   ${prefix}, ${count}: for the prefix questions
+# The model never sees question keys, so every instruction is complete text.
+
+version: judge_decisions_v2
+
+conversation_note: >
+  The input is a JSON object whose `conversation` array lists the turns of a
+  conversation, oldest first; each entry has a `speaker` and their
+  `transcript`. The second-to-last entry is ${speaker}'s turn, as far as
+  ${speaker} had got when ${listener} said the last entry.
+
+label_rules: >
+  Rules: a bare "ok" (or its equivalent in the language) is a backchannel, even
+  right after ${speaker} finishes a statement; only after a finished question
+  is it an answer, which takes the floor. A short "yes" during an explanation
+  is a backchannel; the same word right after ${speaker} asks a question is an
+  answer. A turn that starts like a backchannel or filler and then stops,
+  corrects, questions or asks for something takes the floor.
+
+questions:
+  is_backchannel:
+    instructions: >
+      ${moment}, can the last turn in this conversation, said by ${listener},
+      be labelled a backchannel? A backchannel means ${listener} does not want
+      to take over and ${speaker} should simply keep going: a continuer
+      ("hmm", "uh-huh"), an acknowledgment ("ok", "I see"), agreement that
+      answers nothing, a short reaction ("oh no", "wow", "haha"), thanks in
+      passing, repeating digits or names to keep track, or inviting ${speaker}
+      to go on.
+    true_description: ${listener} is only showing they are listening; ${speaker} should keep going.
+    false_description: ${listener} wants the floor, or the turn is genuinely unclear.
+
+  is_barge_in:
+    instructions: >
+      ${moment}, can the last turn in this conversation, said by ${listener},
+      be labelled a barge-in? A barge-in means ${listener} is taking the floor,
+      so ${speaker} should stop and let ${listener} speak: asking ${speaker} to
+      stop, wait or skip; correcting or disagreeing; asking a question or
+      asking to repeat, slow down or speak up; a new request or a complaint;
+      asking for someone else or another language; ending the conversation;
+      answering early or answering a finished question; checking whether
+      ${speaker} is there; or a backchannel that turns into any of these.
+    true_description: ${listener} is taking the floor; ${speaker} should stop and listen.
+    false_description: ${listener} does not want the floor, or the turn is genuinely unclear.
+
+  # Asked once per proper prefix of the last turn (k = 1 .. words - 1), as
+  # prefix_<k>. The first prefix that is a barge-in gives barge_in_from_word.
+  prefix:
+    instructions: >
+      ${moment}, suppose ${listener} had so far said only the first ${count}
+      word(s) of the last turn: "${prefix}". Could that much, on its own,
+      already be labelled a barge-in, meaning ${listener} is taking the floor
+      and ${speaker} should stop?
+
+  language_ok:
+    instructions: >
+      Is the conversation in ${language}, with ${switching}?
+
+  script_ok:
+    instructions: >
+      Is every turn written in the scripts stated here: ${script}
+
+  cut_ok:
+    instructions: ${cut_question}
+    speaking: >
+      Does ${speaker}'s turn (the second-to-last entry) visibly break off
+      mid-sentence, as when someone is cut off while still talking?
+    finished: >
+      Is ${speaker}'s turn (the second-to-last entry) complete, ending at the
+      natural end of a sentence or question?
+
+  natural_ok:
+    instructions: >
+      Does this read like a real conversation between these people, with the
+      last turn plausible for ${listener} at that moment, clean text (no
+      simulated speech-recognition errors, no tags or stage directions), no
+      real brands or real people, and only obviously fake numbers?

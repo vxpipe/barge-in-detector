@@ -8,7 +8,7 @@ produce exactly the same cleaned transcript for the same conversation.
 
 - **Generation keeps the original.** Gemini writes natural text with normal
   casing and punctuation, and with speaker names or roles as it likes
-  ("Agent", "Priya", "Caller"). Generation does no cleaning.
+  ("Hotel Manager", "Guest", "Priya"). Generation does no cleaning.
 - **Cleaning is a separate, versioned step** owned by one cleaner module. It
   turns an original transcript window into the cleaned model input.
 - **Both are stored.** The `conversations` table keeps the original, never
@@ -72,6 +72,16 @@ form was generated.
 - Casing from speech-to-text is inconsistent anyway; removing it removes a cue
   the model should not rely on.
 
+### Training without cleaning (to be compared)
+
+User idea, 2026-11-14: train on text with casing and punctuation kept. Every
+example also stores `transcript_raw`: the same `s<n>` labels with the text as
+written (NFC and collapsed whitespace only). Checkpoint D trains on both and
+compares on held-out data, ideally including real speech-to-text samples:
+generated punctuation is perfect while speech-to-text punctuation and casing
+are inconsistent, so the raw model may learn cues the runtime does not
+reliably have. The runtime contract follows whichever wins.
+
 ### Known trade-off
 
 Removing punctuation also removes `?` from the agent's turn, which is a useful
@@ -104,8 +114,11 @@ told who any speaker is; earlier lines are context.
   `s1, s2, s3` (3 lines). The `speaker_pattern` factor chooses between the two
   3-line patterns.
 - The cleaned transcript **always uses `s<n>` labels**, numbered by first
-  appearance in the window. The names or roles Gemini wrote ("Agent", "Priya",
-  "Caller") are kept only in the original columns and never reach the model.
-- Roles (`agent`, `caller`, `other`) are kept in the original turns because
-  generation and the example builder need them, for example to cut the turn
+  appearance in the window. The names or roles Gemini wrote ("Hotel Manager",
+  "Guest", "Priya") are kept only in the original columns and never reach the
+  model.
+- Conversations are between any people, not only an agent and a caller. Roles
+  in the original turns are `agent` for the speaker being spoken over (the
+  name is historical), `listener` for the judged person and `other` for a
+  third person; the example builder uses them, for example to cut the turn
   being spoken over at the overlap point.

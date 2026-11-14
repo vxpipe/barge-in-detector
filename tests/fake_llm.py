@@ -10,7 +10,7 @@ import json
 import re
 import threading
 
-from barge_in_detector.generation.llm import LlmError, LlmResult
+from barge_in_detector.generation.llm import DecisionResult, LlmError, LlmResult
 
 LENGTH = {"w1": 1, "w2_3": 2, "w4_8": 4, "w9_plus": 9}
 
@@ -46,8 +46,6 @@ class FakeLlm:
 
     def generate(self, *, model, system_prompt, user_prompt, schema, thinking_level=None):
         self.system_prompts.add(system_prompt)
-        if "items" in schema["properties"]:
-            return self._judge(user_prompt)
         return self._generate(user_prompt)
 
     def close(self):
@@ -76,7 +74,7 @@ class FakeLlm:
                     members.append(current)
                 elif current is not None and line.startswith("- "):
                     current.append(line)
-            share_agent = "context_turn, agent_speaker" in prompt
+            share_agent = "context_turn, speaker," in prompt
             count = int(sets.group(1))
             member_lines = [shared + m for m in members]
         else:
@@ -94,11 +92,12 @@ class FakeLlm:
     def _sample(self, lines, uid, agent_uid, set_index, member_index):
         cut = _factor(lines, "Cut position")
         pattern = _factor(lines, "Speaker pattern")
-        length = LENGTH[_factor(lines, "Length of candidate_text")]
+        length = LENGTH[_factor(lines, "Length of listener_text")]
         development = _factor(lines, "Development")
         label = _label(lines)
-        full = f"Agent says item {agent_uid} and more words here. Then another sentence."
-        spoken = full if cut == "just_finished" else f"Agent says item {agent_uid} and more"
+        full = f"Manager says item {agent_uid} and more words here. Then another sentence."
+        said = {"start": 2, "early": 3, "middle": 5, "near_end": 9}.get(cut)
+        spoken = full if said is None else " ".join(full.split()[:said])
         first = f"c{uid}m{member_index}" if agent_uid == uid else f"c{uid}"
         candidate = " ".join([first, *["x"] * (length - 1)])
         word = None
@@ -110,48 +109,43 @@ class FakeLlm:
             "set_index": set_index,
             "member_index": member_index,
             "context_turn": {
-                "speaker": "Sam" if pattern == "returning_speaker" else "Kim",
-                "role": "caller",
+                "speaker": "Guest" if pattern == "returning_speaker" else "Kim",
                 "text": "I need help.",
             },
-            "agent_speaker": "Agent",
-            "agent_full_text": full,
-            "agent_spoken_text": spoken,
-            "candidate_speaker": "Sam",
-            "candidate_role": "caller",
-            "candidate_text": candidate,
+            "speaker": "Hotel Manager",
+            "speaker_full_text": full,
+            "speaker_spoken_text": spoken,
+            "listener": "Guest",
+            "listener_text": candidate,
             "label": label,
             "barge_in_from_word": word,
             "rationale": "fake",
         }
 
-    def _judge(self, prompt):
+    def decide(self, *, model, input, questions):
         with self._lock:
             self.calls["judge"] += 1
         if self.judge_fails:
             raise LlmError("503: unavailable")
-        items = []
-        blocks = prompt.split("\nItem ")[1:]
-        for block in blocks:
-            lines = block.splitlines()
-            index = int(lines[0])
-            agent_line = next(line for line in lines if line.startswith("Agent: "))
-            spoken = agent_line.removeprefix("Agent: ").rsplit(" [", 1)[0]
-            candidate = lines[-1].split(": ", 1)[1]
-            label, word = _LABELS[(spoken, candidate)]
-            if self.judge_disagrees:
-                label = "backchannel" if label == "barge_in" else "barge_in"
-                word = 0 if label == "barge_in" else None
-            items.append(
-                {
-                    "index": index,
-                    "label": label,
-                    "barge_in_from_word": word,
-                    "language_ok": True,
-                    "script_ok": True,
-                    "cut_ok": True,
-                    "natural_ok": True,
-                    "notes": "",
-                }
-            )
-        return self._result({"items": items})
+        conversation = json.loads(input)["conversation"]
+        spoken, candidate = conversation[-2]["transcript"], conversation[-1]["transcript"]
+        label, word = _LABELS[(spoken, candidate)]
+        if self.judge_disagrees:
+            label = "backchannel" if label == "barge_in" else "barge_in"
+            word = 0 if label == "barge_in" else None
+        p = {
+            "is_backchannel": 0.9 if label == "backchannel" else 0.1,
+            "is_barge_in": 0.9 if label == "barge_in" else 0.1,
+        }
+        for key in questions:
+            if key.startswith("prefix_"):
+                k = int(key.removeprefix("prefix_"))  # the first k words
+                p[key] = 0.9 if word is not None and k > word else 0.1
+        for key in questions:
+            p.setdefault(key, 0.95)  # conformance and factor_* checks pass
+        assert set(p) == set(questions)
+        answers = {
+            k: {"type": "noul", "noul": v, "confidence": max(v, 1 - v)} for k, v in p.items()
+        }
+        usage = {"input_tokens": 900, "cached_input_tokens": 0, "output_tokens": 0}
+        return DecisionResult(response={"answers": answers, "usage": usage}, usage=usage)

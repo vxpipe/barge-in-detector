@@ -53,10 +53,31 @@ def clean_text(text: str) -> str:
     return " ".join("".join(out).split())
 
 
+def words(text: str) -> list[str]:
+    """Words as speakers count them: whitespace tokens that keep some text after
+    cleaning. "Mm-hmm," is one word; a lone dash is none. Lengths and
+    barge_in_from_word are counted in these words."""
+    return [token for token in text.split() if clean_text(token)]
+
+
 def speaker_labels(speakers: Sequence[str]) -> list[str]:
     """`s<n>` labels numbered by first appearance."""
     numbers: dict[str, int] = {}
     return [f"s{numbers.setdefault(s, len(numbers) + 1)}" for s in speakers]
+
+
+def raw_text(text: str) -> str:
+    """NFC and collapsed whitespace only: casing and punctuation are kept."""
+    return " ".join(unicodedata.normalize("NFC", text).split())
+
+
+def raw_window(turns: Sequence[tuple[str, str]]) -> CleanWindow:
+    """The window with `s<n>` labels but the text as written, for training
+    without lowercasing or punctuation removal."""
+    labels = speaker_labels([speaker for speaker, _ in turns])
+    texts = [raw_text(text) for _, text in turns]
+    transcript = "\n".join(f"{label}: {text}" for label, text in zip(labels, texts, strict=True))
+    return CleanWindow(transcript=transcript, speaker_labels=labels, texts=texts)
 
 
 def clean_window(turns: Sequence[tuple[str, str]]) -> CleanWindow:

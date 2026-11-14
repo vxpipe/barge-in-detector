@@ -17,8 +17,14 @@ def new_id() -> uuid.UUID:
 
 
 def combination_id(spec: Mapping[str, str]) -> uuid.UUID:
-    """ID of a criterion, from its spec factor values only."""
-    pairs = ";".join(f"{factor}={spec[factor]}" for factor in sorted(spec))
+    """ID of a criterion, from its spec factor values only.
+
+    A factor at the value `default` is left out, so adding a factor whose
+    existing criteria all take `default` keeps their IDs.
+    """
+    pairs = ";".join(
+        f"{factor}={spec[factor]}" for factor in sorted(spec) if spec[factor] != "default"
+    )
     return uuid.uuid5(NAMESPACE, f"criterion:{pairs}")
 
 

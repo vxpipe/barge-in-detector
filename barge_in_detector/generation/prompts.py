@@ -1,25 +1,32 @@
 """Prompt rendering. Prompts are code: templates live in generation/prompts/.
 
-Each call has two parts:
+Generator calls have two parts:
 
 - a **system prompt** with the common rules, rendered from the catalogue only.
   It is identical for every request of a template version, so it is cached
   (explicit Gemini context cache, or implicit prefix caching as a fallback);
 - a **request** naming the criterion (or contrastive set) and the count.
+
+The judge uses the Gemini Decisions API instead: one request per sample with
+that sample as input and the questions from judge_decisions_v1.yaml.
 """
 
 import hashlib
+import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from string import Template
 from typing import Any
 
+import yaml
+
 from barge_in_detector.catalogue import Catalogue
+from barge_in_detector.cleaner import words
 
 PROMPT_DIR = Path(__file__).resolve().parents[2] / "generation" / "prompts"
-GENERATOR_TEMPLATE = "generator_system_v1"
-JUDGE_TEMPLATE = "judge_system_v1"
+GENERATOR_TEMPLATE = "generator_system_v4"
+JUDGE_TEMPLATE = "judge_decisions_v4"
 
 SCRIPT_NAMES = {
     "Latn": "Latin",
@@ -52,27 +59,35 @@ SCRIPT_NAMES = {
 
 SHARED_ELEMENTS = {
     "candidate_text": (
-        "candidate_text is exactly the same in every member of a set; the context "
-        "and agent turns differ as each member's factors require."
+        "listener_text is exactly the same in every member of a set; the context "
+        "and speaker turns differ as each member's factors require."
     ),
-    "agent_turn": (
-        "context_turn, agent_speaker, agent_full_text and agent_spoken_text are "
-        "exactly the same in every member of a set; only the candidate line differs."
+    "speaker_turn": (
+        "context_turn, speaker, speaker_full_text and speaker_spoken_text are "
+        "exactly the same in every member of a set; only the listener's line differs."
     ),
     "candidate_opening": (
-        "candidate_text of every member starts with the same first word or words; "
+        "listener_text of every member starts with the same first word or words; "
         "after that the members differ as each one requires."
     ),
 }
 
-_TURN = {
-    "type": "object",
-    "properties": {
-        "speaker": {"type": "string"},
-        "role": {"type": "string", "enum": ["caller", "other"]},
-        "text": {"type": "string"},
+_SAMPLE_FIELDS: dict[str, Any] = {
+    "set_index": {"type": "integer"},
+    "member_index": {"type": "integer"},
+    "context_turn": {
+        "type": "object",
+        "properties": {"speaker": {"type": "string"}, "text": {"type": "string"}},
+        "required": ["speaker", "text"],
     },
-    "required": ["speaker", "role", "text"],
+    "speaker": {"type": "string"},
+    "speaker_full_text": {"type": "string"},
+    "speaker_spoken_text": {"type": "string"},
+    "listener": {"type": "string"},
+    "listener_text": {"type": "string"},
+    "label": {"type": "string", "enum": ["backchannel", "barge_in", "ambiguous"]},
+    "barge_in_from_word": {"type": ["integer", "null"]},
+    "rationale": {"type": "string"},
 }
 
 GENERATOR_SCHEMA: dict[str, Any] = {
@@ -82,71 +97,12 @@ GENERATOR_SCHEMA: dict[str, Any] = {
             "type": "array",
             "items": {
                 "type": "object",
-                "properties": {
-                    "set_index": {"type": "integer"},
-                    "member_index": {"type": "integer"},
-                    "context_turn": _TURN,
-                    "agent_speaker": {"type": "string"},
-                    "agent_full_text": {"type": "string"},
-                    "agent_spoken_text": {"type": "string"},
-                    "candidate_speaker": {"type": "string"},
-                    "candidate_role": {"type": "string", "enum": ["caller", "other"]},
-                    "candidate_text": {"type": "string"},
-                    "label": {"type": "string", "enum": ["backchannel", "barge_in", "ambiguous"]},
-                    "barge_in_from_word": {"type": ["integer", "null"]},
-                    "rationale": {"type": "string"},
-                },
-                "required": [
-                    "set_index",
-                    "member_index",
-                    "context_turn",
-                    "agent_speaker",
-                    "agent_full_text",
-                    "agent_spoken_text",
-                    "candidate_speaker",
-                    "candidate_role",
-                    "candidate_text",
-                    "label",
-                    "barge_in_from_word",
-                    "rationale",
-                ],
+                "properties": _SAMPLE_FIELDS,
+                "required": list(_SAMPLE_FIELDS),
             },
         }
     },
     "required": ["samples"],
-}
-
-JUDGE_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "properties": {
-        "items": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "index": {"type": "integer"},
-                    "label": {"type": "string", "enum": ["backchannel", "barge_in", "ambiguous"]},
-                    "barge_in_from_word": {"type": ["integer", "null"]},
-                    "language_ok": {"type": "boolean"},
-                    "script_ok": {"type": "boolean"},
-                    "cut_ok": {"type": "boolean"},
-                    "natural_ok": {"type": "boolean"},
-                    "notes": {"type": "string"},
-                },
-                "required": [
-                    "index",
-                    "label",
-                    "barge_in_from_word",
-                    "language_ok",
-                    "script_ok",
-                    "cut_ok",
-                    "natural_ok",
-                    "notes",
-                ],
-            },
-        }
-    },
-    "required": ["items"],
 }
 
 
@@ -178,15 +134,85 @@ def render_generator_system(cat: Catalogue) -> str:
     )
 
 
-def render_judge_system(cat: Catalogue) -> str:
-    return _template(JUDGE_TEMPLATE).substitute()
-
-
 # ---------------------------------------------------------------- requests
 
 
 def language_name(cat: Catalogue, code: str) -> str:
     return str(cat.languages[code]["name"])
+
+
+def _script_names(cat: Catalogue, code: str) -> str:
+    return " or ".join(SCRIPT_NAMES.get(s, s) for s in cat.languages[code]["scripts"])
+
+
+def _latin(cat: Catalogue, code: str) -> bool:
+    return cat.languages[code]["scripts"][0] == "Latn"
+
+
+_HAN = ("Hans", "Hant")
+
+
+def _in_script(cat: Catalogue, name: str, script: str) -> str:
+    label = SCRIPT_NAMES.get(script, script)
+    return f"{name} in {label} characters" if script in _HAN else f"{name} in {label} script"
+
+
+def script_expectation(cat: Catalogue, spec: Mapping[str, str]) -> str:
+    """Which script each language's words are written in, stated explicitly.
+
+    The conversation language follows the script form. Mixed-in languages
+    follow catalogue.mixed_in_script_codes: Latin-script languages in Latin
+    letters; a set's mixed_in_script choice (Chinese characters or pinyin)
+    when it has one; otherwise romanized in Latin-led speech and in the
+    conversation's script in native-script speech.
+    """
+    code, form = spec["language"], spec["script_form"]
+    region = cat.region(code, spec["regional_variant"])
+    name, scripts = language_name(cat, code), _script_names(cat, code)
+    native = cat.native_script(code, region)
+    romanization = cat.languages[code].get("romanization")
+    if form == "native":
+        main = f"{name} in Latin letters" if _latin(cat, code) else _in_script(cat, name, native)
+    elif form == "romanized":
+        main = (
+            f"{name} in {romanization} (Latin letters), not {SCRIPT_NAMES.get(native, native)}"
+            if romanization
+            else f"{name} romanized (Latin letters), not {scripts}"
+        )
+    else:
+        main = (
+            f"{name} partly in {scripts} script and partly romanized (Latin letters) "
+            "within the same utterance"
+        )
+    parts = [main]
+    choice = spec.get("mixed_in_script", "default")
+    for other, script in cat.mixed_in_script_codes(spec).items():
+        other_name = language_name(cat, other)
+        other_native = cat.native_script(other, region)
+        other_rom = cat.languages[other].get("romanization")
+        if _latin(cat, other):
+            parts.append(f"{other_name} words in Latin letters")
+        elif script == "Latn" and choice == "romanized" and other_rom:
+            never = (
+                "Chinese characters"
+                if other_native in _HAN
+                else f"{_script_names(cat, other)} script"
+            )
+            parts.append(f"{other_name} words in {other_rom} (Latin letters), never in {never}")
+        elif script == "Latn":
+            parts.append(
+                f"{other_name} words romanized (Latin letters), never in "
+                f"{_script_names(cat, other)} script"
+            )
+        elif choice == "native":
+            parts.append(
+                _in_script(cat, f"{other_name} words", script) + f", not {other_rom or 'romanized'}"
+            )
+        elif script == "mixed":
+            parts.append(f"{other_name} words in {scripts} script or romanized")
+        else:
+            parts.append(f"{other_name} words written in {scripts} script")
+    return "; ".join(parts) + "."
 
 
 def describe_language(cat: Catalogue, spec: Mapping[str, str]) -> list[str]:
@@ -207,6 +233,7 @@ def describe_language(cat: Catalogue, spec: Mapping[str, str]) -> list[str]:
             f"Code-switching: `{switching}`: "
             f"{cat.descriptions.get(('code_switching', switching), '')} Mixed in: {others}."
         )
+    lines.append(f"Script: {script_expectation(cat, spec)}")
     return lines
 
 
@@ -242,16 +269,16 @@ def describe_spec(
         lines.append(f"Domain notes: {' '.join(domain['prompt_notes'].split())}")
     lines += [
         f"Speaker pattern: `{spec['speaker_pattern']}`: {d[('speaker_pattern', spec['speaker_pattern'])]}",
-        f"Agent activity: `{spec['agent_activity']}`: {d[('agent_activity', spec['agent_activity'])]}",
+        f"Speaker activity: `{spec['agent_activity']}`: {d[('agent_activity', spec['agent_activity'])]}",
         f"Cut position: `{spec['cut_position']}`: {d[('cut_position', spec['cut_position'])]} "
-        f"(agent state: {state})",
-        f"Caller intent: `{spec['caller_intent']}` (intended label: {intent['label']}): "
+        f"({'the speaker has just finished' if state == 'just_finished' else 'the speaker is still speaking'})",
+        f"Listener intent: `{spec['caller_intent']}` (intended label: {intent['label']}): "
         f"{' '.join(intent['description'].split())}",
         _hints(cat, spec["caller_intent"], spec["language"]),
         f"Development: `{spec['development']}`: {d[('development', spec['development'])]}",
         f"Repetition: `{spec['repetition']}`",
-        f"Length of candidate_text: `{spec['length_bucket']}`: {d[('length_bucket', spec['length_bucket'])]}",
-        f"Register: `{spec['register']}`. Caller mood: `{spec['caller_mood']}`.",
+        f"Length of listener_text: `{spec['length_bucket']}`: {d[('length_bucket', spec['length_bucket'])]}",
+        f"Register: `{spec['register']}`. Listener mood: `{spec['caller_mood']}`.",
     ]
     return lines
 
@@ -305,12 +332,12 @@ _FACTOR_PREFIXES = {
     "domain": "Domain:",
     "scenario": "Scenario:",
     "speaker_pattern": "Speaker pattern:",
-    "agent_activity": "Agent activity:",
+    "agent_activity": "Speaker activity:",
     "cut_position": "Cut position:",
-    "caller_intent": "Caller intent:",
+    "caller_intent": "Listener intent:",
     "development": "Development:",
     "repetition": "Repetition:",
-    "length_bucket": "Length of candidate_text:",
+    "length_bucket": "Length of listener_text:",
     "register": "Register:",
 }
 
@@ -326,39 +353,124 @@ def _prefixes_for(shared_spec: Mapping[str, str]) -> list[str]:
 
 @dataclass(frozen=True)
 class JudgeItem:
-    index: int
+    """One generated sample as the judge sees it."""
+
     spec: Mapping[str, str]
     context_speaker: str
     context_text: str
-    agent_speaker: str
-    agent_spoken_text: str
-    candidate_speaker: str
-    candidate_text: str
+    speaker: str
+    speaker_spoken_text: str
+    listener: str
+    listener_text: str
 
 
-def render_judge_request(cat: Catalogue, items: Sequence[JudgeItem]) -> str:
-    parts = [f"Review these {len(items)} items. Return one entry per item with its index."]
-    for item in items:
-        spec = item.spec
-        state = "just_finished" if spec["cut_position"] == "just_finished" else "speaking"
-        if spec["code_switching"] == "none":
-            switching = "no code-switching"
-        else:
-            others = " and ".join(language_name(cat, c) for c in spec["code_switch_set"].split("+"))
-            switching = f"code-switching ({spec['code_switching']}) with {others}"
-        marker = (
-            "[the agent had just finished this turn]"
-            if state == "just_finished"
-            else "[cut off here: the last line was said while the agent was still speaking]"
+def _judge_template() -> dict[str, Any]:
+    return yaml.safe_load((PROMPT_DIR / f"{JUDGE_TEMPLATE}.yaml").read_text(encoding="utf-8"))
+
+
+def _switching_text(cat: Catalogue, spec: Mapping[str, str]) -> str:
+    if spec["code_switching"] == "none":
+        return "no other language mixed in"
+    others = " and ".join(language_name(cat, c) for c in spec["code_switch_set"].split("+"))
+    how = "within sentences" if spec["code_switching"] == "within_sentence" else "between sentences"
+    return f"{others} mixed in {how}"
+
+
+def render_judge_decision(cat: Catalogue, item: JudgeItem) -> tuple[str, dict[str, Any]]:
+    """The Decisions API input (the conversation as JSON) and yes/no questions."""
+    template = _judge_template()
+    spec = item.spec
+    finished = spec["cut_position"] == "just_finished"
+    conversation = [
+        {"speaker": item.context_speaker, "transcript": item.context_text},
+        {"speaker": item.speaker, "transcript": item.speaker_spoken_text},
+        {"speaker": item.listener, "transcript": item.listener_text},
+    ]
+    judge_input = json.dumps({"conversation": conversation}, ensure_ascii=False, indent=2)
+    lang = cat.languages[spec["language"]]
+    fields = {
+        "speaker": item.speaker,
+        "listener": item.listener,
+        "moment": (
+            f"Right after {item.speaker} finished speaking"
+            if finished
+            else f"While {item.speaker} is speaking"
+        ),
+        "language": f"{lang['name']} ({spec['regional_variant']})",
+        "switching": _switching_text(cat, spec),
+        "script": script_expectation(cat, spec),
+    }
+
+    def text(raw: str, **extra: str) -> str:
+        return " ".join(Template(raw).substitute(fields, **extra).split())
+
+    note = text(template["conversation_note"])
+    rules = text(template["label_rules"])
+    q = template["questions"]
+    cut = q["cut_ok"]["finished" if finished else "speaking"]
+
+    def noul(
+        raw: str,
+        *,
+        with_rules: bool = False,
+        true: str | None = None,
+        false: str | None = None,
+        **extra: str,
+    ):
+        question: dict[str, Any] = {
+            "type": "noul",
+            "instructions": " ".join(
+                [note, text(raw, **extra), rules if with_rules else ""]
+            ).strip(),
+        }
+        criteria = {}
+        if true:
+            criteria["true_description"] = text(true)
+        if false:
+            criteria["false_description"] = text(false)
+        if criteria:
+            question["criteria"] = criteria
+        return question
+
+    questions: dict[str, Any] = {
+        "is_backchannel": noul(
+            q["is_backchannel"]["instructions"],
+            with_rules=True,
+            true=q["is_backchannel"]["true_description"],
+            false=q["is_backchannel"]["false_description"],
+        ),
+        "is_barge_in": noul(
+            q["is_barge_in"]["instructions"],
+            with_rules=True,
+            true=q["is_barge_in"]["true_description"],
+            false=q["is_barge_in"]["false_description"],
+        ),
+    }
+    tokens = words(item.listener_text)
+    for k in range(1, len(tokens)):
+        questions[f"prefix_{k}"] = noul(
+            q["prefix"]["instructions"], with_rules=True, prefix=" ".join(tokens[:k]), count=str(k)
         )
-        parts += [
-            "",
-            f"Item {item.index}",
-            f"Meant to show: {language_name(cat, spec['language'])} ({spec['regional_variant']}); "
-            f"script form {spec['script_form']}; {switching}; agent state {state}.",
-            "Transcript:",
-            f"{item.context_speaker}: {item.context_text}",
-            f"{item.agent_speaker}: {item.agent_spoken_text} {marker}",
-            f"{item.candidate_speaker}: {item.candidate_text}",
-        ]
-    return "\n".join(parts) + "\n"
+    for key in ("language_ok", "script_ok", "natural_ok"):
+        questions[key] = noul(q[key]["instructions"])
+    questions["cut_ok"] = noul(cut)
+
+    f = template["factors"]
+    domain = cat.domains[spec["domain"]]["description"]
+    scenario = cat.scenarios[spec["scenario"]]["description"]
+    activity = cat.descriptions[("agent_activity", spec["agent_activity"])]
+    intent = " ".join(cat.intents[spec["caller_intent"]]["description"].split())
+    questions["factor_scenario"] = noul(f["scenario"], description=f"{domain} {scenario}")
+    questions["factor_speaker_activity"] = noul(f["speaker_activity"], description=activity)
+    questions["factor_listener_intent"] = noul(f["listener_intent"], description=intent)
+    questions["factor_development"] = noul(f["development"][spec["development"]])
+    questions["factor_repetition"] = noul(f["repetition"][spec["repetition"]])
+    questions["factor_register"] = noul(f["register"][spec["register"]])
+    questions["factor_listener_mood"] = noul(
+        f["listener_mood"], description=f["moods"][spec["caller_mood"]]
+    )
+    return judge_input, questions
+
+
+def judge_hash(judge_input: str, questions: Mapping[str, Any]) -> str:
+    return prompt_hash(judge_input, json.dumps(questions, sort_keys=True, ensure_ascii=False))

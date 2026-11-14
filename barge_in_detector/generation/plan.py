@@ -46,6 +46,9 @@ class PlanConfig:
         default_factory=lambda: {"train": 0.8, "validation": 0.1, "test": 0.1}
     )
     heldout: dict[str, list[str]] = field(default_factory=dict)
+    # language -> {regional_variant: share}; variants left out get none.
+    # Languages not listed spread their criteria equally over their variants.
+    variant_shares: dict[str, dict[str, float]] = field(default_factory=dict)
     split_tolerance: float = 0.02
     split_min_support: int = 50
 
@@ -63,6 +66,7 @@ class PlanConfig:
                 "criteria_per_language": self.criteria_per_language,
                 "contrastive_instances_per_group": self.contrastive_instances_per_group,
                 "candidates_per_pick": self.candidates_per_pick,
+                "variant_shares": self.variant_shares,
             },
             "split_ratios": self.split_ratios,
             "heldout": self.heldout,
@@ -115,7 +119,12 @@ class _Sampler:
             self._language_options[language] = self.cat.language_options(language)
         return self._language_options[language]
 
-    def sample(self, rng: random.Random, fixed: Mapping[str, str]) -> dict[str, str] | None:
+    def sample(
+        self,
+        rng: random.Random,
+        fixed: Mapping[str, str],
+        variant_weights: Mapping[str, float] | None = None,
+    ) -> dict[str, str] | None:
         """One random valid spec with the `fixed` values, or None."""
         cat = self.cat
         for _ in range(_MAX_SAMPLE_TRIES):
@@ -127,7 +136,19 @@ class _Sampler:
             ]
             if not options:
                 return None
-            spec.update(zip(LANGUAGE_FACTORS[1:], rng.choice(options), strict=True))
+            # Choose the language side one factor at a time (variant, script,
+            # code-switching, then the set), so a value with many options under
+            # it (en-IN's code-switch sets) does not crowd out the rest.
+            for position in range(len(LANGUAGE_FACTORS) - 1):
+                values = sorted({o[position] for o in options})
+                weights = None
+                if position == 0 and variant_weights:
+                    weights = [variant_weights.get(v, 0.0) for v in values]
+                    if not any(weights):
+                        weights = None
+                chosen = rng.choices(values, weights=weights)[0] if weights else rng.choice(values)
+                options = [o for o in options if o[position] == chosen]
+            spec.update(zip(LANGUAGE_FACTORS[1:], options[0], strict=True))
             if "scenario" not in spec:
                 scenarios = [
                     s
@@ -190,6 +211,28 @@ def _cells(cat: Catalogue, label_shares: Mapping[str, float]) -> Iterable[str]:
         yield intent
 
 
+def _variant_shares(cat: Catalogue, config: PlanConfig, language: str) -> dict[str, float]:
+    """The plan's shares for the language's regional variants; equal by default."""
+    variants = cat.variants(language)
+    shares = config.variant_shares.get(language)
+    if not shares:
+        return {v: 1.0 for v in variants}
+    unknown = set(shares) - set(variants)
+    if unknown:
+        raise ValueError(f"unknown variants for {language}: {sorted(unknown)}")
+    return {v: float(shares.get(v, 0.0)) for v in variants if shares.get(v, 0.0) > 0}
+
+
+def _variant_cells(shares: Mapping[str, float]) -> Iterable[str]:
+    """Infinite, deterministic sequence of variants following the shares."""
+    order = list(shares)
+    counts: Counter[str] = Counter()
+    while True:
+        variant = min(order, key=lambda v: (counts[v] / shares[v], order.index(v)))
+        counts[variant] += 1
+        yield variant
+
+
 def _stratified(
     cat: Catalogue,
     sampler: _Sampler,
@@ -198,16 +241,25 @@ def _stratified(
     skip: set[uuid.UUID],
 ) -> list[tuple[int, dict[str, str]]]:
     rng = random.Random(f"{config.seed}:stratified:{language}")
-    coverage = _Coverage([f for f in cat.spec_factors if f != "language"])
+    # The language side (variant by share, then script, code-switching and set,
+    # each drawn evenly) is not scored for coverage: rare code-switch sets, and
+    # "none" being common across other variants, would otherwise make
+    # code-switched candidates win every pick.
+    coverage = _Coverage([f for f in cat.spec_factors if f not in LANGUAGE_FACTORS])
     picked: list[tuple[int, dict[str, str]]] = []
     taken: set[uuid.UUID] = set()
-    for step, intent in enumerate(_cells(cat, config.label_shares)):
+    variants = _variant_cells(_variant_shares(cat, config, language))
+    # Both sequences are infinite.
+    cells = zip(_cells(cat, config.label_shares), variants, strict=True)
+    for step, (intent, variant) in enumerate(cells):
         if len(picked) >= config.criteria_per_language:
             break
         best: dict[str, str] | None = None
         best_score = -1.0
         for _ in range(config.candidates_per_pick):
-            spec = sampler.sample(rng, {"language": language, "caller_intent": intent})
+            spec = sampler.sample(
+                rng, {"language": language, "regional_variant": variant, "caller_intent": intent}
+            )
             if spec is None:
                 continue
             cid = ids.combination_id(spec)
@@ -233,23 +285,48 @@ def _contrastive(
 ) -> list[tuple[int, str, list[dict[str, str]]]]:
     instances = []
     taken: set[uuid.UUID] = set()
-    for group in cat.contrastive:
+    for position, group in enumerate(cat.contrastive):
         rng = random.Random(f"{config.seed}:contrastive:{language}:{group['id']}")
         members = group["members"]
         for index in range(config.contrastive_instances_per_group):
             for _ in range(_MAX_SAMPLE_TRIES):
-                base = sampler.sample(rng, {"language": language, **members[0]})
+                base = sampler.sample(
+                    rng,
+                    {"language": language, **members[0]},
+                    variant_weights=_variant_shares(cat, config, language),
+                )
                 if base is None:
                     continue
                 specs = [{**base, **{k: str(v) for k, v in m.items()}} for m in members]
                 member_ids = [ids.combination_id(s) for s in specs]
                 if all(cat.is_valid(s) for s in specs) and not (set(member_ids) & (taken | skip)):
                     taken.update(member_ids)
-                    instances.append((index, f"{group['id']}:{language}:{index}", specs))
+                    instances.append(
+                        (
+                            _spread_priority(config, len(cat.contrastive), position, index),
+                            # Unique to these members, so a rebuilt plan never
+                            # reuses an id that earlier requests point at.
+                            f"{group['id']}:{language}:{ids.split_group_id(member_ids).hex[:12]}",
+                            specs,
+                        )
+                    )
                     break
             else:
                 raise ValueError(f"cannot sample contrastive group {group['id']} for {language}")
     return instances
+
+
+def _spread_priority(config: PlanConfig, groups: int, group_position: int, index: int) -> int:
+    """Spread contrastive instances evenly through the stratified generation order.
+
+    Instance k (index-major, then group order) of K gets priority
+    k * criteria_per_language // K, so a limited run sees both kinds. It
+    depends only on the config, so it is deterministic and stable as plans grow
+    with the same sizes.
+    """
+    total = max(1, groups * config.contrastive_instances_per_group)
+    k = index * groups + group_position
+    return k * max(1, config.criteria_per_language) // total
 
 
 # ---------------------------------------------------------------- splits
@@ -474,7 +551,7 @@ def split_audit(
         for split in SPLITS:
             share = weights[feat][split] / total
             rows.append(AuditRow(feat, split, share, ratios[split], support[feat]))
-            if support[feat] >= min_support and abs(share - ratios[split]) > tolerance:
+            if support[feat] >= min_support and abs(share - ratios[split]) > tolerance + 1e-9:
                 failures.append(f"{feat} {split}: {share:.3f} vs {ratios[split]:.3f}")
         if weights[feat]["train"] == 0:
             failures.append(f"{feat} has no training criteria")
@@ -497,9 +574,9 @@ def build_plan(cat: Catalogue, config: PlanConfig, existing: Sequence[ExistingTa
         stratified = _stratified(cat, sampler, config, language, skip=non_stratified)
         rows += [(spec, "stratified", step, None, None) for step, spec in stratified]
         skip = {ids.combination_id(spec) for spec, *_ in rows}
-        for index, group_id, specs in _contrastive(cat, sampler, config, language, skip):
+        for priority, group_id, specs in _contrastive(cat, sampler, config, language, skip):
             rows += [
-                (spec, "contrastive", index, group_id, role) for role, spec in enumerate(specs)
+                (spec, "contrastive", priority, group_id, role) for role, spec in enumerate(specs)
             ]
 
     groups: dict[uuid.UUID, list[tuple[dict[str, str], str, int]]] = {}

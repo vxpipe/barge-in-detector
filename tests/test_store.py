@@ -137,3 +137,81 @@ def test_export_leaves_unchanged_files_alone(store, tmp_path):
     store.export(out)
     after = {p: p.stat().st_mtime_ns for p in out.rglob("*.parquet")}
     assert before == after
+
+
+def test_a_rebuilt_plan_can_retire_criteria_it_no_longer_has(store):
+    before = {t["combination_id"] for t in store.targets()}
+    other = build_plan(CAT, CONFIG.__class__(**{**CONFIG.__dict__, "seed": 99}))
+    store.apply_plan(CAT, other, retire_missing=True)
+    active = {t["combination_id"] for t in store.targets()}
+    assert active == {t.combination_id for t in other.targets}
+    retired = {t["combination_id"] for t in store.targets(status="retired")}
+    assert retired == before - active
+
+
+def test_targets_carry_every_locale_of_the_transcript(store):
+    for t in store.targets():
+        assert t["locales"][0].split("-")[0] == t["language"]
+        assert len(t["locales"]) == (
+            1 if t["code_switch_set"] == "none" else 1 + t["code_switch_set"].count("+") + 1
+        )
+
+
+def test_schema_1_database_is_migrated_with_locales(tmp_path):
+    path = tmp_path / "old.duckdb"
+    s = Store.open(path)
+    s.apply_plan(CAT, build_plan(CAT, CONFIG))
+    for table in ("targets", "conversations", "examples"):
+        s.con.execute(f"ALTER TABLE {table} DROP COLUMN locales")
+    s.con.execute("UPDATE meta SET value = '1' WHERE key = 'schema_version'")
+    s.close()
+    migrated = Store.open(path)
+    assert all(t["locales"] for t in migrated.targets())
+    assert migrated.con.execute(
+        "SELECT value FROM meta WHERE key = 'schema_version'"
+    ).fetchone() == ("3",)
+    migrated.close()
+
+
+def test_unused_criteria_take_the_new_plans_split_and_come_back_when_replanned(store):
+    first = store.targets()[0]
+    store.con.execute(
+        "UPDATE targets SET split = 'test' WHERE combination_id = ?", [first["combination_id"]]
+    )
+    plan = build_plan(CAT, CONFIG)
+    store.apply_plan(CAT, plan, retire_missing=True)
+    planned = next(t for t in plan.targets if t.combination_id == first["combination_id"])
+    assert store.targets()[0]["split"] == planned.split  # no requests yet: reassigned
+
+    other = build_plan(CAT, CONFIG.__class__(**{**CONFIG.__dict__, "seed": 99}))
+    store.apply_plan(CAT, other, retire_missing=True)
+    store.apply_plan(CAT, plan, retire_missing=True)
+    assert {t["combination_id"] for t in store.targets()} == {
+        t.combination_id for t in plan.targets
+    }
+
+
+def test_used_criteria_keep_their_split(store):
+    first = store.targets()[0]
+    run_id = store.start_run(
+        name="r", revision_id=None, settings={}, generator_model_id="g", judge_model_id="j"
+    )
+    store.insert_request(
+        run_id=run_id,
+        kind="generate",
+        combination_id=first["combination_id"],
+        contrastive_group_id=None,
+        language="hi",
+        requested_count=2,
+        model_id="g",
+        prompt_template="t",
+        prompt_hash="h",
+    )
+    store.con.execute(
+        "UPDATE targets SET split = 'test' WHERE combination_id = ?", [first["combination_id"]]
+    )
+    assert first["combination_id"] in {
+        e.combination_id for e in store.existing_targets(used_only=True)
+    }
+    store.apply_plan(CAT, build_plan(CAT, CONFIG, existing=store.existing_targets(used_only=True)))
+    assert store.targets()[0]["split"] == "test"

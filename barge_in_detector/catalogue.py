@@ -24,6 +24,7 @@ LANGUAGE_FACTORS = (
     "script_form",
     "code_switching",
     "code_switch_set",
+    "mixed_in_script",
 )
 
 
@@ -61,8 +62,99 @@ class Catalogue:
             if variant in s.get("regional_variants", [variant])
         ]
 
-    def language_options(self, language: str) -> list[tuple[str, str, str, str]]:
-        """Valid (regional_variant, script_form, code_switching, code_switch_set)."""
+    def code_switch_set_entry(self, language: str, variant: str, cs_set: str) -> dict[str, Any]:
+        """The manifest entry for a code-switch set ("en+hi") of a variant."""
+        for s in self.languages[language]["code_switch_sets"]:
+            if "+".join(s["languages"]) == cs_set and variant in s.get(
+                "regional_variants", [variant]
+            ):
+                return s
+        raise KeyError(f"{language}/{variant} has no code-switch set {cs_set}")
+
+    def region(self, language: str, variant: str) -> str | None:
+        if "-" in variant:
+            return variant.split("-", 1)[1]
+        return self.languages[language].get("region")
+
+    def native_script(self, language: str, region: str | None) -> str:
+        """The native script of a language in a region (zh-TW: Hant)."""
+        lang = self.languages[language]
+        variant_scripts = lang.get("variant_scripts") or {}
+        return variant_scripts.get(f"{language}-{region}", lang["scripts"][0])
+
+    def latin(self, language: str) -> bool:
+        return self.languages[language]["scripts"][0] == "Latn"
+
+    def mixed_in_scripts(self, spec: Mapping[str, str]) -> list[str]:
+        """Allowed mixed_in_script values for a spec's language side."""
+        if spec.get("code_switching", "none") == "none" or spec.get("code_switch_set") in (
+            None,
+            "none",
+        ):
+            return ["default"]
+        try:
+            entry = self.code_switch_set_entry(
+                spec["language"], spec["regional_variant"], spec["code_switch_set"]
+            )
+        except KeyError:
+            return ["default"]
+        return list(entry.get("mixed_in_scripts") or ["default"])
+
+    def mixed_in_script_codes(self, spec: Mapping[str, str]) -> dict[str, str]:
+        """The script (ISO 15924, or "mixed") each mixed-in language is written in."""
+        language, form = spec["language"], spec["script_form"]
+        region = self.region(language, spec["regional_variant"])
+        choice = spec.get("mixed_in_script", "default")
+        latin_led = form == "romanized" or (form == "native" and self.latin(language))
+        codes: dict[str, str] = {}
+        if spec.get("code_switching", "none") == "none" or spec.get("code_switch_set") in (
+            None,
+            "none",
+        ):
+            return codes
+        for other in spec["code_switch_set"].split("+"):
+            if self.latin(other) or choice == "romanized" or (choice == "default" and latin_led):
+                codes[other] = "Latn"
+            elif choice == "native":
+                codes[other] = self.native_script(other, region)
+            elif form == "native":
+                codes[other] = self.native_script(language, region)
+            else:
+                codes[other] = "mixed"
+        return codes
+
+    def locales(self, spec: Mapping[str, str]) -> list[str]:
+        """Every locale in the transcript, the conversation's first, then each
+        mixed-in language's in the same region. A script subtag is added when
+        a language is not written in its usual script, or has several native
+        scripts: ["en-US"], ["en-MY", "zh-Hans-MY"], ["en-MY", "zh-Latn-MY"],
+        ["hi-Latn-IN", "en-IN"], ["zh-Hant-TW"]."""
+        language, variant = spec["language"], spec["regional_variant"]
+        region = self.region(language, variant)
+
+        def tag(code: str, script: str | None) -> str:
+            usual = self.native_script(code, region)
+            # Chinese tags conventionally always name the script (zh-Hans, yue-Hant).
+            several = len(self.languages[code]["scripts"]) > 1 or usual in ("Hans", "Hant")
+            parts = [code]
+            if script and script != "mixed" and (script != usual or several):
+                parts.append(script)
+            if region:
+                parts.append(region)
+            return "-".join(parts)
+
+        form = spec.get("script_form", "native")
+        main_script = {"romanized": "Latn", "native": self.native_script(language, region)}.get(
+            form
+        )
+        locales = [tag(language, main_script)]
+        for other, script in self.mixed_in_script_codes(spec).items():
+            locales.append(tag(other, None if script == "Latn" and self.latin(other) else script))
+        return locales
+
+    def language_options(self, language: str) -> list[tuple[str, str, str, str, str]]:
+        """Valid (regional_variant, script_form, code_switching, code_switch_set,
+        mixed_in_script)."""
         options = []
         for variant in self.variants(language):
             sets = ["none", *self.code_switch_sets(language, variant)]
@@ -78,8 +170,10 @@ class Catalogue:
                 }
                 if switching != "none" and cs_set == "none":
                     continue
-                if not self.violations(partial, partial_spec=True):
-                    options.append((variant, script, switching, cs_set))
+                for mixed in self.mixed_in_scripts(partial):
+                    candidate = {**partial, "mixed_in_script": mixed}
+                    if not self.violations(candidate, partial_spec=True):
+                        options.append((variant, script, switching, cs_set, mixed))
         return options
 
     # ---- validation ----
@@ -121,6 +215,14 @@ class Catalogue:
             cs_set = spec.get("code_switch_set")
             if spec.get("code_switching", "none") != "none" and cs_set == "none":
                 out.append("code_switch_set_needed")
+            mixed = spec.get("mixed_in_script")
+            if (
+                mixed is not None
+                and variant is not None
+                and cs_set is not None
+                and mixed not in self.mixed_in_scripts(spec)
+            ):
+                out.append("mixed_in_script_in_set")
             if (
                 variant is not None
                 and cs_set not in (None, "none")
@@ -192,6 +294,15 @@ class Catalogue:
                 for v in s.get("regional_variants", []):
                     if v not in self.variants(code):
                         errors.append(f"{code}: set limited to unknown variant {v}")
+                allowed = s.get("mixed_in_scripts")
+                if allowed is not None and (
+                    not set(allowed) <= {"native", "romanized"}
+                    or any(o in self.languages and self.latin(o) for o in s["languages"])
+                ):
+                    errors.append(
+                        f"{code}: mixed_in_scripts {allowed} needs native/romanized "
+                        "and non-Latin languages"
+                    )
         for intent_id, intent in self.intents.items():
             if intent["label"] not in self.labels:
                 errors.append(f"intent {intent_id}: unknown label {intent['label']}")

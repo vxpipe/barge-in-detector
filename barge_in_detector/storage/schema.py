@@ -6,7 +6,10 @@ SCHEMA_VERSION bump recorded there.
 
 from dataclasses import dataclass
 
-SCHEMA_VERSION = "1"
+# 1: initial. 2: `locales` (every locale in the transcript) on targets,
+# conversations and examples. 3: the `mixed_in_script` factor; locales carry
+# script subtags; examples.transcript_raw.
+SCHEMA_VERSION = "3"
 
 SPEC_FACTORS = (
     "language",
@@ -14,6 +17,7 @@ SPEC_FACTORS = (
     "script_form",
     "code_switching",
     "code_switch_set",
+    "mixed_in_script",
     "domain",
     "scenario",
     "speaker_pattern",
@@ -33,6 +37,9 @@ FACTOR_COLUMNS: tuple[tuple[str, str], ...] = (
     ("combination_id", "UUID"),
     ("factor_catalogue_version", "VARCHAR"),
     *((f, "VARCHAR") for f in SPEC_FACTORS),
+    # The conversation's locale first, then each mixed-in language's, e.g.
+    # [en-MY, zh-MY]. Derived from the spec; not part of combination_id.
+    ("locales", "VARCHAR[]"),
     ("agent_state", "VARCHAR"),
     ("label", "VARCHAR"),
     ("contrastive_group_id", "VARCHAR"),
@@ -206,6 +213,9 @@ TABLES: dict[str, Table] = {
                 ("turns_original", TURNS),
                 ("transcript_original", "VARCHAR"),
                 ("transcript_clean", "VARCHAR"),
+                # s<n> labels, text as written (NFC, whitespace only): the
+                # alternative model input with casing and punctuation kept.
+                ("transcript_raw", "VARCHAR"),
                 ("speaker_labels", "VARCHAR[]"),
                 ("candidate_original", "VARCHAR"),
                 ("candidate_clean", "VARCHAR"),

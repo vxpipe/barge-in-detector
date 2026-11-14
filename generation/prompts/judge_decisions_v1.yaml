@@ -1,0 +1,108 @@
+# Blind judge for the Gemini Decisions API (model gemini-decision-1).
+#
+# One request per generated sample. The input holds only that sample: what it
+# was meant to show and its transcript. Every question runs independently
+# against it and returns calibrated probabilities (no generated text). The
+# judge never sees the intent, the intended label or the generator's label.
+#
+# ${...} fields are filled by barge_in_detector/generation/prompts.py.
+# The model never sees question keys, so every instruction is complete text.
+
+version: judge_decisions_v1
+
+input: |
+  A voice agent was speaking on a phone call. While it was talking, or right
+  after it finished, a person on the call said the last line of the transcript
+  below. The agent's line is shown up to the moment the person started.
+
+  What the transcript was meant to show:
+  - Language: ${language}
+  - Code-switching: ${switching}
+  - Script: ${script}
+  - Agent state: ${state}
+
+  Transcript:
+  ${context_speaker}: ${context_text}
+  ${agent_speaker}: ${agent_spoken_text} ${marker}
+  ${candidate_speaker}: ${candidate_text}
+
+questions:
+  label:
+    type: choice
+    instructions: |
+      Classify the last line of the transcript as a careful human listener
+      would, from the transcript alone: should the agent keep talking
+      (backchannel) or stop and let the person speak (barge_in)?
+      Rules:
+      - A bare "ok" (or its equivalent in the language) is a backchannel, even
+        right after the agent finishes a statement. Only after a finished
+        question is it an answer, which is a barge-in.
+      - A short affirmative such as "yes" during an explanation is a
+        backchannel; the same word right after the agent asks a question is an
+        answer, which is a barge-in.
+      - A line that starts like a backchannel or filler and then stops,
+        corrects, questions or asks for something is a barge-in.
+      - When the agent had just finished, a barge-in means the person is
+        taking a real turn.
+    criteria:
+      backchannel: >
+        The person does not want the floor: a continuer (hmm, uh-huh), an
+        acknowledgment (ok, I see, got it), agreement that answers nothing, a
+        short reaction (oh no, wow, haha), thanks in passing, repeating digits
+        or names to keep track, or inviting the agent to go on.
+      barge_in: >
+        The person takes the floor: asks the agent to stop, wait or skip;
+        corrects or disagrees; asks a question or asks to repeat, slow down or
+        speak up; makes a new request or complaint; asks for a human or another
+        language; ends the call; answers early or answers a finished question;
+        checks whether anyone is there; or a backchannel that turns into any of
+        these.
+      ambiguous: >
+        Reasonable listeners would genuinely disagree, for example the person
+        finishing the agent's sentence for it, or "hmm" right after a question
+        (thinking, not yet answering).
+
+  barge_in_from_word:
+    type: choice
+    instructions: |
+      Suppose the last line of the transcript is a barge-in. Its words are
+      counted from 0 as separated by spaces (a hyphenated word such as
+      "mm-hmm" is one word). From which word does it become a barge-in? Choose
+      word 0 when it is a barge-in from its first word, a later word when it
+      starts as a backchannel or filler and turns into a barge-in there, and
+      "none" when the last line is not a barge-in at all.
+    # Options are built per sample: one per word of the last line, plus none.
+    none: The last line is not a barge-in.
+
+  language_ok:
+    type: noul
+    instructions: |
+      Are the person's lines (every line except the agent's) in the stated
+      language and regional variety, mixing in exactly the stated other
+      language or languages when code-switching is stated, and no other
+      language when it is not?
+
+  script_ok:
+    type: noul
+    instructions: |
+      Are the words of each language in the person's lines written in the
+      script that the "Script" line states for that language?
+
+  cut_ok:
+    type: noul
+    instructions: |
+      Does the agent's line match the stated agent state? When the agent was
+      still speaking, its line must visibly break off mid-sentence. When the
+      agent had just finished, its line must be complete.
+    true_description: The agent's line matches the stated agent state.
+    false_description: >
+      The agent was meant to be cut off but its line reads complete, or it was
+      meant to have finished but its line breaks off.
+
+  natural_ok:
+    type: noul
+    instructions: |
+      Does the transcript read like a real phone call, with the last line
+      plausible for its speaker at that moment, clean text (no simulated
+      speech-recognition errors, no tags or stage directions), no real brands
+      or real people, and only obviously fake numbers?

@@ -4,8 +4,9 @@ For every active criterion, in plan order:
 need = required_count - accepted (in-flight requests are resolved first).
 A criterion (or contrastive group) is skipped when need <= 0 or its attempt
 budget is used up. Requests carry at most `batch_size` samples. Each response
-is validated, judged blind in one judge call, deduplicated and accepted only
-when the generator's label, the judge's label and the intended label agree.
+is validated, each sample is judged blind with the Gemini Decisions API (one
+request per sample), deduplicated and accepted only when the generator's
+label, the judge's label and the intended label agree.
 """
 
 import hashlib
@@ -25,8 +26,8 @@ from barge_in_detector.generation.llm import LlmClient, redact
 from barge_in_detector.generation.responses import (
     JudgementError,
     Sample,
+    parse_decision,
     parse_generation,
-    parse_judgement,
 )
 from barge_in_detector.storage.schema import SPEC_FACTORS
 from barge_in_detector.storage.store import Store
@@ -35,8 +36,8 @@ log = logging.getLogger(__name__)
 
 # Rough sizes for --dry-run estimates only.
 _CHARS_PER_TOKEN = 4
-_OUTPUT_TOKENS_PER_SAMPLE = 160
-_JUDGE_OUTPUT_TOKENS_PER_ITEM = 60
+_OUTPUT_TOKENS_PER_SAMPLE = 350  # measured: 17,383 output tokens for 50 samples (first live run)
+_JUDGE_INPUT_TOKENS_PER_ITEM = 3500  # rendered judge_decisions_v3 request, ~4 chars per token
 
 
 @dataclass
@@ -115,8 +116,8 @@ def text_hash(sample: Sample) -> str:
     window = clean_window(
         [
             (d["context_turn"]["speaker"], d["context_turn"]["text"]),
-            (d["agent_speaker"], d["agent_spoken_text"]),
-            (d["candidate_speaker"], d["candidate_text"]),
+            (d["speaker"], d["speaker_spoken_text"]),
+            (d["listener"], d["listener_text"]),
         ]
     )
     return hashlib.sha256(window.transcript.encode()).hexdigest()
@@ -138,8 +139,8 @@ class Runner:
         self.config = config
         self.progress = progress or (lambda message: log.info("%s", message))
         self.generator_system = prompts.render_generator_system(cat)
-        self.judge_system = prompts.render_judge_system(cat)
         self._groups = {g["id"]: g for g in cat.contrastive}
+        self._warmed = False
 
     # ---------------------------------------------------------------- units and jobs
 
@@ -285,7 +286,6 @@ class Runner:
             for t in job.unit.targets:
                 report.planned_by_label[f"{t['language']}:{t['label']}"] += job.count
         system = len(self.generator_system) // _CHARS_PER_TOKEN
-        judge_system = len(self.judge_system) // _CHARS_PER_TOKEN
         fresh = sum(
             len(
                 prompts.render_generation_request(
@@ -296,19 +296,26 @@ class Runner:
             for j in jobs
         )
         samples = report.planned_samples
-        report.estimated_tokens = {
-            "input": fresh + 120 * samples,  # judge items are ~120 tokens each
-            "cached_input": (system + judge_system) * len(jobs),
-            "output": samples * (_OUTPUT_TOKENS_PER_SAMPLE + _JUDGE_OUTPUT_TOKENS_PER_ITEM),
+        generator = {
+            "input_tokens": fresh + system * len(jobs),
+            "cached_input_tokens": 0,  # explicit caching is unavailable for the generator so far
+            "output_tokens": samples * _OUTPUT_TOKENS_PER_SAMPLE,
         }
-        report.estimated_cost_usd = self.config.cost(
-            {
-                "input_tokens": report.estimated_tokens["input"]
-                + report.estimated_tokens["cached_input"],
-                "cached_input_tokens": report.estimated_tokens["cached_input"],
-                "output_tokens": report.estimated_tokens["output"],
-            }
-        )
+        judge = {
+            "input_tokens": samples * _JUDGE_INPUT_TOKENS_PER_ITEM,
+            "cached_input_tokens": 0,
+            "output_tokens": 0,
+        }
+        report.estimated_tokens = {
+            "generator_input": generator["input_tokens"],
+            "generator_output": generator["output_tokens"],
+            "judge_input": judge["input_tokens"],
+        }
+        costs = [
+            self.config.cost(generator, self.config.generator_model),
+            self.config.cost(judge, self.config.judge_model),
+        ]
+        report.estimated_cost_usd = None if None in costs else sum(costs)
         report.exhausted = [u.describe() for u in exhausted]
 
     def _execute_all(
@@ -321,7 +328,10 @@ class Runner:
         with ThreadPoolExecutor(max_workers=max(1, self.config.concurrency)) as pool:
             while queue or running:
                 over_budget = budget_usd is not None and (report.cost_usd or 0) >= budget_usd
-                while queue and not over_budget and len(running) < max(1, self.config.concurrency):
+                # The run's first request goes alone, so later requests that share
+                # its system prompt can hit Gemini's implicit prompt cache.
+                limit = max(1, self.config.concurrency) if self._warmed else 1
+                while queue and not over_budget and len(running) < limit:
                     job = queue.pop(0)
                     report.requests += 1
                     future = pool.submit(self._execute, run_id, job)
@@ -334,6 +344,7 @@ class Runner:
                 finished, running = wait(running, return_when=FIRST_COMPLETED)
                 for future in finished:
                     outcome = future.result()
+                    self._warmed = True
                     report.add(outcome)
                     responses += outcome.responses
                     done_count += 1
@@ -377,7 +388,7 @@ class Runner:
             except Exception as exc:  # noqa: BLE001 - every failure is recorded
                 st.fail_request(request_id, status="api_error", error=redact(str(exc)))
                 return Outcome(api_errors=1)
-            cost = self.config.cost(result.usage)
+            cost = self.config.cost(result.usage, self.config.generator_model)
             st.record_response(
                 request_id, response=result.response, usage=result.usage, cost_usd=cost
             )
@@ -444,27 +455,33 @@ class Runner:
             reject(p.target_index, p.index, "schema", p.reason, p.label) for p in parsed.problems
         ]
         samples = parsed.samples
-        judge_req = None
+        # One judge request per sample. Items judged before an interruption are
+        # reused; only missing ones are asked. Any failure leaves the generate
+        # request received, so a later run resumes it.
+        judged = st.judge_requests_for(gen_id)
         verdicts: dict[int, Any] = {}
-        if samples:
-            judge_req = st.judge_request_for(gen_id)
-            if judge_req is None:
-                judge_req = self._judge(st, run_id, gen_id, unit, samples, outcome)
-                if judge_req is None:
-                    return outcome  # judge failed; the stored response is resumed later
-            try:
-                verdicts = parse_judgement(judge_req["response"]["text"], count=len(samples))
-            except JudgementError as exc:
-                st.fail_request(judge_req["request_id"], status="schema_invalid", error=str(exc))
+        judge_reqs: dict[int, dict[str, Any]] = {}
+        for i, sample in enumerate(samples):
+            req = judged.get(i) or self._judge(st, run_id, gen_id, unit, i, sample, outcome)
+            if req is None:
                 return outcome
-        judge_id = judge_req["request_id"] if judge_req else None
+            try:
+                verdicts[i] = parse_decision(
+                    req["response"], hard_checks=self.config.judge_hard_checks
+                )
+            except JudgementError as exc:
+                st.fail_request(req["request_id"], status="schema_invalid", error=str(exc))
+                return outcome
+            judge_reqs[i] = req
 
         existing_hashes = st.text_hashes()
         batch_hashes: set[str] = set()
+        sample_judge_ids: dict[int, Any] = {}
         decisions: list[tuple[Sample, Any, str | None, str | None]] = []
         for i, sample in enumerate(samples):
             verdict = verdicts[i]
             stage, reason = self._decide(unit.targets[sample.target_index], sample, verdict)
+            sample_judge_ids[sample.index] = judge_reqs[i]["request_id"]
             if stage is None:
                 h = text_hash(sample)
                 if h in existing_hashes or h in batch_hashes:
@@ -492,7 +509,7 @@ class Runner:
                         reason,
                         sample.label,
                         verdict.label,
-                        judge_id,
+                        sample_judge_ids[sample.index],
                     )
                 )
                 continue
@@ -502,22 +519,28 @@ class Runner:
                 {
                     "target": target,
                     "request_id": gen_id,
-                    "judge_request_id": judge_id,
+                    "judge_request_id": sample_judge_ids[sample.index],
                     "run_id": run_id,
                     "sample_index": sample.index,
+                    # Columns keep their names: agent_* is the speaker (the
+                    # person with the floor), candidate_* the listener.
                     "turns": [
                         {
                             "speaker": d["context_turn"]["speaker"],
-                            "role": d["context_turn"]["role"],
+                            "role": (
+                                "listener"
+                                if target["speaker_pattern"] == "returning_speaker"
+                                else "other"
+                            ),
                             "text": d["context_turn"]["text"],
                         }
                     ],
-                    "agent_speaker": d["agent_speaker"],
-                    "agent_full_text": d["agent_full_text"],
-                    "agent_spoken_text": d["agent_spoken_text"],
-                    "candidate_speaker": d["candidate_speaker"],
-                    "candidate_role": d["candidate_role"],
-                    "candidate_text": d["candidate_text"],
+                    "agent_speaker": d["speaker"],
+                    "agent_full_text": d["speaker_full_text"],
+                    "agent_spoken_text": d["speaker_spoken_text"],
+                    "candidate_speaker": d["listener"],
+                    "candidate_role": "listener",
+                    "candidate_text": d["listener_text"],
                     "gemini_label": sample.label,
                     "gemini_rationale": d["rationale"],
                     "barge_in_from_word": sample.barge_in_from_word,
@@ -526,7 +549,7 @@ class Runner:
                     "judge_notes": verdict.notes,
                     "model_id": gen_req["model_id"],
                     "prompt_template": gen_req["prompt_template"],
-                    "judge_model_id": judge_req["model_id"] if judge_req else None,
+                    "judge_model_id": judge_reqs[0]["model_id"] if judge_reqs else None,
                     "text_hash": text_hash(sample),
                 }
             )
@@ -536,8 +559,9 @@ class Runner:
             for row in rejections:
                 st.insert_rejection(row)
             st.mark_processed(gen_id)
-            if judge_req is not None:
-                st.mark_processed(judge_req["request_id"])
+            for req in judge_reqs.values():
+                if req["status"] == "received":
+                    st.mark_processed(req["request_id"])
         outcome.accepted += len(conversations)
         return outcome
 
@@ -547,50 +571,50 @@ class Runner:
         run_id: Any,
         gen_id: Any,
         unit: Unit,
-        samples: Sequence[Sample],
+        index: int,
+        sample: Sample,
         outcome: Outcome,
     ) -> dict[str, Any] | None:
-        items = [
-            prompts.JudgeItem(
-                index=i,
-                spec=unit.specs[s.target_index],
-                context_speaker=s.data["context_turn"]["speaker"],
-                context_text=s.data["context_turn"]["text"],
-                agent_speaker=s.data["agent_speaker"],
-                agent_spoken_text=s.data["agent_spoken_text"],
-                candidate_speaker=s.data["candidate_speaker"],
-                candidate_text=s.data["candidate_text"],
-            )
-            for i, s in enumerate(samples)
-        ]
-        user = prompts.render_judge_request(self.cat, items)
+        """Judge one sample with the Decisions API; None if the call failed."""
+        d = sample.data
+        item = prompts.JudgeItem(
+            spec=unit.specs[sample.target_index],
+            context_speaker=d["context_turn"]["speaker"],
+            context_text=d["context_turn"]["text"],
+            speaker=d["speaker"],
+            speaker_spoken_text=d["speaker_spoken_text"],
+            listener=d["listener"],
+            listener_text=d["listener_text"],
+        )
+        judge_input, questions = prompts.render_judge_decision(self.cat, item)
         judge_id = st.insert_request(
             run_id=run_id,
             kind="judge",
             parent_request_id=gen_id,
-            combination_id=None if unit.group else unit.targets[0]["combination_id"],
+            combination_id=unit.targets[sample.target_index]["combination_id"],
             contrastive_group_id=unit.key if unit.group else None,
             language=unit.language,
-            requested_count=len(items),
+            requested_count=1,
             model_id=self.config.judge_model,
             prompt_template=prompts.JUDGE_TEMPLATE,
-            prompt_hash=prompts.prompt_hash(self.judge_system, user),
+            prompt_hash=prompts.judge_hash(judge_input, questions),
         )
         try:
-            result = self.client.generate(
-                model=self.config.judge_model,
-                system_prompt=self.judge_system,
-                user_prompt=user,
-                schema=prompts.JUDGE_SCHEMA,
-                thinking_level=self.config.judge_thinking_level,
+            result = self.client.decide(
+                model=self.config.judge_model, input=judge_input, questions=questions
             )
         except Exception as exc:  # noqa: BLE001 - every failure is recorded
             st.fail_request(judge_id, status="api_error", error=redact(str(exc)))
             outcome.api_errors += 1
             return None
-        cost = self.config.cost(result.usage)
+        cost = self.config.cost(result.usage, self.config.judge_model)
         outcome.cost_usd += cost or 0.0
-        st.record_response(judge_id, response=result.response, usage=result.usage, cost_usd=cost)
+        st.record_response(
+            judge_id,
+            response={"item_index": index, **result.response},
+            usage=result.usage,
+            cost_usd=cost,
+        )
         return st.request(judge_id)
 
     def _decide(
@@ -607,8 +631,9 @@ class Runner:
             return None, None
         if gemini != intended or judge != intended:
             return "label_mismatch", f"intended={intended} gemini={gemini} judge={judge}"
-        if intended == "barge_in":
-            g, j = sample.barge_in_from_word, verdict.barge_in_from_word
+        g = sample.barge_in_from_word
+        if intended == "barge_in" and g:  # a developing barge-in: the turning point must agree
+            j = verdict.barge_in_from_word
             if j is None or abs(g - j) > self.config.barge_in_word_tolerance:
                 return "label_mismatch", f"barge_in_from_word gemini={g} judge={j}"
         return None, None

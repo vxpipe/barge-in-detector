@@ -5,4 +5,4 @@ milestone's acceptance gates pass.
 
 - [ ] [Multilingual text barge-in classifier](multilingual-text-barge-in-classifier.md)
   — contracts, synthetic data, training, CPU latency and Vxpipe hand-off for a
-  first model covering at least 100 languages.
+  first model covering 36 languages.
