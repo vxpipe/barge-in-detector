@@ -135,8 +135,10 @@ Decided with the user on 2026-11-14.
   Draft 0.1.0 written 2026-11-14: [factor catalogue](../../docs/factor-catalogue.md)
   with 116 languages, 22 domains / 70 scenarios, 25 intents, 17 constraints and
   6 contrastive groups (0.2.0 after removing non-caller speech from scope); all references and constraints validated
-  ([labnotes](../20261114-1023-factor-catalogue-draft.md)). Awaiting user review
-  of the points listed in the catalogue doc.
+  ([labnotes](../20261114-1023-factor-catalogue-draft.md)). 0.7.0 applies
+  Fable's review, accepted by the user: 24 intents, 22 domains / 77 scenarios,
+  20 rules, 9 contrastive groups, and a bare "ok" is always a backchannel.
+  Remaining review points are listed in the catalogue doc.
 - [ ] Benchmark candidate base models (fp32 and int8 ONNX, 96/128/192 tokens) on
   the reference CPU before training. Drop any that cannot meet 20 ms on the
   model path, or that have incompatible licences.
@@ -148,36 +150,43 @@ Decided with the user on 2026-11-14.
 Follows the deterministic generation plan in [AGENTS.md](../../AGENTS.md):
 project code picks every sample's conditions; Gemini only writes the text.
 
-- [ ] Python project with `uv`, `google-genai`, `pyarrow` and tests.
-- [ ] Schema module owning the Arrow schemas and factor-value validation for
-  every stage in `docs/data-format.md`. Tests first: valid writes round-trip;
-  rows with unknown factor values or wrong types are rejected.
-- [ ] Transcript cleaner as specified in
+- [x] Python project with `uv`, `google-genai`, `duckdb` and tests
+  ([labnotes](../20261114-1541-synthetic-data-generator.md)).
+- [x] Schema module owning the table schemas (`storage/schema.py`) and
+  factor-value validation (`catalogue.py`) for every stage in
+  `docs/data-format.md`. Tests: valid writes round-trip through export and
+  import; specs with unknown factor values are rejected by the catalogue.
+- [x] Transcript cleaner as specified in
   [transcript format](../../docs/transcript-format.md), with golden test cases
   for every rule and script family (Latin, Devanagari, Kannada, Tamil, Arabic,
   Cyrillic, CJK, ZWJ/ZWNJ, apostrophes, hyphens). Tests first. Share the golden
   cases with Vxpipe for runtime parity.
-- [ ] Deterministic example builder (conversations → examples: turn shapes,
+- [x] Deterministic example builder (conversations → examples: turn shapes,
   prefixes, original and cleaned transcripts, speaker labels, per-prefix
   labels, partitioning). Tests first: same
   input gives identical output.
-- [ ] Factor catalogue and constraint rules as versioned data, with a `docs/`
+- [x] Factor catalogue and constraint rules as versioned data, with a `docs/`
   decision listing every factor, its values and the intent → label mapping.
-- [ ] Seeded plan builder (stratified quotas, all-pairs coverage, hard-case and
+- [x] Seeded plan builder (stratified quotas, all-pairs coverage, hard-case and
   contrastive-pair quotas) producing criteria (factor combinations with
   required counts) and stable `combination_id`s. Tests first: same inputs give
   the same plan; constraints are respected; coverage targets are met; IDs are
   stable across runs and catalogue additions.
-- [ ] Prompt templates rendered only from a criterion, emitting 2- and 3-turn
-  windows with the overlap point marked. Tests for rendering.
-- [ ] Judge pass checking each record against its criterion; reject
-  non-matching records; report rejections per factor value.
+- [x] Prompt templates rendered only from a criterion, emitting 2- and 3-turn
+  windows with the overlap point marked. Tests for rendering. Two parts per
+  call: a cached system prompt with the common rules and a per-request
+  criterion prompt; up to 10 samples per request
+  ([generator](../../docs/generation.md)).
+- [x] Judge pass checking each record against its criterion; reject
+  non-matching records. Rejections are stored per stage and reason; a report
+  per factor value is part of the coverage report task below.
 - [ ] Coverage report per factor value and factor pair, from both the plan and
   the accepted records.
 - [ ] Native-script, romanized and mixed-script/code-switched variants
   (romanized Hindi + English, romanized Hindi + Devanagari, etc.).
-- [ ] Contrastive minimal pairs and hard negatives as listed in Requirements.
-- [ ] Prefix expansion with per-prefix labels.
+- [x] Contrastive minimal pairs and hard negatives as listed in Requirements
+  (contrastive groups generated as sets in one request, accepted in lockstep).
+- [x] Prefix expansion with per-prefix labels.
 - [ ] Exact and near-duplicate removal;
   balance reports per language/script/category/label; resumable sharded
   generation via the Batch API; cost tracking; snapshot manifests.
@@ -189,6 +198,7 @@ project code picks every sample's conditions; Gemini only writes the text.
   for the same inputs and match their documented derivation; disallowed
   updates (generated text, factor values, splits) are refused; exporting twice
   gives byte-identical files; import then export reproduces the same files.
+  Done except snapshots (manifest, coverage and split audit files).
 - [ ] Fill-to-count generation as specified in
   [data format](../../docs/data-format.md#generation-fill-each-criterion-to-its-required-count):
   per-criterion `need = required − accepted − in flight`, skip when met;
@@ -200,13 +210,14 @@ project code picks every sample's conditions; Gemini only writes the text.
   exactly the remaining counts; raising a count generates only the difference;
   an interrupted run resumes without duplicate requests; generated text is
   never changed by any run; a retired conversation is replaced and its text
-  kept.
+  kept. Done for direct (interactive) calls, with all listed tests; Batch API
+  submission and resume remain.
 - [ ] Pilot on **English and Hindi**, user review, fix prompts. Then Kannada
   and Tamil with user review, then scale to the full manifest.
 
 ## Checkpoint C — Evaluation sets
 
-- [ ] Deterministic split assignment in the plan builder as specified in
+- [x] Deterministic split assignment in the plan builder as specified in
   [data format: splits](../../docs/data-format.md#splits): split groups via
   union-find, seeded ordering, iterative stratification to 80/10/10, explicit
   `heldout` factor values. Tests first: same inputs give the same assignment;

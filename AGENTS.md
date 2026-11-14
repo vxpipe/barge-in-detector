@@ -253,6 +253,17 @@ recorded in that document.
   part of the 50 ms whole-path budget and must be measured, not assumed.
 - Tests use `pytest`. Mark tests that call Gemini or other networks as
   `integration` and exclude them from the default run.
+- Code layout (`barge_in_detector/`): `catalogue.py` (factor catalogue and
+  spec validation), `ids.py`, `cleaner.py` (transcript cleaner),
+  `examples.py` (example builder), `generation/` (plan builder, prompts,
+  response validation, Gemini client, fill-to-count runner), `storage/`
+  (DuckDB schema, the storage module, Parquet export and import), `cli.py`.
+  Prompt templates live in `generation/prompts/`, plans in
+  `generation/plans/`, run settings in `generation/config.yaml`.
+- Data commands run through `uv run python -m barge_in_detector …`: `check-catalogue`, `plan`,
+  `generate` (`--dry-run`, `--limit`, `--languages`, `--budget-usd`),
+  `status`, `show-prompt`, `build-examples`, `export`, `import`. See
+  [docs/generation.md](docs/generation.md).
 
 ## Related repositories
 
