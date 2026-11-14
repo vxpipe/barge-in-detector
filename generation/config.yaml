@@ -1,0 +1,39 @@
+# Generation run settings. See docs/data-format.md (fill to count) and
+# docs/generation.md.
+
+generator_model: gemini-3.8-flash
+judge_model: gemini-3.8-flash
+
+# Samples per generator request (one criterion), or the upper bound on
+# samples per request for a contrastive group (sets × members).
+batch_size: 10
+
+# Attempt budget: a criterion may request at most this many samples per
+# required sample, counting rejected attempts.
+max_attempts_per_sample: 3
+
+# Parallel API calls. DuckDB writes stay in one process.
+concurrency: 4
+
+# null keeps the model's default.
+temperature: null
+thinking_level: null
+judge_thinking_level: null
+
+# Cache the common system prompt with an explicit Gemini context cache. When
+# the cache cannot be created (for example, the prompt is below the model's
+# minimum cache size), the system prompt is sent with every request instead and
+# implicit prefix caching applies.
+explicit_cache: true
+cache_ttl_seconds: 3600
+
+# Allowed difference between the generator's and the judge's
+# barge_in_from_word for a developing utterance.
+barge_in_word_tolerance: 1
+
+# Fill these in from Google's current price list to enable cost tracking and
+# --budget-usd. null means unknown: tokens are still recorded.
+prices_usd_per_million_tokens:
+  input: null
+  cached_input: null
+  output: null

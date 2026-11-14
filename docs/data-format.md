@@ -1,8 +1,10 @@
 # Data generation and storage format
 
-Status: draft decision, 2026-11-14. Settle it in milestone Checkpoint A, before
-the Checkpoint B generator writes any data. Column lists change only through a
-schema version bump recorded here.
+Status: decided 2026-11-14; schema version 1 implemented in
+`barge_in_detector/storage/` (`schema.py` owns the columns, `store.py` every
+write). Column lists change only through a schema version bump recorded here.
+Gemini calls, prompts and acceptance are described in
+[the generator](generation.md).
 
 ## Decision
 
@@ -48,12 +50,13 @@ data/
   work/barge_in.duckdb            # working store; local, gitignored
   export/                         # committed, Git LFS
     plan_revisions.parquet
+    runs.parquet
+    annotations.parquet
     targets/language=hi/part-0.parquet
     requests/language=hi/run_id=<run_id>/part-0.parquet
     conversations/language=hi/run_id=<run_id>/part-0.parquet
     rejections/language=hi/run_id=<run_id>/part-0.parquet
     examples/builder=<version>/split=train/language=hi/run_id=<run_id>/part-0.parquet
-    annotations/language=hi/part-0.parquet
     snapshots/<snapshot_id>/
       manifest.json               # see "Snapshots"
       coverage.parquet            # counts per factor value and factor pair
@@ -105,25 +108,36 @@ right-hand column; anything else is refused, and tests prove it.
 
 ### What a run does
 
-1. Open the database (DuckDB allows one writer, so two runs cannot overlap).
-2. Finish earlier work first, without new API calls: collect results of
-   submitted batch jobs recorded in `requests`, and process stored responses
-   that were never turned into conversations or rejections.
+1. Open the database (DuckDB allows one writer process, so two runs cannot
+   overlap; API calls within a run use worker threads with their own cursors).
+2. Finish earlier work first, without new generator calls: mark requests that
+   never got a response `api_error` ("interrupted"), and process stored
+   responses that were never turned into conversations or rejections, calling
+   the judge first if needed. (Collecting submitted Batch API jobs belongs here
+   once batch mode exists.)
 3. Go through active criteria in a fixed order (plan priority, then
-   `combination_id`). For each one, count accepted (non-retired)
-   conversations and requests in flight, and compute `need`.
+   `quota_group`, then `combination_id`); a contrastive group is one unit. For
+   each, count accepted (non-retired) conversations and the samples in
+   requests still in flight (`submitted` or `received`), and compute `need`.
 4. Skip the criterion if `need ≤ 0`, or if it has used its attempt budget
-   (`max_attempts_per_sample × required_count` attempts, counted from
-   `requests`). Rejected attempts use budget but never count toward the
-   required count.
-5. Otherwise request `need` samples. Each request row is inserted before the
-   call is made, so a crash never loses track of a request.
+   (`max_attempts_per_sample × required_count` samples requested, counted from
+   `requests`, excluding `api_error` requests so an outage does not exhaust
+   it). Rejected attempts use budget but never count toward the required
+   count.
+5. Otherwise request `need` samples, in requests of at most `batch_size` (10).
+   Each request row is inserted before the call is made, so a crash never
+   loses track of a request. Rounds repeat within the run until nothing is
+   short, the budget is used, `--limit` is reached, or a round gets no
+   response at all.
 6. Validate responses, run the blind judge, check that the labels agree (see
    [Labels](#labels)) and deduplicate; insert accepted conversations and
    their examples, or rejections, in the same transaction that marks the
    request processed.
-7. Export, then report per language, label and factor value: filled, still
-   short, budget exhausted, and cost.
+7. Export, then report accepted and rejected counts (by stage and reason),
+   criteria still short, budget exhausted, and cost.
+
+A run that finds nothing to do records no run row and changes no file; an
+unchanged plan records no plan revision.
 
 `--dry-run` performs steps 1–4 and prints the shortfall and estimated cost
 without calling the API or writing anything. `--limit` and a cost budget cap a
@@ -179,7 +193,11 @@ Every sample's label comes from Gemini, the reference model, not from our code:
    where the intent definitions or prompts are unclear.
 
 The stored training label is Gemini's classification; per-prefix labels in
-`examples` follow from the classified barge-in word.
+`examples` follow from the classified barge-in word. For a barge-in, the two
+`barge_in_from_word` values may differ by at most one word. An intended
+`ambiguous` sample needs only the generator's `ambiguous`; the judge's label is
+kept for evaluation. The exact order of checks is in
+[the generator](generation.md#acceptance-of-a-sample).
 
 ## Identifiers
 
@@ -209,11 +227,12 @@ change every derived ID.
 | `request_id` | v7 | one Gemini request attempt |
 | `conversation_id` | v7 | one accepted conversation |
 | `rejection_id` | v7 | one rejected attempt |
-| `example_id` | v5 | `example:` + `conversation_id`, turn shape and prefix index. Independent of the builder and cleaner versions, so annotations stay attached when cleaning changes |
+| `example_id` | v5 | `example:{conversation_id}:{turn_shape}:{prefix_index}`. Independent of the builder and cleaner versions, so annotations stay attached when cleaning changes |
 | `annotation_id` | v7 | one human review entry |
 
-UUIDs are generated in Python (`uuid.uuid5`; `uuid.uuid7` from Python 3.14, or
-a small dependency on older versions), so tests can check the derivations.
+UUIDs are generated in Python (`uuid.uuid5`, and `uuid.uuid7` from Python
+3.14, which the project requires) in `barge_in_detector/ids.py`, so tests
+check the derivations.
 DuckDB stores them with its `UUID` type. Exports write them as canonical
 lowercase strings so every Parquet reader handles them the same way. Human
 names (e.g. `en-hi-pilot`) are separate columns, never used as keys.
@@ -255,9 +274,9 @@ value such as `none` when the factor applies and is absent.
 
 ### `plan_revisions`
 
-`revision_id` (primary key), `name`, `created_at`, `quotas` (JSON), `split_ratios`
-(JSON), `heldout` (JSON: factor values held out), `seed`, and the factor
-catalogue, constraints and language manifest versions.
+`revision_id` (primary key), `name`, `created_at`, `seed`, `quotas` (JSON),
+`split_ratios` (JSON), `heldout` (JSON: factor values held out) and
+`catalogue_versions` (JSON: the version of every catalogue file).
 
 ### `runs`
 
@@ -272,8 +291,9 @@ Common factor columns, plus:
 | Column | Type | Notes |
 | --- | --- | --- |
 | `combination_id` | UUID | primary key |
+| `contrastive_role` | INTEGER | member index within the contrastive group; null otherwise |
 | `required_count` | INTEGER | samples needed for this criterion |
-| `quota_group` | VARCHAR | the quota that selected this criterion, e.g. `pairwise`, `hard_case`, `contrastive_pair` |
+| `quota_group` | VARCHAR | the stream that selected this criterion: `stratified` or `contrastive` |
 | `priority` | INTEGER | generation order; lower first |
 | `added_in_revision`, `count_set_in_revision` | UUID | plan revisions that created it and last set its count |
 | `status` | VARCHAR | `active` or `retired` |
@@ -284,13 +304,19 @@ Common factor columns, plus:
 | Column | Type | Notes |
 | --- | --- | --- |
 | `request_id` | UUID | primary key |
-| `combination_id`, `run_id` | UUID | |
+| `kind` | VARCHAR | `generate` or `judge` |
+| `parent_request_id` | UUID | for a judge request, the generate request it judges |
+| `run_id` | UUID | |
+| `combination_id` | UUID | the criterion; null for a contrastive group request |
+| `contrastive_group_id` | VARCHAR | the group, for a contrastive group request |
 | `language` | VARCHAR | |
+| `requested_count` | INTEGER | samples asked for (judge: items judged) |
 | `batch_job_id` | VARCHAR | null for direct calls |
 | `model_id`, `prompt_template`, `prompt_hash` | VARCHAR | |
 | `status` | VARCHAR | `submitted`, `received`, `processed`, `api_error`, `schema_invalid` |
-| `response` | JSON | the raw structured response exactly as returned |
-| `input_tokens`, `output_tokens` | INTEGER | |
+| `error` | VARCHAR | for `api_error` and `schema_invalid`, with any key redacted |
+| `response` | JSON | curated raw response: the returned text exactly, model version, response ID, finish reason, token usage. No headers |
+| `input_tokens`, `cached_input_tokens`, `output_tokens` | INTEGER | output includes thinking tokens |
 | `cost_usd` | DOUBLE | |
 | `created_at`, `completed_at` | TIMESTAMP | |
 
@@ -303,11 +329,13 @@ Common factor columns, plus:
 | Column | Type | Notes |
 | --- | --- | --- |
 | `conversation_id` | UUID | primary key |
-| `request_id`, `run_id` | UUID | provenance |
-| `turns` | STRUCT(speaker VARCHAR, role VARCHAR, text VARCHAR)[] | all turns before the overlap, oldest first, exactly as generated; `speaker` is the name or role Gemini used, `role` is `agent`, `caller` or `other` |
+| `request_id`, `judge_request_id`, `run_id` | UUID | provenance |
+| `sample_index` | INTEGER | position of the sample in the response |
+| `turns` | STRUCT(speaker VARCHAR, role VARCHAR, text VARCHAR)[] | the turns before the overlapped agent turn, oldest first, exactly as generated (currently one: the context turn); `speaker` is the name or role Gemini used, `role` is `caller` or `other` |
+| `agent_speaker` | VARCHAR | the agent's name as generated |
 | `agent_full_text` | VARCHAR | what the agent intended to say in the overlapped turn, as generated |
 | `agent_spoken_text` | VARCHAR | the part spoken before the caller started, as generated |
-| `candidate_speaker` | VARCHAR | as generated |
+| `candidate_speaker`, `candidate_role` | VARCHAR | as generated; role `caller` or `other` |
 | `candidate_text` | VARCHAR | the caller's full final utterance, as generated |
 | `intended_label` | VARCHAR | from the criterion's intent |
 | `gemini_label` | VARCHAR | the generator's classification of the final utterance |
@@ -317,21 +345,26 @@ Common factor columns, plus:
 | `judge_barge_in_from_word` | INTEGER | the judge's word index, for agreement checks |
 | `model_id`, `prompt_template`, `judge_model_id` | VARCHAR | |
 | `judge_notes` | VARCHAR | |
+| `text_hash` | VARCHAR | SHA-256 of the cleaned three-line window, for exact deduplication |
 | `status` | VARCHAR | `active` or `retired` |
 | `retired_reason`, `retired_at` | VARCHAR, TIMESTAMP | |
 | `created_at` | TIMESTAMP | |
 
 ### `rejections`
 
-`rejection_id` (primary key), `request_id`, `combination_id`, `language`,
-`run_id`, `stage` (`schema`, `judge`, `label_mismatch`, `dedupe`), `reason`,
-`gemini_label`, `judge_label`, `created_at`.
+`rejection_id` (primary key), `request_id`, `judge_request_id`,
+`combination_id`, `language`, `run_id`, `sample_index`, `stage` (`schema`,
+`judge`, `label_mismatch`, `dedupe`, `contrastive`), `reason`, `gemini_label`,
+`judge_label`, `created_at`.
 
 ### `examples`
 
-Built deterministically from active conversations: one row per (turn shape ×
-candidate prefix). Prefixes are cut from the original candidate words, then
-each window is cleaned. Inputs are cleaned-up transcripts, so no ASR-noise
+Built deterministically from active conversations by
+`barge_in_detector/examples.py` (builder version 1): one row per (turn
+shape × candidate prefix). Prefixes are cut at the original candidate's
+whitespace tokens, then each window is cleaned; a token that adds no cleaned
+word (a lone dash) gives no new prefix, and `barge_in_from_word` counts
+cleaned words. Inputs are cleaned-up transcripts, so no ASR-noise
 variants are produced. Common factor columns, plus:
 
 | Column | Type | Notes |
@@ -347,10 +380,10 @@ variants are produced. Common factor columns, plus:
 | `candidate_original` | VARCHAR | the candidate prefix as generated |
 | `candidate_clean` | VARCHAR | the candidate prefix after cleaning |
 | `cleaner_version` | VARCHAR | |
-| `prefix_index` | SMALLINT | 0-based word count of the prefix |
+| `prefix_index` | SMALLINT | 0-based index of the prefix's last original token |
 | `is_final_prefix` | BOOLEAN | |
 | `label` | VARCHAR | label for this prefix (a prefix of a developing interruption can be `backchannel`) |
-| `label_id` | TINYINT | 0 = backchannel, 1 = barge-in |
+| `label_id` | TINYINT | 0 = backchannel, 1 = barge-in, null = ambiguous |
 
 Sample weights for rebalancing belong to the snapshot or training config, not
 the examples table.
@@ -416,15 +449,21 @@ Criteria and contrastive groups are merged with union-find; the result is
 
 1. Target ratios, initially **train 80 / validation 10 / test 10**, recorded in
    the plan revision.
-2. New groups are ordered by SHA-256 of (`seed`, `split_group_id`), which is
+2. New groups are ordered rarest first (by the least frequent factor value
+   they carry), ties broken by SHA-256 of (`seed`, `split_group_id`), which is
    deterministic but unrelated to factor values.
 3. Each new group is assigned in that order to the split that is furthest below
    its target share for the group's factor values and label, weighted by
-   `required_count` and **counting all existing criteria as already assigned**
-   (iterative stratification). This keeps every factor value, every label and
-   every language at roughly the target ratio in each split as the data grows,
-   so validation and test don't end up with more of one kind.
-4. Every factor value present in validation or test must also be present in
+   `required_count` and **counting existing criteria as already assigned**
+   (iterative stratification). A group carrying a value train does not have yet
+   goes to train.
+4. A refinement pass then moves or swaps new groups between splits while that
+   lowers a chi-square imbalance over the audited values (those with at least
+   `split_min_support` criteria, 50 by default), never taking a value's last
+   training criterion out of train. This keeps every common factor value,
+   every label and every language at the target ratio in each split as the
+   data grows, so validation and test don't end up with more of one kind.
+5. Every factor value present in validation or test is also present in
    train. Combinations are unseen; individual values are not.
 
 Same inputs (existing targets, quotas, ratios, seed) always give the same
@@ -440,9 +479,11 @@ used for tuning or threshold selection.
 
 ### Checks
 
-- **Plan revision**: each factor value, label and language is within ±2
-  percentage points of the target ratio in every split (by required count), or
-  the revision fails; no `split_group_id` spans two splits.
+- **Plan revision**: each factor value, label and language with at least
+  `split_min_support` criteria is within ±2 percentage points of the target
+  ratio in every split (by required count), or the revision is not applied;
+  rarer values are reported but cannot be balanced. No `split_group_id` spans
+  two splits, and every value has training criteria.
 - **Snapshot**: the same proportions are recomputed on accepted examples,
   because rejections and exhausted budgets can shift them, and written to
   `splits.parquet`. Out-of-tolerance drift fails the snapshot.
