@@ -137,3 +137,22 @@ validation, with tests written first.
   `judge_barge_in_from_word`.
 - Revalidated, no errors: 26 intents; 37,439 of 218,400 intent-side
   combinations valid (backchannel 10,029, barge_in 26,260, ambiguous 1,150).
+
+## Catalogue 0.6.0: bare "ok" is a backchannel
+
+- Fable's review found that `ok_pause_vs_ok_response` produced identical
+  inputs with opposite labels: `acknowledgment` and `acknowledgment_response`
+  both had `explaining` + `just_finished`, and the text cannot show whether
+  the agent had more queued.
+- User decision: a bare "ok" is always a backchannel; an agent line that looks
+  complete may be treated either way, so no mid-turn-pause state is needed.
+  Exception kept: after a finished question, "ok" is `answer_to_question`.
+- Removed the `acknowledgment_response` intent, its constraint and the
+  contrastive group. Versions: catalogue 0.6.0, intents 0.4.0,
+  constraints 0.5.0, contrastive 0.4.0.
+- Validator: no errors; 25 intents, 36,989 of 210,000 intent-side combinations
+  valid (10,029 backchannel, 25,810 barge-in, 1,150 ambiguous). Backchannel
+  count is unchanged because `acknowledgment` was already allowed at
+  `just_finished` after statements.
+- Fable's other recommendations are still unapplied.
+

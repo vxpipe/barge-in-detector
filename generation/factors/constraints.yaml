@@ -10,7 +10,7 @@
 # code_switch_set within the language's sets for that regional_variant) are
 # implied by values_from.
 
-version: 0.4.0
+version: 0.6.0
 
 rules:
   # ---- scripts and code-switching ----
@@ -41,8 +41,17 @@ rules:
     description: Answering early needs a question or choice still being spoken.
     when: {caller_intent: [early_answer]}
     require:
-      agent_activity: [asking_yes_no_question, asking_open_question, listing_options, confirming_details, pitching]
+      agent_activity: [asking_yes_no_question, asking_open_question, listing_options, confirming_details]
       cut_position: [early, middle, near_end]
+
+  - id: early_answer_to_closed_question_near_end
+    description: >
+      An early answer to a yes/no question or a read-back only once the
+      question is clear, i.e. near its end.
+    when:
+      caller_intent: [early_answer]
+      agent_activity: [asking_yes_no_question, confirming_details]
+    require: {cut_position: [near_end]}
 
   - id: no_backchannel_after_finished_question
     description: >
@@ -52,16 +61,17 @@ rules:
       cut_position: [just_finished]
       agent_activity: [asking_yes_no_question, asking_open_question, confirming_details]
     forbid:
-      caller_intent: [continuer, acknowledgment, agreement_token, understanding, surprise_token, empathy_token, laughter, gratitude_token, tracking_repeat]
+      caller_intent: [continuer, acknowledgment, agreement_token, reaction_token, gratitude_token, tracking_repeat, go_ahead]
 
-  - id: acknowledgment_response_needs_finished_statement
+  - id: no_affirmative_backchannel_near_end_of_closed_question
     description: >
-      Responding with "ok" needs the agent to have finished a statement; after a
-      finished question the same word is answer_to_question.
-    when: {caller_intent: [acknowledgment_response]}
-    require: {cut_position: [just_finished]}
+      Near the end of a yes/no question or read-back, "yes"/"ok" reads as an
+      early answer, so these backchannels are not generated there.
+    when:
+      cut_position: [near_end]
+      agent_activity: [asking_yes_no_question, confirming_details]
     forbid:
-      agent_activity: [asking_yes_no_question, asking_open_question, confirming_details, greeting_opening]
+      caller_intent: [continuer, acknowledgment, agreement_token, gratitude_token, go_ahead]
 
   - id: thinking_filler_needs_finished_question
     when: {caller_intent: [thinking_filler_after_question]}
@@ -89,14 +99,26 @@ rules:
 
   - id: interruption_intents_while_speaking
     description: These only make sense while the agent is still talking.
-    when: {caller_intent: [stop_request, hold_request, tracking_repeat]}
+    when: {caller_intent: [floor_request, tracking_repeat, skip_request]}
     forbid: {cut_position: [just_finished]}
+
+  - id: hello_check_after_agent_stops
+    description: Checking the line makes sense once the agent has gone quiet.
+    when: {caller_intent: [hello_check]}
+    require: {cut_position: [just_finished]}
+
+  - id: turn_continuation_needs_own_turn
+    description: >
+      Continuing one's own earlier point needs the judged speaker's earlier
+      turn in the window (s1, s2, s1).
+    when: {caller_intent: [turn_continuation]}
+    require: {speaker_pattern: [returning_speaker]}
 
   # ---- development, repetition, length ----
   - id: development_only_for_barge_in
     description: Only barge-in utterances develop from a backchannel or filler.
     when:
-      caller_intent: [continuer, acknowledgment, agreement_token, understanding, surprise_token, empathy_token, laughter, gratitude_token, tracking_repeat, collaborative_completion, thinking_filler_after_question, mixed_signal]
+      caller_intent: [continuer, acknowledgment, agreement_token, reaction_token, gratitude_token, tracking_repeat, go_ahead, collaborative_completion, thinking_filler_after_question]
     require: {development: [stable]}
 
   - id: development_needs_length
@@ -106,7 +128,7 @@ rules:
 
   - id: no_backchannel_development_into_stop
     description: Stop and repeat requests rarely start with an agreement token.
-    when: {caller_intent: [stop_request, repeat_request]}
+    when: {caller_intent: [floor_request, repeat_request]}
     forbid: {development: [backchannel_then_barge_in]}
 
   - id: one_word_is_single
@@ -114,11 +136,7 @@ rules:
     when: {length_bucket: [w1]}
     require: {repetition: [single]}
 
-  # ---- mood and activity plausibility ----
-  - id: no_laughter_when_frustrated
-    when: {caller_intent: [laughter]}
-    forbid: {caller_mood: [frustrated]}
-
+  # ---- mood plausibility ----
   - id: complaint_mood
     when: {caller_intent: [complaint]}
     require: {caller_mood: [frustrated, hurried]}

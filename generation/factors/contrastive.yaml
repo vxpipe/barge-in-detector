@@ -3,7 +3,7 @@
 # prompt asks for the shared element to be the same text across members.
 # All members of a group get the same contrastive_group_id and split.
 
-version: 0.3.0
+version: 0.5.0
 
 groups:
   - id: yes_backchannel_vs_answer
@@ -13,12 +13,12 @@ groups:
       - {caller_intent: agreement_token, agent_activity: explaining, cut_position: middle}
       - {caller_intent: answer_to_question, agent_activity: asking_yes_no_question, cut_position: just_finished}
 
-  - id: ok_backchannel_vs_early_answer
-    description: The same short word acknowledging a list vs. choosing from it.
-    shared: candidate_text
+  - id: ok_backchannel_vs_choice
+    description: The same agent list, acknowledged with "ok" vs. answered by picking an option.
+    shared: agent_turn
     members:
       - {caller_intent: acknowledgment, agent_activity: listing_options, cut_position: middle}
-      - {caller_intent: early_answer, agent_activity: asking_yes_no_question, cut_position: near_end}
+      - {caller_intent: early_answer, agent_activity: listing_options, cut_position: middle}
 
   - id: backchannel_stays_vs_develops
     description: The same opening backchannel that stays one vs. turns into a correction.
@@ -45,14 +45,26 @@ groups:
     description: One-word stop vs. one-word continuer during the same agent turn.
     shared: agent_turn
     members:
-      - {caller_intent: stop_request, length_bucket: w1, cut_position: middle}
+      - {caller_intent: floor_request, length_bucket: w1, cut_position: middle}
       - {caller_intent: continuer, length_bucket: w1, cut_position: middle}
 
-  - id: ok_pause_vs_ok_response
-    description: >
-      The same "ok" when the agent has only paused mid-explanation (backchannel)
-      vs. when it has finished its point and the caller hands the turn back.
-    shared: candidate_text
+  - id: go_on_vs_hold_on
+    description: '"Go on" vs. "hold on" during the same agent turn.'
+    shared: agent_turn
     members:
-      - {caller_intent: acknowledgment, agent_activity: explaining, cut_position: just_finished}
-      - {caller_intent: acknowledgment_response, agent_activity: explaining, cut_position: just_finished}
+      - {caller_intent: go_ahead, agent_activity: explaining, cut_position: middle, length_bucket: w2_3}
+      - {caller_intent: floor_request, agent_activity: explaining, cut_position: middle, length_bucket: w2_3}
+
+  - id: ok_vs_ok_bye_at_closing
+    description: '"ok" vs. "ok bye" after the agent''s closing line.'
+    shared: candidate_opening
+    members:
+      - {caller_intent: acknowledgment, agent_activity: closing, cut_position: just_finished, length_bucket: w1}
+      - {caller_intent: end_call, agent_activity: closing, cut_position: just_finished, length_bucket: w2_3}
+
+  - id: reaction_stays_vs_complaint
+    description: '"oh no" that stays a reaction vs. one that turns into a complaint.'
+    shared: candidate_opening
+    members:
+      - {caller_intent: reaction_token, agent_activity: explaining, cut_position: middle, development: stable, length_bucket: w2_3}
+      - {caller_intent: complaint, agent_activity: explaining, cut_position: middle, development: backchannel_then_barge_in, length_bucket: w4_8}

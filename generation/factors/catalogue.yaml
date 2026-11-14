@@ -6,7 +6,7 @@
 # criterion (a row in the targets table) with a required sample count. Gemini only writes text that
 # satisfies the chosen values.
 
-version: 0.5.0
+version: 0.7.0
 status: draft  # awaiting user review
 
 files:
@@ -115,6 +115,10 @@ spec_factors:
         description: Promoting an offer, upgrade or product.
       - id: small_talk
         description: Pleasantries, weather, how the caller is.
+      - id: closing
+        description: >
+          Wrapping up the call: summarising, asking whether anything else is
+          needed, saying goodbye.
 
   - id: cut_position
     description: How much of the agent's turn had been spoken when the caller started.
