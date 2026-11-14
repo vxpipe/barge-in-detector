@@ -1,0 +1,27 @@
+# Pilot plan: English and Hindi, for user review before Kannada, Tamil and
+# the rest. Growing it later (more criteria, higher counts) is prefix-stable:
+# existing criteria keep their IDs and splits.
+
+name: en-hi-pilot
+seed: 20261114
+languages: [en, hi]
+
+# Samples per criterion. One generator request carries up to batch_size
+# (generation/config.yaml) samples, so 10 means one request per criterion.
+required_count: 10
+
+# Share of stratified criteria per intended label; intents within a label are
+# filled round-robin.
+label_shares: {backchannel: 0.45, barge_in: 0.5, ambiguous: 0.05}
+criteria_per_language: 100
+
+# Instances of every contrastive group, per language.
+contrastive_instances_per_group: 2
+
+# Candidates drawn per pick; the one adding the most uncovered factor-value
+# pairs wins.
+candidates_per_pick: 12
+
+split_ratios: {train: 0.8, validation: 0.1, test: 0.1}
+# Whole factor values kept out of training to measure generalization.
+heldout: {domain: [agri_rural]}
