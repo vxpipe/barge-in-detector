@@ -1,8 +1,8 @@
 # Transcript format and cleaning
 
-Status: draft decision, 2026-11-14. This is the model's input contract: the
-training data and the runtime caller (Vxpipe) must produce exactly the same
-cleaned transcript for the same conversation.
+Status: decided 2026-11-14; cleaner version 1 implemented. This is the
+model's input contract: the training data and the runtime caller (Vxpipe) must
+produce exactly the same cleaned transcript for the same conversation.
 
 ## Decision
 
@@ -50,9 +50,12 @@ Applied to each turn's text, in order:
    a space: `mm-hmm` → `mm hmm`.
 5. **Kept as they are:** letters, digits, combining marks (`M*`, e.g. Indic
    vowel signs and virama), zero-width joiner and non-joiner (needed in Indic
-   scripts and Persian), and symbols (`S*`, e.g. `₹`, `%`, `+`).
-6. **Whitespace collapsed** to single spaces and trimmed.
-7. A turn whose text becomes empty is invalid; the example builder rejects it
+   scripts and Persian), symbols (`S*`, e.g. `₹`, `+`), and `%` and `‰`, which
+   Unicode classes as punctuation but which belong to the number.
+6. **Other invisible format characters** (`Cf`, e.g. soft hyphen, bidi marks)
+   are deleted; separators and control characters become a space.
+7. **Whitespace collapsed** to single spaces and trimmed.
+8. A turn whose text becomes empty is invalid; the example builder rejects it
    rather than emitting an empty line.
 
 Numbers are not converted between digits and words; the text keeps whatever
@@ -80,9 +83,11 @@ need the runtime to send agent text the same way.
 
 ## Runtime parity
 
-- The cleaner ships with a set of golden test cases (original window → cleaned
-  transcript) covering every rule and script family. The Vxpipe side must pass
-  the same cases, whether it reuses this cleaner or reimplements it.
+- The cleaner (`barge_in_detector/cleaner.py`) ships with golden test
+  cases in `tests/fixtures/cleaner_golden.yaml` (original text or window →
+  cleaned) covering every rule and script family. The fixture is YAML so it
+  stays diffable outside Git LFS. The Vxpipe side must pass the same cases,
+  whether it reuses this cleaner or reimplements it.
 - `cleaner_version` is part of the model card. A model trained on one cleaner
   version must be served with input cleaned by that version.
 

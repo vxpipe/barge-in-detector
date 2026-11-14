@@ -1,0 +1,50 @@
+# Golden cases for transcript cleaner v1 (docs/transcript-format.md).
+# Shared with Vxpipe for runtime parity: every implementation must turn each
+# `text` into exactly `clean`. Kept as YAML so it stays diffable outside LFS.
+
+cleaner_version: "1"
+
+texts:
+  - {name: latin_case_and_punctuation, text: "Yes, BOOK it!", clean: "yes book it"}
+  - {name: apostrophe_inside_word, text: "Don't worry, it's fine", clean: "dont worry its fine"}
+  - {name: curly_apostrophe, text: "I’m here", clean: "im here"}
+  - {name: french_elision, text: "D'accord, oui oui.", clean: "daccord oui oui"}
+  - {name: quote_not_inside_word, text: "'ok' he said", clean: "ok he said"}
+  - {name: hyphen_becomes_space, text: "Mm-hmm, uh-huh", clean: "mm hmm uh huh"}
+  - {name: ellipsis_and_dashes, text: "umm… actually — wait", clean: "umm actually wait"}
+  - {name: whitespace_collapsed, text: "  hello \t  there \n", clean: "hello there"}
+  - {name: digits_and_symbols_kept, text: "₹500, 20% off + tax", clean: "₹500 20% off + tax"}
+  - {name: devanagari_danda, text: "हाँ जी, ठीक है।", clean: "हाँ जी ठीक है"}
+  - {name: devanagari_virama_kept, text: "क्या?", clean: "क्या"}
+  - {name: romanized_hindi_mixed, text: "Haan haan, but change the TIME", clean: "haan haan but change the time"}
+  - {name: mixed_script, text: "haan, हाँ ठीक है!", clean: "haan हाँ ठीक है"}
+  - {name: kannada, text: "ಹೌದು, ಸರಿ.", clean: "ಹೌದು ಸರಿ"}
+  - {name: tamil, text: "ஆமா, சரி!", clean: "ஆமா சரி"}
+  - {name: arabic_punctuation, text: "نعم، حسنا؟", clean: "نعم حسنا"}
+  - {name: cyrillic_case, text: "Да, ПОНЯТНО.", clean: "да понятно"}
+  - {name: cjk_full_width_punctuation, text: "好的，明白了。", clean: "好的 明白了"}
+  - {name: spanish_inverted_marks, text: "¿Qué? ¡Vale!", clean: "qué vale"}
+  - {name: zwnj_kept_persian, text: "می‌خواهم", clean: "می‌خواهم"}
+  - {name: zwj_kept_malayalam, text: "എന്‍റെ", clean: "എന്‍റെ"}
+  - {name: nfc_normalised, text: "café", clean: "café"}
+  - {name: soft_hyphen_and_bidi_marks_deleted, text: "inter­net ‎ok", clean: "internet ok"}
+  - {name: german_sharp_s_not_casefolded, text: "Straße", clean: "straße"}
+
+windows:
+  - name: three_turn_returning_speaker
+    turns:
+      - {speaker: Priya, text: "Haan, theek hai; lekin..."}
+      - {speaker: Agent, text: "Aapka order kal tak pahunch jayega, aur"}
+      - {speaker: Priya, text: "Haan haan, but change the time!"}
+    clean: "s1: haan theek hai lekin\ns2: aapka order kal tak pahunch jayega aur\ns1: haan haan but change the time"
+  - name: three_turn_new_speaker
+    turns:
+      - {speaker: Caller, text: "Is it ready?"}
+      - {speaker: Agent, text: "Your refund was approved and"}
+      - {speaker: Spouse, text: "Okay."}
+    clean: "s1: is it ready\ns2: your refund was approved and\ns3: okay"
+  - name: two_turn
+    turns:
+      - {speaker: Agent, text: "Shall I book it for tomorrow?"}
+      - {speaker: Caller, text: "Yes!"}
+    clean: "s1: shall i book it for tomorrow\ns2: yes"

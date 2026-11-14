@@ -1,0 +1,36 @@
+[project]
+name = "barge-in-detector"
+version = "0.1.0"
+description = "CPU-only multilingual backchannel vs. barge-in classifier and its synthetic data generator"
+authors = [
+    { name = "Akash Manohar", email = "84005+HashNuke@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "duckdb>=2.0.0",
+    "google-genai>=3.3.0",
+    "pyyaml>=6.0.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.5",
+]
+
+[tool.uv]
+package = false  # a project, not an installable package
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-m 'not integration'"
+markers = ["integration: calls Gemini or other network services; excluded by default"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["E501"]  # ruff format owns line length
