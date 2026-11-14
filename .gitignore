@@ -1,0 +1,17 @@
+# Model artefacts (datasets under data/ are committed; see docs/data-format.md)
+# DuckDB working store (rebuilt from data/export/; see docs/data-format.md)
+/data/work/
+/models/
+/checkpoints/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local secrets
+.env
+.env.*
