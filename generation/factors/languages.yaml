@@ -1,0 +1,201 @@
+# Language manifest: every language the detector supports.
+#
+# scripts: ISO 15924 codes of the usual native script(s).
+# romanized_usage: how often people (or ASR) write the language in Latin
+#   characters. common/occasional allow romanized and mixed_script specs;
+#   none allows native only. Languages written natively in Latin script use none.
+# code_switch_sets: the combinations of languages commonly mixed in, most
+#   common first. A set may hold more than one language (e.g. [en, hi] for a
+#   Kannada speaker mixing English and Hindi) and may be limited to some
+#   regional_variants (Hindi mixing applies to Indian varieties only).
+#   Indian pattern: Hindi mixes English, or English + a regional language;
+#   regional Indian languages mix English, or English + Hindi; Indian English
+#   mixes Hindi, a regional language, or both. English has romanized_usage
+#   none, so Hindi or regional words in English-led speech are romanized.
+# regional_variants: BCP-47 variants to spread generation across; empty means
+#   the language code itself.
+# tier: A = human-verified by the project owner; B = native-speaker spot
+#   checks; C = synthetic only, reported as unverified.
+# rollout_phase: 1 = English and Hindi, 2 = Kannada and Tamil, 3 = the rest.
+#
+# romanized_usage, code_switch_sets and regional_variants for tier C
+# languages are first estimates and should be corrected when evidence appears.
+
+version: 0.2.0
+
+languages:
+  - {code: en, name: English, scripts: [Latn], romanized_usage: none, regional_variants: [en-US, en-GB, en-IN, en-AU, en-NG, en-PH, en-ZA], tier: A, rollout_phase: 1,
+     code_switch_sets: [
+       {languages: [hi], regional_variants: [en-IN]},
+       {languages: [kn], regional_variants: [en-IN]},
+       {languages: [ta], regional_variants: [en-IN]},
+       {languages: [te], regional_variants: [en-IN]},
+       {languages: [ml], regional_variants: [en-IN]},
+       {languages: [mr], regional_variants: [en-IN]},
+       {languages: [gu], regional_variants: [en-IN]},
+       {languages: [pa], regional_variants: [en-IN]},
+       {languages: [bn], regional_variants: [en-IN]},
+       {languages: [or], regional_variants: [en-IN]},
+       {languages: [as], regional_variants: [en-IN]},
+       {languages: [kok], regional_variants: [en-IN]},
+       {languages: [mai], regional_variants: [en-IN]},
+       {languages: [bho], regional_variants: [en-IN]},
+       {languages: [hi, kn], regional_variants: [en-IN]},
+       {languages: [hi, ta], regional_variants: [en-IN]},
+       {languages: [hi, te], regional_variants: [en-IN]},
+       {languages: [hi, ml], regional_variants: [en-IN]},
+       {languages: [hi, mr], regional_variants: [en-IN]},
+       {languages: [hi, gu], regional_variants: [en-IN]},
+       {languages: [hi, pa], regional_variants: [en-IN]},
+       {languages: [hi, bn], regional_variants: [en-IN]},
+       {languages: [hi, or], regional_variants: [en-IN]},
+       {languages: [hi, as], regional_variants: [en-IN]},
+       {languages: [hi, kok], regional_variants: [en-IN]},
+       {languages: [hi, mai], regional_variants: [en-IN]},
+       {languages: [hi, bho], regional_variants: [en-IN]}
+     ]}
+  - {code: hi, name: Hindi, scripts: [Deva], romanized_usage: common, regional_variants: [], tier: A, rollout_phase: 1,
+     code_switch_sets: [
+       {languages: [en]},
+       {languages: [en, kn]},
+       {languages: [en, ta]},
+       {languages: [en, te]},
+       {languages: [en, ml]},
+       {languages: [en, mr]},
+       {languages: [en, gu]},
+       {languages: [en, pa]},
+       {languages: [en, bn]},
+       {languages: [en, or]},
+       {languages: [en, as]},
+       {languages: [en, kok]},
+       {languages: [en, mai]},
+       {languages: [en, bho]}
+     ]}
+  - {code: kn, name: Kannada, scripts: [Knda], romanized_usage: common, regional_variants: [], tier: A, rollout_phase: 2, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: ta, name: Tamil, scripts: [Taml], romanized_usage: common, regional_variants: [ta-IN, ta-LK], tier: A, rollout_phase: 2,
+     code_switch_sets: [
+       {languages: [en]},
+       {languages: [en, hi], regional_variants: [ta-IN]}
+     ]}
+  - {code: bn, name: Bengali, scripts: [Beng], romanized_usage: common, regional_variants: [bn-BD, bn-IN], tier: C, rollout_phase: 3,
+     code_switch_sets: [
+       {languages: [en]},
+       {languages: [en, hi], regional_variants: [bn-IN]}
+     ]}
+  - {code: te, name: Telugu, scripts: [Telu], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: mr, name: Marathi, scripts: [Deva], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: gu, name: Gujarati, scripts: [Gujr], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: pa, name: Punjabi, scripts: [Guru, Arab], romanized_usage: common, regional_variants: [pa-IN, pa-PK], tier: C, rollout_phase: 3,
+     code_switch_sets: [
+       {languages: [en]},
+       {languages: [en, hi], regional_variants: [pa-IN]},
+       {languages: [ur], regional_variants: [pa-PK]},
+       {languages: [en, ur], regional_variants: [pa-PK]}
+     ]}
+  - {code: ml, name: Malayalam, scripts: [Mlym], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: or, name: Odia, scripts: [Orya], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: as, name: Assamese, scripts: [Beng], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: ur, name: Urdu, scripts: [Arab], romanized_usage: common, regional_variants: [ur-PK, ur-IN], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ne, name: Nepali, scripts: [Deva], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [hi]}]}
+  - {code: si, name: Sinhala, scripts: [Sinh], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: sd, name: Sindhi, scripts: [Arab, Deva], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [ur]}]}
+  - {code: mai, name: Maithili, scripts: [Deva], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: bho, name: Bhojpuri, scripts: [Deva], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: kok, name: Konkani, scripts: [Deva], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [en, hi]}]}
+  - {code: zh, name: "Mandarin Chinese", scripts: [Hans, Hant], romanized_usage: occasional, regional_variants: [zh-CN, zh-TW, zh-SG], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: yue, name: Cantonese, scripts: [Hant], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ja, name: Japanese, scripts: [Jpan], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ko, name: Korean, scripts: [Kore], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: mn, name: Mongolian, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: vi, name: Vietnamese, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: th, name: Thai, scripts: [Thai], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: id, name: Indonesian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ms, name: Malay, scripts: [Latn], romanized_usage: none, regional_variants: [ms-MY, ms-SG], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: fil, name: Filipino, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: my, name: Burmese, scripts: [Mymr], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: km, name: Khmer, scripts: [Khmr], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: lo, name: Lao, scripts: [Laoo], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [th]}]}
+  - {code: jv, name: Javanese, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [id]}]}
+  - {code: su, name: Sundanese, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [id]}]}
+  - {code: ceb, name: Cebuano, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [fil]}]}
+  - {code: ar, name: "Arabic (Modern Standard)", scripts: [Arab], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [fr]}]}
+  - {code: arz, name: "Egyptian Arabic", scripts: [Arab], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ary, name: "Moroccan Arabic", scripts: [Arab], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [fr]}]}
+  - {code: apc, name: "Levantine Arabic", scripts: [Arab], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [fr]}]}
+  - {code: afb, name: "Gulf Arabic", scripts: [Arab], romanized_usage: common, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: fa, name: Persian, scripts: [Arab], romanized_usage: common, regional_variants: [fa-IR, fa-AF], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: he, name: Hebrew, scripts: [Hebr], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: tr, name: Turkish, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ku, name: "Kurdish (Kurmanji)", scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [tr]}]}
+  - {code: ckb, name: "Kurdish (Sorani)", scripts: [Arab], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ar]}]}
+  - {code: ps, name: Pashto, scripts: [Arab], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [fa]}]}
+  - {code: az, name: Azerbaijani, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}, {languages: [tr]}]}
+  - {code: hy, name: Armenian, scripts: [Armn], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}, {languages: [en]}]}
+  - {code: ka, name: Georgian, scripts: [Geor], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}, {languages: [en]}]}
+  - {code: es, name: Spanish, scripts: [Latn], romanized_usage: none, regional_variants: [es-ES, es-MX, es-AR, es-CO, es-US], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: fr, name: French, scripts: [Latn], romanized_usage: none, regional_variants: [fr-FR, fr-CA, fr-BE, fr-SN], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: de, name: German, scripts: [Latn], romanized_usage: none, regional_variants: [de-DE, de-AT, de-CH], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: it, name: Italian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: pt, name: Portuguese, scripts: [Latn], romanized_usage: none, regional_variants: [pt-BR, pt-PT], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: nl, name: Dutch, scripts: [Latn], romanized_usage: none, regional_variants: [nl-NL, nl-BE], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: pl, name: Polish, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ru, name: Russian, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: uk, name: Ukrainian, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}, {languages: [en]}]}
+  - {code: be, name: Belarusian, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}]}
+  - {code: cs, name: Czech, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: sk, name: Slovak, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [cs]}, {languages: [en]}]}
+  - {code: sl, name: Slovenian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: hr, name: Croatian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: sr, name: Serbian, scripts: [Cyrl, Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: bs, name: Bosnian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: mk, name: Macedonian, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: bg, name: Bulgarian, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ro, name: Romanian, scripts: [Latn], romanized_usage: none, regional_variants: [ro-RO, ro-MD], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: hu, name: Hungarian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: el, name: Greek, scripts: [Grek], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: sv, name: Swedish, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: da, name: Danish, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: nb, name: "Norwegian Bokmål", scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: fi, name: Finnish, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: et, name: Estonian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: lv, name: Latvian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: lt, name: Lithuanian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: is, name: Icelandic, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ga, name: Irish, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: cy, name: Welsh, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: eu, name: Basque, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [es]}]}
+  - {code: ca, name: Catalan, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [es]}]}
+  - {code: gl, name: Galician, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [es]}]}
+  - {code: sq, name: Albanian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: mt, name: Maltese, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: lb, name: Luxembourgish, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [fr]}, {languages: [de]}]}
+  - {code: kk, name: Kazakh, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}]}
+  - {code: uz, name: Uzbek, scripts: [Latn, Cyrl], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}]}
+  - {code: ky, name: Kyrgyz, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}]}
+  - {code: tg, name: Tajik, scripts: [Cyrl], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}]}
+  - {code: tk, name: Turkmen, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [ru]}]}
+  - {code: sw, name: Swahili, scripts: [Latn], romanized_usage: none, regional_variants: [sw-KE, sw-TZ], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: am, name: Amharic, scripts: [Ethi], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ti, name: Tigrinya, scripts: [Ethi], romanized_usage: occasional, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: om, name: Oromo, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: so, name: Somali, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ha, name: Hausa, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: yo, name: Yoruba, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ig, name: Igbo, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: zu, name: Zulu, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: xh, name: Xhosa, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: af, name: Afrikaans, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: st, name: Sesotho, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: tn, name: Setswana, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: sn, name: Shona, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ny, name: Chichewa, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: rw, name: Kinyarwanda, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}, {languages: [fr]}]}
+  - {code: lg, name: Luganda, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: ln, name: Lingala, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [fr]}]}
+  - {code: wo, name: Wolof, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [fr]}]}
+  - {code: ak, name: "Akan (Twi)", scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
+  - {code: mg, name: Malagasy, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [fr]}]}
+  - {code: ht, name: "Haitian Creole", scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [fr]}]}
+  - {code: qu, name: Quechua, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [es]}]}
+  - {code: gn, name: Guarani, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [es]}]}
+  - {code: mi, name: Māori, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}

@@ -1,0 +1,58 @@
+# Contrastive groups: specs generated together so the model cannot rely on
+# surface words. Members share every factor not listed under vary, and the
+# prompt asks for the shared element to be the same text across members.
+# All members of a group get the same contrastive_group_id and split.
+
+version: 0.3.0
+
+groups:
+  - id: yes_backchannel_vs_answer
+    description: The same affirmative word as a backchannel and as an answer.
+    shared: candidate_text
+    members:
+      - {caller_intent: agreement_token, agent_activity: explaining, cut_position: middle}
+      - {caller_intent: answer_to_question, agent_activity: asking_yes_no_question, cut_position: just_finished}
+
+  - id: ok_backchannel_vs_early_answer
+    description: The same short word acknowledging a list vs. choosing from it.
+    shared: candidate_text
+    members:
+      - {caller_intent: acknowledgment, agent_activity: listing_options, cut_position: middle}
+      - {caller_intent: early_answer, agent_activity: asking_yes_no_question, cut_position: near_end}
+
+  - id: backchannel_stays_vs_develops
+    description: The same opening backchannel that stays one vs. turns into a correction.
+    shared: candidate_opening
+    members:
+      - {caller_intent: agreement_token, development: stable, length_bucket: w2_3}
+      - {caller_intent: correction, development: backchannel_then_barge_in, length_bucket: w4_8}
+
+  - id: tracking_vs_correcting_readout
+    description: Repeating digits to track them vs. correcting one of them.
+    shared: agent_turn
+    members:
+      - {caller_intent: tracking_repeat, agent_activity: reading_numbers, cut_position: middle}
+      - {caller_intent: correction, agent_activity: reading_numbers, cut_position: middle}
+
+  - id: ok_backchannel_vs_confirmation
+    description: The same "ok" while the agent reads back details vs. confirming them once it asks.
+    shared: candidate_text
+    members:
+      - {caller_intent: acknowledgment, agent_activity: confirming_details, cut_position: middle}
+      - {caller_intent: answer_to_question, agent_activity: confirming_details, cut_position: just_finished}
+
+  - id: short_stop_vs_short_continuer
+    description: One-word stop vs. one-word continuer during the same agent turn.
+    shared: agent_turn
+    members:
+      - {caller_intent: stop_request, length_bucket: w1, cut_position: middle}
+      - {caller_intent: continuer, length_bucket: w1, cut_position: middle}
+
+  - id: ok_pause_vs_ok_response
+    description: >
+      The same "ok" when the agent has only paused mid-explanation (backchannel)
+      vs. when it has finished its point and the caller hands the turn back.
+    shared: candidate_text
+    members:
+      - {caller_intent: acknowledgment, agent_activity: explaining, cut_position: just_finished}
+      - {caller_intent: acknowledgment_response, agent_activity: explaining, cut_position: just_finished}

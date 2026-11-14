@@ -1,0 +1,124 @@
+# Rules that remove impossible or meaningless factor combinations.
+#
+# Rule forms:
+#   when:    factor values (or language attributes) that trigger the rule
+#   require: allowed values for other factors when the rule triggers
+#   forbid:  disallowed values for other factors when the rule triggers
+# A spec is valid only if no triggered rule is violated. Per-intent
+# length_buckets and repeatable flags in intents.yaml are also constraints.
+# Membership rules (scenario within domain, regional_variant within language,
+# code_switch_set within the language's sets for that regional_variant) are
+# implied by values_from.
+
+version: 0.4.0
+
+rules:
+  # ---- scripts and code-switching ----
+  - id: no_romanized_without_usage
+    description: Romanized or mixed script only where people write the language that way.
+    when: {language.romanized_usage: [none]}
+    require: {script_form: [native]}
+
+  - id: no_code_switch_without_partner
+    description: Code-switching needs a partner language.
+    when: {language.code_switch_sets: [empty]}
+    require: {code_switching: [none]}
+
+  - id: code_switch_set_matches
+    description: A code-switch set is chosen exactly when code-switching.
+    when: {code_switching: [none]}
+    require: {code_switch_set: [none]}
+
+  # ---- agent state and intents ----
+  - id: answer_needs_finished_question
+    description: Answering a question needs a finished question.
+    when: {caller_intent: [answer_to_question]}
+    require:
+      agent_activity: [asking_yes_no_question, asking_open_question, confirming_details]
+      cut_position: [just_finished]
+
+  - id: early_answer_needs_choice_in_progress
+    description: Answering early needs a question or choice still being spoken.
+    when: {caller_intent: [early_answer]}
+    require:
+      agent_activity: [asking_yes_no_question, asking_open_question, listing_options, confirming_details, pitching]
+      cut_position: [early, middle, near_end]
+
+  - id: no_backchannel_after_finished_question
+    description: >
+      After a finished question, "yes"/"ok" is an answer, not a backchannel.
+      Fillers there are thinking_filler_after_question (ambiguous).
+    when:
+      cut_position: [just_finished]
+      agent_activity: [asking_yes_no_question, asking_open_question, confirming_details]
+    forbid:
+      caller_intent: [continuer, acknowledgment, agreement_token, understanding, surprise_token, empathy_token, laughter, gratitude_token, tracking_repeat]
+
+  - id: acknowledgment_response_needs_finished_statement
+    description: >
+      Responding with "ok" needs the agent to have finished a statement; after a
+      finished question the same word is answer_to_question.
+    when: {caller_intent: [acknowledgment_response]}
+    require: {cut_position: [just_finished]}
+    forbid:
+      agent_activity: [asking_yes_no_question, asking_open_question, confirming_details, greeting_opening]
+
+  - id: thinking_filler_needs_finished_question
+    when: {caller_intent: [thinking_filler_after_question]}
+    require:
+      agent_activity: [asking_yes_no_question, asking_open_question]
+      cut_position: [just_finished]
+
+  - id: tracking_repeat_needs_readout
+    description: Repeating to track needs the agent to be reading something out.
+    when: {caller_intent: [tracking_repeat]}
+    require:
+      agent_activity: [reading_numbers, reading_names_addresses, confirming_details, giving_instructions]
+      cut_position: [early, middle, near_end]
+
+  - id: correction_needs_content
+    description: Something must have been said before it can be corrected.
+    when: {caller_intent: [correction]}
+    forbid:
+      cut_position: [start]
+      agent_activity: [greeting_opening, hold_message, small_talk]
+
+  - id: collaborative_completion_needs_unfinished_turn
+    when: {caller_intent: [collaborative_completion]}
+    require: {cut_position: [middle, near_end]}
+
+  - id: interruption_intents_while_speaking
+    description: These only make sense while the agent is still talking.
+    when: {caller_intent: [stop_request, hold_request, tracking_repeat]}
+    forbid: {cut_position: [just_finished]}
+
+  # ---- development, repetition, length ----
+  - id: development_only_for_barge_in
+    description: Only barge-in utterances develop from a backchannel or filler.
+    when:
+      caller_intent: [continuer, acknowledgment, agreement_token, understanding, surprise_token, empathy_token, laughter, gratitude_token, tracking_repeat, collaborative_completion, thinking_filler_after_question, mixed_signal]
+    require: {development: [stable]}
+
+  - id: development_needs_length
+    description: A developing utterance needs room to develop.
+    when: {development: [backchannel_then_barge_in, filler_then_barge_in]}
+    require: {length_bucket: [w4_8, w9_plus]}
+
+  - id: no_backchannel_development_into_stop
+    description: Stop and repeat requests rarely start with an agreement token.
+    when: {caller_intent: [stop_request, repeat_request]}
+    forbid: {development: [backchannel_then_barge_in]}
+
+  - id: one_word_is_single
+    description: A one-word utterance cannot be repeated.
+    when: {length_bucket: [w1]}
+    require: {repetition: [single]}
+
+  # ---- mood and activity plausibility ----
+  - id: no_laughter_when_frustrated
+    when: {caller_intent: [laughter]}
+    forbid: {caller_mood: [frustrated]}
+
+  - id: complaint_mood
+    when: {caller_intent: [complaint]}
+    require: {caller_mood: [frustrated, hurried]}

@@ -1,0 +1,217 @@
+# Factor catalogue: the conditions every generated sample is built from.
+# See docs/factor-catalogue.md for the rationale and review notes.
+#
+# The plan builder picks one value per spec factor, applies constraints.yaml,
+# and derives the label from the caller intent. Each resulting combination is a
+# criterion (a row in the targets table) with a required sample count. Gemini only writes text that
+# satisfies the chosen values.
+
+version: 0.5.0
+status: draft  # awaiting user review
+
+files:
+  languages: languages.yaml
+  domains: domains.yaml
+  intents: intents.yaml
+  constraints: constraints.yaml
+  contrastive: contrastive.yaml
+
+# Factors the plan builder chooses for every spec, in a fixed order.
+spec_factors:
+  - id: language
+    description: Language of the conversation. Values come from languages.yaml.
+    values_from: languages
+
+  - id: regional_variant
+    description: >
+      Regional variety of the language (e.g. en-IN, es-MX). Values come from the
+      language's regional_variants list; the language code itself when the list
+      is empty.
+    values_from: languages.regional_variants
+
+  - id: script_form
+    description: How the caller's words are written in the transcript.
+    values:
+      - id: native
+        description: The language's usual script (Devanagari for Hindi, Latin for English).
+      - id: romanized
+        description: Written in Latin/English characters, e.g. "haan theek hai".
+      - id: mixed_script
+        description: >
+          Native script and romanized text in the same utterance, e.g.
+          "haan हाँ ठीक है".
+
+  - id: code_switching
+    description: Whether and how the caller mixes in another language.
+    values:
+      - id: none
+        description: Only the conversation language.
+      - id: between_sentences
+        description: Whole sentences or clauses in the other language.
+      - id: within_sentence
+        description: >
+          Words from the other language(s) inside one sentence, e.g.
+          "haan but change the time".
+
+  - id: code_switch_set
+    description: >
+      The language(s) mixed in when code_switching is not none, written as
+      codes joined by "+" in the manifest's order, e.g. "en" or "en+hi".
+      Values come from the language's code_switch_sets, filtered by
+      regional_variant; "none" when code_switching is none. With two
+      languages, both must appear in the candidate utterance or its turn
+      (e.g. Kannada + English + Hindi).
+    values_from: languages.code_switch_sets
+
+  - id: domain
+    description: Conversation category. Values come from domains.yaml.
+    values_from: domains
+
+  - id: scenario
+    description: A concrete situation within the domain. Values come from domains.yaml.
+    values_from: domains.scenarios
+
+  - id: speaker_pattern
+    description: >
+      Who speaks in the 3-line window. The last line is always the speaker being
+      judged and the line before it is the turn being spoken over, so consecutive
+      lines always have different speakers. 2-line windows are always s1, s2.
+    values:
+      - id: returning_speaker
+        description: The judged speaker also said the first line (s1, s2, s1).
+      - id: new_speaker
+        description: >
+          A third person, who has not spoken in the window, is the one judged
+          (s1, s2, s3).
+
+  - id: agent_activity
+    description: What the agent is doing in the turn the caller speaks over.
+    values:
+      - id: greeting_opening
+        description: Opening the call, introducing itself or the purpose.
+      - id: explaining
+        description: Explaining a policy, process, status or reason.
+      - id: giving_instructions
+        description: Step-by-step instructions the caller is following.
+      - id: listing_options
+        description: Listing choices, plans, slots or products.
+      - id: reading_numbers
+        description: Reading out amounts, dates, times, account, order or phone numbers.
+      - id: reading_names_addresses
+        description: Reading out names, addresses, emails or spellings.
+      - id: confirming_details
+        description: Reading back details for the caller to confirm.
+      - id: asking_yes_no_question
+        description: Asking a closed question.
+      - id: asking_open_question
+        description: Asking an open question (which, when, what, why).
+      - id: disclosure
+        description: Legal, recording or terms-and-conditions text.
+      - id: empathizing
+        description: Apologizing or acknowledging the caller's problem.
+      - id: hold_message
+        description: Telling the caller it is checking something or asking them to wait.
+      - id: pitching
+        description: Promoting an offer, upgrade or product.
+      - id: small_talk
+        description: Pleasantries, weather, how the caller is.
+
+  - id: cut_position
+    description: How much of the agent's turn had been spoken when the caller started.
+    values:
+      - id: start
+        description: Within the first few words.
+      - id: early
+        description: Roughly the first third.
+      - id: middle
+        description: Roughly the middle third.
+      - id: near_end
+        description: The last few words still to come.
+      - id: just_finished
+        description: The agent had just finished its turn (short grace window).
+
+  - id: caller_intent
+    description: >
+      What the caller means by the candidate utterance. Values come from
+      intents.yaml, and each intent determines the label.
+    values_from: intents
+
+  - id: development
+    description: How the candidate utterance unfolds over interim transcripts.
+    values:
+      - id: stable
+        description: The utterance has one intent from its first word.
+      - id: backchannel_then_barge_in
+        description: >
+          Starts like a backchannel and turns into the barge-in intent, e.g.
+          "yes yes, but change the time".
+      - id: filler_then_barge_in
+        description: >
+          Starts with hesitation or filler and then becomes the barge-in
+          intent, e.g. "umm... actually, can I".
+
+  - id: repetition
+    description: Whether the key tokens are repeated, e.g. "yeah yeah yeah", "no no no".
+    values:
+      - id: single
+      - id: repeated
+
+  - id: length_bucket
+    description: Length of the final candidate utterance in words.
+    values:
+      - id: w1
+        description: One word.
+      - id: w2_3
+        description: Two or three words.
+      - id: w4_8
+        description: Four to eight words.
+      - id: w9_plus
+        description: Nine or more words.
+
+  - id: register
+    description: Formality of the caller's speech.
+    values:
+      - id: formal
+      - id: casual
+
+  - id: caller_mood
+    description: The caller's emotional state, which shapes wording.
+    values:
+      - id: neutral
+      - id: friendly
+      - id: hurried
+      - id: confused
+      - id: frustrated
+
+# Values computed from spec factors, not chosen independently.
+derived_factors:
+  - id: agent_state
+    description: Model input; derived from cut_position.
+    rule:
+      just_finished: just_finished
+      default: speaking
+
+  - id: intended_label
+    description: >
+      The label the criterion asks for; derived from caller_intent via
+      intents.yaml. The training label is Gemini's classification of the
+      generated sample, accepted only when it agrees (see docs/data-format.md).
+    values: [backchannel, barge_in, ambiguous]
+
+# Assigned by the plan builder, not part of the factor space.
+plan_assigned:
+  - required_count
+  - quota_group
+  - priority
+  - contrastive_group_id
+  - split
+
+# Deliberately NOT spec factors; they vary later in the pipeline, so one
+# generated conversation serves all of them (see docs/data-format.md).
+not_spec_factors:
+  turn_shape: Stage 4 builds both 2-turn and 3-turn examples from every conversation.
+  prefix: Stage 4 expands every interim prefix of the candidate utterance.
+
+# Out of scope: inputs are cleaned-up transcripts of the caller speaking to the
+# agent. ASR noise, echo, background speech and media audio are handled
+# upstream, so nothing here simulates them. Generated text is clean.

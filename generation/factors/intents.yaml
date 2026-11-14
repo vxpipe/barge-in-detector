@@ -1,0 +1,255 @@
+# Caller intents. Each intent fixes the label of the final utterance.
+#
+# Scope: every candidate utterance is the caller speaking to the agent. Echo,
+# background speech, media audio and transcription glitches are handled by
+# noise cancellation and audio cleaning upstream, not by this model.
+#
+# Labels:
+#   backchannel        Caller does not want the floor; the agent keeps talking.
+#   barge_in           Caller takes the floor. With agent_state=just_finished
+#                      this means "a real caller turn", not an interruption.
+#   ambiguous          Reasonable listeners disagree. Evaluation only; never
+#                      used for training.
+#
+# examples are hints for prompts and reviewers, not word lists. The generator
+# must produce natural, varied wording. Kannada and Tamil hints are unverified.
+#
+# length_buckets: allowed final-utterance lengths for the intent.
+# repeatable: whether repetition=repeated is allowed.
+
+version: 0.3.0
+
+intents:
+  # ---------------- backchannel ----------------
+  - id: continuer
+    label: backchannel
+    description: Signals "go on, I'm listening".
+    length_buckets: [w1, w2_3]
+    repeatable: true
+    examples:
+      en: ["hmm", "mm-hmm", "uh-huh"]
+      hi: ["hmm", "haan", "हम्म"]
+
+  - id: acknowledgment
+    label: backchannel
+    description: Signals the information was received.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: true
+    examples:
+      en: ["ok", "right", "got it", "okay okay"]
+      hi: ["achha", "theek hai", "ठीक है", "ok ji"]
+      kn: ["sari", "ಸರಿ"]
+      ta: ["sari", "சரி"]
+
+  - id: agreement_token
+    label: backchannel
+    description: Agreement or affirmation that does not answer a question.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: true
+    examples:
+      en: ["yes", "yeah yeah", "exactly", "true"]
+      hi: ["haan haan", "ji", "bilkul", "हाँ जी"]
+      kn: ["haudu", "houdu", "oudhu", "ಹೌದು"]
+      ta: ["aamaa", "ஆமா"]
+      fr: ["oui oui", "d'accord"]
+
+  - id: understanding
+    label: backchannel
+    description: Signals the caller understands or is following.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: false
+    examples:
+      en: ["I see", "oh I see", "makes sense"]
+      hi: ["achha achha", "samajh gaya", "समझ गई"]
+
+  - id: surprise_token
+    label: backchannel
+    description: Short surprise that does not ask for a response.
+    length_buckets: [w1, w2_3]
+    repeatable: true
+    examples:
+      en: ["oh", "wow", "really", "oh wow"]
+      hi: ["arre", "accha?", "sach mein"]
+
+  - id: empathy_token
+    label: backchannel
+    description: Short sympathetic or emotional reaction.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: true
+    examples:
+      en: ["oh no", "aww", "that's good"]
+      hi: ["arre yaar", "oh ho", "badhiya"]
+
+  - id: laughter
+    label: backchannel
+    description: Laughter or laughter-like tokens as transcribed.
+    length_buckets: [w1, w2_3]
+    repeatable: true
+    examples:
+      en: ["haha", "hehe"]
+
+  - id: gratitude_token
+    label: backchannel
+    description: Thanks said in passing while the agent continues.
+    length_buckets: [w1, w2_3]
+    repeatable: true
+    examples:
+      en: ["thanks", "thank you"]
+      hi: ["shukriya", "dhanyavaad", "thank you ji"]
+
+  - id: tracking_repeat
+    label: backchannel
+    description: >
+      Caller repeats part of what the agent is reading (digits, a name) to
+      track or write it down, without correcting it.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: false
+    examples:
+      en: ["four five six", "M G road"]
+
+  # ---------------- barge_in ----------------
+  - id: stop_request
+    label: barge_in
+    description: Asks the agent to stop or wait.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: true
+    examples:
+      en: ["stop", "wait", "hold on", "wait wait"]
+      hi: ["ruko", "ek minute", "रुकिए"]
+
+  - id: hold_request
+    label: barge_in
+    description: Asks for time before the agent continues.
+    length_buckets: [w2_3, w4_8, w9_plus]
+    repeatable: false
+    examples:
+      en: ["one second let me get a pen", "give me a moment"]
+      hi: ["ek second, pen leta hoon"]
+
+  - id: correction
+    label: barge_in
+    description: Corrects something the agent said or read.
+    length_buckets: [w1, w2_3, w4_8, w9_plus]
+    repeatable: true
+    examples:
+      en: ["no it's four not five", "no no, the other address"]
+      hi: ["nahi nahi, paanch nahi chaar"]
+
+  - id: disagreement
+    label: barge_in
+    description: Objects to or rejects what the agent is saying.
+    length_buckets: [w2_3, w4_8, w9_plus]
+    repeatable: false
+    examples:
+      en: ["that's not what I was told", "I don't want that"]
+
+  - id: clarification_question
+    label: barge_in
+    description: Asks what the agent means or which item it refers to.
+    length_buckets: [w2_3, w4_8, w9_plus]
+    repeatable: false
+    examples:
+      en: ["sorry which one", "what do you mean by that"]
+      hi: ["matlab?", "kaunsa wala?"]
+
+  - id: repeat_request
+    label: barge_in
+    description: Asks the agent to repeat or says they could not hear.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: true
+    examples:
+      en: ["sorry?", "what", "can you repeat that"]
+      hi: ["kya?", "phir se boliye"]
+
+  - id: new_request
+    label: barge_in
+    description: Raises a new request or changes the topic.
+    length_buckets: [w4_8, w9_plus]
+    repeatable: false
+    examples:
+      en: ["actually I also need to update my email"]
+
+  - id: early_answer
+    label: barge_in
+    description: >
+      Answers or chooses before the agent has finished asking or listing,
+      making the rest of the turn unnecessary.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: false
+    examples:
+      en: ["the second one", "Tuesday works", "yes book it"]
+
+  - id: answer_to_question
+    label: barge_in
+    description: >
+      Answers a question the agent has just finished asking. May be a single
+      word that would otherwise look like a backchannel ("yes", "haan").
+    length_buckets: [w1, w2_3, w4_8, w9_plus]
+    repeatable: true
+    examples:
+      en: ["yes", "tomorrow", "no thanks"]
+      hi: ["haan", "kal", "nahi chahiye"]
+
+  - id: acknowledgment_response
+    label: barge_in
+    description: >
+      Right after the agent finishes a statement (not a question), a short
+      "ok" that closes the point and hands the turn back, so the agent should
+      respond or move on. Contrast with acknowledgment, where the agent has only
+      paused and is about to continue.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: true
+    examples:
+      en: ["ok", "okay fine", "alright got it"]
+      hi: ["achha theek hai", "ok ji"]
+
+  - id: complaint
+    label: barge_in
+    description: Expresses frustration that demands a response.
+    length_buckets: [w4_8, w9_plus]
+    repeatable: false
+    examples:
+      en: ["I've been waiting for an hour"]
+
+  - id: request_human
+    label: barge_in
+    description: Asks for a human agent or a supervisor.
+    length_buckets: [w2_3, w4_8, w9_plus]
+    repeatable: false
+    examples:
+      en: ["can I talk to a person"]
+
+  - id: urgent_interjection
+    label: barge_in
+    description: Interjects with something time-sensitive.
+    length_buckets: [w4_8, w9_plus]
+    repeatable: false
+    examples:
+      en: ["my card was just charged again"]
+
+  - id: end_call
+    label: barge_in
+    description: Ends or tries to end the call.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: true
+    examples:
+      en: ["ok bye", "I have to go", "not interested, bye"]
+
+  # ---------------- ambiguous (evaluation only) ----------------
+  - id: collaborative_completion
+    label: ambiguous
+    description: The caller finishes the agent's sentence for it.
+    length_buckets: [w1, w2_3, w4_8]
+    repeatable: false
+
+  - id: thinking_filler_after_question
+    label: ambiguous
+    description: "\"hmm\" or \"umm\" right after the agent asks a question: thinking, not yet answering."
+    length_buckets: [w1, w2_3]
+    repeatable: true
+
+  - id: mixed_signal
+    label: ambiguous
+    description: An utterance a reasonable listener could read either way.
+    length_buckets: [w2_3, w4_8]
+    repeatable: false
