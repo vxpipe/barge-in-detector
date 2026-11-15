@@ -36,3 +36,19 @@ no credential values are printed or stored in project files.
 
 Record final commits and Hub artifact checks below. The migration does not
 change model accuracy or satisfy uncompleted model acceptance gates.
+
+## Publication outcome
+
+Published public repos HashNuke/barge-in-detector (model) and
+HashNuke/barge-in-detector-data (dataset). Active local checkouts are the
+sibling directories barge-in-detector-model and barge-in-detector-data. Original
+GitHub source changes are committed in four coherent local checkpoints; its
+history was not rewritten and model weights remain excluded. Dataset Hub
+publication uses large-file storage for the 17 MB source CSV, preserving its
+checksum. Standard dataset loading verifies all splits and the challenge.
+Anonymous model download and CPU inference reproduce the checkpoint output.
+Both repos contain scoped AGENTS.md, executable bin/create-labnotes and milestone
+indexes. Model release.json pins dataset dda7115ace1fe7b07c49139860131f39910521ad;
+standalone model code published at 9aa77e5ff33f479ec5559f3f65bcfc092e5f86ab.
+Dataset 114 tests and model 4 tests pass, with Ruff formatting/lint clean.
+Coverage and classifier-quality work remain open. No new GPU use.

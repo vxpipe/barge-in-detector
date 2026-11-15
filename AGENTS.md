@@ -21,6 +21,10 @@ or training implementations here. Link model checkpoints to immutable dataset
 revisions and source hashes. Fetch datasets in the model repo instead of
 copying data into it. Keep these ownership instructions current in both repos.
 
+The active Hugging Face checkouts are `../barge-in-detector-data` and
+`../barge-in-detector-model`. Use those for new dataset/model work. This
+GitHub checkout retains the original history and migration checkpoints.
+
 ## Project brief
 
 Voice agents currently treat any caller transcript during agent playback as an

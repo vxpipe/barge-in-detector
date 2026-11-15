@@ -30,7 +30,7 @@ This repository owns **data, generation, cleaning, splits, review and historical
 labnotes**. [The separate model repo](https://huggingface.co/HashNuke/barge-in-detector)
 owns **weights, tokenizer, training, inference, evaluation and benchmarks**.
 The original [GitHub repository](https://github.com/vxpipe/barge-in-detector)
-remains a source mirror of this dataset project.
+is the historical source archive for this dataset project.
 
 ## Load the dataset
 
