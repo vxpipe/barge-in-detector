@@ -28,6 +28,15 @@ def combination_id(spec: Mapping[str, str]) -> uuid.UUID:
     return uuid.uuid5(NAMESPACE, f"criterion:{pairs}")
 
 
+def utterance_combination_id(spec: Mapping[str, str]) -> uuid.UUID:
+    """ID of an utterance-track criterion. The track is part of the name, so it
+    never equals a conversation criterion's ID for the same factor values."""
+    pairs = ";".join(
+        f"{factor}={spec[factor]}" for factor in sorted(spec) if spec[factor] != "default"
+    )
+    return uuid.uuid5(NAMESPACE, f"utterance_criterion:{pairs}")
+
+
 def split_group_id(combination_ids: Iterable[uuid.UUID]) -> uuid.UUID:
     """ID of a split group: derived from the smallest combination_id in it."""
     return uuid.uuid5(NAMESPACE, f"split_group:{min(combination_ids)}")

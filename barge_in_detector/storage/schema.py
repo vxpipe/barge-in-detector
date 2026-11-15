@@ -8,8 +8,9 @@ from dataclasses import dataclass
 
 # 1: initial. 2: `locales` (every locale in the transcript) on targets,
 # conversations and examples. 3: the `mixed_in_script` factor; locales carry
-# script subtags; examples.transcript_raw.
-SCHEMA_VERSION = "3"
+# script subtags; examples.transcript_raw. 4: the utterance track's
+# `utterance_targets` and `utterances` tables (docs/utterance-first-decision.md).
+SCHEMA_VERSION = "4"
 
 SPEC_FACTORS = (
     "language",
@@ -29,6 +30,29 @@ SPEC_FACTORS = (
     "length_bucket",
     "register",
     "caller_mood",
+)
+
+# Factors of an utterance-track criterion (generation/factors/utterances.yaml).
+UTTERANCE_FACTORS = (
+    "language",
+    "regional_variant",
+    "script_form",
+    "code_switching",
+    "code_switch_set",
+    "mixed_in_script",
+    "caller_intent",
+    "development",
+    "repetition",
+    "length_bucket",
+)
+
+UTTERANCE_FACTOR_COLUMNS: tuple[tuple[str, str], ...] = (
+    ("combination_id", "UUID"),
+    ("factor_catalogue_version", "VARCHAR"),
+    ("utterance_track_version", "VARCHAR"),
+    *((f, "VARCHAR") for f in UTTERANCE_FACTORS),
+    ("locales", "VARCHAR[]"),
+    ("split", "VARCHAR"),
 )
 
 TURNS = "STRUCT(speaker VARCHAR, role VARCHAR, text VARCHAR)[]"
@@ -225,6 +249,51 @@ TABLES: dict[str, Table] = {
                 ("label_id", "TINYINT"),
             ),
             partitions=("builder_version", "split", "language", "run_id"),
+        ),
+        Table(
+            "utterance_targets",
+            "combination_id",
+            (
+                *UTTERANCE_FACTOR_COLUMNS,
+                ("label", "VARCHAR"),
+                ("required_count", "INTEGER"),
+                ("priority", "INTEGER"),
+                ("added_in_revision", "UUID"),
+                ("count_set_in_revision", "UUID"),
+                ("status", "VARCHAR"),
+                ("retired_reason", "VARCHAR"),
+                ("retired_at", "TIMESTAMP"),
+            ),
+            partitions=("language",),
+        ),
+        Table(
+            "utterances",
+            "utterance_id",
+            (
+                ("utterance_id", "UUID"),
+                *UTTERANCE_FACTOR_COLUMNS,
+                ("label", "VARCHAR"),
+                ("intended_label", "VARCHAR"),
+                ("request_id", "UUID"),
+                ("run_id", "UUID"),
+                ("sample_index", "INTEGER"),
+                ("text", "VARCHAR"),
+                ("text_clean", "VARCHAR"),
+                ("cleaner_version", "VARCHAR"),
+                ("gemini_label", "VARCHAR"),
+                ("gemini_rationale", "VARCHAR"),
+                ("barge_in_from_word", "INTEGER"),
+                ("judge_label", "VARCHAR"),
+                ("judge_model_id", "VARCHAR"),
+                ("model_id", "VARCHAR"),
+                ("prompt_template", "VARCHAR"),
+                ("text_hash", "VARCHAR"),
+                ("status", "VARCHAR"),
+                ("retired_reason", "VARCHAR"),
+                ("retired_at", "TIMESTAMP"),
+                ("created_at", "TIMESTAMP"),
+            ),
+            partitions=("language", "run_id"),
         ),
         Table(
             "annotations",

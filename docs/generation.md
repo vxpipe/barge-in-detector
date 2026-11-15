@@ -232,6 +232,46 @@ call, so an interrupted run loses nothing: the next run marks requests that
 never got a response as `api_error` and processes stored responses (judging
 them first if needed) before making new requests.
 
+## Utterance track
+
+Added 2026-11-15 after the [utterance-first decision](utterance-first-decision.md).
+Each request asks for N single caller utterances, said over a speaker who is
+still talking, for one criterion of `utterance_targets`:
+
+- **System prompt** `generator_utterances_v1` (`generation/prompts/`), cached
+  like the conversation prompt: the task, the track's intents with labels,
+  development, repetition, length, script form and code-switching meanings,
+  writing rules, output format.
+- **Request**: the language lines (including the Script line), the intent
+  with its intended label and example hints, development, repetition and
+  length. No domain, scenario, cut or speaker; the generator imagines a
+  different situation for each utterance.
+- **Schema** `UTTERANCE_SCHEMA`: `text`, `label` (backchannel or barge_in),
+  `barge_in_from_word`, `rationale`.
+- **Labels**: `backchannel` or `barge_in` only (`labels` in
+  `generation/factors/utterances.yaml`); anything else is rejected as
+  `unknown_label`.
+- **Acceptance**: schema checks (fields, not empty after cleaning, no
+  ellipsis, no bracket tags, length bucket, `barge_in_from_word` against
+  development), then the generator's label must equal the intended label,
+  then the cleaned text must be new. **No judge** (user decision,
+  2026-11-15); language, script and code-switching are not checked yet.
+
+```shell
+uv run python -m barge_in_detector plan-utterances generation/plans/utterance-sample.yaml
+uv run python -m barge_in_detector show-prompt --utterances --system
+uv run python -m barge_in_detector show-prompt --utterances --index 0 --count 10
+uv run python -m barge_in_detector generate-utterances --dry-run
+uv run python -m barge_in_detector generate-utterances --languages en --budget-usd 0.10
+```
+
+Up to `concurrency` requests (10 in `generation/config.yaml`, or
+`--concurrency`) are in flight at once. Worker threads only call Gemini; the
+main thread inserts each request before its call starts (so it counts as in
+flight), records responses and validates them one at a time, which keeps
+deduplication exact. After rejections the runner plans again once the
+requests in flight are processed. The Batch API is a milestone task.
+
 ## Pilot findings (first live run, 2026-11-14)
 
 Five English requests (contrastive groups only, by the generation order of the

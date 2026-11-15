@@ -1,0 +1,19 @@
+# Utterance track sample for user review (docs/utterance-first-decision.md):
+# five criteria per manifest language, five utterances each. Growing it later
+# (more criteria, higher counts) keeps these criteria and their splits.
+
+name: utterance-sample
+seed: 20261115
+languages: [en, hi, kn, ta, te, ml, bn, gu, mr, pa, ur, as, zh, yue, ja, ko, ms, id, fil, th, vi, ar, fr, de, es, pt, it, nl, ga, sv, da, nb, fi, hu, ru, pl]
+criteria_per_language: 5
+required_count: 5
+
+label_shares: {backchannel: 0.5, barge_in: 0.5}
+
+# Plain US English and Indian English (with and without code-switching) are
+# the two main English slices, as in the conversation pilot. Other languages
+# use the builder's default variant shares.
+variant_shares:
+  en: {en-US: 0.35, en-IN: 0.35, en-MY: 0.08, en-HK: 0.04, en-SG: 0.04, en-GB: 0.04, en-AU: 0.04, en-NG: 0.02, en-PH: 0.02, en-ZA: 0.02}
+
+split_ratios: {train: 0.8, validation: 0.1, test: 0.1}

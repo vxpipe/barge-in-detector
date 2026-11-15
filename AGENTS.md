@@ -50,6 +50,13 @@ model; the cleaner turns them into `s1`, `s2`, `s3`.
 
 ### Input contract (draft; settle in the milestone's contract checkpoint)
 
+**Superseded for the model input (user decision, 2026-11-15):** Vxpipe already
+knows whether the caller speaks over the agent or after it finished, so the
+model only classifies the caller's **overlapping utterance** as backchannel or
+barge-in. See [docs/utterance-first-decision.md](docs/utterance-first-decision.md)
+and the utterance-first milestone. The conversation contract below is kept for
+the existing data and the planned context slice.
+
 - **2 or 3 turns**, oldest first, as a cleaned transcript: one `s<n>: <text>`
   line per turn, speakers numbered by first appearance (`s1, s2, s1` or
   `s1, s2, s3`), lowercase, punctuation removed. The last line is always the
@@ -269,11 +276,14 @@ recorded in that document.
   `examples.py` (example builder), `generation/` (plan builder, prompts,
   response validation, Gemini client, fill-to-count runner), `storage/`
   (DuckDB schema, the storage module, Parquet export and import), `cli.py`.
+  The utterance track adds `generation/utterances.py` (track and plan builder)
+  and `generation/utterance_runner.py`.
   Prompt templates live in `generation/prompts/`, plans in
   `generation/plans/`, run settings in `generation/config.yaml`.
 - Data commands run through `uv run python -m barge_in_detector …`: `check-catalogue`, `plan`,
   `generate` (`--dry-run`, `--limit`, `--languages`, `--budget-usd`),
-  `status`, `show-prompt`, `build-examples`, `export`, `import`. See
+  `plan-utterances`, `generate-utterances` (the utterance track, same flags),
+  `status`, `show-prompt` (`--utterances`), `build-examples`, `export`, `import`. See
   [docs/generation.md](docs/generation.md).
 
 ## Related repositories

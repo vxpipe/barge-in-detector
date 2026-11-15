@@ -1,8 +1,11 @@
 # Data generation and storage format
 
-Status: decided 2026-11-14; schema version 3 implemented (2 added `locales`; 3
+Status: decided 2026-11-14; schema version 4 implemented (2 added `locales`; 3
 added `mixed_in_script`, script subtags in `locales` and
-`examples.transcript_raw`; older databases are migrated on open) in
+`examples.transcript_raw`; 4 added the utterance track's `utterance_targets`
+and `utterances` tables, see the
+[utterance-first decision](utterance-first-decision.md); older databases are
+migrated on open) in
 `barge_in_detector/storage/` (`schema.py` owns the columns, `store.py` every
 write). Column lists change only through a schema version bump recorded here.
 Gemini calls, prompts and acceptance are described in
@@ -31,6 +34,8 @@ Gemini calls, prompts and acceptance are described in
 | `conversations` | accepted conversation, exactly as generated | Source for examples |
 | `rejections` | rejected attempt and the reason | Prompt quality, attempt limits |
 | `examples` | model input (turn window + candidate prefix + label), original and cleaned | Training and evaluation |
+| `utterance_targets` | utterance-track criterion: factor values, label, split, required count | What to generate (utterance track) |
+| `utterances` | accepted utterance, exactly as generated, with its cleaned text | Utterance-track training data |
 | `annotations` | human review of an example | Human-verified evaluation sets |
 
 **Factors are stored as columns** on targets, conversations and examples, next
@@ -87,8 +92,8 @@ data/
 
 | Never changes once written | May be updated |
 | --- | --- |
-| Generated text and everything in `requests.response` | `targets.required_count` (raised or lowered by a plan revision) and `targets.priority` (generation order only) |
-| Factor values, `combination_id`, label | `targets.status` and `conversations.status` (`active`/`retired`) with reason and time; a rebuilt plan applied with `--retire-missing` retires its own earlier criteria it no longer contains |
+| Generated text and everything in `requests.response` | `targets.required_count` (raised or lowered by a plan revision) and `targets.priority` (generation order only); the same for `utterance_targets` |
+| Factor values, `combination_id`, label | `targets.status`, `conversations.status`, `utterance_targets.status` and `utterances.status` (`active`/`retired`) with reason and time; a rebuilt plan applied with `--retire-missing` retires its own earlier criteria it no longer contains |
 | A criterion's `split` and `split_group_id`, once it has generation requests | Cleaned columns and `cleaner_version` in `examples`; plan-assigned fields (split, split group, quota group, contrastive group) of criteria with no generation requests yet |
 | Request records (other than status while in flight) | `examples` rows: derived, so they can be rebuilt for a new builder version |
 
@@ -394,6 +399,52 @@ variants are produced. Common factor columns, plus:
 
 Sample weights for rebalancing belong to the snapshot or training config, not
 the examples table.
+
+### `utterance_targets`
+
+Utterance-track criteria from `plan-utterances`
+(`barge_in_detector/generation/utterances.py`). The factors are those in
+`generation/factors/utterances.yaml`; the catalogue's constraints apply, plus
+the track's own rules. `combination_id` is
+`uuid5(NAMESPACE, "utterance_criterion:" + factor=value pairs)`
+(`ids.utterance_combination_id`), so it never equals a conversation
+criterion's ID. `split` is fixed from the ID alone (`split_for`: the ID modulo
+10,000 against the cumulative split ratios); the split audit on cleaned text is
+a milestone task. Partitioned by `language`.
+
+| Column | Type | Notes |
+| --- | --- | --- |
+| `combination_id` | UUID | primary key |
+| `factor_catalogue_version`, `utterance_track_version` | VARCHAR | |
+| `language` … `length_bucket` | VARCHAR | the ten utterance factors |
+| `locales` | VARCHAR[] | as on `targets` |
+| `split` | VARCHAR | `train`, `validation` or `test` |
+| `label` | VARCHAR | intended label, from the intent |
+| `required_count`, `priority` | INTEGER | priority is the position in the plan |
+| `added_in_revision`, `count_set_in_revision` | UUID | `plan_revisions` rows (quotas JSON holds `"track": "utterance"`) |
+| `status`, `retired_reason`, `retired_at` | | |
+
+### `utterances`
+
+Accepted utterances, one row per sample. Requests are in `requests` with
+`kind = generate_utterances` and rejections in `rejections`, as for
+conversations. Partitioned by `language` and `run_id`.
+
+| Column | Type | Notes |
+| --- | --- | --- |
+| `utterance_id` | UUID | primary key (v7) |
+| factor columns | | copied from the criterion, as above |
+| `label` | VARCHAR | the training label: the generator's label, which must equal `intended_label` |
+| `intended_label` | VARCHAR | |
+| `request_id`, `run_id` | UUID | provenance |
+| `sample_index` | INTEGER | position in the response |
+| `text` | VARCHAR | exactly as generated |
+| `text_clean`, `cleaner_version` | VARCHAR | the model input after the cleaner |
+| `gemini_label`, `gemini_rationale`, `barge_in_from_word` | | the generator's classification |
+| `judge_label`, `judge_model_id` | VARCHAR | null: no judge in this version |
+| `model_id`, `prompt_template` | VARCHAR | |
+| `text_hash` | VARCHAR | SHA-256 of `text_clean`; an accepted text is never accepted again |
+| `status`, `retired_reason`, `retired_at`, `created_at` | | |
 
 ### `annotations`
 

@@ -351,6 +351,70 @@ def _prefixes_for(shared_spec: Mapping[str, str]) -> list[str]:
     return prefixes
 
 
+# ---------------------------------------------------------------- utterance track
+
+UTTERANCE_TEMPLATE = "generator_utterances_v1"
+UTTERANCE_REQUEST_KIND = "generate_utterances"
+
+_UTTERANCE_FIELDS: dict[str, Any] = {
+    "text": {"type": "string"},
+    "label": {"type": "string", "enum": ["backchannel", "barge_in"]},
+    "barge_in_from_word": {"type": ["integer", "null"]},
+    "rationale": {"type": "string"},
+}
+
+UTTERANCE_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "samples": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": _UTTERANCE_FIELDS,
+                "required": list(_UTTERANCE_FIELDS),
+            },
+        }
+    },
+    "required": ["samples"],
+}
+
+
+def render_utterance_system(cat: Catalogue, track: Any) -> str:
+    """The cached system prompt of the utterance track (track: UtteranceTrack)."""
+    intents = "\n".join(
+        f"- `{i}` ({cat.intents[i]['label']}): {' '.join(cat.intents[i]['description'].split())}"
+        for i in track.intents
+    )
+    return _template(UTTERANCE_TEMPLATE).substitute(
+        intent_table=intents,
+        developments=_value_list(cat, "development"),
+        length_buckets=_value_list(cat, "length_bucket"),
+        script_forms=_value_list(cat, "script_form"),
+        code_switching=_value_list(cat, "code_switching"),
+    )
+
+
+def render_utterance_request(cat: Catalogue, spec: Mapping[str, str], *, count: int) -> str:
+    d = cat.descriptions
+    intent = cat.intents[spec["caller_intent"]]
+    lines = describe_language(cat, spec) + [
+        f"Intent: `{spec['caller_intent']}` (intended label: {intent['label']}): "
+        f"{' '.join(intent['description'].split())}",
+        _hints(cat, spec["caller_intent"], spec["language"]),
+        f"Development: `{spec['development']}`: {d[('development', spec['development'])]}",
+        f"Repetition: `{spec['repetition']}`",
+        f"Length: `{spec['length_bucket']}`: {d[('length_bucket', spec['length_bucket'])]}",
+    ]
+    body = "\n".join(f"- {line}" for line in lines)
+    head = (
+        "Write 1 utterance for this specification, said over a speaker who is still talking."
+        if count == 1
+        else f"Write {count} utterances for this specification, each said over a speaker "
+        "who is still talking, each in a different situation."
+    )
+    return f"{head}\n\n{body}\n"
+
+
 @dataclass(frozen=True)
 class JudgeItem:
     """One generated sample as the judge sees it."""

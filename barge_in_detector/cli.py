@@ -150,6 +150,91 @@ def cmd_generate(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_plan_utterances(args: argparse.Namespace) -> int:
+    from barge_in_detector.generation.utterances import (
+        UtterancePlanConfig,
+        build_utterance_plan,
+        load_utterance_track,
+    )
+
+    cat = load_catalogue()
+    track = load_utterance_track(cat)
+    config = UtterancePlanConfig.from_file(args.plan)
+    plan = build_utterance_plan(cat, track, config)
+    by = Counter((t.spec["language"], t.intended_label, t.split) for t in plan)
+    _table(
+        {" ".join(k): v for k, v in by.items()},
+        f"utterance plan {config.name}: {len(plan)} criteria",
+    )
+    print(f"required utterances: {sum(t.required_count for t in plan)}")
+    if args.dry_run:
+        print("dry run: nothing written")
+        return 0
+    store = Store.open(args.db)
+    try:
+        revision_id = store.apply_utterance_plan(
+            cat, track, config, plan, retire_missing=args.retire_missing
+        )
+        if revision_id is None:
+            print("plan unchanged: no new criteria or counts")
+            return 0
+        print(f"applied as plan revision {revision_id}")
+        changed = store.export(args.export_dir)
+        print(f"exported: {len(changed)} files changed under {args.export_dir}")
+    finally:
+        store.close()
+    return 0
+
+
+def cmd_generate_utterances(args: argparse.Namespace) -> int:
+    from barge_in_detector.generation.utterance_runner import UtteranceRunner
+    from barge_in_detector.generation.utterances import load_utterance_track
+
+    cat = load_catalogue()
+    track = load_utterance_track(cat)
+    config = GenerationConfig.from_file(args.config)
+    if args.concurrency:
+        config = GenerationConfig(**{**config.__dict__, "concurrency": args.concurrency})
+    languages = args.languages.split(",") if args.languages else None
+    store = Store.open(args.db)
+    try:
+        client = _NoClient() if args.dry_run else _client(config)
+        runner = UtteranceRunner(store, cat, track, client, config, progress=print)
+        report = runner.run(
+            languages=languages,
+            limit=args.limit,
+            budget_usd=args.budget_usd,
+            dry_run=args.dry_run,
+            run_name=args.name,
+            export_dir=None if args.no_export or args.dry_run else args.export_dir,
+        )
+    finally:
+        store.close()
+    if args.dry_run:
+        print(
+            f"would make {report.planned_requests} generator requests for "
+            f"{report.planned_samples} utterances"
+        )
+        _table(dict(report.planned_by_label), "utterances needed by language:label")
+        print(f"estimated tokens: {report.estimated_tokens}")
+        cost = report.estimated_cost_usd
+        print("estimated cost: " + (f"${cost:.4f}" if cost is not None else "unknown (no prices)"))
+    else:
+        print(
+            f"run {report.run_id}: {report.requests} requests, {report.accepted} accepted, "
+            f"{sum(report.rejections.values())} rejected, {report.api_errors} API errors, "
+            + (f"cost ${report.cost_usd:.4f}" if report.cost_usd is not None else "cost unknown")
+        )
+        if report.reasons:
+            _table(dict(report.reasons), "rejections by stage:reason")
+        print(f"criteria still short: {len(report.short)}")
+    if report.exhausted:
+        print(f"attempt budget exhausted for {len(report.exhausted)} criteria:")
+        for item in report.exhausted[:20]:
+            print(f"  {item}")
+    return 0
+
+
 def cmd_build_examples(args: argparse.Namespace) -> int:
     from barge_in_detector.examples import BUILDER_VERSION, build_examples
 
@@ -205,6 +290,16 @@ def cmd_status(args: argparse.Namespace) -> int:
             "SELECT stage, count(*) FROM rejections GROUP BY 1 ORDER BY 2 DESC"
         ).fetchall()
         _table(dict(stages), "rejections by stage")
+        utterance_counts = store.utterance_accepted_counts()
+        rows = Counter()
+        for t in store.utterance_targets():
+            key = f"{t['language']} {t['label']}"
+            rows[f"{key} required"] += t["required_count"]
+            rows[f"{key} accepted"] += min(
+                utterance_counts.get(t["combination_id"], 0), t["required_count"]
+            )
+        if rows:
+            _table(dict(rows), "utterances")
     finally:
         store.close()
     return 0
@@ -212,6 +307,25 @@ def cmd_status(args: argparse.Namespace) -> int:
 
 def cmd_show_prompt(args: argparse.Namespace) -> int:
     cat = load_catalogue()
+    if args.utterances:
+        from barge_in_detector.generation.utterances import load_utterance_track
+
+        track = load_utterance_track(cat)
+        if args.system:
+            print(prompts.render_utterance_system(cat, track))
+            return 0
+        store = Store.open(args.db)
+        try:
+            targets = store.utterance_targets()
+        finally:
+            store.close()
+        if not targets:
+            print("no utterance targets; run plan-utterances first", file=sys.stderr)
+            return 1
+        target = targets[args.index % len(targets)]
+        spec = {f: target[f] for f in track.factors}
+        print(prompts.render_utterance_request(cat, spec, count=args.count))
+        return 0
     if args.system:
         print("=" * 30 + " generator system prompt (cached)")
         print(prompts.render_generator_system(cat))
@@ -278,6 +392,33 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--no-export", action="store_true")
     p.set_defaults(func=cmd_generate)
 
+    p = with_db(
+        sub.add_parser("plan-utterances", help="build an utterance-track plan and apply it")
+    )
+    p.add_argument("plan", type=Path, help="plan file, e.g. generation/plans/utterance-sample.yaml")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument(
+        "--retire-missing",
+        action="store_true",
+        help="retire this plan's earlier criteria that the rebuilt plan no longer has",
+    )
+    p.set_defaults(func=cmd_plan_utterances)
+
+    p = with_db(
+        sub.add_parser(
+            "generate-utterances", help="fill every utterance criterion to its required count"
+        )
+    )
+    p.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    p.add_argument("--languages", help="comma-separated language codes")
+    p.add_argument("--limit", type=int, help="maximum generator requests in this run")
+    p.add_argument("--budget-usd", type=float)
+    p.add_argument("--concurrency", type=int, help="parallel Gemini calls (config: concurrency)")
+    p.add_argument("--name", default="generate-utterances")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--no-export", action="store_true")
+    p.set_defaults(func=cmd_generate_utterances)
+
     p = with_db(sub.add_parser("build-examples", help="rebuild examples from conversations"))
     p.add_argument("--no-export", action="store_true")
     p.set_defaults(func=cmd_build_examples)
@@ -293,6 +434,9 @@ def main(argv: list[str] | None = None) -> int:
         "--system",
         action="store_true",
         help="print the generator system prompt and judge questions",
+    )
+    p.add_argument(
+        "--utterances", action="store_true", help="the utterance track's prompts instead"
     )
     p.add_argument("--index", type=int, default=0, help="which target (plan order)")
     p.add_argument("--count", type=int, default=10, help="samples per request (batch size)")

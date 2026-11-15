@@ -5,6 +5,7 @@ import pytest
 
 from barge_in_detector.catalogue import load_catalogue
 from barge_in_detector.generation.plan import PlanConfig, build_plan
+from barge_in_detector.storage.schema import SCHEMA_VERSION
 from barge_in_detector.storage.store import RefusedUpdate, Store
 
 CAT = load_catalogue()
@@ -169,7 +170,7 @@ def test_schema_1_database_is_migrated_with_locales(tmp_path):
     assert all(t["locales"] for t in migrated.targets())
     assert migrated.con.execute(
         "SELECT value FROM meta WHERE key = 'schema_version'"
-    ).fetchone() == ("3",)
+    ).fetchone() == (SCHEMA_VERSION,)
     migrated.close()
 
 

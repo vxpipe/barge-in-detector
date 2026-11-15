@@ -1,0 +1,49 @@
+# Utterance track: single caller utterances spoken over the speaker.
+# See docs/utterance-first-decision.md.
+#
+# Reuses the language manifest, intents and constraints of the conversation
+# catalogue (catalogue.yaml). A criterion picks one value for each factor
+# below; constraints whose factors are absent here are skipped.
+
+version: 0.3.0  # 0.2.0: track rules for code-switching length; 0.3.0: labels
+
+# The only labels in this track (user decision, 2026-11-15): no ambiguous
+# class. Every intent left in the track must map to one of these.
+labels: [backchannel, barge_in]
+
+# In this order. Values and descriptions come from catalogue.yaml.
+factors:
+  - language
+  - regional_variant
+  - script_form
+  - code_switching
+  - code_switch_set
+  - mixed_in_script
+  - caller_intent
+  - development
+  - repetition
+  - length_bucket
+
+# Intents left out of the utterance track, with the reason.
+excluded_intents:
+  answer_to_question: Needs a finished question; the runtime handles answers.
+  hello_check: Said once the speaker has gone quiet; not overlapping speech.
+  thinking_filler_after_question: Needs a finished question.
+  tracking_repeat: Echo or correction depends on the speaker's words; context slice.
+  collaborative_completion: Needs the speaker's unfinished sentence; context slice.
+  # (thinking_filler_after_question and collaborative_completion are also the
+  # catalogue's only ambiguous intents.)
+
+# Rules for this track only, in the constraints.yaml format, added to those
+# rules. The conversation track can put the mixed-in language in another turn;
+# here it must fit inside the one utterance.
+rules:
+  - id: within_sentence_switch_needs_two_words
+    description: Mixing a language inside a sentence needs at least two words.
+    when: {code_switching: [within_sentence]}
+    forbid: {length_bucket: [w1]}
+
+  - id: between_sentences_switch_needs_room
+    description: Switching language between sentences needs at least two short sentences.
+    when: {code_switching: [between_sentences]}
+    require: {length_bucket: [w4_8, w9_plus]}

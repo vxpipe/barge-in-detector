@@ -19,6 +19,7 @@ import duckdb
 
 from barge_in_detector import ids
 from barge_in_detector.catalogue import Catalogue
+from barge_in_detector.cleaner import CLEANER_VERSION, clean_text
 from barge_in_detector.generation.plan import ExistingTarget, Plan
 from barge_in_detector.storage.schema import (
     PARTITION_DIRS,
@@ -26,6 +27,7 @@ from barge_in_detector.storage.schema import (
     SPEC_FACTORS,
     TABLES,
     TURNS,
+    UTTERANCE_FACTORS,
     Table,
     ddl,
 )
@@ -70,11 +72,16 @@ class Store:
             return
         if row[0] in ("1", "2"):
             self._migrate(row[0])
+        elif row[0] == "3":
+            # 4 only adds the utterance tables, created above.
+            self.con.execute(
+                "UPDATE meta SET value = ? WHERE key = 'schema_version'", [SCHEMA_VERSION]
+            )
         elif row[0] != SCHEMA_VERSION:
             raise RuntimeError(f"database schema {row[0]}, code expects {SCHEMA_VERSION}")
 
     def _migrate(self, version: str) -> None:
-        """Bring a schema 1 or 2 database to schema 3.
+        """Bring a schema 1 or 2 database to schema 3 (and so to 4).
 
         2 adds `locales`; 3 adds the `mixed_in_script` factor (`default` for
         every existing row, which keeps combination_ids) and recomputes
@@ -410,12 +417,13 @@ class Store:
             UPDATE runs SET
               finished_at = ?,
               requests_made = (SELECT count(*) FROM requests WHERE run_id = ?),
-              conversations_accepted = (SELECT count(*) FROM conversations WHERE run_id = ?),
+              conversations_accepted = (SELECT count(*) FROM conversations WHERE run_id = ?)
+                + (SELECT count(*) FROM utterances WHERE run_id = ?),
               rejections = (SELECT count(*) FROM rejections WHERE run_id = ?),
               cost_usd = (SELECT coalesce(sum(cost_usd), 0) FROM requests WHERE run_id = ?)
             WHERE run_id = ?
             """,
-            [now(), run_id, run_id, run_id, run_id, run_id],
+            [now(), run_id, run_id, run_id, run_id, run_id, run_id],
         )
 
     # ---------------------------------------------------------------- requests
@@ -548,6 +556,171 @@ class Store:
         )
         return rejection_id
 
+    # ---------------------------------------------------------------- utterance track
+
+    def apply_utterance_plan(
+        self,
+        cat: Catalogue,
+        track: Any,
+        config: Any,
+        plan: Sequence[Any],
+        *,
+        retire_missing: bool = False,
+    ) -> uuid.UUID | None:
+        """Record an utterance plan revision: insert new criteria, change required
+        counts and priorities. Factor values and splits of existing criteria never
+        change. With retire_missing, active criteria first added under this plan's
+        name that the plan no longer has are retired (their data is kept).
+        Returns None, and records nothing, when no criterion changes.
+
+        track: UtteranceTrack; config: UtterancePlanConfig; plan: UtteranceTargets.
+        """
+        revision_id = ids.new_id()
+        existing = {r["combination_id"]: r for r in self._dicts("SELECT * FROM utterance_targets")}
+        new = [t for t in plan if t.combination_id not in existing]
+        updates: dict[uuid.UUID, dict[str, Any]] = {}
+        for t in plan:
+            old = existing.get(t.combination_id)
+            if old is None:
+                continue
+            change: dict[str, Any] = {}
+            if old["required_count"] != t.required_count:
+                change |= {"required_count": t.required_count, "count_set_in_revision": revision_id}
+            if old["priority"] != t.priority:
+                change["priority"] = t.priority
+            if change:
+                updates[t.combination_id] = change
+        planned = {t.combination_id for t in plan}
+        missing = []
+        if retire_missing:
+            missing = [
+                r["combination_id"]
+                for r in self._dicts(
+                    "SELECT t.combination_id FROM utterance_targets t JOIN plan_revisions p "
+                    "ON t.added_in_revision = p.revision_id "
+                    "WHERE t.status = 'active' AND p.name = ?",
+                    [config.name],
+                )
+                if r["combination_id"] not in planned
+            ]
+        if not new and not updates and not missing:
+            return None
+        record = config.as_record()
+        with self.transaction():
+            self.con.execute(
+                "INSERT INTO plan_revisions VALUES (?, ?, ?, ?, ?::JSON, ?::JSON, ?::JSON, ?::JSON)",
+                [
+                    revision_id,
+                    config.name,
+                    now(),
+                    config.seed,
+                    json.dumps({"track": "utterance", **record}, sort_keys=True),
+                    json.dumps(record["split_ratios"], sort_keys=True),
+                    json.dumps({}, sort_keys=True),
+                    json.dumps({**cat.file_versions, "utterances": track.version}, sort_keys=True),
+                ],
+            )
+            for t in new:
+                self._insert(
+                    "utterance_targets",
+                    {
+                        "combination_id": t.combination_id,
+                        "factor_catalogue_version": cat.version,
+                        "utterance_track_version": track.version,
+                        **{f: t.spec[f] for f in UTTERANCE_FACTORS},
+                        "locales": cat.locales(t.spec),
+                        "split": t.split,
+                        "label": t.intended_label,
+                        "required_count": t.required_count,
+                        "priority": t.priority,
+                        "added_in_revision": revision_id,
+                        "count_set_in_revision": revision_id,
+                        "status": "active",
+                        "retired_reason": None,
+                        "retired_at": None,
+                    },
+                )
+            for combination_id, change in updates.items():
+                self.con.execute(
+                    f"UPDATE utterance_targets SET {', '.join(f'{k} = ?' for k in change)} "
+                    "WHERE combination_id = ?",
+                    [*change.values(), combination_id],
+                )
+            for combination_id in missing:
+                self.con.execute(
+                    "UPDATE utterance_targets SET status = 'retired', retired_reason = ?, "
+                    "retired_at = ? WHERE combination_id = ?",
+                    [f"not in plan revision {revision_id} of {config.name}", now(), combination_id],
+                )
+        return revision_id
+
+    def utterance_targets(
+        self, *, status: str = "active", languages: Sequence[str] | None = None
+    ) -> list[dict[str, Any]]:
+        sql = "SELECT * FROM utterance_targets WHERE status = ?"
+        params: list[Any] = [status]
+        if languages:
+            sql += f" AND language IN ({', '.join('?' for _ in languages)})"
+            params += list(languages)
+        return self._dicts(sql + " ORDER BY priority, language, combination_id", params)
+
+    def utterances(self, *, status: str = "active") -> list[dict[str, Any]]:
+        return self._dicts(
+            "SELECT * FROM utterances WHERE status = ? ORDER BY utterance_id", [status]
+        )
+
+    def utterance_accepted_counts(self) -> dict[uuid.UUID, int]:
+        return dict(
+            self.con.execute(
+                "SELECT combination_id, count(*) FROM utterances WHERE status = 'active' GROUP BY 1"
+            ).fetchall()
+        )
+
+    def requested_counts(self, kind: str) -> dict[uuid.UUID, int]:
+        """Samples requested per criterion for a request kind, API errors excluded."""
+        return dict(
+            self.con.execute(
+                "SELECT combination_id, sum(requested_count) FROM requests "
+                "WHERE kind = ? AND status != 'api_error' AND combination_id IS NOT NULL "
+                "GROUP BY 1",
+                [kind],
+            ).fetchall()
+        )
+
+    def utterance_text_hashes(self) -> set[str]:
+        rows = self.con.execute(
+            "SELECT text_hash FROM utterances WHERE status = 'active'"
+        ).fetchall()
+        return {r[0] for r in rows}
+
+    def insert_utterance(self, target: Mapping[str, Any], row: Mapping[str, Any]) -> uuid.UUID:
+        """An accepted utterance; its text is never changed afterwards."""
+        utterance_id = ids.new_id()
+        self._insert(
+            "utterances",
+            {
+                "utterance_id": utterance_id,
+                **{
+                    c: target[c]
+                    for c, _ in TABLES["utterance_targets"].columns
+                    if c in _UTTERANCE_SHARED
+                },
+                "intended_label": target["label"],
+                "label": row["gemini_label"],
+                "text_clean": clean_text(row["text"]),
+                "cleaner_version": CLEANER_VERSION,
+                **row,
+                "status": "active",
+                "retired_reason": None,
+                "retired_at": None,
+                "created_at": now(),
+            },
+        )
+        return utterance_id
+
+    def retire_utterance(self, utterance_id: uuid.UUID, reason: str) -> None:
+        self._retire("utterances", "utterance_id", utterance_id, reason)
+
     # ---------------------------------------------------------------- examples
 
     def replace_examples(self, builder_version: str, rows: Sequence[Mapping[str, Any]]) -> None:
@@ -659,6 +832,12 @@ class Store:
 _FACTOR_NAMES = {c for c, _ in TABLES["conversations"].columns} & {
     c for c, _ in TABLES["targets"].columns
 } - {"status", "retired_reason", "retired_at"}
+
+
+_UTTERANCE_SHARED = (
+    {c for c, _ in TABLES["utterances"].columns}
+    & {c for c, _ in TABLES["utterance_targets"].columns}
+) - {"status", "retired_reason", "retired_at", "label"}
 
 
 def _placeholder(kind: str) -> str:

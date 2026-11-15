@@ -15,8 +15,9 @@ batch_size: 10
 # required sample, counting rejected attempts.
 max_attempts_per_sample: 3
 
-# Parallel API calls. DuckDB writes stay in one process.
-concurrency: 4
+# Parallel API calls (user decision, 2026-11-15: up to 10). DuckDB writes
+# stay in one process; the utterance runner writes from the main thread only.
+concurrency: 10
 
 # null keeps the model's default.
 temperature: null

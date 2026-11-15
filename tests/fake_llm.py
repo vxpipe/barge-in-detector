@@ -36,10 +36,22 @@ def _label(lines):
 
 
 class FakeLlm:
-    def __init__(self, *, judge_disagrees=False, judge_fails=False, generator_fails=False):
+    def __init__(
+        self,
+        *,
+        judge_disagrees=False,
+        judge_fails=False,
+        generator_fails=False,
+        label_override=None,
+        fixed_text=None,
+    ):
         self.judge_disagrees = judge_disagrees
         self.judge_fails = judge_fails
         self.generator_fails = generator_fails
+        # Utterance track: report this label instead of the intended one, or
+        # write this text for every sample (to exercise deduplication).
+        self.label_override = label_override
+        self.fixed_text = fixed_text
         self.calls = {"generate": 0, "judge": 0}
         self.system_prompts = set()
         self._lock = threading.Lock()
@@ -62,6 +74,9 @@ class FakeLlm:
         if self.generator_fails:
             raise LlmError("503: unavailable")
         lines = prompt.splitlines()
+        utterances = re.search(r"Write (\d+) utterances?\b", prompt)
+        if utterances:
+            return self._result({"samples": self._utterances(lines, int(utterances.group(1)))})
         sets = re.search(r"Write (\d+) sets", prompt)
         if sets:
             shared_end = next(i for i, line in enumerate(lines) if line.startswith("Member with"))
@@ -88,6 +103,25 @@ class FakeLlm:
                 agent_uid = uid if share_agent else f"{uid}m{member_index}"
                 samples.append(self._sample(ml, uid, agent_uid, set_index, member_index))
         return self._result({"samples": samples})
+
+    def _utterances(self, lines, count):
+        """Utterance-track samples: unique words, the requested length and label."""
+        length = LENGTH[_factor(lines, "Length")]
+        development = _factor(lines, "Development")
+        label = _label(lines)
+        if self.label_override:
+            label = self.label_override
+        samples = []
+        for _ in range(count):
+            uid = next(_IDS)
+            word = None
+            if label == "barge_in":
+                word = 0 if development == "stable" else 1
+            text = " ".join([self.fixed_text or f"u{uid}", *["x"] * (length - 1)])
+            samples.append(
+                {"text": text, "label": label, "barge_in_from_word": word, "rationale": "fake"}
+            )
+        return samples
 
     def _sample(self, lines, uid, agent_uid, set_index, member_index):
         cut = _factor(lines, "Cut position")
