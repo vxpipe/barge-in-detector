@@ -61,7 +61,6 @@ intent has at least one valid combination.
 | `agent_activity` | 15, from greeting to reading numbers, asking a question and closing | What the listener is reacting to; the strongest context signal after cut position |
 | `cut_position` | start, early, middle, near_end, just_finished | Mid-sentence vs. just asked a question |
 | `caller_intent` | 24 intents | Determines the label |
-| `development` | stable, backchannel_then_barge_in, filler_then_barge_in | Interim transcripts that change meaning as they grow |
 | `register` | formal, casual | Wording varies with formality |
 | `caller_mood` | neutral, friendly, hurried, confused, frustrated | Wording and urgency |
 
@@ -137,12 +136,11 @@ language's native script (`mixed_in_script: native`, user decision,
   need something already said; floor and skip requests need the speaker still
   speaking; `hello_check` needs the speaker to have gone quiet;
   `turn_continuation` needs the judged speaker's earlier turn in the window.
-- Only barge-in intents can develop from a backchannel or filler.
 
 ## Size of the space
 
-The utterance track (2026-11-15) has 1,480 valid combinations across the 14
-languages: 1,258 barge-in and 222 backchannel. The `utterance-all` plan takes
+The utterance track (2026-11-15) has 666 valid combinations across the 14
+languages: 444 barge-in and 222 backchannel. The `utterance-all` plan takes
 every one of them with the same sample count.
 
 ## Points for review

@@ -5,7 +5,7 @@
 # catalogue (catalogue.yaml). A criterion picks one value for each factor
 # below; constraints whose factors are absent here are skipped.
 
-version: 0.7.0
+version: 0.8.0
 
 # The only labels in this track (user decision, 2026-11-15): no ambiguous
 # class. Every intent left in the track must map to one of these.
@@ -20,7 +20,6 @@ factors:
   - code_switch_set
   - mixed_in_script
   - caller_intent
-  - development
 
 # Intents left out of the utterance track, with the reason.
 excluded_intents:

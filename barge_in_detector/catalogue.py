@@ -326,7 +326,6 @@ class Catalogue:
         "agent_activity",
         "cut_position",
         "caller_intent",
-        "development",
         "caller_mood",
         "speaker_pattern",
     )

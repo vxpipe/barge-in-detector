@@ -113,18 +113,6 @@ rules:
     when: {caller_intent: [turn_continuation]}
     require: {speaker_pattern: [returning_speaker]}
 
-  # ---- development ----
-  - id: development_only_for_barge_in
-    description: Only barge-in utterances develop from a backchannel or filler.
-    when:
-      caller_intent: [continuer, acknowledgment, agreement_token, reaction_token, gratitude_token, tracking_repeat, go_ahead, collaborative_completion, thinking_filler_after_question]
-    require: {development: [stable]}
-
-  - id: no_backchannel_development_into_stop
-    description: Stop and repeat requests rarely start with an agreement token.
-    when: {caller_intent: [floor_request, repeat_request]}
-    forbid: {development: [backchannel_then_barge_in]}
-
   # ---- mood plausibility ----
   - id: complaint_mood
     when: {caller_intent: [complaint]}

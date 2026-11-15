@@ -23,7 +23,6 @@ SPEC = {
     "code_switch_set": "hi",
     "mixed_in_script": "default",
     "caller_intent": "agreement_token",
-    "development": "stable",
 }
 
 

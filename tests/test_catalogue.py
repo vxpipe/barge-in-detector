@@ -26,7 +26,6 @@ def base_spec(**overrides):
         "agent_activity": "explaining",
         "cut_position": "middle",
         "caller_intent": "agreement_token",
-        "development": "stable",
         "register": "casual",
         "caller_mood": "neutral",
     }

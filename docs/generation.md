@@ -16,8 +16,8 @@ pipeline (2-3 line windows) was removed on 2026-11-15; it is in git history.
 - **Two parts per call**:
   1. **System prompt** `generator_utterances_v4` (cached in an explicit
      Gemini context cache per model and prompt hash; needs API `v1beta`): the
-     task, the track's intents with their labels, development,
-     script form and code-switching meanings, writing rules, output
+     task, the track's intents with their labels, script form and
+     code-switching meanings, writing rules, output
      format.
   2. **Request**: a **Languages and scripts** block with one line per language
      of the combination and its script, no language ranked above another,
@@ -29,8 +29,7 @@ pipeline (2-3 line windows) was removed on 2026-11-15; it is in git history.
        - English: in Latin letters.
      ```
 
-     Then the intent with its intended label and example hints, and the
-     development.
+     Then the intent with its intended label and example hints.
 - **Structured output** (`UTTERANCE_SCHEMA`): `text`, `label` (`backchannel`
   or `barge_in`), `rationale`. An utterance that starts as a backchannel and
   turns into a barge-in is simply `barge_in`; where it turns is not recorded
@@ -56,25 +55,19 @@ Words are whitespace tokens that keep some text after cleaning
 ## Judge
 
 The Gemini Decisions API (`gemini-decision-1`), one request per utterance;
-the input is `{"text": ...}` only. The questions are built from that sample's
-criterion: **one plain yes/no question per criterion, nothing else, and no
-question about the label** (user decision, 2026-11-15). Language and script
-ask one question per language. Questions are in
-`generation/prompts/judge_utterances_v4.yaml`, rendered by
-`generation/utterance_criteria.py`. For Tamil (India) with English mixed in:
+the input is `{"text": ...}` only. The questions restate the request's
+criteria and nothing else, never the label (user decision, 2026-11-15),
+built in `generation/utterance_criteria.py`. For Tamil with English mixed in:
 
 | Key | Question |
 | --- | --- |
-| `language_ta`, `language_en` | Does this text contain Tamil (English) words? |
-| `script_ta` | Are the Tamil words in this text written in Tamil script? |
-| `script_en` | Are the English words in this text written in Latin letters? |
-| `variant` | Could this be Tamil as spoken in India? (only for languages with variants) |
-| `intent` | Does this describe the text: <intent description> |
-| `development` | Does this text keep the same intent from start to end? / … start as a backchannel (with a filler) and then become an interruption? |
+| `language_ta` | Does this text contain Tamil words written in Tamil script? |
+| `language_en` | Does this text contain English words written in Latin letters? |
+| `intent` | Said over a speaker who is still talking, is this text: <intent description> |
 
-Every answer must have P(yes) ≥ 0.5; otherwise the
-reason lists each key answered no (`judge: script_ta=0.08,switching=0.3`).
-Every row keeps the judge's raw answers.
+Every answer must have P(yes) ≥ 0.5; otherwise the reason lists each key
+answered no (`judge: language_ta=0.08`). Every row keeps the judge's raw
+answers.
 
 ## Running it
 

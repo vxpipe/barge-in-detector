@@ -25,7 +25,6 @@ def spec(**overrides):
         "code_switch_set": "none",
         "mixed_in_script": "default",
         "caller_intent": "acknowledgment",
-        "development": "stable",
     }
     return {**base, **overrides}
 
@@ -36,7 +35,6 @@ TAMIL = spec(
     code_switching="mixed",
     code_switch_set="en",
     caller_intent="floor_request",
-    development="filler_then_barge_in",
 )
 HINDI_MIX = spec(
     language="hi",
@@ -53,7 +51,6 @@ INDIAN_ENGLISH_HINDI = spec(
     code_switch_set="hi",
     mixed_in_script="native",
     caller_intent="correction",
-    development="backchannel_then_barge_in",
 )
 
 
@@ -102,7 +99,7 @@ def test_every_language_of_the_combination_is_listed():
 
 def test_request_keeps_the_factor_lines():
     text = request(TAMIL)
-    assert "- Development: `filler_then_barge_in`" in text
+    assert "Development" not in text
     assert "Length" not in text
     assert "(intended label: barge_in)" in text
 
@@ -118,50 +115,25 @@ def keys(s, text="Umm, wait wait, hold on a second please, I need to check."):
     return set(questions)
 
 
-def test_one_question_per_criterion_and_one_per_language():
-    assert keys(HINDI_MIX, "Haan bilkul, सही, exactly.") == {
-        "language_hi",
-        "language_en",
-        "script_hi",
-        "script_en",
-        "intent",
-        "development",
-    }
+def test_questions_come_only_from_the_request_criteria():
+    # One question per language line of the request (language and script
+    # together) and one for the intent; nothing else.
+    assert keys(HINDI_MIX, "Haan bilkul, सही, exactly.") == {"language_hi", "language_en", "intent"}
+    assert keys(TAMIL) == {"language_ta", "language_en", "intent"}
+    assert keys(spec(), "Got it.") == {"language_en", "intent"}
 
 
-def test_a_regional_variant_is_a_criterion_of_its_own():
-    assert "variant" in keys(TAMIL)
-    assert "variant" not in keys(HINDI_MIX, "Haan bilkul, सही, exactly.")
-
-
-def test_judge_questions_are_plain_one_line_questions():
+def test_judge_questions_restate_the_criteria():
     _, questions = judge_questions(CAT, TAMIL, "சரி சரி, hold on")
-    assert questions["script_ta"]["instructions"] == (
-        "Are the Tamil words in this text written in Tamil script?"
+    assert questions["language_ta"]["instructions"] == (
+        "Does this text contain Tamil words written in Tamil script?"
     )
-    assert questions["variant"]["instructions"] == "Could this be Tamil as spoken in India?"
-    assert questions["language_en"]["instructions"] == "Does this text contain English words?"
-    _, questions = judge_questions(CAT, INDIAN_ENGLISH_HINDI, "हाँ हाँ, but not this one")
-    assert questions["script_hi"]["instructions"] == (
-        "Are the Hindi words in this text written in Devanagari script?"
+    assert questions["language_en"]["instructions"] == (
+        "Does this text contain English words written in Latin letters?"
     )
-    assert questions["language_hi"]["instructions"] == "Does this text contain Hindi words?"
-    _, questions = judge_questions(CAT, TAMIL, "சரி சரி, hold on")
-    assert questions["language_ta"]["instructions"] == "Does this text contain Tamil words?"
-
-
-def test_development_question_names_no_turning_point():
-    s = spec(
-        caller_intent="correction",
-        development="backchannel_then_barge_in",
-    )
-    _, questions = judge_questions(CAT, s, "Sure sure, but that is not my email address.")
-    assert questions["development"]["instructions"] == (
-        "Does this text start as a backchannel and then become an interruption?"
-    )
-    _, questions = judge_questions(CAT, spec(), "Got it.")
-    assert questions["development"]["instructions"] == (
-        "Does this text keep the same intent from start to end?"
+    description = " ".join(CAT.intents["floor_request"]["description"].split())
+    assert questions["intent"]["instructions"] == (
+        f"Said over a speaker who is still talking, is this text: {description}"
     )
 
 
@@ -193,7 +165,7 @@ def test_blocked_input_fails_every_question():
 
 def test_missing_answer_is_unusable():
     with pytest.raises(JudgementError):
-        parse_verdict(answers(intent=0.9), ["intent", "development"])
+        parse_verdict(answers(intent=0.9), ["intent", "script_hi"])
 
 
 def test_code_switching_is_only_mixed_or_not():
@@ -203,11 +175,9 @@ def test_code_switching_is_only_mixed_or_not():
         code_switching="mixed",
         code_switch_set="en",
         caller_intent="floor_request",
-        development="filler_then_barge_in",
     )
     text = request(mixed)
     assert "mix these languages in the utterance" in text
     assert "within a sentence" not in text and "between sentences" not in text
     _, questions = judge_questions(CAT, mixed, "Tunggu sebentar, please hold on.")
-    assert "switching" not in questions  # the language questions confirm the mix
-    assert {"language_id", "language_en"} <= set(questions)
+    assert set(questions) == {"language_id", "language_en", "intent"}

@@ -6,7 +6,7 @@
 # criterion (a row in the targets table) with a required sample count. Gemini only writes text that
 # satisfies the chosen values.
 
-version: 0.10.0
+version: 0.11.0
 status: draft  # awaiting user review
 
 files:
@@ -155,20 +155,6 @@ spec_factors:
       What the listener means by the last line. Values come from
       intents.yaml, and each intent determines the label.
     values_from: intents
-
-  - id: development
-    description: How the candidate utterance unfolds over interim transcripts.
-    values:
-      - id: stable
-        description: The utterance has one intent from its first word.
-      - id: backchannel_then_barge_in
-        description: >
-          Starts like a backchannel and turns into the barge-in intent, e.g.
-          "yes yes, but change the time".
-      - id: filler_then_barge_in
-        description: >
-          Starts with hesitation or filler and then becomes the barge-in
-          intent, e.g. "umm, actually, can I".
 
   - id: register
     description: Formality of the people's speech.

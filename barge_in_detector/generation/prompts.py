@@ -116,7 +116,6 @@ def render_utterance_system(cat: Catalogue, track: Any) -> str:
     )
     return _template(UTTERANCE_TEMPLATE).substitute(
         intent_table=intents,
-        developments=_value_list(cat, "development"),
         script_forms=_value_list(cat, "script_form"),
         code_switching=_value_list(cat, "code_switching"),
     )
@@ -125,13 +124,11 @@ def render_utterance_system(cat: Catalogue, track: Any) -> str:
 def render_utterance_request(cat: Catalogue, spec: Mapping[str, str], *, count: int) -> str:
     from barge_in_detector.generation.utterance_criteria import describe_languages
 
-    d = cat.descriptions
     intent = cat.intents[spec["caller_intent"]]
     lines = [describe_languages(cat, spec)] + [
         f"Intent: `{spec['caller_intent']}` (intended label: {intent['label']}): "
         f"{' '.join(intent['description'].split())}",
         _hints(cat, spec["caller_intent"], spec["language"]),
-        f"Development: `{spec['development']}`: {d[('development', spec['development'])]}",
     ]
     body = "\n".join(f"- {line}" for line in lines)
     head = (

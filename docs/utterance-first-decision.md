@@ -35,8 +35,7 @@ keep talking) or a real interruption (stop and give the caller the floor)?
    and the runtime re-evaluates each interim transcript). If 64 tokens miss the
    latency budget, measure 32; if 64 meets it, 128 is not needed.
 2. **The main training set is single labelled utterances** generated per
-   language, script form, code-switching (none or mixed), intent and
-   development.
+   language, script form, code-switching (none or mixed) and intent.
 3. **A small context slice** (about 10-15% of samples) covers the cases where
    the agent's words decide the label: number and name readouts (the caller
    echoing digits is tracking; different digits are a correction), "no" after a

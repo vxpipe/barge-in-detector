@@ -138,8 +138,8 @@ the LLM. Gemini only writes text that satisfies a given specification.
 1. **Factor catalogue** (versioned data under `generation/factors/`, explained
    in [docs/factor-catalogue.md](docs/factor-catalogue.md)); the utterance
    track's factors are in `generation/factors/utterances.yaml`: language and
-   regional variant, script form, code-switching, caller intent, development
-   over interim transcripts; code-switching is none or mixed. Each intent maps to an
+   regional variant, script form, code-switching (none or mixed) and caller
+   intent. Each intent maps to an
    intended label (backchannel or barge-in).
 2. **Constraint rules** remove impossible combinations
    (`generation/factors/constraints.yaml` and the track's own rules).

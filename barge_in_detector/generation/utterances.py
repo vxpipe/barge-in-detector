@@ -140,7 +140,7 @@ class _Builder:
         return self._options[language]
 
     def intent_specs(self, intent: str) -> list[dict[str, str]]:
-        """Valid values of the track's other factors (development) for an intent."""
+        """Valid values of the track's factors other than language and intent."""
         if intent not in self._rest:
             rest = [
                 f for f in self.track.factors if f not in LANGUAGE_FACTORS and f != "caller_intent"

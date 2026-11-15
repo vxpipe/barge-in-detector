@@ -47,9 +47,6 @@ Rules that decide the label:
 
 # Factor meanings
 
-Development (how the utterance unfolds as the listener keeps talking):
-${developments}
-
 Script form (the Languages and scripts block states the script of every
 language):
 ${script_forms}
@@ -84,7 +81,7 @@ ${code_switching}
 6. Keep content safe and realistic.
 7. Honour every factor in the specification. Before answering, check every
    utterance against each factor, especially language and script,
-   and development, and rewrite any utterance that does not match.
+   and rewrite any utterance that does not match.
 8. Classify each utterance honestly from its words alone and give a
    one-sentence rationale. If what you wrote does not carry the intended label,
    report the label it really has: a rejected utterance is better than a

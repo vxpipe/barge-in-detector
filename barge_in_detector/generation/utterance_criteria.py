@@ -1,11 +1,10 @@
 """What an utterance criterion asks for, language by language, and the judge's
 yes/no questions that check it (docs/generation.md#utterance-track).
 
-The generator prompt and the judge read the same `language_parts`, so the
-script the prompt asks for is the script the judge checks. The judge asks one
-question per criterion of the specification and nothing else (user decision,
-2026-11-15); the language and script criteria flatten into one question per
-language in the combination.
+The generator prompt and the judge read the same `language_parts`. The judge's
+questions restate the request's criteria and nothing else (user decision,
+2026-11-15): one per language line ("Does this text contain Tamil words
+written in Tamil script?") and one for the intent.
 """
 
 from __future__ import annotations
@@ -13,52 +12,17 @@ from __future__ import annotations
 import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from functools import cache
-from string import Template
 from typing import Any
 
-import yaml
-
 from barge_in_detector.catalogue import Catalogue
-from barge_in_detector.generation.prompts import PROMPT_DIR, SCRIPT_NAMES
+from barge_in_detector.generation.prompts import SCRIPT_NAMES
 
-JUDGE_TEMPLATE = "judge_utterances_v4"
+JUDGE_TEMPLATE = "criteria_questions_v1"  # questions built in code from the criteria
+SAID_OVER = "Said over a speaker who is still talking"
 JUDGE_KIND = "judge_utterance"
 YES = 0.5
 
 _HAN = ("Hans", "Hant")
-
-REGION_NAMES = {
-    "AR": "Argentina",
-    "AT": "Austria",
-    "AU": "Australia",
-    "BD": "Bangladesh",
-    "BE": "Belgium",
-    "BR": "Brazil",
-    "CA": "Canada",
-    "CH": "Switzerland",
-    "CN": "mainland China",
-    "CO": "Colombia",
-    "DE": "Germany",
-    "ES": "Spain",
-    "FR": "France",
-    "GB": "the United Kingdom",
-    "HK": "Hong Kong",
-    "IN": "India",
-    "LK": "Sri Lanka",
-    "MX": "Mexico",
-    "MY": "Malaysia",
-    "NG": "Nigeria",
-    "NL": "the Netherlands",
-    "PH": "the Philippines",
-    "PK": "Pakistan",
-    "PT": "Portugal",
-    "SG": "Singapore",
-    "SN": "Senegal",
-    "TW": "Taiwan",
-    "US": "the United States",
-    "ZA": "South Africa",
-}
 
 
 @dataclass(frozen=True)
@@ -161,34 +125,23 @@ def describe_languages(cat: Catalogue, spec: Mapping[str, str]) -> str:
 # ---------------------------------------------------------------- judge
 
 
-@cache
-def _template() -> dict[str, Any]:
-    return yaml.safe_load((PROMPT_DIR / f"{JUDGE_TEMPLATE}.yaml").read_text(encoding="utf-8"))
-
-
 def judge_questions(
     cat: Catalogue, spec: Mapping[str, str], text: str
 ) -> tuple[str, dict[str, Any]]:
-    """The Decisions API input ({"text": ...}) and one question per criterion."""
-    q = _template()["questions"]
+    """The Decisions API input ({"text": ...}) and the questions: the request's
+    criteria restated, one per language line and one for the intent."""
 
-    def ask(raw: str, **fields: str) -> dict[str, Any]:
-        return {"type": "noul", "instructions": Template(raw).substitute(fields)}
+    def ask(question: str) -> dict[str, Any]:
+        return {"type": "noul", "instructions": question}
 
-    parts = language_parts(cat, spec)
-    questions: dict[str, Any] = {}
-    for part in parts:
-        questions[f"language_{part.code}"] = ask(q["language"], name=part.name)
-    for part in parts:
-        questions[f"script_{part.code}"] = ask(
-            q["script"], name=part.name, script=script_name(cat, part)
+    questions = {
+        f"language_{part.code}": ask(
+            f"Does this text contain {part.name} words written in {script_name(cat, part)}?"
         )
-    region = cat.region(spec["language"], spec["regional_variant"])
-    if "-" in spec["regional_variant"] and region in REGION_NAMES:
-        questions["variant"] = ask(q["variant"], name=parts[0].name, region=REGION_NAMES[region])
+        for part in language_parts(cat, spec)
+    }
     intent = " ".join(cat.intents[spec["caller_intent"]]["description"].split())
-    questions["intent"] = ask(q["intent"], description=intent)
-    questions["development"] = ask(q["development"][spec["development"]])
+    questions["intent"] = ask(f"{SAID_OVER}, is this text: {intent}")
     return json.dumps({"text": text}, ensure_ascii=False), questions
 
 

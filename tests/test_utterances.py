@@ -110,7 +110,7 @@ def test_request_names_every_factor():
     t = build_utterance_plan(CAT, TRACK, PLAN)[0]
     user = prompts.render_utterance_request(CAT, t.spec, count=4)
     assert user.startswith("Write 4 utterances")
-    for prefix in ("Languages and scripts", "Intent:", "Development:"):
+    for prefix in ("Languages and scripts", "Intent:"):
         assert f"- {prefix}" in user
     assert f"(intended label: {t.intended_label})" in user
 
@@ -125,7 +125,6 @@ EN = {
     "code_switch_set": "none",
     "mixed_in_script": "default",
     "caller_intent": "floor_request",
-    "development": "backchannel_then_barge_in",
 }
 
 
@@ -212,7 +211,8 @@ def test_run_fills_every_criterion_and_judges_each_utterance(store):
     assert row["judge_request_id"] is not None
     assert json.loads(row["raw_sample"])["text"] == row["text"]
     answers = json.loads(row["judge_answers"])
-    assert {"intent", "development", "script_en", "language_en"} <= set(answers)
+    assert {"intent", "language_en"} <= set(answers)
+    assert "development" not in answers
     assert min(a["noul"] for a in answers.values()) >= 0.5
 
 
@@ -276,7 +276,7 @@ def test_received_response_is_resumed_before_new_requests(store):
 
 
 def test_export_then_import_rebuilds_every_sample(store, tmp_path):
-    run(store, FakeLlm(judge_no=("development",)), languages=["en"], limit=2)
+    run(store, FakeLlm(judge_no=("intent",)), languages=["en"], limit=2)
     store.export(tmp_path / "export")
     rebuilt = Store.open(tmp_path / "rebuilt.duckdb")
     try:
@@ -357,16 +357,16 @@ def test_parallel_run_honours_the_limit_and_retries_rejections(store):
 
 
 def test_a_criterion_the_judge_says_no_to_is_rejected_by_its_key(store):
-    client = FakeLlm(judge_no=("script_",))
+    client = FakeLlm(judge_no=("language_",))
     report = run(store, client, languages=["en"])
     assert report.accepted == 0
     assert report.rejections["judge"] == 72
-    assert report.reasons["judge:script_en"] == 72
+    assert report.reasons["judge:language_en"] == 72
     assert client.calls["generate"] == 24  # the attempt budget stops the retries
     row = rejected(store)[0]
     assert row["judge_request_id"] is not None
-    assert row["reason"] == "judge: script_en=0.1"
-    assert json.loads(row["judge_answers"])["script_en"]["noul"] == 0.1
+    assert row["reason"] == "judge: language_en=0.1"
+    assert json.loads(row["judge_answers"])["language_en"]["noul"] == 0.1
 
 
 def test_judge_api_error_keeps_the_response_for_the_next_run(store):

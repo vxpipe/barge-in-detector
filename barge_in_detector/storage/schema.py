@@ -14,7 +14,7 @@ Changing a column needs a SCHEMA_VERSION bump recorded in docs/data-format.md.
 
 from dataclasses import dataclass
 
-SCHEMA_VERSION = "9"
+SCHEMA_VERSION = "10"
 
 # Factors of an utterance criterion (generation/factors/utterances.yaml).
 UTTERANCE_FACTORS = (
@@ -25,7 +25,6 @@ UTTERANCE_FACTORS = (
     "code_switch_set",
     "mixed_in_script",
     "caller_intent",
-    "development",
 )
 
 STATUSES = ("accepted", "rejected", "retired")
