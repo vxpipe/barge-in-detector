@@ -5,7 +5,7 @@
 # catalogue (catalogue.yaml). A criterion picks one value for each factor
 # below; constraints whose factors are absent here are skipped.
 
-version: 0.3.0  # 0.2.0: track rules for code-switching length; 0.3.0: labels
+version: 0.4.0  # 0.2.0: track rules for code-switching length; 0.3.0: labels; 0.4.0: no turn_continuation
 
 # The only labels in this track (user decision, 2026-11-15): no ambiguous
 # class. Every intent left in the track must map to one of these.
@@ -31,6 +31,7 @@ excluded_intents:
   thinking_filler_after_question: Needs a finished question.
   tracking_repeat: Echo or correction depends on the speaker's words; context slice.
   collaborative_completion: Needs the speaker's unfinished sentence; context slice.
+  turn_continuation: Continues the listener's own earlier turn; single utterances have none (user decision, 2026-11-15).
   # (thinking_filler_after_question and collaborative_completion are also the
   # catalogue's only ambiguous intents.)
 

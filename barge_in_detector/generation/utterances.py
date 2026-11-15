@@ -81,6 +81,9 @@ class UtterancePlanConfig:
     # Candidates drawn per position; the one using the least-covered factor
     # values wins.
     candidates_per_pick: int = 8
+    # Every valid combination of each language instead of criteria_per_language
+    # picks, each with the same required_count.
+    all_combinations: bool = False
 
     @classmethod
     def from_file(cls, path: Path) -> UtterancePlanConfig:
@@ -176,6 +179,28 @@ class _Builder:
         variants = self.cat.variants(language)
         return {v: 1 / len(variants) for v in variants}
 
+    def build_all(self, language: str) -> list[UtteranceTarget]:
+        """Every valid combination of a language, ordered by combination_id."""
+        specs = {
+            ids.utterance_combination_id(spec): spec
+            for variant in dict.fromkeys(
+                s["regional_variant"] for s in self.language_specs(language)
+            )
+            for intent in self.track.intents
+            for spec in self.valid_specs(language, variant, intent)
+        }
+        return [
+            UtteranceTarget(
+                spec={f: spec[f] for f in self.track.factors},
+                combination_id=cid,
+                intended_label=self.cat.intents[spec["caller_intent"]]["label"],
+                required_count=self.config.required_count,
+                priority=position,
+                split=split_for(cid, self.config.split_ratios),
+            )
+            for position, (cid, spec) in enumerate(sorted(specs.items()))
+        ]
+
     def build(self, language: str) -> list[UtteranceTarget]:
         config = self.config
         label_counts: Counter = Counter()
@@ -240,9 +265,26 @@ def build_utterance_plan(
     builder = _Builder(cat, track, config)
     plan: list[UtteranceTarget] = []
     for language in config.languages:
-        plan += builder.build(language)
+        plan += builder.build_all(language) if config.all_combinations else builder.build(language)
     return plan
 
 
 def spec_of(row: Mapping[str, Any], factors: Sequence[str]) -> dict[str, str]:
     return {f: row[f] for f in factors}
+
+
+def plan_targets(cat: Catalogue, plan: Sequence[UtteranceTarget]) -> list[dict[str, Any]]:
+    """The plan as the runner and the store use it: one dict per criterion with
+    its factor values, id, intended label, required count, split and locales.
+    The plan file is the only record of criteria (it is versioned in git)."""
+    return [
+        {
+            **t.spec,
+            "combination_id": t.combination_id,
+            "label": t.intended_label,
+            "required_count": t.required_count,
+            "split": t.split,
+            "locales": cat.locales(t.spec),
+        }
+        for t in plan
+    ]

@@ -30,18 +30,20 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 ## Contracts
 
 - **Input**: one cleaned utterance (lowercase, no punctuation, any script mix),
-  re-evaluated on each interim revision. Optional language hint, never
-  required. A preceding agent line is not part of the contract unless
+  re-evaluated on each interim revision, at most **64 tokens** (user decision,
+  2026-11-15; enough for a whole sentence; longer input keeps its first 64
+  tokens). Optional language hint, never required. A preceding agent line is not part of the contract unless
   Checkpoint D keeps it.
 - **Output**: `p_barge_in` in [0, 1], calibrated on realistic priors.
 - **Labels**: exactly two, `backchannel` and `barge_in` (user decision,
   2026-11-15), as defined in AGENTS.md minus answers to a finished question
   (the runtime's job). No ambiguous class: the plan, the prompt schema and
   validation accept only these two.
-- **Data**: one utterance per row with its factor columns, original and cleaned
-  text, the generator's label and `barge_in_from_word`. Generated through the
-  same fill-to-count rules as the conversation pipeline
-  ([data format](../../docs/data-format.md)).
+- **Data**: one row per generated sample (accepted or rejected) with its
+  factor columns, original and cleaned text, the generator's label,
+  `barge_in_from_word`, the raw sample and the judge's raw answers, in one CSV
+  (`data/export/utterances.csv`); the plan file is the only record of the
+  criteria ([data format](../../docs/data-format.md)).
 
 ## Checkpoint A — Utterance generation
 
@@ -49,8 +51,9 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 - [x] Utterance factor file `generation/factors/utterances.yaml`: the factors
   kept, the intents excluded and why, reusing the language manifest, intents
   and constraints.
-- [x] Schema 4: `utterance_targets` and `utterances` tables, export and import,
-  migration from schema 3. Tests first.
+- [x] Storage (schema 6, user decisions 2026-11-15): one `utterances` table of
+  every sample exported as one CSV, a local request log, criteria from the
+  plan file only; the conversation pipeline removed. Tests first.
 - [x] Seeded utterance plan builder (`plan-utterances`): label shares, intents
   round-robin, a stable `combination_id` per criterion, a deterministic split.
   Tests first.
@@ -74,17 +77,17 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 - [x] Criteria judge (Decisions API): one yes/no question per criterion, one
   per language for language and script; schema 5 keeps `judge_answers`.
   Tests first.
-- [ ] Sample plan (36 languages × 5 criteria × 5) filled: 505 of 900 so far,
-  60 of 180 criteria full; the rest exhausted their attempt budget. Needs a
-  decision (generator model, plan, judge strictness) before more spend.
+- [ ] Sample plan (15 languages × 5 criteria × 5) filled: 721 of 900 with
+  gemini-3.8-flash before the cut to 15 languages; the rest exhausted their
+  attempt budget. Next: the size of the full plan (user decision).
 
 ## Checkpoint B — Pilot data
 
 - [ ] English and Hindi plan with realistic counts (start at a few thousand
   utterances per language), all script forms and code-switching sets.
 - [ ] Prefix expansion for utterances (interim prefixes with per-prefix
-  labels, from `barge_in_from_word`) into `examples`, or an utterance examples
-  table; decide which.
+  labels, from `barge_in_from_word`), derived at training time from
+  `utterances.csv`.
 - [ ] Deduplication and split audit on the cleaned text: the same text never
   appears in two splits; report how many cleaned texts appear with both labels
   (the ceiling for any utterance-only model).
@@ -102,9 +105,11 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 
 ## Checkpoint D — Baselines, training and the ablation
 
-- [ ] Benchmark candidate encoders on the reference CPU at 8, 16, 32 and 64
-  tokens (fp32 and int8 ONNX), with memory; consider vocabulary pruning to the
-  36 languages.
+- [ ] Benchmark candidate encoders on the reference CPU at the 64-token input
+  budget (fp32 and int8 ONNX), with memory, and report the token-length
+  distribution of the generated utterances per language and script form. If
+  64 tokens miss the latency gates, measure 32; if 64 meets them, do not go to
+  128. Consider vocabulary pruning to the 15 languages.
 - [ ] Baselines: character n-gram logistic regression on the utterance, and
   Gemini zero-shot as a ceiling.
 - [ ] Ablation on the same data: encoder on the utterance only, encoder on

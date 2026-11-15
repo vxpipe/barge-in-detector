@@ -28,6 +28,12 @@ keep talking) or a real interruption (stop and give the caller the floor)?
    [transcript format](transcript-format.md). One optional preceding line (the
    tail of what the agent had said) may be added later, but only if the
    ablation in the milestone shows it is worth it.
+   **Input budget: 64 tokens** (user decision, 2026-11-15), enough for a whole
+   sentence: a 12-15 word utterance can reach 30-50 subword tokens in
+   romanized or native-script Indian languages. If a longer utterance occurs,
+   its first 64 tokens are kept (the barge-in decision is usually made early,
+   and the runtime re-evaluates each interim transcript). If 64 tokens miss the
+   latency budget, measure 32; if 64 meets it, 128 is not needed.
 2. **The main training set is single labelled utterances** generated per
    language, script form, code-switching, intent, development, repetition and
    length. No domain, scenario, speaker pattern, cut position, register or mood.
@@ -65,8 +71,11 @@ keep talking) or a real interruption (stop and give the caller the floor)?
 - The conversation pipeline's first runs accepted 21% of samples. Most
   rejections came from the parts the utterance track drops: cut position,
   contrastive sets and intents that depend on context.
-- Inputs of 8-16 tokens instead of 60-128 cut encoder latency to an estimated
-  2-4 ms at int8 (to be measured on the reference CPU).
+- Most overlapping utterances are short (a backchannel is often one to three
+  words), so typical inputs are far shorter than the 60-128 tokens of a 2-3
+  line window; Fable estimated about 2-4 ms at int8 for 8-16 tokens. That is a
+  typical size for the latency estimate, not a limit: the input budget is 64
+  tokens (decision 1), measured on the reference CPU.
 
 ## Rejected alternatives
 

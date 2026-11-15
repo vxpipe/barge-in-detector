@@ -186,9 +186,72 @@ Indian language's criteria move, because the builder picks from each
 language's valid combinations); 135 accepted utterances sit on the replaced
 criteria, 21 of them three-language samples. Not applied yet.
 
+## Input budget
+
+User decision: 64 tokens, enough for a whole sentence (30-50 subword tokens
+for a long Indian-language utterance); measure 32 only if 64 misses the
+latency gates, no 128 if 64 meets them. The "8-16 tokens" was Fable's typical
+size for a latency estimate, never a limit.
+
+## One CSV, one local request log (schema 6)
+
+User decisions: no runs or plan revisions (git keeps the plan file's
+history); no conversation tables; every sample, accepted or rejected, in one
+table exported as one CSV in plain git; the request log stays local. The
+conversation pipeline code (runner, plan builder, example builder, their
+prompts and tests) was removed; it is in git history (3ef2f65). The
+partitioned Parquet exports (539 files for about 13,000 rows) are replaced by
+`data/export/utterances.csv`. CLI commands are now `plan`, `generate`,
+`status`, `show-prompt`, `export`, `import`, each reading `--plan` (default
+`generation/plans/utterance-sample.yaml`).
+
+## Clean sample run with gemini-3.8-flash (rebuilt plan)
+
+Committed the code first (3ef2f65), cleared the DB, rebuilt the plan without
+three-language sets (180 criteria, 900 utterances). Run (judge v3, plain
+questions, concurrency 10, $5 cap): 584 generate + 1,519 judge requests,
+$4.42 ($4.36 generator, $0.07 judge), 721 accepted, 1,040 rejected (switching
+282, dedupe 227, development 184, variant 105, intent 86, repetition 44,
+plus language and script per language), 0 API errors; 59 criteria short with
+exhausted attempt budgets. Converted into schema 6 (one-off script, counts and
+cost matched), exported as `data/export/utterances.csv` (1,761 rows, 2.4 MB);
+import of the CSV reproduces every row.
+
+Cost per accepted utterance: $0.0061; per required utterance (80% filled):
+$0.0049. Full space: 40,197 valid criteria across the 36 languages; at 5 each,
+201k utterances: about $990 at these rates for about 80% filled (161k), and
+roughly $1,200-1,500 to approach 100% (the short criteria are the hard ones).
+The Batch API (half price, if it applies to this model) would about halve
+that. Estimates, not measured at that scale; short buckets (w1, w2_3) will
+deduplicate more as counts grow.
+
+## 15 languages
+
+User decision after reviewing the per-language table (pass rates, combination
+counts): drop Dutch, Hungarian, Swedish, Danish, Norwegian, Finnish, Irish,
+Portuguese, Thai, Assamese, Arabic, Vietnamese, Korean, Marathi, Gujarati (manifest 0.8.0; Indian English no longer
+mixes Assamese, Marathi or Gujarati). Their 213 accepted utterances are retired ("language dropped
+from the manifest"); 508 accepted remain. Valid combinations: 32,733 (was
+40,197); every combination at 5 each is about 164k utterances, roughly $800
+at the sample run's rate for about 80% filled, $1,000-1,250 to approach 100%.
+
+User decision (same day): drop Punjabi and Bengali too (19 languages);
+English only en-US, en-IN, en-SG (Singaporean English mixes Mandarin; Hong
+Kong English and its Cantonese set are gone); Tamil only ta-IN. Samples of
+dropped languages and varieties are retired the same way.
+
+Then Malay, Polish, Russian and Cantonese too (15 languages; Cantonese passed 16%: its interjections read as Mandarin and its romanization was unreliable). The old conversation plan
+`generation/plans/en-hi-pilot.yaml` is removed. `generation/plans/utterance-all.yaml`
+takes every valid combination (`all_combinations: true`) at 5 each.
+
+Mandarin in Chinese characters only (user decision, 2026-11-15:
+`romanized_usage: none`, so no pinyin and no characters-plus-pinyin mix);
+then no pinyin anywhere: Singaporean English mixes in Mandarin as
+characters only. Urdu: Indian Urdu (ur-IN) only. Spanish: Spain and Mexico (es-ES, es-MX) only. French: France only; German: Germany only; Mandarin: mainland China only (Simplified characters). Indian languages in native script only, alone or mixed with English (no romanized or mixed-script forms; manifest 0.9.0). Indian English mixes Indian words in their native script. `turn_continuation` excluded (track 0.4.0): it needs an earlier turn.
+
 ## Checks
 
-`ruff format --check`, `ruff check`: clean. `pytest`: 209 passed, 1
+`ruff format --check`, `ruff check`: clean. `pytest`: 108 passed, 1
 deselected (integration). No test calls Gemini.
 
 ## Next

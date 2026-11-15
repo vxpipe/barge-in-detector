@@ -45,16 +45,18 @@ URDU = spec(
 HINDI_MIX = spec(
     language="hi",
     regional_variant="hi",
-    script_form="mixed_script",
+    script_form="native",
     code_switching="within_sentence",
     code_switch_set="en",
     caller_intent="agreement_token",
     length_bucket="w4_8",
 )
-CANTONESE = spec(
-    language="yue",
-    regional_variant="yue-HK",
-    script_form="romanized",
+INDIAN_ENGLISH_HINDI = spec(
+    language="en",
+    regional_variant="en-IN",
+    code_switching="within_sentence",
+    code_switch_set="hi",
+    mixed_in_script="native",
     caller_intent="correction",
     development="backchannel_then_barge_in",
     length_bucket="w9_plus",
@@ -79,11 +81,22 @@ def test_every_language_in_the_combination_gets_its_own_script_line():
     assert "Latin letters" in english
 
 
-def test_romanized_text_is_asked_for_as_people_type_it():
-    text = request(CANTONESE)
-    cantonese = next(line for line in text.splitlines() if line.strip().startswith("- Cantonese"))
-    assert "no tone numbers" in cantonese
-    assert "never in Traditional Chinese characters" in cantonese
+def test_indian_words_in_indian_english_are_in_their_native_script():
+    text = request(INDIAN_ENGLISH_HINDI)
+    hindi = next(line for line in text.splitlines() if line.strip().startswith("- Hindi"))
+    assert "in Devanagari script, never in Latin letters" in hindi
+    assert not CAT.violations(INDIAN_ENGLISH_HINDI, partial_spec=True)
+    romanized = {**INDIAN_ENGLISH_HINDI, "mixed_in_script": "romanized"}
+    assert CAT.violations(romanized, partial_spec=True)
+    # The prompt still knows how to ask for romanized words, should a set allow it.
+    hindi = next(line for line in request(romanized).splitlines() if "- Hindi" in line)
+    assert "as people type it in messages" in hindi
+    # User decisions, 2026-11-15: Mandarin in characters only, no pinyin;
+    # Indian languages in their native script only (alone or with English).
+    for code in ("zh", "hi", "kn", "ta", "te", "ml", "ur"):
+        assert CAT.languages[code]["romanized_usage"] == "none"
+        options = CAT.language_options(code)
+        assert {o[1] for o in options} == {"native"}
 
 
 def test_every_language_of_the_combination_is_listed():
@@ -136,11 +149,11 @@ def test_judge_questions_are_plain_one_line_questions():
         "Are the Urdu words in this text written in Urdu (Perso-Arabic) script?"
     )
     assert questions["language_en"]["instructions"] == "Does this text contain English words?"
-    _, questions = judge_questions(CAT, CANTONESE, "hai hai, m hai gam", 2)
-    assert questions["script_yue"]["instructions"] == (
-        "Are the Cantonese words in this text written in romanized Latin letters?"
+    _, questions = judge_questions(CAT, INDIAN_ENGLISH_HINDI, "हाँ हाँ, but not this one", 2)
+    assert questions["script_hi"]["instructions"] == (
+        "Are the Hindi words in this text written in Devanagari script?"
     )
-    assert questions["language_yue"]["instructions"] == "Does this text contain Cantonese words?"
+    assert questions["language_hi"]["instructions"] == "Does this text contain Hindi words?"
     _, questions = judge_questions(CAT, URDU, "ہاں ہاں، hold on", 2)
     assert questions["language_ur"]["instructions"] == "Does this text contain Urdu words?"
 
@@ -195,8 +208,8 @@ def test_missing_answer_is_unusable():
 
 def test_request_spells_out_switching_majority_and_repetition():
     between = spec(
-        language="ms",
-        regional_variant="ms-SG",
+        language="id",
+        regional_variant="id",
         code_switching="between_sentences",
         code_switch_set="en",
         caller_intent="floor_request",

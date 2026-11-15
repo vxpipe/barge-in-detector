@@ -1,0 +1,18 @@
+# Every valid combination of the utterance track, the same number of
+# utterances each (user decision, 2026-11-15: all combinations get an equal
+# sample count). Uses the sample plan's seed, so the sample plan's criteria are
+# part of this one and keep their samples.
+
+name: utterance-all
+seed: 20261115
+languages: [en, hi, kn, ta, te, ml, ur, zh, ja, id, fil, fr, de, es, it]
+all_combinations: true
+criteria_per_language: 0  # unused with all_combinations
+required_count: 5
+
+label_shares: {backchannel: 0.5, barge_in: 0.5}  # unused with all_combinations
+
+variant_shares:
+  en: {en-US: 0.4, en-IN: 0.4, en-SG: 0.2}
+
+split_ratios: {train: 0.8, validation: 0.1, test: 0.1}

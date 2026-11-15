@@ -1,8 +1,15 @@
 # Transcript format and cleaning
 
-Status: decided 2026-11-14; cleaner version 1 implemented. This is the
-model's input contract: the training data and the runtime caller (Vxpipe) must
-produce exactly the same cleaned transcript for the same conversation.
+Status: decided 2026-11-14; cleaner version 1 implemented. The training data
+and the runtime caller (Vxpipe) must produce exactly the same cleaned text.
+
+**Since 2026-11-15 the model input is a single cleaned utterance**
+([utterance-first decision](utterance-first-decision.md)): the cleaning rules
+below apply to the utterance's text (`cleaner.clean_text`), with no speaker
+label. The `utterances` table keeps the original `text` and `text_clean` with
+the `cleaner_version`. The multi-line window and speaker labels below
+describe the conversation format of the removed conversation track; the
+cleaner still implements them for the planned context slice.
 
 ## Decision
 

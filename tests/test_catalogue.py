@@ -16,7 +16,7 @@ def base_spec(**overrides):
     spec = {
         "language": "hi",
         "regional_variant": "hi",
-        "script_form": "romanized",
+        "script_form": "native",
         "code_switching": "within_sentence",
         "code_switch_set": "en",
         "mixed_in_script": "default",
@@ -113,7 +113,7 @@ def test_derived_values(cat):
 def test_language_options_follow_the_manifest(cat):
     options = cat.language_options("en")
     assert ("en-US", "native", "none", "none", "default") in options
-    assert ("en-IN", "native", "within_sentence", "kn", "default") in options
+    assert ("en-IN", "native", "within_sentence", "kn", "native") in options
     assert not any(o[1] == "romanized" for o in options)
     assert not any(o[0] == "en-US" and o[2] != "none" for o in options)
 
@@ -133,16 +133,23 @@ def test_locales_list_every_language_in_the_transcript(cat):
         "code_switching": "within_sentence",
         "code_switch_set": "kn",
     }
-    assert cat.locales(indian) == ["en-IN", "kn-Latn-IN"]  # romanized in English-led speech
-    hindi = base_spec()  # romanized Hindi (region IN) mixing English
-    assert cat.locales(hindi) == ["hi-Latn-IN", "en-IN"]
-    assert cat.locales({**hindi, "script_form": "native"}) == ["hi-IN", "en-IN"]
+    assert cat.locales({**indian, "mixed_in_script": "native"}) == ["en-IN", "kn-IN"]
+    hindi = base_spec()  # native Hindi (region IN) mixing English
+    assert cat.locales(hindi) == ["hi-IN", "en-IN"]
 
 
-def test_mandarin_english_code_switching_in_malaysia(cat):
-    assert "zh" in cat.code_switch_sets("en", "en-MY")
+def test_english_varieties_and_mandarin_in_singapore(cat):
+    # User decision, 2026-11-15: English as spoken in the US, India and Singapore.
+    assert cat.languages["en"]["regional_variants"] == ["en-US", "en-IN", "en-SG"]
+    assert cat.languages["ta"]["regional_variants"] == ["ta-IN"]
+    assert cat.languages["ur"]["regional_variants"] == ["ur-IN"]
+    assert cat.languages["es"]["regional_variants"] == ["es-ES", "es-MX"]
+    assert cat.languages["fr"]["regional_variants"] == ["fr-FR"]
+    assert cat.languages["de"]["regional_variants"] == ["de-DE"]
+    assert cat.languages["zh"]["regional_variants"] == ["zh-CN"]
+    assert "zh" in cat.code_switch_sets("en", "en-SG")
     assert "zh" not in cat.code_switch_sets("en", "en-US")
-    assert "en" in cat.code_switch_sets("zh", "zh-MY")
+    assert "en" in cat.code_switch_sets("zh", "zh-CN")
 
 
 def _english(**kw):
@@ -151,23 +158,24 @@ def _english(**kw):
 
 def test_mixed_in_chinese_comes_in_characters_and_romanized(cat):
     options = cat.language_options("en")
-    my = {o for o in options if o[0] == "en-MY" and o[3] == "zh"}
-    assert {o[4] for o in my} == {"native", "romanized"}
-    hk = {o for o in options if o[0] == "en-HK" and o[3] == "yue"}
-    assert {o[4] for o in hk} == {"native", "romanized"}
-    # Indian sets keep the default (romanized) only.
-    assert {o[4] for o in options if o[0] == "en-IN"} == {"default"}
+    sg = {o for o in options if o[0] == "en-SG" and o[3] == "zh"}
+    # User decision, 2026-11-15: no pinyin anywhere; characters only.
+    assert {o[4] for o in sg} == {"native"}
+    # User decision, 2026-11-15: Indian words in Indian English are written in
+    # their own native script, never romanized.
+    assert {o[4] for o in options if o[0] == "en-IN" and o[2] != "none"} == {"native"}
     assert {o[4] for o in options if o[2] == "none"} == {"default"}
 
 
 def test_mixed_in_script_must_fit_the_set(cat):
     ok = _english(
-        regional_variant="en-MY",
+        regional_variant="en-SG",
         code_switching="within_sentence",
         code_switch_set="zh",
-        mixed_in_script="romanized",
+        mixed_in_script="native",
     )
     assert cat.violations(ok) == []
+    assert "mixed_in_script_in_set" in cat.violations({**ok, "mixed_in_script": "romanized"})
     assert "mixed_in_script_in_set" in cat.violations({**ok, "mixed_in_script": "default"})
     indian = _english(
         regional_variant="en-IN",
@@ -175,36 +183,29 @@ def test_mixed_in_script_must_fit_the_set(cat):
         code_switch_set="hi",
         mixed_in_script="native",
     )
-    assert "mixed_in_script_in_set" in cat.violations(indian)
+    assert cat.violations(indian) == []
+    assert "mixed_in_script_in_set" in cat.violations({**indian, "mixed_in_script": "romanized"})
 
 
 def test_locales_carry_script_subtags_for_chinese(cat):
     base = _english(
-        regional_variant="en-MY", code_switching="within_sentence", code_switch_set="zh"
+        regional_variant="en-SG", code_switching="within_sentence", code_switch_set="zh"
     )
-    assert cat.locales({**base, "mixed_in_script": "native"}) == ["en-MY", "zh-Hans-MY"]
-    assert cat.locales({**base, "mixed_in_script": "romanized"}) == ["en-MY", "zh-Latn-MY"]
-    hk = _english(
-        regional_variant="en-HK",
-        code_switching="within_sentence",
-        code_switch_set="yue",
-        mixed_in_script="native",
-    )
-    assert cat.locales(hk) == ["en-HK", "yue-Hant-HK"]
-    taiwan = base_spec(
+    assert cat.locales({**base, "mixed_in_script": "native"}) == ["en-SG", "zh-Hans-SG"]
+    mainland = base_spec(
         language="zh",
-        regional_variant="zh-TW",
+        regional_variant="zh-CN",
         script_form="native",
         code_switching="none",
         code_switch_set="none",
     )
-    assert cat.locales(taiwan) == ["zh-Hant-TW"]
+    assert cat.locales(mainland) == ["zh-Hans-CN"]
 
 
 def test_indian_languages_mix_only_with_english(cat):
     """User decision, 2026-11-15: an Indian language alone or with English;
     Indian English with one Indian language. No three-language sets."""
-    for code in ("hi", "kn", "ta", "te", "ml", "bn", "gu", "mr", "pa", "as", "ur"):
+    for code in ("hi", "kn", "ta", "te", "ml", "ur"):
         for variant in cat.languages[code].get("regional_variants") or [code]:
             assert set(cat.code_switch_sets(code, variant)) <= {"en"}, (code, variant)
     for other in cat.code_switch_sets("en", "en-IN"):

@@ -36,7 +36,7 @@ these.
 | File | Contents |
 | --- | --- |
 | `catalogue.yaml` | Factor list, values and descriptions; derived and plan-assigned fields |
-| `languages.yaml` | 36 languages: scripts, romanization usage, code-switch partners, regional variants, tier, rollout phase |
+| `languages.yaml` | 15 languages (2026-11-15; was 36): scripts, romanization usage, code-switch partners, regional variants, tier, rollout phase |
 | `domains.yaml` | 22 conversation categories with 77 concrete scenarios; optional `prompt_notes` per domain |
 | `intents.yaml` | 24 listener intents, each with its label, allowed lengths and example hints |
 | `constraints.yaml` | 20 rules removing impossible or meaningless combinations |
@@ -52,7 +52,7 @@ intent and contrastive member has at least one valid combination.
 
 | Factor | Values | Why it matters |
 | --- | --- | --- |
-| `language` | 36 languages | Coverage requirement (user's list, 2026-11-14) |
+| `language` | 15 languages | Coverage requirement (user's list, 2026-11-14, cut to 15 on 2026-11-15) |
 | `regional_variant` | e.g. en-IN, en-US, es-MX, pt-BR | Vocabulary and backchannel habits differ by region |
 | `script_form` | native, romanized, mixed_script | Transcripts arrive in native script or Latin characters, sometimes mixed |
 | `code_switching` | none, between_sentences, within_sentence | Callers mix languages, e.g. romanized Hindi with English |
@@ -106,29 +106,24 @@ runtime's choice.
 
 ## Code-switching in Indian languages
 
-Sets in `languages.yaml` follow the user's rule (2026-11-14):
+Sets in `languages.yaml` follow the user's rule (2026-11-15, replacing the
+three-language sets of 2026-11-14):
 
-- Hindi mixes English, or English + a regional language.
-- Regional Indian languages (kn, ta, te, ml, mr, gu, pa, bn, as) mix English,
-  or English + Hindi.
-- Indian English (`en-IN`) mixes Hindi, a regional language, or both.
+- Every Indian language (hi, kn, ta, te, ml, pa, bn, ur) appears
+  alone or mixed with English.
+- Indian English (`en-IN`) mixes one Indian language.
 
-Mandarin–English and Cantonese–English (user decisions, 2026-11-14):
-Malaysian and Singaporean English (`en-MY`, `en-SG`) mix in Mandarin, and Hong
-Kong English (`en-HK`) mixes in Cantonese. The mixed-in Chinese is generated
-both ways, chosen by the `mixed_in_script` factor: in characters (Simplified
-for Mandarin, Traditional for Cantonese) and romanized (pinyin, Jyutping).
-They are one language in two scripts, not two languages; locales tell them
-apart with script subtags (`zh-Hans-MY` vs `zh-Latn-MY`). Mandarin- and
-Cantonese-led conversations get both through `script_form`. Malaysian
-Mandarin (`zh-MY`) and Hong Kong Cantonese (`yue-HK`) mix in English. Plans give English variants explicit shares
-(`variant_shares`): the pilot uses en-US 35%, en-IN 35%, en-MY 10%, and the
-rest for the other six, so plain US English and Indian English (plain and
-code-switched) are separate, sizable slices.
+English varieties (user decision, 2026-11-15): US, Indian and Singaporean
+English only (`en-US`, `en-IN`, `en-SG`); Tamil is Indian Tamil only
+(`ta-IN`). Singaporean English mixes in Mandarin in Simplified characters
+(`mixed_in_script: native`, locale `zh-Hans-SG`). No pinyin anywhere (user
+decision, 2026-11-15): Mandarin is written in characters only, and Mandarin-led
+utterances mix in English. The sample plan gives English en-US 40%, en-IN 40%, en-SG 20%
+(`variant_shares`).
 
-Sets involving Hindi are limited to Indian varieties (`ta-IN`, `bn-IN`,
-`pa-IN`); Pakistani Punjabi mixes Urdu instead. English is written in Latin
-script only, so Hindi or regional words in English-led speech are romanized.
+Words of an Indian language mixed into Indian English are written in that
+language's native script (`mixed_in_script: native`, user decision,
+2026-11-15), for example "हाँ हाँ, but change the time".
 
 ## Constraints, in brief
 

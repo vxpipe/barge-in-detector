@@ -1,218 +1,146 @@
-import uuid
+"""The working store: one utterances table (exported as one CSV) and a local request log."""
+
+import json
 from pathlib import Path
 
+import duckdb
 import pytest
 
-from barge_in_detector.catalogue import load_catalogue
-from barge_in_detector.generation.plan import PlanConfig, build_plan
 from barge_in_detector.storage.schema import SCHEMA_VERSION
 from barge_in_detector.storage.store import RefusedUpdate, Store
 
-CAT = load_catalogue()
-CONFIG = PlanConfig(
-    name="store-test",
-    seed=3,
-    languages=["hi"],
-    required_count=2,
-    label_shares={"backchannel": 0.5, "barge_in": 0.5},
-    criteria_per_language=6,
-    contrastive_instances_per_group=0,
-    candidates_per_pick=2,
-)
+CID = "0198f0c4-0000-5000-8000-000000000001"
+TARGET = {
+    "combination_id": CID,
+    "language": "hi",
+    "regional_variant": "hi",
+    "script_form": "romanized",
+    "code_switching": "within_sentence",
+    "code_switch_set": "en",
+    "mixed_in_script": "default",
+    "caller_intent": "correction",
+    "development": "backchannel_then_barge_in",
+    "repetition": "repeated",
+    "length_bucket": "w4_8",
+    "locales": ["hi-Latn-IN", "en-IN"],
+    "split": "train",
+    "label": "barge_in",
+}
+
+
+def row(text, status="accepted", **extra):
+    return {
+        "status": status,
+        "reason": None if status == "accepted" else "judge script_hi=0.1",
+        "text": text,
+        "label": "barge_in",
+        "barge_in_from_word": 2,
+        "raw_sample": {"text": text, "label": "barge_in", "barge_in_from_word": 2},
+        "judge_answers": {"script_hi": {"noul": 0.9}} if status == "accepted" else None,
+        "text_hash": f"h-{text}",
+        "request_id": None,
+        "judge_request_id": None,
+        "sample_index": 0,
+        "model_id": "m",
+        "prompt_template": "p",
+        "judge_model_id": "j",
+        "judge_template": "t",
+        **extra,
+    }
 
 
 @pytest.fixture
 def store(tmp_path: Path):
-    s = Store.open(tmp_path / "work" / "test.duckdb")
-    s.apply_plan(CAT, build_plan(CAT, CONFIG))
+    s = Store.open(tmp_path / "work.duckdb")
     yield s
     s.close()
 
 
-def files(root: Path) -> dict[str, bytes]:
-    return {
-        str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file()
-    }
+def test_accepted_and_rejected_samples_are_rows_of_one_table(store):
+    store.insert_utterance(TARGET, row("Haan haan, but change it."))
+    store.insert_utterance(TARGET, row("Haan haan, wait.", status="rejected"))
+    assert store.accepted_counts() == {store.utterances()[0]["combination_id"]: 1}
+    assert store.accepted_text_hashes() == {"h-Haan haan, but change it."}
+    rejected = store.utterances(status="rejected")[0]
+    assert rejected["reason"].startswith("judge")
+    assert rejected["text_clean"] == "haan haan wait"
 
 
-def test_apply_plan_inserts_targets_once(store):
-    assert len(store.targets()) == 6
-    store.apply_plan(CAT, build_plan(CAT, CONFIG))
-    assert len(store.targets()) == 6
-    assert store.count("plan_revisions") == 1  # an unchanged plan records nothing
-
-
-def test_raising_required_count_updates_existing_targets(store):
-    store.apply_plan(
-        CAT, build_plan(CAT, CONFIG.__class__(**{**CONFIG.__dict__, "required_count": 5}))
-    )
-    assert {t["required_count"] for t in store.targets()} == {5}
-
-
-def test_response_is_recorded_once(store):
-    run_id = store.start_run(
-        name="r", revision_id=None, settings={}, generator_model_id="g", judge_model_id="j"
-    )
-    target = store.targets()[0]
-    request_id = store.insert_request(
-        run_id=run_id,
-        kind="generate",
-        combination_id=target["combination_id"],
-        contrastive_group_id=None,
+def test_export_writes_one_csv_of_utterances_only(store, tmp_path):
+    store.insert_utterance(TARGET, row("Haan haan, but change it."))
+    store.insert_request(
+        kind="generate_utterances",
+        combination_id=CID,
         language="hi",
-        requested_count=2,
-        model_id="g",
-        prompt_template="t",
+        requested_count=1,
+        model_id="m",
+        prompt_template="p",
         prompt_hash="h",
     )
-    store.record_response(request_id, response={"text": "{}"}, usage={}, cost_usd=None)
-    with pytest.raises(RefusedUpdate):
-        store.record_response(request_id, response={"text": "changed"}, usage={}, cost_usd=None)
-    assert store.request(request_id)["status"] == "received"
-
-
-def test_retiring_a_conversation_keeps_its_text(store):
-    run_id = store.start_run(
-        name="r", revision_id=None, settings={}, generator_model_id="g", judge_model_id="j"
-    )
-    target = store.targets()[0]
-    conversation_id = store.insert_conversation(fake_conversation(target, run_id))
-    store.retire_conversation(conversation_id, reason="human review: wrong label")
-    row = store.conversation(conversation_id)
-    assert row["status"] == "retired"
-    assert row["candidate_text"] == "haan haan"
-    with pytest.raises(RefusedUpdate):
-        store.retire_conversation(conversation_id, reason="again")
-
-
-def fake_conversation(target, run_id):
-    return {
-        "target": target,
-        "request_id": uuid.uuid7(),
-        "judge_request_id": uuid.uuid7(),
-        "run_id": run_id,
-        "sample_index": 0,
-        "turns": [{"speaker": "Riya", "role": "caller", "text": "Mera card kho gaya."}],
-        "agent_speaker": "Agent",
-        "agent_full_text": "Main aapka card block kar rahi hoon. Naya card aayega.",
-        "agent_spoken_text": "Main aapka card block",
-        "candidate_speaker": "Riya",
-        "candidate_role": "caller",
-        "candidate_text": "haan haan",
-        "gemini_label": "backchannel",
-        "gemini_rationale": "agreement",
-        "barge_in_from_word": None,
-        "judge_label": "backchannel",
-        "judge_barge_in_from_word": None,
-        "judge_notes": "",
-        "model_id": "g",
-        "prompt_template": "t",
-        "judge_model_id": "j",
-        "text_hash": "abc",
-    }
-
-
-def test_export_is_deterministic_and_import_round_trips(store, tmp_path):
-    run_id = store.start_run(
-        name="r", revision_id=None, settings={"x": 1}, generator_model_id="g", judge_model_id="j"
-    )
-    store.insert_conversation(fake_conversation(store.targets()[0], run_id))
-    out_a, out_b = tmp_path / "a", tmp_path / "b"
-    store.export(out_a)
-    store.export(out_b)
-    assert files(out_a) and files(out_a) == files(out_b)
-    assert any(name.startswith("targets/language=hi/") for name in files(out_a))
-
-    rebuilt = Store.open(tmp_path / "rebuilt.duckdb")
-    rebuilt.import_exports(out_a)
-    out_c = tmp_path / "c"
-    rebuilt.export(out_c)
-    rebuilt.close()
-    assert files(out_c) == files(out_a)
-
-
-def test_export_leaves_unchanged_files_alone(store, tmp_path):
     out = tmp_path / "export"
     store.export(out)
-    before = {p: p.stat().st_mtime_ns for p in out.rglob("*.parquet")}
-    store.export(out)
-    after = {p: p.stat().st_mtime_ns for p in out.rglob("*.parquet")}
-    assert before == after
+    assert sorted(p.name for p in out.iterdir()) == ["utterances.csv"]
 
 
-def test_a_rebuilt_plan_can_retire_criteria_it_no_longer_has(store):
-    before = {t["combination_id"] for t in store.targets()}
-    other = build_plan(CAT, CONFIG.__class__(**{**CONFIG.__dict__, "seed": 99}))
-    store.apply_plan(CAT, other, retire_missing=True)
-    active = {t["combination_id"] for t in store.targets()}
-    assert active == {t.combination_id for t in other.targets}
-    retired = {t["combination_id"] for t in store.targets(status="retired")}
-    assert retired == before - active
-
-
-def test_targets_carry_every_locale_of_the_transcript(store):
-    for t in store.targets():
-        assert t["locales"][0].split("-")[0] == t["language"]
-        assert len(t["locales"]) == (
-            1 if t["code_switch_set"] == "none" else 1 + t["code_switch_set"].count("+") + 1
-        )
-
-
-def test_schema_1_database_is_migrated_with_locales(tmp_path):
-    path = tmp_path / "old.duckdb"
-    s = Store.open(path)
-    s.apply_plan(CAT, build_plan(CAT, CONFIG))
-    for table in ("targets", "conversations", "examples"):
-        s.con.execute(f"ALTER TABLE {table} DROP COLUMN locales")
-    s.con.execute("UPDATE meta SET value = '1' WHERE key = 'schema_version'")
-    s.close()
-    migrated = Store.open(path)
-    assert all(t["locales"] for t in migrated.targets())
-    assert migrated.con.execute(
-        "SELECT value FROM meta WHERE key = 'schema_version'"
-    ).fetchone() == (SCHEMA_VERSION,)
-    migrated.close()
-
-
-def test_unused_criteria_take_the_new_plans_split_and_come_back_when_replanned(store):
-    first = store.targets()[0]
-    store.con.execute(
-        "UPDATE targets SET split = 'test' WHERE combination_id = ?", [first["combination_id"]]
+def test_export_round_trips_and_is_stable(store, tmp_path):
+    awkward = 'He said "ok, ok",\nthen: हाँ, wait'
+    store.insert_utterance(TARGET, row(awkward))
+    store.insert_utterance(
+        TARGET, row("Hmm.", status="rejected", barge_in_from_word=None, judge_answers=None)
     )
-    plan = build_plan(CAT, CONFIG)
-    store.apply_plan(CAT, plan, retire_missing=True)
-    planned = next(t for t in plan.targets if t.combination_id == first["combination_id"])
-    assert store.targets()[0]["split"] == planned.split  # no requests yet: reassigned
+    out = tmp_path / "export"
+    assert store.export(out) == [out / "utterances.csv"]
+    before = (out / "utterances.csv").stat().st_mtime_ns
+    assert store.export(out) == []  # unchanged data leaves the file untouched
+    assert (out / "utterances.csv").stat().st_mtime_ns == before
 
-    other = build_plan(CAT, CONFIG.__class__(**{**CONFIG.__dict__, "seed": 99}))
-    store.apply_plan(CAT, other, retire_missing=True)
-    store.apply_plan(CAT, plan, retire_missing=True)
-    assert {t["combination_id"] for t in store.targets()} == {
-        t.combination_id for t in plan.targets
-    }
+    rebuilt = Store.open(tmp_path / "rebuilt.duckdb")
+    try:
+        rebuilt.import_exports(out)
+        original, copy = store.utterances(status=None), rebuilt.utterances(status=None)
+        assert copy == original
+        assert copy[0]["text"] == awkward
+        assert copy[0]["locales"] == ["hi-Latn-IN", "en-IN"]
+        assert json.loads(copy[0]["judge_answers"]) == {"script_hi": {"noul": 0.9}}
+        assert copy[1]["barge_in_from_word"] is None and copy[1]["judge_answers"] is None
+    finally:
+        rebuilt.close()
 
 
-def test_used_criteria_keep_their_split(store):
-    first = store.targets()[0]
-    run_id = store.start_run(
-        name="r", revision_id=None, settings={}, generator_model_id="g", judge_model_id="j"
-    )
-    store.insert_request(
-        run_id=run_id,
-        kind="generate",
-        combination_id=first["combination_id"],
-        contrastive_group_id=None,
+def test_retiring_keeps_the_row(store):
+    utterance_id = store.insert_utterance(TARGET, row("Haan haan, but change it."))
+    store.retire_utterance(utterance_id, "bad prompt version")
+    assert store.accepted_counts() == {}
+    assert store.utterances(status="retired")[0]["reason"] == "bad prompt version"
+    with pytest.raises(RefusedUpdate):
+        store.retire_utterance(utterance_id, "again")
+
+
+def test_request_log_tracks_status_and_cost(store):
+    request_id = store.insert_request(
+        kind="generate_utterances",
+        combination_id=CID,
         language="hi",
-        requested_count=2,
-        model_id="g",
-        prompt_template="t",
+        requested_count=3,
+        model_id="m",
+        prompt_template="p",
         prompt_hash="h",
     )
-    store.con.execute(
-        "UPDATE targets SET split = 'test' WHERE combination_id = ?", [first["combination_id"]]
-    )
-    assert first["combination_id"] in {
-        e.combination_id for e in store.existing_targets(used_only=True)
-    }
-    store.apply_plan(CAT, build_plan(CAT, CONFIG, existing=store.existing_targets(used_only=True)))
-    assert store.targets()[0]["split"] == "test"
+    store.record_response(request_id, response={"text": "{}"}, usage={}, cost_usd=0.01)
+    with pytest.raises(RefusedUpdate):
+        store.record_response(request_id, response={}, usage={}, cost_usd=0.0)
+    store.mark_processed(request_id)
+    assert store.request(request_id)["status"] == "processed"
+    assert store.requested_counts("generate_utterances", prompt_template="p", model_id="m")
+    assert store.total_cost() == pytest.approx(0.01)
+
+
+def test_an_older_database_is_refused_with_a_clear_message(tmp_path):
+    path = tmp_path / "old.duckdb"
+    con = duckdb.connect(str(path))
+    con.execute("CREATE TABLE meta (key VARCHAR PRIMARY KEY, value VARCHAR)")
+    con.execute("INSERT INTO meta VALUES ('schema_version', '5')")
+    con.close()
+    with pytest.raises(RuntimeError, match="schema 5.*delete"):
+        Store.open(path)
+    assert SCHEMA_VERSION == "6"
