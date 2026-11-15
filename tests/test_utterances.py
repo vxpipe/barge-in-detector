@@ -420,3 +420,15 @@ def test_all_combinations_plan_covers_every_valid_combination_equally():
     assert plan == build_utterance_plan(CAT, TRACK, full)
     for t in plan:
         assert not CAT.violations(t.spec, partial_spec=True)
+
+
+def test_a_plan_can_limit_factor_values():
+    english = replace(
+        PLAN, languages=["en"], all_combinations=True, only={"code_switching": ["none"]}
+    )
+    plan = build_utterance_plan(CAT, TRACK, english)
+    assert plan
+    assert {t.spec["code_switching"] for t in plan} == {"none"}
+    assert {t.spec["language"] for t in plan} == {"en"}
+    full = build_utterance_plan(CAT, TRACK, replace(english, only={}))
+    assert {t.combination_id for t in plan} < {t.combination_id for t in full}

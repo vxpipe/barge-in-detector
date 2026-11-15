@@ -84,6 +84,8 @@ class UtterancePlanConfig:
     # Every valid combination of each language instead of criteria_per_language
     # picks, each with the same required_count.
     all_combinations: bool = False
+    # Keep only these values of a factor, e.g. {"code_switching": ["none"]}.
+    only: dict[str, list[str]] = field(default_factory=dict)
 
     @classmethod
     def from_file(cls, path: Path) -> UtterancePlanConfig:
@@ -163,6 +165,7 @@ class _Builder:
                 if side["regional_variant"] == variant
                 for rest in self.intent_specs(intent)
                 if not self.cat.violations(spec := {**side, **rest}, partial_spec=True)
+                and all(spec[f] in values for f, values in self.config.only.items())
             ]
         return self._valid[key]
 

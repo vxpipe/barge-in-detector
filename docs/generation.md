@@ -89,7 +89,10 @@ uv run python -m barge_in_detector status
 ```
 
 `--plan` picks another plan file (default
-`generation/plans/utterance-sample.yaml`). `generate` reads `GEMINI_API_KEY`
+`generation/plans/utterance-sample.yaml`). `generation/plans/utterance-all.yaml`
+takes every valid combination (`all_combinations: true`) at the same count;
+`only:` keeps some factor values, e.g. `generation/plans/english.yaml` is English
+with `only: {code_switching: [none]}`. `generate` reads `GEMINI_API_KEY`
 (or `GOOGLE_API_KEY`), makes up to `concurrency` (10) Gemini calls at once,
 and writes `data/export/utterances.csv` at the end. Worker threads only call
 Gemini; the main thread writes every row, one response at a time, which keeps
