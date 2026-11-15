@@ -39,3 +39,10 @@ Source snapshot published as `064ea7f` on GitHub main. Added explicit support
 for manifest-selected model Git LFS attributes so nested tokenizer and ONNX
 files behave correctly in Git submodule checkouts. Focused red/green test covers
 that addition while continuing to reject `.git` configuration paths.
+
+Dataset published at `02114f9cbdeed78c86dcd58ad13011425d010f8e` after source byte verification. Its submodule
+was fetched and checked out at that immutable revision. Original files remain
+unchanged, with separate supplement and combined configurations. Model metadata
+now pins this exact dataset and the published source; reviewed 27 selected model
+artifacts/metadata files, including FP32/INT8 ONNX and preserved legacy provenance.
+Full completion checks after LFS support: **182 passed, one deselected**, Ruff clean.

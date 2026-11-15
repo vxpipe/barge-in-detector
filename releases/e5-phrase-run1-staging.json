@@ -1,5 +1,5 @@
 {
-  "status": "staged; source and dataset revisions pending",
+  "status": "Verified; publication authorized; see versioned model release manifest",
   "artifact_directory": "huggingface/model/candidates/e5-phrase-run1",
   "model_repo": "HashNuke/barge-in-detector",
   "base_model": "intfloat/multilingual-e5-small",
@@ -32,5 +32,8 @@
     "seed-20261117/model.safetensors": "e83219c637d2c179f87fbf67749dd48fbc1561f569fa741fbab56c224cef9959",
     "seed-20261117/tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
     "seed-20261117/tokenizer_config.json": "13660843154d3fde0f9954ad198b5a8bbf0d21cd4fc83aa4f37678d224c8481f"
-  }
+  },
+  "release_manifest": "releases/model-e5-phrase-run1.json",
+  "code_revision": "6ef9558efcd96b3ef4c53f5b15988653581dbd26",
+  "dataset_revision": "02114f9cbdeed78c86dcd58ad13011425d010f8e"
 }
