@@ -78,7 +78,6 @@ def test_plan_specs_are_valid_unique_and_balanced():
         assert not CAT.violations(t.spec, partial_spec=True)
         assert t.spec["caller_intent"] in TRACK.intents
         assert t.intended_label == CAT.intents[t.spec["caller_intent"]]["label"]
-        assert t.split in ("train", "validation", "test")
         assert t.required_count == 3
     labels = [t.intended_label for t in plan if t.spec["language"] == "en"]
     assert labels.count("backchannel") == labels.count("barge_in") == 6
@@ -195,7 +194,7 @@ def rejected(store):
 def test_plan_targets_carry_what_a_row_needs():
     t = TARGETS[0]
     assert t["label"] in ("backchannel", "barge_in") and t["required_count"] == 3
-    assert t["locales"] and t["split"] in ("train", "validation", "test")
+    assert t["locales"]
 
 
 def test_run_fills_every_criterion_and_judges_each_utterance(store):

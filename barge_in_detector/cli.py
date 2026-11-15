@@ -55,7 +55,7 @@ def cmd_check_catalogue(args: argparse.Namespace) -> int:
 
 def cmd_plan(args: argparse.Namespace) -> int:
     _, _, config, targets = _targets(args.plan)
-    by = Counter((t["language"], t["label"], t["split"]) for t in targets)
+    by = Counter((t["language"], t["label"]) for t in targets)
     _table({" ".join(k): v for k, v in by.items()}, f"plan {config.name}: {len(targets)} criteria")
     print(f"required utterances: {sum(t['required_count'] for t in targets)}")
     return 0
@@ -123,6 +123,17 @@ def cmd_generate(args: argparse.Namespace) -> int:
         print(f"attempt budget exhausted for {len(report.exhausted)} criteria:")
         for item in report.exhausted[:20]:
             print(f"  {item}")
+    return 0
+
+
+def cmd_split(args: argparse.Namespace) -> int:
+    from barge_in_detector.splitting import read_csv, split_rows, write_splits
+
+    splits = split_rows(read_csv(args.export_dir / "utterances.csv"))
+    write_splits(splits, args.out)
+    for name, items in splits.items():
+        labels = Counter(r["label"] for r in items)
+        print(f"{name}: {len(items)} ({dict(sorted(labels.items()))}) -> {args.out / name}.csv")
     return 0
 
 
@@ -214,6 +225,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--no-export", action="store_true")
     p.set_defaults(func=cmd_generate)
+
+    p = with_db(sub.add_parser("split", help="write train/validation/test CSVs for training"))
+    p.add_argument("--out", type=Path, default=REPO / "data" / "splits")
+    p.set_defaults(func=cmd_split)
 
     with_db(sub.add_parser("export", help="write data/export/utterances.csv")).set_defaults(
         func=cmd_export

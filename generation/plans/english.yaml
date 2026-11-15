@@ -11,5 +11,3 @@ criteria_per_language: 0  # unused with all_combinations
 required_count: 5
 
 label_shares: {backchannel: 0.5, barge_in: 0.5}  # unused with all_combinations
-
-split_ratios: {train: 0.8, validation: 0.1, test: 0.1}

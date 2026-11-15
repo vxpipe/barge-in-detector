@@ -1,5 +1,4 @@
-# All Parquet and JSON files are stored in Git LFS (see docs/data-format.md).
+# CSV datasets and small JSON metadata use ordinary Git.
+*.csv whitespace=cr-at-eol
 *.parquet filter=lfs diff=lfs merge=lfs -text
-*.json filter=lfs diff=lfs merge=lfs -text
-*.jsonl filter=lfs diff=lfs merge=lfs -text
 *.jsonl.zst filter=lfs diff=lfs merge=lfs -text

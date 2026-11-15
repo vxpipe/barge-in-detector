@@ -20,7 +20,6 @@ TARGET = {
     "mixed_in_script": "default",
     "caller_intent": "correction",
     "locales": ["hi-Latn-IN", "en-IN"],
-    "split": "train",
     "label": "barge_in",
 }
 
@@ -138,4 +137,4 @@ def test_an_older_database_is_refused_with_a_clear_message(tmp_path):
     con.close()
     with pytest.raises(RuntimeError, match="schema 5.*delete"):
         Store.open(path)
-    assert SCHEMA_VERSION == "10"
+    assert SCHEMA_VERSION == "11"

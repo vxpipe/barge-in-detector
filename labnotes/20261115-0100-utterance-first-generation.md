@@ -290,9 +290,19 @@ gratitude_token (36) and continuer (20): the intent question failed on
 descriptions about the conversation. gratitude_token's description became
 "Thanks in passing that doesn't ask for anything" (prompt v5).
 
+## Splits and training scripts
+
+User decision: every combination's samples are spread over the splits (4
+train + 1 validation or test for 5 samples), not whole combinations per
+split; the plan's per-combination split is removed (schema 11). `split`
+writes data/splits (2,640 / 333 / 331). PyTorch train and evaluate scripts
+(multilingual-e5-small, weighted loss, best validation macro F1 kept),
+smoke-tested on CPU with a tiny test model. Real model: 117M parameters;
+utterances are 12 tokens at the median, 24 at p99, 30 at most.
+
 ## Checks
 
-`ruff format --check`, `ruff check`: clean. `pytest`: 106 passed, 1
+`ruff format --check`, `ruff check`: clean. `pytest`: 111 passed, 1
 deselected (integration). No test calls Gemini.
 
 ## Next

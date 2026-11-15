@@ -125,7 +125,6 @@ class Store:
                 "combination_id": target["combination_id"],
                 **{f: target[f] for f in UTTERANCE_FACTORS},
                 "locales": list(target["locales"]),
-                "split": target["split"],
                 "intended_label": target["label"],
                 "text_clean": clean_text(text) if isinstance(text, str) else None,
                 "cleaner_version": CLEANER_VERSION,

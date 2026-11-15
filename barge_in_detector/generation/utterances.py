@@ -5,7 +5,7 @@ generation/factors/utterances.yaml; Gemini writes `required_count` caller
 utterances for it. See docs/utterance-first-decision.md.
 
 The plan is built position by position, so it grows prefix-stable: a larger
-`criteria_per_language` keeps every earlier criterion and its split.
+`criteria_per_language` keeps every earlier criterion.
 """
 
 import dataclasses
@@ -24,7 +24,6 @@ from barge_in_detector import ids
 from barge_in_detector.catalogue import LANGUAGE_FACTORS, Catalogue
 
 TRACK_FILE = "utterances.yaml"
-SPLITS = ("train", "validation", "test")
 
 
 @dataclass(frozen=True)
@@ -75,9 +74,6 @@ class UtterancePlanConfig:
     label_shares: dict[str, float]
     # Share of criteria per regional variant; languages not listed spread evenly.
     variant_shares: dict[str, dict[str, float]] = field(default_factory=dict)
-    split_ratios: dict[str, float] = field(
-        default_factory=lambda: {"train": 0.8, "validation": 0.1, "test": 0.1}
-    )
     # Candidates drawn per position; the one using the least-covered factor
     # values wins.
     candidates_per_pick: int = 8
@@ -102,24 +98,12 @@ class UtteranceTarget:
     intended_label: str
     required_count: int
     priority: int
-    split: str
 
 
 def _next_by_deficit(shares: Mapping[str, float], counts: Counter) -> str:
     """The key furthest below its share so far; ties go to the first key."""
     total = sum(counts.values()) + 1
     return max(shares, key=lambda k: (shares[k] * total - counts[k], -list(shares).index(k)))
-
-
-def split_for(combination_id: uuid.UUID, ratios: Mapping[str, float]) -> str:
-    """A deterministic split from the ID alone, in the given proportions."""
-    point = (combination_id.int % 10_000) / 10_000
-    edge = 0.0
-    for split in SPLITS:
-        edge += ratios.get(split, 0.0)
-        if point < edge:
-            return split
-    return SPLITS[0]
 
 
 class _Builder:
@@ -193,7 +177,6 @@ class _Builder:
                 intended_label=self.cat.intents[spec["caller_intent"]]["label"],
                 required_count=self.config.required_count,
                 priority=position,
-                split=split_for(cid, self.config.split_ratios),
             )
             for position, (cid, spec) in enumerate(sorted(specs.items()))
         ]
@@ -245,7 +228,6 @@ class _Builder:
                     intended_label=self.cat.intents[intent]["label"],
                     required_count=config.required_count,
                     priority=position,
-                    split=split_for(cid, config.split_ratios),
                 )
             )
         return targets
@@ -272,7 +254,7 @@ def spec_of(row: Mapping[str, Any], factors: Sequence[str]) -> dict[str, str]:
 
 def plan_targets(cat: Catalogue, plan: Sequence[UtteranceTarget]) -> list[dict[str, Any]]:
     """The plan as the runner and the store use it: one dict per criterion with
-    its factor values, id, intended label, required count, split and locales.
+    its factor values, id, intended label, required count and locales.
     The plan file is the only record of criteria (it is versioned in git)."""
     return [
         {
@@ -280,7 +262,6 @@ def plan_targets(cat: Catalogue, plan: Sequence[UtteranceTarget]) -> list[dict[s
             "combination_id": t.combination_id,
             "label": t.intended_label,
             "required_count": t.required_count,
-            "split": t.split,
             "locales": cat.locales(t.spec),
         }
         for t in plan

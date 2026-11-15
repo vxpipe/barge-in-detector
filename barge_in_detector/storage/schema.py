@@ -14,7 +14,7 @@ Changing a column needs a SCHEMA_VERSION bump recorded in docs/data-format.md.
 
 from dataclasses import dataclass
 
-SCHEMA_VERSION = "10"
+SCHEMA_VERSION = "11"
 
 # Factors of an utterance criterion (generation/factors/utterances.yaml).
 UTTERANCE_FACTORS = (
@@ -52,7 +52,6 @@ UTTERANCES = Table(
         ("combination_id", "UUID"),
         *((f, "VARCHAR") for f in UTTERANCE_FACTORS),
         ("locales", "VARCHAR[]"),
-        ("split", "VARCHAR"),
         ("intended_label", "VARCHAR"),
         ("status", "VARCHAR"),
         ("reason", "VARCHAR"),

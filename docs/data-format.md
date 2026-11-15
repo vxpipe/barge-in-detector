@@ -1,6 +1,6 @@
 # Data format and storage
 
-Status: decided 2026-11-15 (user decisions); schema version 9. Replaces the
+Status: decided 2026-11-15 (user decisions); schema version 11. Replaces the
 earlier ten-table design of the conversation track (in git history).
 
 ## Decision
@@ -48,7 +48,6 @@ One row per generated sample, ordered by `utterance_id`.
 | `combination_id` | UUID | the criterion (see Identifiers) |
 | `language`, `regional_variant`, `script_form`, `code_switching`, `code_switch_set`, `mixed_in_script`, `caller_intent` | VARCHAR | the criterion's factor values |
 | `locales` | VARCHAR[] | every locale in the text (`["hi-Latn-IN", "en-IN"]`); a JSON list in the CSV |
-| `split` | VARCHAR | `train`, `validation` or `test`, from `combination_id` |
 | `intended_label` | VARCHAR | from the intent: `backchannel` or `barge_in` |
 | `status` | VARCHAR | `accepted`, `rejected` or `retired` |
 | `reason` | VARCHAR | why rejected or retired: `<stage>: <detail>`, e.g. `schema: ellipsis_used`, `label_mismatch: intended=barge_in gemini=backchannel`, `dedupe: duplicate of an accepted utterance`, `judge: language_ta=0.08` |
@@ -86,11 +85,10 @@ A response that cannot be parsed at all has no sample rows; its request is
 
 ## Splits
 
-Each criterion's split comes from its `combination_id` and the plan's
-`split_ratios` (`generation/utterances.split_for`), before anything is
-generated, so all samples of a criterion share a split and the test set never
-depends on results. Deduplication on `text_clean` across all accepted rows
-keeps the same text out of two splits.
+Splits are made from the accepted rows for training: every combination's
+samples are spread over train, validation and test
+([training](training.md#splits)). Deduplication on `text_clean` across all
+accepted rows keeps the same text out of two splits.
 
 ## Labels
 
@@ -108,6 +106,4 @@ must agree. The judge checks only that the sample matches its criterion
 - **Storing criteria, plan revisions and runs**: the plan file in git and the
   deterministic builder already give every criterion; storing them duplicated
   it and needed migrations.
-- **Random row-level splits**: samples of one criterion would land on both
-  sides.
 - **Storing token IDs**: ties the data to one tokenizer.
