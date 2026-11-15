@@ -36,26 +36,25 @@ these.
 | File | Contents |
 | --- | --- |
 | `catalogue.yaml` | Factor list, values and descriptions; derived and plan-assigned fields |
-| `languages.yaml` | 15 languages (2026-11-15; was 36): scripts, romanization usage, code-switch partners, regional variants, tier, rollout phase |
+| `languages.yaml` | 14 languages (2026-11-15; was 36): scripts, romanization usage, code-switch partners, regional variants, tier, rollout phase |
 | `domains.yaml` | 22 conversation categories with 77 concrete scenarios; optional `prompt_notes` per domain |
-| `intents.yaml` | 24 listener intents, each with its label, allowed lengths and example hints |
+| `intents.yaml` | 24 listener intents, each with its label and example hints |
 | `constraints.yaml` | 20 rules removing impossible or meaningless combinations |
-| `contrastive.yaml` | 9 groups of specs generated together so the same words get different labels |
 
 Every file has a `version`, and any change bumps the catalogue version.
 `combination_id`s depend on factor values only, so added values leave existing
 criteria alone; removed or renamed values retire the criteria that used them.
 `uv run python -m barge_in_detector check-catalogue` validates every reference and that every
-intent and contrastive member has at least one valid combination.
+intent has at least one valid combination.
 
 ## Factors
 
 | Factor | Values | Why it matters |
 | --- | --- | --- |
-| `language` | 15 languages | Coverage requirement (user's list, 2026-11-14, cut to 15 on 2026-11-15) |
+| `language` | 14 languages | Coverage requirement (user's list, 2026-11-14, cut to 14 on 2026-11-15) |
 | `regional_variant` | e.g. en-IN, en-US, es-MX, pt-BR | Vocabulary and backchannel habits differ by region |
 | `script_form` | native, romanized, mixed_script | Transcripts arrive in native script or Latin characters, sometimes mixed |
-| `code_switching` | none, between_sentences, within_sentence | Callers mix languages, e.g. romanized Hindi with English |
+| `code_switching` | none, mixed | Callers mix languages, e.g. "சரி சரி, but change the time" (2026-11-15: how they mix is not a factor) |
 | `code_switch_set` | e.g. `en`, `en+hi`, from the language's sets | Which language(s) are mixed in; may be two, e.g. Kannada + English + Hindi |
 | `domain` / `scenario` | 22 / 77 | Vocabulary and what listeners react to |
 | `speaker_pattern` | returning_speaker, new_speaker | 3-line windows can be `s1, s2, s1` or `s1, s2, s3`; the last speaker is always the one judged |
@@ -63,8 +62,6 @@ intent and contrastive member has at least one valid combination.
 | `cut_position` | start, early, middle, near_end, just_finished | Mid-sentence vs. just asked a question |
 | `caller_intent` | 24 intents | Determines the label |
 | `development` | stable, backchannel_then_barge_in, filler_then_barge_in | Interim transcripts that change meaning as they grow |
-| `repetition` | single, repeated | "yes yes", "oui oui", "no no no" |
-| `length_bucket` | 1, 2–3, 4–8, 9+ words | Avoids the model learning "short means backchannel" |
 | `register` | formal, casual | Wording varies with formality |
 | `caller_mood` | neutral, friendly, hurried, confused, frustrated | Wording and urgency |
 
@@ -140,26 +137,13 @@ language's native script (`mixed_in_script: native`, user decision,
   need something already said; floor and skip requests need the speaker still
   speaking; `hello_check` needs the speaker to have gone quiet;
   `turn_continuation` needs the judged speaker's earlier turn in the window.
-- Only barge-in intents can develop from a backchannel or filler, and only in
-  utterances of four or more words.
-- Per intent: allowed lengths and whether repetition is allowed.
+- Only barge-in intents can develop from a backchannel or filler.
 
 ## Size of the space
 
-Checked on 2026-11-14 (catalogue 0.7.0) with the validation script (see the
-labnotes):
-
-- 45,160 of 216,000 combinations of the intent-related factors are valid:
-  8,630 backchannel, 36,050 barge-in and 480 ambiguous.
-- 1,025 language-side combinations (language × variant × script ×
-  code-switching set).
-- About 14 billion valid full specs when scenarios, register and speaker
-  pattern are included.
-
-The full space is never enumerated. The plan builder samples with stratified
-quotas and all-pairs coverage. Its quotas, not these raw counts, set the class
-balance, so barge-in's larger share of the raw space does not carry into the
-training data.
+The utterance track (2026-11-15) has 1,480 valid combinations across the 14
+languages: 1,258 barge-in and 222 backchannel. The `utterance-all` plan takes
+every one of them with the same sample count.
 
 ## Points for review
 

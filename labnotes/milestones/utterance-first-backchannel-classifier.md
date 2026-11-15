@@ -76,8 +76,8 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 - [x] Criteria judge (Decisions API): one yes/no question per criterion, one
   per language for language and script; schema 5 keeps `judge_answers`.
   Tests first.
-- [ ] Sample plan (15 languages × 5 criteria × 5) filled: 721 of 900 with
-  gemini-3.8-flash before the cut to 15 languages; the rest exhausted their
+- [ ] Sample plan (14 languages × 5 criteria × 5) filled: 721 of 900 with
+  gemini-3.8-flash before the cut to 14 languages; the rest exhausted their
   attempt budget. Next: the size of the full plan (user decision).
 
 ## Checkpoint B — Pilot data
@@ -105,7 +105,7 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
   budget (fp32 and int8 ONNX), with memory, and report the token-length
   distribution of the generated utterances per language and script form. If
   64 tokens miss the latency gates, measure 32; if 64 meets them, do not go to
-  128. Consider vocabulary pruning to the 15 languages.
+  128. Consider vocabulary pruning to the 14 languages.
 - [ ] Baselines: character n-gram logistic regression on the utterance, and
   Gemini zero-shot as a ceiling.
 - [ ] Ablation on the same data: encoder on the utterance only, encoder on

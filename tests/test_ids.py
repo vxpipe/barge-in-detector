@@ -10,9 +10,9 @@ def test_namespace_is_the_documented_one():
 
 
 def test_combination_id_matches_documented_derivation():
-    spec = {"language": "hi", "caller_intent": "continuer", "length_bucket": "w1"}
+    spec = {"language": "hi", "caller_intent": "continuer", "development": "stable"}
     expected = uuid.uuid5(
-        NAMESPACE, "utterance_criterion:caller_intent=continuer;language=hi;length_bucket=w1"
+        NAMESPACE, "utterance_criterion:caller_intent=continuer;development=stable;language=hi"
     )
     assert ids.utterance_combination_id(spec) == expected
 

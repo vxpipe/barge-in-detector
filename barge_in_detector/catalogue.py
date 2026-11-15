@@ -46,7 +46,6 @@ class Catalogue:
     scenarios: dict[str, dict[str, Any]]
     intents: dict[str, dict[str, Any]]
     rules: list[dict[str, Any]]
-    contrastive: list[dict[str, Any]]
     labels: list[str] = field(default_factory=list)
 
     # ---- language helpers ----
@@ -236,12 +235,6 @@ class Catalogue:
             and self.scenarios[scenario]["domain"] != spec["domain"]
         ):
             out.append("scenario_in_domain")
-        intent = self.intents.get(spec.get("caller_intent", ""))
-        if intent is not None:
-            if "length_bucket" in spec and spec["length_bucket"] not in intent["length_buckets"]:
-                out.append("intent_length_bucket")
-            if spec.get("repetition") == "repeated" and not intent["repeatable"]:
-                out.append("intent_repeatable")
 
         for rule in self.rules:
             when = rule["when"]
@@ -306,9 +299,6 @@ class Catalogue:
         for intent_id, intent in self.intents.items():
             if intent["label"] not in self.labels:
                 errors.append(f"intent {intent_id}: unknown label {intent['label']}")
-            for bucket in intent["length_buckets"]:
-                if bucket not in self.values["length_bucket"]:
-                    errors.append(f"intent {intent_id}: unknown length bucket {bucket}")
         attrs = {
             "language.romanized_usage": ["none", "occasional", "common"],
             "language.code_switch_sets": ["empty", "nonempty"],
@@ -327,11 +317,6 @@ class Catalogue:
         for rule in self.rules:
             for part in ("when", "require", "forbid"):
                 check_refs(rule["id"], rule.get(part, {}))
-        for group in self.contrastive:
-            for member in group["members"]:
-                check_refs(group["id"], member)
-                if not self._satisfiable(member):
-                    errors.append(f"contrastive {group['id']}: member {member} is unsatisfiable")
         for intent_id in self.intents:
             if not self._satisfiable({"caller_intent": intent_id}):
                 errors.append(f"intent {intent_id} has no valid combination")
@@ -342,8 +327,6 @@ class Catalogue:
         "cut_position",
         "caller_intent",
         "development",
-        "repetition",
-        "length_bucket",
         "caller_mood",
         "speaker_pattern",
     )
@@ -414,6 +397,5 @@ def load_catalogue(root: Path = DEFAULT_ROOT) -> Catalogue:
         scenarios=scenarios,
         intents=intents,
         rules=files["constraints"]["rules"],
-        contrastive=files["contrastive"]["groups"],
         labels=list(labels),
     )

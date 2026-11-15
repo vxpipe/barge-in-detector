@@ -110,7 +110,7 @@ def test_request_names_every_factor():
     t = build_utterance_plan(CAT, TRACK, PLAN)[0]
     user = prompts.render_utterance_request(CAT, t.spec, count=4)
     assert user.startswith("Write 4 utterances")
-    for prefix in ("Languages and scripts", "Intent:", "Development:", "Repetition:", "Length:"):
+    for prefix in ("Languages and scripts", "Intent:", "Development:"):
         assert f"- {prefix}" in user
     assert f"(intended label: {t.intended_label})" in user
 
@@ -126,8 +126,6 @@ EN = {
     "mixed_in_script": "default",
     "caller_intent": "floor_request",
     "development": "backchannel_then_barge_in",
-    "repetition": "single",
-    "length_bucket": "w4_8",
 }
 
 
@@ -149,7 +147,6 @@ def test_valid_utterance_passes():
 @pytest.mark.parametrize(
     ("bad", "reason"),
     [
-        (sample("Wait."), "length_bucket_mismatch"),
         (sample("Yeah, wait... hold on."), "ellipsis_used"),
         (sample("Yeah [laughs] wait hold on."), "tag_used"),
         (sample(label="maybe"), "unknown_label"),
@@ -215,7 +212,7 @@ def test_run_fills_every_criterion_and_judges_each_utterance(store):
     assert row["judge_request_id"] is not None
     assert json.loads(row["raw_sample"])["text"] == row["text"]
     answers = json.loads(row["judge_answers"])
-    assert {"intent", "development", "repetition", "script_en", "language_en"} <= set(answers)
+    assert {"intent", "development", "script_en", "language_en"} <= set(answers)
     assert min(a["noul"] for a in answers.values()) >= 0.5
 
 
@@ -279,7 +276,7 @@ def test_received_response_is_resumed_before_new_requests(store):
 
 
 def test_export_then_import_rebuilds_every_sample(store, tmp_path):
-    run(store, FakeLlm(judge_no=("repetition",)), languages=["en"], limit=2)
+    run(store, FakeLlm(judge_no=("development",)), languages=["en"], limit=2)
     store.export(tmp_path / "export")
     rebuilt = Store.open(tmp_path / "rebuilt.duckdb")
     try:
@@ -292,11 +289,7 @@ def test_export_then_import_rebuilds_every_sample(store, tmp_path):
 
 def test_code_switching_fits_inside_the_utterance():
     plan = build_utterance_plan(CAT, TRACK, replace(PLAN, criteria_per_language=200))
-    for t in plan:
-        if t.spec["code_switching"] == "within_sentence":
-            assert t.spec["length_bucket"] != "w1"
-        if t.spec["code_switching"] == "between_sentences":
-            assert t.spec["length_bucket"] in ("w4_8", "w9_plus")
+    assert {t.spec["code_switching"] for t in plan} == {"none", "mixed"}
 
 
 # ---------------------------------------------------------------- parallel requests

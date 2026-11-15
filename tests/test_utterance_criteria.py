@@ -26,40 +26,34 @@ def spec(**overrides):
         "mixed_in_script": "default",
         "caller_intent": "acknowledgment",
         "development": "stable",
-        "repetition": "single",
-        "length_bucket": "w2_3",
     }
     return {**base, **overrides}
 
 
-URDU = spec(
-    language="ur",
-    regional_variant="ur-IN",
-    code_switching="within_sentence",
+TAMIL = spec(
+    language="ta",
+    regional_variant="ta-IN",
+    code_switching="mixed",
     code_switch_set="en",
     caller_intent="floor_request",
     development="filler_then_barge_in",
-    repetition="repeated",
-    length_bucket="w9_plus",
 )
 HINDI_MIX = spec(
     language="hi",
     regional_variant="hi",
     script_form="native",
-    code_switching="within_sentence",
+    code_switching="mixed",
     code_switch_set="en",
     caller_intent="agreement_token",
-    length_bucket="w4_8",
 )
 INDIAN_ENGLISH_HINDI = spec(
     language="en",
     regional_variant="en-IN",
-    code_switching="within_sentence",
+    code_switching="mixed",
     code_switch_set="hi",
     mixed_in_script="native",
     caller_intent="correction",
     development="backchannel_then_barge_in",
-    length_bucket="w9_plus",
 )
 
 
@@ -71,12 +65,11 @@ def request(s):
 
 
 def test_every_language_in_the_combination_gets_its_own_script_line():
-    text = request(URDU)
+    text = request(TAMIL)
     assert "every language listed here must appear in every utterance" in text
-    urdu = next(line for line in text.splitlines() if line.strip().startswith("- Urdu"))
+    tamil = next(line for line in text.splitlines() if line.strip().startswith("- Tamil"))
     assert "main" not in text and "more than half" not in text  # no language ranks first
-    assert "Perso-Arabic" in urdu
-    assert "never in Devanagari" in urdu
+    assert "in Tamil script, never in Latin letters" in tamil
     english = next(line for line in text.splitlines() if line.strip().startswith("- English"))
     assert "Latin letters" in english
 
@@ -93,7 +86,7 @@ def test_indian_words_in_indian_english_are_in_their_native_script():
     assert "as people type it in messages" in hindi
     # User decisions, 2026-11-15: Mandarin in characters only, no pinyin;
     # Indian languages in their native script only (alone or with English).
-    for code in ("zh", "hi", "kn", "ta", "te", "ml", "ur"):
+    for code in ("zh", "hi", "kn", "ta", "te", "ml"):
         assert CAT.languages[code]["romanized_usage"] == "none"
         options = CAT.language_options(code)
         assert {o[1] for o in options} == {"native"}
@@ -108,9 +101,9 @@ def test_every_language_of_the_combination_is_listed():
 
 
 def test_request_keeps_the_factor_lines():
-    text = request(URDU)
-    for line in ("- Development: `filler_then_barge_in`", "- Length: `w9_plus`"):
-        assert line in text
+    text = request(TAMIL)
+    assert "- Development: `filler_then_barge_in`" in text
+    assert "Length" not in text
     assert "(intended label: barge_in)" in text
 
 
@@ -131,39 +124,36 @@ def test_one_question_per_criterion_and_one_per_language():
         "language_en",
         "script_hi",
         "script_en",
-        "switching",
         "intent",
         "development",
-        "repetition",
     }
 
 
 def test_a_regional_variant_is_a_criterion_of_its_own():
-    assert "variant" in keys(URDU)
+    assert "variant" in keys(TAMIL)
     assert "variant" not in keys(HINDI_MIX, "Haan bilkul, सही, exactly.")
 
 
 def test_judge_questions_are_plain_one_line_questions():
-    _, questions = judge_questions(CAT, URDU, "ہاں ہاں، hold on")
-    assert questions["script_ur"]["instructions"] == (
-        "Are the Urdu words in this text written in Urdu (Perso-Arabic) script?"
+    _, questions = judge_questions(CAT, TAMIL, "சரி சரி, hold on")
+    assert questions["script_ta"]["instructions"] == (
+        "Are the Tamil words in this text written in Tamil script?"
     )
+    assert questions["variant"]["instructions"] == "Could this be Tamil as spoken in India?"
     assert questions["language_en"]["instructions"] == "Does this text contain English words?"
     _, questions = judge_questions(CAT, INDIAN_ENGLISH_HINDI, "हाँ हाँ, but not this one")
     assert questions["script_hi"]["instructions"] == (
         "Are the Hindi words in this text written in Devanagari script?"
     )
     assert questions["language_hi"]["instructions"] == "Does this text contain Hindi words?"
-    _, questions = judge_questions(CAT, URDU, "ہاں ہاں، hold on")
-    assert questions["language_ur"]["instructions"] == "Does this text contain Urdu words?"
+    _, questions = judge_questions(CAT, TAMIL, "சரி சரி, hold on")
+    assert questions["language_ta"]["instructions"] == "Does this text contain Tamil words?"
 
 
 def test_development_question_names_no_turning_point():
     s = spec(
         caller_intent="correction",
         development="backchannel_then_barge_in",
-        repetition="repeated",
-        length_bucket="w9_plus",
     )
     _, questions = judge_questions(CAT, s, "Sure sure, but that is not my email address.")
     assert questions["development"]["instructions"] == (
@@ -203,21 +193,21 @@ def test_blocked_input_fails_every_question():
 
 def test_missing_answer_is_unusable():
     with pytest.raises(JudgementError):
-        parse_verdict(answers(intent=0.9), ["intent", "repetition"])
+        parse_verdict(answers(intent=0.9), ["intent", "development"])
 
 
-def test_request_spells_out_switching_majority_and_repetition():
-    between = spec(
+def test_code_switching_is_only_mixed_or_not():
+    mixed = spec(
         language="id",
         regional_variant="id",
-        code_switching="between_sentences",
+        code_switching="mixed",
         code_switch_set="en",
         caller_intent="floor_request",
         development="filler_then_barge_in",
-        repetition="repeated",
-        length_bucket="w9_plus",
     )
-    text = request(between)
-    assert "each language in its own sentence, ended with a full stop" in text
-    assert "- Repetition: `repeated`: say a key word or short phrase two or more times" in text
-    assert "- Repetition: `single`: no word or phrase is said twice" in request(spec())
+    text = request(mixed)
+    assert "mix these languages in the utterance" in text
+    assert "within a sentence" not in text and "between sentences" not in text
+    _, questions = judge_questions(CAT, mixed, "Tunggu sebentar, please hold on.")
+    assert "switching" not in questions  # the language questions confirm the mix
+    assert {"language_id", "language_en"} <= set(questions)

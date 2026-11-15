@@ -5,7 +5,7 @@ The generator prompt and the judge read the same `language_parts`, so the
 script the prompt asks for is the script the judge checks. The judge asks one
 question per criterion of the specification and nothing else (user decision,
 2026-11-15); the language and script criteria flatten into one question per
-language in the combination. Length is checked in code.
+language in the combination.
 """
 
 from __future__ import annotations
@@ -75,12 +75,7 @@ class LanguagePart:
 
 
 def _script_label(cat: Catalogue, code: str, script: str) -> str:
-    name = (
-        cat.languages[code].get("script_name")
-        if script == cat.languages[code]["scripts"][0]
-        else None
-    )
-    label = name or SCRIPT_NAMES.get(script, script)
+    label = SCRIPT_NAMES.get(script, script)
     return f"{label} characters" if script in _HAN else f"{label} script"
 
 
@@ -134,10 +129,7 @@ def script_phrase(cat: Catalogue, part: LanguagePart) -> str:
     phrase = f"in {script_name(cat, part)}"
     if part.script == "mixed":
         return phrase + (", within the same utterance" if part.main else "")
-    never = [
-        _script_label(cat, part.code, s)
-        for s in cat.languages[part.code].get("never_scripts") or []
-    ]
+    never: list[str] = []
     if part.romanized:
         phrase += " as people type it in messages (no tone numbers or tone marks)"
         never.insert(0, _script_label(cat, part.code, part.native))
@@ -150,11 +142,7 @@ def describe_languages(cat: Catalogue, spec: Mapping[str, str]) -> str:
     """The generator prompt's language block: one indented line per language."""
     switching = {
         "none": "this language only",
-        "within_sentence": "switch languages within a sentence",
-        "between_sentences": (
-            "switch languages between sentences: each language in its own sentence, "
-            "ended with a full stop"
-        ),
+        "mixed": "mix these languages in the utterance",
     }[spec["code_switching"]]
     lines = [
         "Languages and scripts (every language listed here must appear in every "
@@ -188,7 +176,6 @@ def judge_questions(
         return {"type": "noul", "instructions": Template(raw).substitute(fields)}
 
     parts = language_parts(cat, spec)
-    switching = spec["code_switching"]
     questions: dict[str, Any] = {}
     for part in parts:
         questions[f"language_{part.code}"] = ask(q["language"], name=part.name)
@@ -199,12 +186,9 @@ def judge_questions(
     region = cat.region(spec["language"], spec["regional_variant"])
     if "-" in spec["regional_variant"] and region in REGION_NAMES:
         questions["variant"] = ask(q["variant"], name=parts[0].name, region=REGION_NAMES[region])
-    if switching != "none":
-        questions["switching"] = ask(q["switching"][switching])
     intent = " ".join(cat.intents[spec["caller_intent"]]["description"].split())
     questions["intent"] = ask(q["intent"], description=intent)
     questions["development"] = ask(q["development"][spec["development"]])
-    questions["repetition"] = ask(q["repetition"][spec["repetition"]])
     return json.dumps({"text": text}, ensure_ascii=False), questions
 
 

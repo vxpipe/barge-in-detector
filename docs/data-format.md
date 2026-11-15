@@ -1,7 +1,6 @@
 # Data format and storage
 
-Status: decided 2026-11-15 (user decisions); schema version 7 (6 without
-`barge_in_from_word`). Replaces the
+Status: decided 2026-11-15 (user decisions); schema version 9. Replaces the
 earlier ten-table design of the conversation track (in git history).
 
 ## Decision
@@ -47,12 +46,12 @@ One row per generated sample, ordered by `utterance_id`.
 | --- | --- | --- |
 | `utterance_id` | UUID | v7, time-ordered |
 | `combination_id` | UUID | the criterion (see Identifiers) |
-| `language`, `regional_variant`, `script_form`, `code_switching`, `code_switch_set`, `mixed_in_script`, `caller_intent`, `development`, `repetition`, `length_bucket` | VARCHAR | the criterion's factor values |
+| `language`, `regional_variant`, `script_form`, `code_switching`, `code_switch_set`, `mixed_in_script`, `caller_intent`, `development` | VARCHAR | the criterion's factor values |
 | `locales` | VARCHAR[] | every locale in the text (`["hi-Latn-IN", "en-IN"]`); a JSON list in the CSV |
 | `split` | VARCHAR | `train`, `validation` or `test`, from `combination_id` |
 | `intended_label` | VARCHAR | from the intent: `backchannel` or `barge_in` |
 | `status` | VARCHAR | `accepted`, `rejected` or `retired` |
-| `reason` | VARCHAR | why rejected or retired: `<stage>: <detail>`, e.g. `schema: length_bucket_mismatch`, `label_mismatch: intended=barge_in gemini=backchannel`, `dedupe: duplicate of an accepted utterance`, `judge: script_ur=0.08,switching=0.3` |
+| `reason` | VARCHAR | why rejected or retired: `<stage>: <detail>`, e.g. `schema: ellipsis_used`, `label_mismatch: intended=barge_in gemini=backchannel`, `dedupe: duplicate of an accepted utterance`, `judge: script_ta=0.08,switching=0.3` |
 | `text` | VARCHAR | exactly as generated |
 | `text_clean`, `cleaner_version` | VARCHAR | the model input after the cleaner |
 | `label` | VARCHAR | the generator's label (the training label when accepted) |

@@ -5,7 +5,7 @@
 # catalogue (catalogue.yaml). A criterion picks one value for each factor
 # below; constraints whose factors are absent here are skipped.
 
-version: 0.4.0  # 0.2.0: track rules for code-switching length; 0.3.0: labels; 0.4.0: no turn_continuation
+version: 0.7.0
 
 # The only labels in this track (user decision, 2026-11-15): no ambiguous
 # class. Every intent left in the track must map to one of these.
@@ -21,8 +21,6 @@ factors:
   - mixed_in_script
   - caller_intent
   - development
-  - repetition
-  - length_bucket
 
 # Intents left out of the utterance track, with the reason.
 excluded_intents:
@@ -36,15 +34,5 @@ excluded_intents:
   # catalogue's only ambiguous intents.)
 
 # Rules for this track only, in the constraints.yaml format, added to those
-# rules. The conversation track can put the mixed-in language in another turn;
-# here it must fit inside the one utterance.
-rules:
-  - id: within_sentence_switch_needs_two_words
-    description: Mixing a language inside a sentence needs at least two words.
-    when: {code_switching: [within_sentence]}
-    forbid: {length_bucket: [w1]}
-
-  - id: between_sentences_switch_needs_room
-    description: Switching language between sentences needs at least two short sentences.
-    when: {code_switching: [between_sentences]}
-    require: {length_bucket: [w4_8, w9_plus]}
+# rules. None at present.
+rules: []

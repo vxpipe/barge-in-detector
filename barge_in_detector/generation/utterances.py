@@ -138,22 +138,16 @@ class _Builder:
         return self._options[language]
 
     def intent_specs(self, intent: str) -> list[dict[str, str]]:
-        """Valid (development, repetition, length_bucket) for an intent."""
+        """Valid values of the track's other factors (development) for an intent."""
         if intent not in self._rest:
+            rest = [
+                f for f in self.track.factors if f not in LANGUAGE_FACTORS and f != "caller_intent"
+            ]
             self._rest[intent] = [
                 spec
-                for values in itertools.product(
-                    self.cat.values["development"],
-                    self.cat.values["repetition"],
-                    self.cat.values["length_bucket"],
-                )
+                for values in itertools.product(*(self.cat.values[f] for f in rest))
                 if not self.cat.violations(
-                    spec := {
-                        "caller_intent": intent,
-                        **dict(
-                            zip(("development", "repetition", "length_bucket"), values, strict=True)
-                        ),
-                    },
+                    spec := {"caller_intent": intent, **dict(zip(rest, values, strict=True))},
                     partial_spec=True,
                 )
             ]

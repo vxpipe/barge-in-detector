@@ -84,10 +84,6 @@ def _hints(cat: Catalogue, intent: str, language: str) -> str:
 
 
 UTTERANCE_TEMPLATE = "generator_utterances_v4"
-_REPETITION = {
-    "repeated": 'say a key word or short phrase two or more times ("wait wait", "haan haan").',
-    "single": 'no word or phrase is said twice (not "yes yes").',
-}
 UTTERANCE_REQUEST_KIND = "generate_utterances"
 
 _UTTERANCE_FIELDS: dict[str, Any] = {
@@ -121,7 +117,6 @@ def render_utterance_system(cat: Catalogue, track: Any) -> str:
     return _template(UTTERANCE_TEMPLATE).substitute(
         intent_table=intents,
         developments=_value_list(cat, "development"),
-        length_buckets=_value_list(cat, "length_bucket"),
         script_forms=_value_list(cat, "script_form"),
         code_switching=_value_list(cat, "code_switching"),
     )
@@ -137,8 +132,6 @@ def render_utterance_request(cat: Catalogue, spec: Mapping[str, str], *, count: 
         f"{' '.join(intent['description'].split())}",
         _hints(cat, spec["caller_intent"], spec["language"]),
         f"Development: `{spec['development']}`: {d[('development', spec['development'])]}",
-        f"Repetition: `{spec['repetition']}`: {_REPETITION[spec['repetition']]}",
-        f"Length: `{spec['length_bucket']}`: {d[('length_bucket', spec['length_bucket'])]}",
     ]
     body = "\n".join(f"- {line}" for line in lines)
     head = (

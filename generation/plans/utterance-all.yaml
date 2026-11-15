@@ -5,7 +5,7 @@
 
 name: utterance-all
 seed: 20261115
-languages: [en, hi, kn, ta, te, ml, ur, zh, ja, id, fil, fr, de, es, it]
+languages: [en, hi, kn, ta, te, ml, zh, ja, id, fil, fr, de, es, it]
 all_combinations: true
 criteria_per_language: 0  # unused with all_combinations
 required_count: 5

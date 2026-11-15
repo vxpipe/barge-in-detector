@@ -8,10 +8,6 @@
 #   (romanized_usage: none; user decisions, 2026-11-15). Words of an Indian
 #   language mixed into Indian English are in that language's native script
 #   (mixed_in_scripts: [native]).
-# script_name: how prompts name the native script when the plain script name
-#   misleads (Urdu is written in its Perso-Arabic alphabet, not plain Arabic).
-# never_scripts: scripts the language must never be written in although
-#   Gemini tends to (Urdu in India is still never Devanagari).
 # code_switch_sets: the combinations of languages commonly mixed in, most
 #   common first. A set may hold more than one language (e.g. [en, hi] for a
 #   Kannada speaker mixing English and Hindi) and may be limited to some
@@ -59,7 +55,6 @@ languages:
   - {code: ta, name: Tamil, scripts: [Taml], romanized_usage: none, regional_variants: [ta-IN], tier: A, rollout_phase: 2, code_switch_sets: [{languages: [en]}]}
   - {code: te, name: Telugu, scripts: [Telu], romanized_usage: none, regional_variants: [], region: IN, tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
   - {code: ml, name: Malayalam, scripts: [Mlym], romanized_usage: none, regional_variants: [], region: IN, tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
-  - {code: ur, name: Urdu, scripts: [Arab], script_name: "Urdu (Perso-Arabic)", never_scripts: [Deva], romanized_usage: none, regional_variants: [ur-IN], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
   - {code: zh, name: "Mandarin Chinese", scripts: [Hans], romanized_usage: none, regional_variants: [zh-CN], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
   - {code: ja, name: Japanese, scripts: [Jpan], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}
   - {code: id, name: Indonesian, scripts: [Latn], romanized_usage: none, regional_variants: [], tier: C, rollout_phase: 3, code_switch_sets: [{languages: [en]}]}

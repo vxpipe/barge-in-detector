@@ -19,13 +19,11 @@ SPEC = {
     "language": "en",
     "regional_variant": "en-IN",
     "script_form": "native",
-    "code_switching": "within_sentence",
+    "code_switching": "mixed",
     "code_switch_set": "hi",
     "mixed_in_script": "default",
     "caller_intent": "agreement_token",
     "development": "stable",
-    "repetition": "repeated",
-    "length_bucket": "w2_3",
 }
 
 

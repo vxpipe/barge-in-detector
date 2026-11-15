@@ -5,7 +5,6 @@
 #   require: allowed values for other factors when the rule triggers
 #   forbid:  disallowed values for other factors when the rule triggers
 # A spec is valid only if no triggered rule is violated. Per-intent
-# length_buckets and repeatable flags in intents.yaml are also constraints.
 # Membership rules (scenario within domain, regional_variant within language,
 # code_switch_set within the language's sets for that regional_variant) are
 # implied by values_from.
@@ -114,27 +113,17 @@ rules:
     when: {caller_intent: [turn_continuation]}
     require: {speaker_pattern: [returning_speaker]}
 
-  # ---- development, repetition, length ----
+  # ---- development ----
   - id: development_only_for_barge_in
     description: Only barge-in utterances develop from a backchannel or filler.
     when:
       caller_intent: [continuer, acknowledgment, agreement_token, reaction_token, gratitude_token, tracking_repeat, go_ahead, collaborative_completion, thinking_filler_after_question]
     require: {development: [stable]}
 
-  - id: development_needs_length
-    description: A developing utterance needs room to develop.
-    when: {development: [backchannel_then_barge_in, filler_then_barge_in]}
-    require: {length_bucket: [w4_8, w9_plus]}
-
   - id: no_backchannel_development_into_stop
     description: Stop and repeat requests rarely start with an agreement token.
     when: {caller_intent: [floor_request, repeat_request]}
     forbid: {development: [backchannel_then_barge_in]}
-
-  - id: one_word_is_single
-    description: A one-word utterance cannot be repeated.
-    when: {length_bucket: [w1]}
-    require: {repetition: [single]}
 
   # ---- mood plausibility ----
   - id: complaint_mood

@@ -15,13 +15,11 @@ TARGET = {
     "language": "hi",
     "regional_variant": "hi",
     "script_form": "romanized",
-    "code_switching": "within_sentence",
+    "code_switching": "mixed",
     "code_switch_set": "en",
     "mixed_in_script": "default",
     "caller_intent": "correction",
     "development": "backchannel_then_barge_in",
-    "repetition": "repeated",
-    "length_bucket": "w4_8",
     "locales": ["hi-Latn-IN", "en-IN"],
     "split": "train",
     "label": "barge_in",
@@ -141,4 +139,4 @@ def test_an_older_database_is_refused_with_a_clear_message(tmp_path):
     con.close()
     with pytest.raises(RuntimeError, match="schema 5.*delete"):
         Store.open(path)
-    assert SCHEMA_VERSION == "7"
+    assert SCHEMA_VERSION == "9"

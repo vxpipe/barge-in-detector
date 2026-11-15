@@ -5,10 +5,8 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
-from barge_in_detector.catalogue import UNSPACED_SCRIPTS, Catalogue
-from barge_in_detector.cleaner import clean_text, words
-
-LENGTH_BOUNDS = {"w1": (1, 1), "w2_3": (2, 3), "w4_8": (4, 8), "w9_plus": (9, 10_000)}
+from barge_in_detector.catalogue import Catalogue
+from barge_in_detector.cleaner import clean_text
 
 
 @dataclass(frozen=True)
@@ -16,11 +14,6 @@ class Problem:
     index: int
     reason: str
     label: str | None = None
-
-
-def _unspaced(cat: Catalogue, spec: Mapping[str, str]) -> bool:
-    scripts = set(cat.languages[spec["language"]]["scripts"])
-    return spec["script_form"] != "romanized" and bool(scripts & UNSPACED_SCRIPTS)
 
 
 _UTTERANCE_KEYS = {"text": str, "label": str, "rationale": str}
@@ -52,8 +45,7 @@ def _check_utterance(
     s: Mapping[str, Any],
     labels: Sequence[str] = UTTERANCE_LABELS,
 ) -> str | None:
-    """The first problem with one utterance, or None. Lengths count
-    cleaner.words."""
+    """The first problem with one utterance, or None."""
     for key, kind in _UTTERANCE_KEYS.items():
         if not isinstance(s.get(key), kind):
             return "malformed_sample"
@@ -66,10 +58,6 @@ def _check_utterance(
         return "ellipsis_used"
     if any(mark in text for mark in _TAG_MARKS):
         return "tag_used"
-    if not _unspaced(cat, spec):
-        low, high = LENGTH_BOUNDS[spec["length_bucket"]]
-        if not low <= len(words(text)) <= high:
-            return "length_bucket_mismatch"
     return None
 
 

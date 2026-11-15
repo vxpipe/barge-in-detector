@@ -1,10 +1,10 @@
 # Utterance track sample for user review (docs/utterance-first-decision.md):
-# five criteria per manifest language (15 languages), five utterances each. Growing it later
+# five criteria per manifest language (14 languages), five utterances each. Growing it later
 # (more criteria, higher counts) keeps these criteria and their splits.
 
 name: utterance-sample
 seed: 20261115
-languages: [en, hi, kn, ta, te, ml, ur, zh, ja, id, fil, fr, de, es, it]
+languages: [en, hi, kn, ta, te, ml, zh, ja, id, fil, fr, de, es, it]
 criteria_per_language: 5
 required_count: 5
 

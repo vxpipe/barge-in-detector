@@ -34,10 +34,10 @@ probability that it is a barge-in (user decision, 2026-11-15; see
     probability. Faster is better.
   - **Whole path ≤ 50 ms**: including the Vxpipe integration boundary
     (serialization, NIF or sidecar call, queueing) around the model path.
-- **Multilingual: 15 languages** (user decisions, 2026-11-15, cutting the 36
+- **Multilingual: 14 languages** (user decisions, 2026-11-15, cutting the 36
   of 2026-11-14), listed explicitly in the versioned language manifest with
   tiers (see below): English (US, India, Singapore), Hindi, Kannada, Tamil,
-  Telugu, Malayalam, Urdu, Mandarin, Japanese, Indonesian (Bahasa
+  Telugu, Malayalam, Mandarin, Japanese, Indonesian (Bahasa
   Indonesia), Filipino, French, German, Spanish, Italian. Dropped: Dutch,
   Hungarian, Swedish, Danish, Norwegian, Finnish, Irish, Portuguese, Thai,
   Assamese, Arabic, Vietnamese, Korean, Marathi, Gujarati, Punjabi, Bengali,
@@ -139,7 +139,7 @@ the LLM. Gemini only writes text that satisfies a given specification.
    in [docs/factor-catalogue.md](docs/factor-catalogue.md)); the utterance
    track's factors are in `generation/factors/utterances.yaml`: language and
    regional variant, script form, code-switching, caller intent, development
-   over interim transcripts, repetition and length. Each intent maps to an
+   over interim transcripts; code-switching is none or mixed. Each intent maps to an
    intended label (backchannel or barge-in).
 2. **Constraint rules** remove impossible combinations
    (`generation/factors/constraints.yaml` and the track's own rules).

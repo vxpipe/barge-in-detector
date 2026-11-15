@@ -6,7 +6,7 @@
 # criterion (a row in the targets table) with a required sample count. Gemini only writes text that
 # satisfies the chosen values.
 
-version: 0.9.1
+version: 0.10.0
 status: draft  # awaiting user review
 
 files:
@@ -14,7 +14,6 @@ files:
   domains: domains.yaml
   intents: intents.yaml
   constraints: constraints.yaml
-  contrastive: contrastive.yaml
 
 # Factors the plan builder chooses for every spec, in a fixed order.
 spec_factors:
@@ -46,12 +45,11 @@ spec_factors:
     values:
       - id: none
         description: Only the conversation language.
-      - id: between_sentences
-        description: Whole sentences or clauses in the other language.
-      - id: within_sentence
+      - id: mixed
         description: >
-          Words from the other language(s) inside one sentence, e.g.
-          "haan but change the time".
+          The other language(s) mixed in, as people of the region mix them, e.g.
+          "சரி சரி, but change the time". How they are mixed (within or between
+          sentences) is not a factor (user decision, 2026-11-15).
 
   - id: code_switch_set
     description: >
@@ -172,24 +170,6 @@ spec_factors:
           Starts with hesitation or filler and then becomes the barge-in
           intent, e.g. "umm, actually, can I".
 
-  - id: repetition
-    description: Whether the key tokens are repeated, e.g. "yeah yeah yeah", "no no no".
-    values:
-      - id: single
-      - id: repeated
-
-  - id: length_bucket
-    description: Length of the final candidate utterance in words.
-    values:
-      - id: w1
-        description: One word.
-      - id: w2_3
-        description: Two or three words.
-      - id: w4_8
-        description: Four to eight words.
-      - id: w9_plus
-        description: Nine or more words.
-
   - id: register
     description: Formality of the people's speech.
     values:
@@ -227,7 +207,6 @@ plan_assigned:
   - required_count
   - quota_group
   - priority
-  - contrastive_group_id
   - split
 
 # Deliberately NOT spec factors; they vary later in the pipeline, so one

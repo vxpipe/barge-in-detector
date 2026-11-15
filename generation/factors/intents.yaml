@@ -17,9 +17,6 @@
 # examples are hints for prompts and reviewers, not word lists. The generator
 # must produce natural, varied wording. Kannada and Tamil hints are unverified.
 #
-# length_buckets: allowed final-utterance lengths for the intent.
-# repeatable: whether repetition=repeated is allowed.
-
 version: 0.6.0
 
 intents:
@@ -27,8 +24,6 @@ intents:
   - id: continuer
     label: backchannel
     description: Signals "go on, I'm listening" without words of content.
-    length_buckets: [w1, w2_3]
-    repeatable: true
     examples:
       en: ["hmm", "mm-hmm", "uh-huh"]
       hi: ["hmm", "haan", "हम्म"]
@@ -40,8 +35,6 @@ intents:
       "achha", "theek hai", "sari", "I see") is always this, even right after
       the speaker finishes a statement. After a finished question it is
       answer_to_question instead.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: true
     examples:
       en: ["ok", "right", "got it", "I see", "makes sense", "okay okay"]
       hi: ["achha", "theek hai", "ठीक है", "ok ji", "samajh gaya"]
@@ -51,8 +44,6 @@ intents:
   - id: agreement_token
     label: backchannel
     description: Agreement or affirmation that does not answer a question.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: true
     examples:
       en: ["yes", "yeah yeah", "exactly", "true"]
       hi: ["haan haan", "ji", "bilkul", "हाँ जी"]
@@ -65,8 +56,6 @@ intents:
     description: >
       A short emotional reaction that does not ask for a response: surprise,
       sympathy, pleasure or laughter as transcribed.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: true
     examples:
       en: ["oh", "wow", "oh no", "aww", "that's good", "haha"]
       hi: ["arre", "sach mein", "arre yaar", "oh ho", "badhiya"]
@@ -74,8 +63,6 @@ intents:
   - id: gratitude_token
     label: backchannel
     description: Thanks said in passing while the speaker continues.
-    length_buckets: [w1, w2_3]
-    repeatable: true
     examples:
       en: ["thanks", "thank you"]
       hi: ["shukriya", "dhanyavaad", "thank you ji"]
@@ -85,16 +72,12 @@ intents:
     description: >
       The listener repeats part of what the speaker is reading (digits, a name) to
       track or write it down, without correcting it.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: false
     examples:
       en: ["four five six", "M G road"]
 
   - id: go_ahead
     label: backchannel
     description: Invites the speaker to carry on.
-    length_buckets: [w1, w2_3]
-    repeatable: true
     examples:
       en: ["go on", "continue", "go ahead"]
       hi: ["haan bolo", "boliye", "aage bataiye"]
@@ -103,8 +86,6 @@ intents:
   - id: floor_request
     label: barge_in
     description: Asks the speaker to stop, wait or give the listener a moment.
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: true
     examples:
       en: ["stop", "wait", "hold on", "wait wait", "one second let me get a pen"]
       hi: ["ruko", "ek minute", "रुकिए", "ek second, pen leta hoon"]
@@ -112,8 +93,6 @@ intents:
   - id: correction
     label: barge_in
     description: Corrects something the speaker said or read.
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: true
     examples:
       en: ["no it's four not five", "no no, the other address"]
       hi: ["nahi nahi, paanch nahi chaar"]
@@ -121,8 +100,6 @@ intents:
   - id: disagreement
     label: barge_in
     description: Objects to or rejects what the speaker is saying.
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["no", "that's not what I was told", "I don't want that"]
       hi: ["nahi", "aisa nahi hai"]
@@ -130,8 +107,6 @@ intents:
   - id: clarification_question
     label: barge_in
     description: Asks what the speaker means or which item they mean.
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["which?", "sorry which one", "what do you mean by that"]
       hi: ["matlab?", "kaunsa wala?"]
@@ -141,8 +116,6 @@ intents:
     description: >
       Asks the speaker to repeat, slow down or speak up, or says they could not
       hear.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: true
     examples:
       en: ["sorry?", "what", "can you repeat that", "slower please", "louder"]
       hi: ["kya?", "phir se boliye", "dheere boliye"]
@@ -150,8 +123,6 @@ intents:
   - id: new_request
     label: barge_in
     description: Raises a new request or changes the topic.
-    length_buckets: [w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["actually I also need to update my email"]
 
@@ -162,8 +133,6 @@ intents:
       making the rest of the turn unnecessary. It must carry content: name or
       point to an option ("the second one", "Tuesday"), or add content to a
       yes/no ("yes book it"). Never a bare "yes" or "ok" on its own.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: false
     examples:
       en: ["the second one", "Tuesday works", "yes book it"]
       hi: ["doosra wala", "mangalvaar theek hai", "haan book kar do"]
@@ -173,8 +142,6 @@ intents:
     description: >
       Answers a question the speaker has just finished asking. May be a single
       word that would otherwise look like a backchannel ("yes", "ok", "haan").
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: true
     examples:
       en: ["yes", "tomorrow", "no thanks"]
       hi: ["haan", "kal", "nahi chahiye"]
@@ -184,8 +151,6 @@ intents:
     description: >
       Expresses frustration or urgency that demands a response, including
       something time-sensitive the listener must say now.
-    length_buckets: [w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["I've been waiting for an hour", "my card was just charged again"]
       hi: ["main ek ghante se wait kar raha hoon"]
@@ -195,8 +160,6 @@ intents:
     description: >
       Asks to talk to someone else instead: a manager, a supervisor, a
       colleague, or a human instead of an automated assistant.
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["manager", "can I talk to your supervisor", "human please"]
       hi: ["kisi insaan se baat karao"]
@@ -204,8 +167,6 @@ intents:
   - id: end_call
     label: barge_in
     description: Ends the call, or asks to be called back later.
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: true
     examples:
       en: ["ok bye", "I have to go", "call me later", "not now I'm driving"]
       hi: ["baad mein call karo", "abhi nahi, bye"]
@@ -215,8 +176,6 @@ intents:
     description: >
       The listener picks their own earlier point back up, adding to or
       continuing what they said in their previous turn.
-    length_buckets: [w2_3, w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["and also the other order", "and one more thing about that"]
       hi: ["aur doosra order bhi"]
@@ -224,8 +183,6 @@ intents:
   - id: skip_request
     label: barge_in
     description: Asks the speaker to skip ahead or get to the point.
-    length_buckets: [w1, w2_3, w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["skip", "skip that", "just tell me the amount", "I know, go to the next part"]
       hi: ["chhodo yeh", "seedha amount batao"]
@@ -233,8 +190,6 @@ intents:
   - id: hello_check
     label: barge_in
     description: Checks whether the speaker is still there, listening or audible.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: true
     examples:
       en: ["hello?", "are you there", "hello hello"]
       hi: ["hello?", "aap sun rahe ho?"]
@@ -242,8 +197,6 @@ intents:
   - id: language_switch_request
     label: barge_in
     description: Asks the speaker to speak another language.
-    length_buckets: [w2_3, w4_8, w9_plus]
-    repeatable: false
     examples:
       en: ["can you speak hindi", "english please"]
       hi: ["hindi mein bolo", "english mein baat kariye"]
@@ -254,11 +207,7 @@ intents:
   - id: collaborative_completion
     label: ambiguous
     description: The listener finishes the speaker's sentence for them.
-    length_buckets: [w1, w2_3, w4_8]
-    repeatable: false
 
   - id: thinking_filler_after_question
     label: ambiguous
     description: "\"hmm\" or \"umm\" right after the speaker asks a question: thinking, not yet answering."
-    length_buckets: [w1, w2_3]
-    repeatable: true

@@ -16,22 +16,21 @@ pipeline (2-3 line windows) was removed on 2026-11-15; it is in git history.
 - **Two parts per call**:
   1. **System prompt** `generator_utterances_v4` (cached in an explicit
      Gemini context cache per model and prompt hash; needs API `v1beta`): the
-     task, the track's intents with their labels, development, repetition,
-     length, script form and code-switching meanings, writing rules, output
+     task, the track's intents with their labels, development,
+     script form and code-switching meanings, writing rules, output
      format.
   2. **Request**: a **Languages and scripts** block with one line per language
      of the combination and its script, no language ranked above another,
      e.g.
 
      ```
-     - Languages and scripts (every language listed here must appear in every utterance; switch languages within a sentence):
-       - Urdu (regional variety ur-IN): in Urdu (Perso-Arabic) script, never in Devanagari script or Latin letters.
+     - Languages and scripts (every language listed here must appear in every utterance; mix these languages in the utterance):
+       - Tamil (regional variety ta-IN): in Tamil script, never in Latin letters.
        - English: in Latin letters.
      ```
 
-     Romanized words are asked for as people type them, without tone
-     numbers. Then the intent with its intended label and example hints,
-     development, repetition (with its meaning) and length.
+     Then the intent with its intended label and example hints, and the
+     development.
 - **Structured output** (`UTTERANCE_SCHEMA`): `text`, `label` (`backchannel`
   or `barge_in`), `rationale`. An utterance that starts as a backchannel and
   turns into a barge-in is simply `barge_in`; where it turns is not recorded
@@ -45,8 +44,7 @@ pipeline (2-3 line windows) was removed on 2026-11-15; it is in git history.
 In order; the first failure is the row's `reason`:
 
 1. **schema**: fields present, label `backchannel` or `barge_in`, not empty
-   after cleaning, no ellipsis, no bracket tags, word count in the length
-   bucket (skipped for unspaced native scripts). Extra samples are rejected.
+   after cleaning, no ellipsis, no bracket tags. Extra samples are rejected.
 2. **label_mismatch**: the generator's label equals the intended label.
 3. **dedupe**: the cleaned text is not already accepted (or waiting for the
    judge).
@@ -63,21 +61,19 @@ criterion: **one plain yes/no question per criterion, nothing else, and no
 question about the label** (user decision, 2026-11-15). Language and script
 ask one question per language. Questions are in
 `generation/prompts/judge_utterances_v4.yaml`, rendered by
-`generation/utterance_criteria.py`. For Urdu (India) with English mixed in:
+`generation/utterance_criteria.py`. For Tamil (India) with English mixed in:
 
 | Key | Question |
 | --- | --- |
-| `language_ur`, `language_en` | Does this text contain Urdu (English) words? |
-| `script_ur` | Are the Urdu words in this text written in Urdu (Perso-Arabic) script? |
+| `language_ta`, `language_en` | Does this text contain Tamil (English) words? |
+| `script_ta` | Are the Tamil words in this text written in Tamil script? |
 | `script_en` | Are the English words in this text written in Latin letters? |
-| `variant` | Could this be Urdu as spoken in India? (only for languages with variants) |
-| `switching` | Does this text switch languages within a sentence? |
+| `variant` | Could this be Tamil as spoken in India? (only for languages with variants) |
 | `intent` | Does this describe the text: <intent description> |
 | `development` | Does this text keep the same intent from start to end? / … start as a backchannel (with a filler) and then become an interruption? |
-| `repetition` | Does this text repeat a word, as in "yes yes"? / Is this text free of repeated words like "yes yes"? |
 
-Length is checked in code. Every answer must have P(yes) ≥ 0.5; otherwise the
-reason lists each key answered no (`judge: script_ur=0.08,switching=0.3`).
+Every answer must have P(yes) ≥ 0.5; otherwise the
+reason lists each key answered no (`judge: script_ta=0.08,switching=0.3`).
 Every row keeps the judge's raw answers.
 
 ## Running it

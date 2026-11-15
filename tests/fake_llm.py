@@ -12,7 +12,6 @@ import threading
 
 from barge_in_detector.generation.llm import DecisionResult, LlmError, LlmResult
 
-LENGTH = {"w1": 1, "w2_3": 2, "w4_8": 4, "w9_plus": 9}
 _IDS = itertools.count()
 
 
@@ -63,12 +62,11 @@ class FakeLlm:
             raise LlmError("503: unavailable")
         lines = user_prompt.splitlines()
         count = int(re.search(r"Write (\d+) utterances?\b", user_prompt).group(1))
-        length = LENGTH[_factor(lines, "Length")]
         label = self.label_override or _label(lines)
         samples = []
         for _ in range(count):
             uid = next(_IDS)
-            text = " ".join([self.fixed_text or f"u{uid}", *["x"] * (length - 1)])
+            text = f"{self.fixed_text or f'u{uid}'} x"
             samples.append({"text": text, "label": label, "rationale": "fake"})
         text = json.dumps({"samples": samples})
         usage = {"input_tokens": 1000, "cached_input_tokens": 800, "output_tokens": 200}

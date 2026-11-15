@@ -50,17 +50,8 @@ Rules that decide the label:
 Development (how the utterance unfolds as the listener keeps talking):
 ${developments}
 
-Repetition: `repeated` means the key tokens are repeated ("yes yes",
-"no no no", "haan haan", "wait wait"); `single` means they are not.
-
-Length, counted as words separated by spaces. A hyphenated word such as
-"mm-hmm" or "uh-huh" is one word; punctuation on its own is not a word:
-${length_buckets}
-For languages written without spaces (Chinese, Japanese, Thai, Lao, Khmer,
-Burmese) in native script, aim for the equivalent number of words.
-
-Script form (how the main language is written; the Languages and scripts
-block states the script of every language):
+Script form (the Languages and scripts block states the script of every
+language):
 ${script_forms}
 
 Code-switching (mixing in other languages):
@@ -68,7 +59,8 @@ ${code_switching}
 
 # Writing rules
 
-1. Write natural, everyday speech for the language and region. Vary wording,
+1. Write natural, everyday speech for the language and region, as long as a
+   caller would naturally say it: never padded or cut short. Vary wording,
    openings, register (formal and casual), mood (calm, friendly, hurried,
    confused, annoyed) and situation across the utterances of a request. Use the
    example hints only as a guide to the kind of words; never repeat the same
@@ -81,25 +73,18 @@ ${code_switching}
    laughter the way people type it ("haha").
 3. The specification's **Languages and scripts** block lists every language
    of the utterance, one line each, with the script its words are written
-   in. Follow each line word by word: a language written "in Urdu
-   (Perso-Arabic) script, never in Devanagari script" is never written in
-   Devanagari, even for a speaker in India. Romanized words are spelled the
-   way people type them in messages, without tone numbers or tone marks
-   ("nei hou", not "nei5 hou2"). In Indian English that mixes in Bengali, the
-   Bengali words are romanized ("ke bolchen"), never in Bengali script.
-4. Every language in the block must appear in every utterance. The main
-   language carries most of the words; a mixed-in language contributes at
-   least one real word of its own (not a loanword shared with the main
-   language), mixed the way people of that region really mix them. Within a
-   sentence means the switch happens inside one sentence; in its own sentence
-   means the utterance has at least two sentences and the mixed-in language
-   has a sentence to itself.
+   in. Follow each line word by word: Tamil words "in Tamil script, never in
+   Latin letters" are never romanized, even inside Indian English ("சரி சரி,
+   but change the time").
+4. Every language in the block must appear in every utterance with at least
+   one real word of its own (not a loanword), mixed the way people of that
+   region really mix them.
 5. Everything is fictional. Never use real brands, real people or real
    addresses. Any number must be obviously fake, such as 12345 or 1111 2222.
 6. Keep content safe and realistic.
 7. Honour every factor in the specification. Before answering, check every
-   utterance against each factor, especially language and script, repetition,
-   length and development, and rewrite any utterance that does not match.
+   utterance against each factor, especially language and script,
+   and development, and rewrite any utterance that does not match.
 8. Classify each utterance honestly from its words alone and give a
    one-sentence rationale. If what you wrote does not carry the intended label,
    report the label it really has: a rejected utterance is better than a

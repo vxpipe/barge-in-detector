@@ -225,7 +225,7 @@ The Batch API (half price, if it applies to this model) would about halve
 that. Estimates, not measured at that scale; short buckets (w1, w2_3) will
 deduplicate more as counts grow.
 
-## 15 languages
+## 14 languages
 
 User decision after reviewing the per-language table (pass rates, combination
 counts): drop Dutch, Hungarian, Swedish, Danish, Norwegian, Finnish, Irish,
@@ -259,9 +259,28 @@ Chinese/Japanese bug they caused (15 good Mandarin samples had been rejected as
 `barge_in_word_out_of_range`), plus two leftover conversation settings
 (`barge_in_word_tolerance`, `judge_hard_checks`).
 
+Urdu dropped too (14 languages); with it the manifest's `script_name` and
+`never_scripts` fields (used only by Urdu) and their code.
+
+## Fewer dimensions
+
+User decisions: intents stay as they are; repetition is not a dimension (track
+0.5.0, schema 8: generator and judge no longer mention it); code-switching is
+`none` or `mixed` only (catalogue: `mixed` replaces within/between
+sentences; the judge's language questions confirm the mix, so there is no
+separate switching question). All 156 remaining accepted samples are retired
+(their criteria no longer exist). Full plan: 3,289 combinations, 16,445
+utterances, about $106 at the sample run's rates; 87% barge-in.
+
+No length either (user decision): word-count targets force padded or
+squeezed text. Removed `length_bucket` from the track (0.7.0), the prompt,
+validation and the table (schema 9); the system prompt now asks for
+utterances "as long as a caller would naturally say it". Full plan: 1,480
+combinations, 7,400 utterances, about $47; 85% barge-in.
+
 ## Checks
 
-`ruff format --check`, `ruff check`: clean. `pytest`: 107 passed, 1
+`ruff format --check`, `ruff check`: clean. `pytest`: 106 passed, 1
 deselected (integration). No test calls Gemini.
 
 ## Next

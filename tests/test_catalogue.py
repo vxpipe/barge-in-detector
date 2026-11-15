@@ -17,7 +17,7 @@ def base_spec(**overrides):
         "language": "hi",
         "regional_variant": "hi",
         "script_form": "native",
-        "code_switching": "within_sentence",
+        "code_switching": "mixed",
         "code_switch_set": "en",
         "mixed_in_script": "default",
         "domain": "banking",
@@ -27,8 +27,6 @@ def base_spec(**overrides):
         "cut_position": "middle",
         "caller_intent": "agreement_token",
         "development": "stable",
-        "repetition": "repeated",
-        "length_bucket": "w2_3",
         "register": "casual",
         "caller_mood": "neutral",
     }
@@ -46,7 +44,7 @@ def test_valid_spec_has_no_violations(cat):
 
 def test_answer_needs_a_finished_question(cat):
     assert "answer_needs_finished_question" in cat.violations(
-        base_spec(caller_intent="answer_to_question", repetition="single")
+        base_spec(caller_intent="answer_to_question")
     )
     assert (
         cat.violations(
@@ -89,13 +87,6 @@ def test_membership_is_checked(cat):
     assert "code_switch_set_in_language" in cat.violations(spec)
 
 
-def test_intent_length_and_repetition(cat):
-    assert "intent_length_bucket" in cat.violations(base_spec(length_bucket="w9_plus"))
-    assert "intent_repeatable" in cat.violations(
-        base_spec(caller_intent="tracking_repeat", agent_activity="reading_numbers")
-    )
-
-
 def test_unknown_value_is_a_violation(cat):
     assert "unknown_value:caller_mood" in cat.violations(base_spec(caller_mood="sleepy"))
 
@@ -113,7 +104,7 @@ def test_derived_values(cat):
 def test_language_options_follow_the_manifest(cat):
     options = cat.language_options("en")
     assert ("en-US", "native", "none", "none", "default") in options
-    assert ("en-IN", "native", "within_sentence", "kn", "native") in options
+    assert ("en-IN", "native", "mixed", "kn", "native") in options
     assert not any(o[1] == "romanized" for o in options)
     assert not any(o[0] == "en-US" and o[2] != "none" for o in options)
 
@@ -130,7 +121,7 @@ def test_locales_list_every_language_in_the_transcript(cat):
     indian = {
         **plain_us,
         "regional_variant": "en-IN",
-        "code_switching": "within_sentence",
+        "code_switching": "mixed",
         "code_switch_set": "kn",
     }
     assert cat.locales({**indian, "mixed_in_script": "native"}) == ["en-IN", "kn-IN"]
@@ -142,7 +133,6 @@ def test_english_varieties_and_mandarin_in_singapore(cat):
     # User decision, 2026-11-15: English as spoken in the US, India and Singapore.
     assert cat.languages["en"]["regional_variants"] == ["en-US", "en-IN", "en-SG"]
     assert cat.languages["ta"]["regional_variants"] == ["ta-IN"]
-    assert cat.languages["ur"]["regional_variants"] == ["ur-IN"]
     assert cat.languages["es"]["regional_variants"] == ["es-ES", "es-MX"]
     assert cat.languages["fr"]["regional_variants"] == ["fr-FR"]
     assert cat.languages["de"]["regional_variants"] == ["de-DE"]
@@ -170,7 +160,7 @@ def test_mixed_in_chinese_comes_in_characters_and_romanized(cat):
 def test_mixed_in_script_must_fit_the_set(cat):
     ok = _english(
         regional_variant="en-SG",
-        code_switching="within_sentence",
+        code_switching="mixed",
         code_switch_set="zh",
         mixed_in_script="native",
     )
@@ -179,7 +169,7 @@ def test_mixed_in_script_must_fit_the_set(cat):
     assert "mixed_in_script_in_set" in cat.violations({**ok, "mixed_in_script": "default"})
     indian = _english(
         regional_variant="en-IN",
-        code_switching="within_sentence",
+        code_switching="mixed",
         code_switch_set="hi",
         mixed_in_script="native",
     )
@@ -188,9 +178,7 @@ def test_mixed_in_script_must_fit_the_set(cat):
 
 
 def test_locales_carry_script_subtags_for_chinese(cat):
-    base = _english(
-        regional_variant="en-SG", code_switching="within_sentence", code_switch_set="zh"
-    )
+    base = _english(regional_variant="en-SG", code_switching="mixed", code_switch_set="zh")
     assert cat.locales({**base, "mixed_in_script": "native"}) == ["en-SG", "zh-Hans-SG"]
     mainland = base_spec(
         language="zh",
@@ -205,7 +193,7 @@ def test_locales_carry_script_subtags_for_chinese(cat):
 def test_indian_languages_mix_only_with_english(cat):
     """User decision, 2026-11-15: an Indian language alone or with English;
     Indian English with one Indian language. No three-language sets."""
-    for code in ("hi", "kn", "ta", "te", "ml", "ur"):
+    for code in ("hi", "kn", "ta", "te", "ml"):
         for variant in cat.languages[code].get("regional_variants") or [code]:
             assert set(cat.code_switch_sets(code, variant)) <= {"en"}, (code, variant)
     for other in cat.code_switch_sets("en", "en-IN"):
