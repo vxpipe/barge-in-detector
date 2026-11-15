@@ -113,7 +113,7 @@ def test_derived_values(cat):
 def test_language_options_follow_the_manifest(cat):
     options = cat.language_options("en")
     assert ("en-US", "native", "none", "none", "default") in options
-    assert ("en-IN", "native", "within_sentence", "hi+kn", "default") in options
+    assert ("en-IN", "native", "within_sentence", "kn", "default") in options
     assert not any(o[1] == "romanized" for o in options)
     assert not any(o[0] == "en-US" and o[2] != "none" for o in options)
 
@@ -131,13 +131,9 @@ def test_locales_list_every_language_in_the_transcript(cat):
         **plain_us,
         "regional_variant": "en-IN",
         "code_switching": "within_sentence",
-        "code_switch_set": "hi+kn",
+        "code_switch_set": "kn",
     }
-    assert cat.locales(indian) == [
-        "en-IN",
-        "hi-Latn-IN",
-        "kn-Latn-IN",
-    ]  # romanized in English-led speech
+    assert cat.locales(indian) == ["en-IN", "kn-Latn-IN"]  # romanized in English-led speech
     hindi = base_spec()  # romanized Hindi (region IN) mixing English
     assert cat.locales(hindi) == ["hi-Latn-IN", "en-IN"]
     assert cat.locales({**hindi, "script_form": "native"}) == ["hi-IN", "en-IN"]
@@ -203,3 +199,13 @@ def test_locales_carry_script_subtags_for_chinese(cat):
         code_switch_set="none",
     )
     assert cat.locales(taiwan) == ["zh-Hant-TW"]
+
+
+def test_indian_languages_mix_only_with_english(cat):
+    """User decision, 2026-11-15: an Indian language alone or with English;
+    Indian English with one Indian language. No three-language sets."""
+    for code in ("hi", "kn", "ta", "te", "ml", "bn", "gu", "mr", "pa", "as", "ur"):
+        for variant in cat.languages[code].get("regional_variants") or [code]:
+            assert set(cat.code_switch_sets(code, variant)) <= {"en"}, (code, variant)
+    for other in cat.code_switch_sets("en", "en-IN"):
+        assert "+" not in other

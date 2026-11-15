@@ -136,7 +136,8 @@ def cmd_generate(args: argparse.Namespace) -> int:
         print("estimated cost: " + (f"${cost:.2f}" if cost is not None else "unknown (no prices)"))
     else:
         print(
-            f"run {report.run_id}: {report.requests} requests, {report.accepted} accepted, "
+            f"run {report.run_id}: {report.requests} generator requests, "
+            f"{report.judge_requests} judge requests, {report.accepted} accepted, "
             f"{sum(report.rejections.values())} rejected, {report.api_errors} API errors, "
             + (f"cost ${report.cost_usd:.4f}" if report.cost_usd is not None else "cost unknown")
         )
@@ -221,7 +222,8 @@ def cmd_generate_utterances(args: argparse.Namespace) -> int:
         print("estimated cost: " + (f"${cost:.4f}" if cost is not None else "unknown (no prices)"))
     else:
         print(
-            f"run {report.run_id}: {report.requests} requests, {report.accepted} accepted, "
+            f"run {report.run_id}: {report.requests} generator requests, "
+            f"{report.judge_requests} judge requests, {report.accepted} accepted, "
             f"{sum(report.rejections.values())} rejected, {report.api_errors} API errors, "
             + (f"cost ${report.cost_usd:.4f}" if report.cost_usd is not None else "cost unknown")
         )

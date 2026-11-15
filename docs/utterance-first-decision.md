@@ -40,9 +40,12 @@ keep talking) or a real interruption (stop and give the caller the floor)?
    `answer_to_question`, `hello_check` and `thinking_filler_after_question`.
    `tracking_repeat` and `collaborative_completion` need the agent's words and
    move to the context slice.
-5. **No judge for the first utterance runs** (user decision, 2026-11-15). The
-   generator's own label must equal the intended label; whether a judge pass is
-   needed is decided from the human review of the first samples.
+5. **A criteria judge** (user decision, 2026-11-15, after reviewing the first
+   unjudged samples: wrong scripts, missing mixed-in languages, wrong turning
+   points). The generator's own label must equal the intended label, and the
+   Gemini Decisions API then asks one yes/no question per criterion and nothing
+   else, one per language for language and script. The first unjudged runs
+   (generator_utterances_v1) are retired.
 6. **Two labels only** (user decision, 2026-11-15): `backchannel` or
    `barge_in`. The track has no ambiguous class; the catalogue's ambiguous
    intents are excluded, and any other label is rejected as `unknown_label`.

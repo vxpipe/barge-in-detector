@@ -10,7 +10,7 @@ from dataclasses import dataclass
 # conversations and examples. 3: the `mixed_in_script` factor; locales carry
 # script subtags; examples.transcript_raw. 4: the utterance track's
 # `utterance_targets` and `utterances` tables (docs/utterance-first-decision.md).
-SCHEMA_VERSION = "4"
+SCHEMA_VERSION = "5"
 
 SPEC_FACTORS = (
     "language",
@@ -292,6 +292,8 @@ TABLES: dict[str, Table] = {
                 ("retired_reason", "VARCHAR"),
                 ("retired_at", "TIMESTAMP"),
                 ("created_at", "TIMESTAMP"),
+                ("judge_request_id", "UUID"),
+                ("judge_answers", "JSON"),
             ),
             partitions=("language", "run_id"),
         ),

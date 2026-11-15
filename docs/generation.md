@@ -238,14 +238,22 @@ Added 2026-11-15 after the [utterance-first decision](utterance-first-decision.m
 Each request asks for N single caller utterances, said over a speaker who is
 still talking, for one criterion of `utterance_targets`:
 
-- **System prompt** `generator_utterances_v1` (`generation/prompts/`), cached
+- **System prompt** `generator_utterances_v3` (`generation/prompts/`), cached
   like the conversation prompt: the task, the track's intents with labels,
   development, repetition, length, script form and code-switching meanings,
-  writing rules, output format.
-- **Request**: the language lines (including the Script line), the intent
-  with its intended label and example hints, development, repetition and
-  length. No domain, scenario, cut or speaker; the generator imagines a
-  different situation for each utterance.
+  writing rules, output format. v2 added the per-language script rules;
+  v3 has the same system text and new request lines (a new template starts a
+  fresh attempt budget, see below).
+- **Request**: a **Languages and scripts** block with one line per language
+  of the combination (the main language, then each mixed-in language), its
+  role and its script, e.g. "Urdu, the main language: more than half of the
+  words are Urdu, regional variety ur-IN: in Urdu (Perso-Arabic) script, never
+  in Devanagari script or Latin letters." Romanized words are asked for as
+  people type them, without tone numbers. Then the intent with its intended
+  label and example hints, development, repetition (with its meaning) and
+  length. No domain, scenario, cut or speaker.
+  `barge_in_detector/generation/utterance_criteria.py` builds the block; the
+  judge checks the same script phrases.
 - **Schema** `UTTERANCE_SCHEMA`: `text`, `label` (backchannel or barge_in),
   `barge_in_from_word`, `rationale`.
 - **Labels**: `backchannel` or `barge_in` only (`labels` in
@@ -254,8 +262,33 @@ still talking, for one criterion of `utterance_targets`:
 - **Acceptance**: schema checks (fields, not empty after cleaning, no
   ellipsis, no bracket tags, length bucket, `barge_in_from_word` against
   development), then the generator's label must equal the intended label,
-  then the cleaned text must be new. **No judge** (user decision,
-  2026-11-15); language, script and code-switching are not checked yet.
+  then the cleaned text must be new, then the judge.
+- **Judge** (user decision, 2026-11-15): one Decisions API request per
+  utterance (`judge_utterance` requests, questions in
+  `generation/prompts/judge_utterances_v3.yaml`). The input is
+  `{"text": ...}` only. The questions are built from that sample's criterion:
+  one plain yes/no question per criterion, nothing else, and no question about
+  the label. Language and script ask one question per language, and no
+  language ranks above another. For Urdu (India) with English mixed in:
+
+  | Key | Question |
+  | --- | --- |
+  | `language_ur`, `language_en` | Does this text contain Urdu (English) words? |
+  | `script_ur` | Are the Urdu words in this text written in Urdu (Perso-Arabic) script? |
+  | `script_en` | Are the English words in this text written in Latin letters? |
+  | `variant` | Could this be Urdu as spoken in India? (only for languages with variants) |
+  | `switching` | Does this text switch languages within a sentence? |
+  | `intent` | Does this describe the text: <intent description> |
+  | `development` | Does this text keep the same intent from start to end? / … start with a filler and become an interruption at the word "<word>"? |
+  | `repetition` | Does this text repeat a word, as in "yes yes"? / Is this text free of repeated words like "yes yes"? |
+
+  Length is checked in code. Every answer must be yes (P(yes) ≥ 0.5);
+  otherwise the rejection's stage is `judge` and its reason lists each key
+  answered no with its P(yes) (`script_ur=0.08,switching=0.3`). Accepted
+  utterances keep `judge_request_id` and `judge_answers` (key → P(yes)).
+- **Attempt budget** counts only requests made with the current generator
+  template and generator model, so a new prompt version or model can fill
+  criteria an earlier one exhausted.
 
 ```shell
 uv run python -m barge_in_detector plan-utterances generation/plans/utterance-sample.yaml
@@ -265,12 +298,15 @@ uv run python -m barge_in_detector generate-utterances --dry-run
 uv run python -m barge_in_detector generate-utterances --languages en --budget-usd 0.10
 ```
 
-Up to `concurrency` requests (10 in `generation/config.yaml`, or
-`--concurrency`) are in flight at once. Worker threads only call Gemini; the
-main thread inserts each request before its call starts (so it counts as in
-flight), records responses and validates them one at a time, which keeps
-deduplication exact. After rejections the runner plans again once the
-requests in flight are processed. The Batch API is a milestone task.
+Up to `concurrency` Gemini calls (10 in `generation/config.yaml`, or
+`--concurrency`), generation and judge alike, are in flight at once. Worker
+threads only call Gemini; the main thread inserts each request before its call
+starts (so it counts as in flight), records responses and validates them one at
+a time, which keeps deduplication exact (an utterance waiting for the judge
+blocks duplicates of its text). A generate request stays `received` until each
+of its utterances has a verdict; a judge API error leaves it for the next run,
+which reuses the verdicts already stored. After rejections the runner plans
+again once the work in flight is done. The Batch API is a milestone task.
 
 ## Pilot findings (first live run, 2026-11-14)
 

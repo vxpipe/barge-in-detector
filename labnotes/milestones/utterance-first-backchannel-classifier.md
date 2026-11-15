@@ -2,7 +2,7 @@
 
 Status: started 2026-11-15 after the user's decision recorded in
 [the utterance-first decision](../../docs/utterance-first-decision.md).
-Checkpoint A is done except the user review of the samples
+Checkpoint A is done except filling the sample plan
 ([labnotes](../20261115-0100-utterance-first-generation.md)).
 
 ## Runnable outcome
@@ -64,7 +64,19 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
   limit, budget, export at the end. Tests: a second run makes no calls and
   leaves the export unchanged.
 - [x] Five English samples generated for user review.
-- [ ] User review of the samples; fix the prompt.
+- [x] User review of the samples (2026-11-15): wrong scripts, missing mixed-in
+  languages, wrong turning points.
+- [x] Parallel Gemini calls (`concurrency`, up to 10), store writes on one
+  thread. Tests first.
+- [x] Prompt v3: one line per language with its role and script; romanized as
+  typed (no tone numbers); repetition and between-sentence switching spelled
+  out. Rendering tests.
+- [x] Criteria judge (Decisions API): one yes/no question per criterion, one
+  per language for language and script; schema 5 keeps `judge_answers`.
+  Tests first.
+- [ ] Sample plan (36 languages × 5 criteria × 5) filled: 505 of 900 so far,
+  60 of 180 criteria full; the rest exhausted their attempt budget. Needs a
+  decision (generator model, plan, judge strictness) before more spend.
 
 ## Checkpoint B — Pilot data
 
@@ -76,8 +88,8 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 - [ ] Deduplication and split audit on the cleaned text: the same text never
   appears in two splits; report how many cleaned texts appear with both labels
   (the ceiling for any utterance-only model).
-- [ ] Decide with evidence whether a judge pass (language and script only) is
-  needed, from the user's review and per-factor rejection rates.
+- [x] Decide whether a judge pass is needed: yes, a criteria judge (user
+  decision, 2026-11-15). Per-factor pass rates are in the labnotes.
 - [ ] Coverage report per factor value and pair.
 - [ ] Batch API submission for large runs.
 

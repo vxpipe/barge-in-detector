@@ -72,11 +72,17 @@ class Store:
             return
         if row[0] in ("1", "2"):
             self._migrate(row[0])
-        elif row[0] == "3":
-            # 4 only adds the utterance tables, created above.
-            self.con.execute(
-                "UPDATE meta SET value = ? WHERE key = 'schema_version'", [SCHEMA_VERSION]
-            )
+        elif row[0] in ("3", "4"):
+            # 4 only adds the utterance tables, created above; 5 adds the
+            # utterance judge columns.
+            with self.transaction():
+                for column, kind in (("judge_request_id", "UUID"), ("judge_answers", "JSON")):
+                    self.con.execute(
+                        f"ALTER TABLE utterances ADD COLUMN IF NOT EXISTS {column} {kind}"
+                    )
+                self.con.execute(
+                    "UPDATE meta SET value = ? WHERE key = 'schema_version'", [SCHEMA_VERSION]
+                )
         elif row[0] != SCHEMA_VERSION:
             raise RuntimeError(f"database schema {row[0]}, code expects {SCHEMA_VERSION}")
 
@@ -204,12 +210,14 @@ class Store:
                 row["response"] = json.loads(row["response"])
         return rows
 
-    def judge_requests_for(self, parent_id: uuid.UUID) -> dict[int, dict[str, Any]]:
+    def judge_requests_for(
+        self, parent_id: uuid.UUID, *, kind: str = "judge"
+    ) -> dict[int, dict[str, Any]]:
         """Judge requests with a response for a generate request, by item index."""
         rows = self._dicts(
-            "SELECT request_id FROM requests WHERE kind = 'judge' AND parent_request_id = ? "
+            "SELECT request_id FROM requests WHERE kind = ? AND parent_request_id = ? "
             "AND status IN ('received', 'processed') ORDER BY request_id",
-            [parent_id],
+            [kind, parent_id],
         )
         judged: dict[int, dict[str, Any]] = {}
         for row in rows:
@@ -676,16 +684,22 @@ class Store:
             ).fetchall()
         )
 
-    def requested_counts(self, kind: str) -> dict[uuid.UUID, int]:
-        """Samples requested per criterion for a request kind, API errors excluded."""
-        return dict(
-            self.con.execute(
-                "SELECT combination_id, sum(requested_count) FROM requests "
-                "WHERE kind = ? AND status != 'api_error' AND combination_id IS NOT NULL "
-                "GROUP BY 1",
-                [kind],
-            ).fetchall()
+    def requested_counts(
+        self, kind: str, *, prompt_template: str | None = None, model_id: str | None = None
+    ) -> dict[uuid.UUID, int]:
+        """Samples requested per criterion for a request kind, API errors
+        excluded; only requests made with `prompt_template` and `model_id`
+        when given."""
+        sql = (
+            "SELECT combination_id, sum(requested_count) FROM requests "
+            "WHERE kind = ? AND status != 'api_error' AND combination_id IS NOT NULL"
         )
+        params: list[Any] = [kind]
+        for column, value in (("prompt_template", prompt_template), ("model_id", model_id)):
+            if value is not None:
+                sql += f" AND {column} = ?"
+                params.append(value)
+        return dict(self.con.execute(sql + " GROUP BY 1", params).fetchall())
 
     def utterance_text_hashes(self) -> set[str]:
         rows = self.con.execute(

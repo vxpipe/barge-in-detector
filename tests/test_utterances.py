@@ -110,7 +110,7 @@ def test_request_names_every_factor():
     t = build_utterance_plan(CAT, TRACK, PLAN)[0]
     user = prompts.render_utterance_request(CAT, t.spec, count=4)
     assert user.startswith("Write 4 utterances")
-    for prefix in ("Language:", "Script:", "Intent:", "Development:", "Repetition:", "Length:"):
+    for prefix in ("Languages and scripts", "Intent:", "Development:", "Repetition:", "Length:"):
         assert f"- {prefix}" in user
     assert f"(intended label: {t.intended_label})" in user
 
@@ -204,18 +204,22 @@ def test_applying_the_same_plan_twice_changes_nothing(store):
     assert {t["required_count"] for t in store.utterance_targets()} == {5}
 
 
-def test_run_fills_every_criterion_without_a_judge(store):
+def test_run_fills_every_criterion_and_judges_each_utterance(store):
     client = FakeLlm()
     report = run(store, client, languages=["en"])
     en = [t for t in store.utterance_targets() if t["language"] == "en"]
     counts = store.utterance_accepted_counts()
     assert {counts.get(t["combination_id"], 0) for t in en} == {3}
-    assert client.calls == {"generate": 12, "judge": 0}
+    assert client.calls == {"generate": 12, "judge": 36}
     assert report.accepted == 36
     row = store.utterances()[0]
     assert row["text_clean"] == row["text"].lower().replace(",", "").replace(".", "")
     assert row["label"] == row["intended_label"]
-    assert row["judge_model_id"] is None
+    assert row["judge_model_id"] == SETTINGS.judge_model
+    assert row["judge_request_id"] is not None
+    answers = json.loads(row["judge_answers"])
+    assert {"intent", "development", "repetition", "script_en", "language_en"} <= set(answers)
+    assert min(answers.values()) >= 0.5
 
 
 def test_second_run_makes_no_calls_and_keeps_the_export(store, tmp_path):
@@ -301,8 +305,25 @@ def test_schema_3_database_is_migrated(tmp_path):
     s = Store.open(path)
     try:
         version = s.con.execute("SELECT value FROM meta WHERE key = 'schema_version'").fetchone()
-        assert version[0] == SCHEMA_VERSION == "4"
+        assert version[0] == SCHEMA_VERSION == "5"
         assert s.count("utterances") == 0
+    finally:
+        s.close()
+
+
+def test_schema_4_database_gains_the_judge_columns(tmp_path):
+    path = tmp_path / "v4.duckdb"
+    s = Store.open(path)
+    s.con.execute("ALTER TABLE utterances DROP COLUMN judge_request_id")
+    s.con.execute("ALTER TABLE utterances DROP COLUMN judge_answers")
+    s.con.execute("UPDATE meta SET value = '4' WHERE key = 'schema_version'")
+    s.close()
+    s = Store.open(path)
+    try:
+        columns = {r[0] for r in s.con.execute("DESCRIBE utterances").fetchall()}
+        assert {"judge_request_id", "judge_answers"} <= columns
+        version = s.con.execute("SELECT value FROM meta WHERE key = 'schema_version'").fetchone()
+        assert version[0] == "5"
     finally:
         s.close()
 
@@ -393,3 +414,73 @@ def test_parallel_run_honours_the_limit_and_retries_rejections(store):
         and store.utterance_accepted_counts().get(t["combination_id"], 0) == 0
     )
     assert report.accepted == 0
+
+
+# ---------------------------------------------------------------- judge
+
+
+def test_a_criterion_the_judge_says_no_to_is_rejected_by_its_key(store):
+    client = FakeLlm(judge_no=("script_",))
+    report = run(store, client, languages=["en"])
+    assert report.accepted == 0
+    assert report.rejections["judge"] == 72
+    assert report.reasons["judge:script_en"] == 72
+    assert client.calls["generate"] == 24  # the attempt budget stops the retries
+    row = store._dicts("SELECT * FROM rejections WHERE stage = 'judge' LIMIT 1")[0]
+    assert row["judge_request_id"] is not None
+    assert "script_en=0.1" in row["reason"]
+
+
+def test_judge_api_error_keeps_the_response_for_the_next_run(store):
+    failing = FakeLlm(judge_fails=True)
+    report = run(store, failing, languages=["en"], limit=2)
+    assert report.accepted == 0 and report.api_errors > 0
+    received = store.requests(kind=prompts.UTTERANCE_REQUEST_KIND, status="received")
+    assert len(received) == 2
+    client = FakeLlm()
+    run(store, client, languages=["en"], limit=0)
+    assert client.calls["generate"] == 0
+    assert client.calls["judge"] == 6
+    assert sum(filled(store)) == 6
+
+
+def test_attempt_budget_counts_only_the_current_prompt_template(store):
+    target = store.utterance_targets()[0]
+    run_id = store.start_run(
+        name="old", revision_id=None, settings={}, generator_model_id="m", judge_model_id=None
+    )
+    request_id = store.insert_request(
+        run_id=run_id,
+        kind=prompts.UTTERANCE_REQUEST_KIND,
+        combination_id=target["combination_id"],
+        contrastive_group_id=None,
+        language=target["language"],
+        requested_count=6,
+        model_id="m",
+        prompt_template="generator_utterances_v1",
+        prompt_hash="h",
+    )
+    store.fail_request(request_id, status="schema_invalid", error="old prompt")
+    run(store, FakeLlm())
+    assert set(filled(store)) == {3}
+
+
+def test_attempt_budget_counts_only_the_current_generator_model(store):
+    target = store.utterance_targets()[0]
+    run_id = store.start_run(
+        name="old model", revision_id=None, settings={}, generator_model_id="m", judge_model_id=None
+    )
+    request_id = store.insert_request(
+        run_id=run_id,
+        kind=prompts.UTTERANCE_REQUEST_KIND,
+        combination_id=target["combination_id"],
+        contrastive_group_id=None,
+        language=target["language"],
+        requested_count=6,
+        model_id="an-earlier-model",
+        prompt_template=prompts.UTTERANCE_TEMPLATE,
+        prompt_hash="h",
+    )
+    store.fail_request(request_id, status="schema_invalid", error="weaker model")
+    run(store, FakeLlm())
+    assert set(filled(store)) == {3}

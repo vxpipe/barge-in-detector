@@ -1,10 +1,11 @@
 # Data generation and storage format
 
-Status: decided 2026-11-14; schema version 4 implemented (2 added `locales`; 3
+Status: decided 2026-11-14; schema version 5 implemented (2 added `locales`; 3
 added `mixed_in_script`, script subtags in `locales` and
 `examples.transcript_raw`; 4 added the utterance track's `utterance_targets`
 and `utterances` tables, see the
-[utterance-first decision](utterance-first-decision.md); older databases are
+[utterance-first decision](utterance-first-decision.md); 5 added
+`utterances.judge_request_id` and `judge_answers`; older databases are
 migrated on open) in
 `barge_in_detector/storage/` (`schema.py` owns the columns, `store.py` every
 write). Column lists change only through a schema version bump recorded here.
@@ -315,7 +316,7 @@ Common factor columns, plus:
 | Column | Type | Notes |
 | --- | --- | --- |
 | `request_id` | UUID | primary key |
-| `kind` | VARCHAR | `generate` or `judge` |
+| `kind` | VARCHAR | `generate` or `judge`; the utterance track's `generate_utterances` or `judge_utterance` |
 | `parent_request_id` | UUID | for a judge request, the generate request whose sample it judges |
 | `run_id` | UUID | |
 | `combination_id` | UUID | the criterion; null for a contrastive group request |
@@ -427,7 +428,8 @@ a milestone task. Partitioned by `language`.
 ### `utterances`
 
 Accepted utterances, one row per sample. Requests are in `requests` with
-`kind = generate_utterances` and rejections in `rejections`, as for
+`kind = generate_utterances` (judge requests: `judge_utterance`, with
+`parent_request_id` set) and rejections in `rejections`, as for
 conversations. Partitioned by `language` and `run_id`.
 
 | Column | Type | Notes |
@@ -441,10 +443,13 @@ conversations. Partitioned by `language` and `run_id`.
 | `text` | VARCHAR | exactly as generated |
 | `text_clean`, `cleaner_version` | VARCHAR | the model input after the cleaner |
 | `gemini_label`, `gemini_rationale`, `barge_in_from_word` | | the generator's classification |
-| `judge_label`, `judge_model_id` | VARCHAR | null: no judge in this version |
+| `judge_label` | VARCHAR | null: the utterance judge asks about the criteria only, not the label |
+| `judge_model_id` | VARCHAR | null for utterances accepted before the judge (generator_utterances_v1) |
 | `model_id`, `prompt_template` | VARCHAR | |
 | `text_hash` | VARCHAR | SHA-256 of `text_clean`; an accepted text is never accepted again |
 | `status`, `retired_reason`, `retired_at`, `created_at` | | |
+| `judge_request_id` | UUID | the `judge_utterance` request that accepted it |
+| `judge_answers` | JSON | question key → P(yes), every one ≥ 0.5 ([generation](generation.md#utterance-track)) |
 
 ### `annotations`
 

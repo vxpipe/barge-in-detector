@@ -276,8 +276,9 @@ recorded in that document.
   `examples.py` (example builder), `generation/` (plan builder, prompts,
   response validation, Gemini client, fill-to-count runner), `storage/`
   (DuckDB schema, the storage module, Parquet export and import), `cli.py`.
-  The utterance track adds `generation/utterances.py` (track and plan builder)
-  and `generation/utterance_runner.py`.
+  The utterance track adds `generation/utterances.py` (track and plan builder),
+  `generation/utterance_criteria.py` (per-language prompt lines and the
+  criteria judge) and `generation/utterance_runner.py`.
   Prompt templates live in `generation/prompts/`, plans in
   `generation/plans/`, run settings in `generation/config.yaml`.
 - Data commands run through `uv run python -m barge_in_detector …`: `check-catalogue`, `plan`,

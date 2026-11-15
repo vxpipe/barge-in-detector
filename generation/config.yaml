@@ -1,9 +1,10 @@
 # Generation run settings. See docs/data-format.md (fill to count) and
 # docs/generation.md.
 
-# Default generator: the cheaper Flash-Lite (user decision, 2026-11-14).
-# gemini-3.8-flash is the alternative if quality needs it; the user decides.
-generator_model: gemini-3.5-flash-lite
+# Generator: gemini-3.8-flash (user decision, 2026-11-15, after Flash-Lite
+# passed only 14% of utterances through the criteria judge). Before that the
+# cheaper gemini-3.5-flash-lite (user decision, 2026-11-14).
+generator_model: gemini-3.8-flash
 # The judge uses the Gemini Decisions API (calibrated probabilities, no text).
 judge_model: gemini-decision-1
 

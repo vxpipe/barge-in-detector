@@ -276,7 +276,7 @@ def describe_spec(
         f"{' '.join(intent['description'].split())}",
         _hints(cat, spec["caller_intent"], spec["language"]),
         f"Development: `{spec['development']}`: {d[('development', spec['development'])]}",
-        f"Repetition: `{spec['repetition']}`",
+        f"Repetition: `{spec['repetition']}`: {_REPETITION[spec['repetition']]}",
         f"Length of listener_text: `{spec['length_bucket']}`: {d[('length_bucket', spec['length_bucket'])]}",
         f"Register: `{spec['register']}`. Listener mood: `{spec['caller_mood']}`.",
     ]
@@ -353,7 +353,11 @@ def _prefixes_for(shared_spec: Mapping[str, str]) -> list[str]:
 
 # ---------------------------------------------------------------- utterance track
 
-UTTERANCE_TEMPLATE = "generator_utterances_v1"
+UTTERANCE_TEMPLATE = "generator_utterances_v3"
+_REPETITION = {
+    "repeated": 'say a key word or short phrase two or more times ("wait wait", "haan haan").',
+    "single": 'no word or phrase is said twice (not "yes yes").',
+}
 UTTERANCE_REQUEST_KIND = "generate_utterances"
 
 _UTTERANCE_FIELDS: dict[str, Any] = {
@@ -395,14 +399,16 @@ def render_utterance_system(cat: Catalogue, track: Any) -> str:
 
 
 def render_utterance_request(cat: Catalogue, spec: Mapping[str, str], *, count: int) -> str:
+    from barge_in_detector.generation.utterance_criteria import describe_languages
+
     d = cat.descriptions
     intent = cat.intents[spec["caller_intent"]]
-    lines = describe_language(cat, spec) + [
+    lines = [describe_languages(cat, spec)] + [
         f"Intent: `{spec['caller_intent']}` (intended label: {intent['label']}): "
         f"{' '.join(intent['description'].split())}",
         _hints(cat, spec["caller_intent"], spec["language"]),
         f"Development: `{spec['development']}`: {d[('development', spec['development'])]}",
-        f"Repetition: `{spec['repetition']}`",
+        f"Repetition: `{spec['repetition']}`: {_REPETITION[spec['repetition']]}",
         f"Length: `{spec['length_bucket']}`: {d[('length_bucket', spec['length_bucket'])]}",
     ]
     body = "\n".join(f"- {line}" for line in lines)

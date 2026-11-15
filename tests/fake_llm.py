@@ -44,6 +44,7 @@ class FakeLlm:
         generator_fails=False,
         label_override=None,
         fixed_text=None,
+        judge_no=(),
     ):
         self.judge_disagrees = judge_disagrees
         self.judge_fails = judge_fails
@@ -52,6 +53,9 @@ class FakeLlm:
         # write this text for every sample (to exercise deduplication).
         self.label_override = label_override
         self.fixed_text = fixed_text
+        # Utterance judge: answer no (P(yes) 0.1) to questions whose key starts
+        # with one of these prefixes, yes (0.95) to every other question.
+        self.judge_no = tuple(judge_no)
         self.calls = {"generate": 0, "judge": 0}
         self.system_prompts = set()
         self._lock = threading.Lock()
@@ -161,7 +165,13 @@ class FakeLlm:
             self.calls["judge"] += 1
         if self.judge_fails:
             raise LlmError("503: unavailable")
-        conversation = json.loads(input)["conversation"]
+        payload = json.loads(input)
+        if "text" in payload:  # the utterance judge: one question per criterion
+            p = {
+                k: 0.1 if k.startswith(self.judge_no) and self.judge_no else 0.95 for k in questions
+            }
+            return self._decision(p)
+        conversation = payload["conversation"]
         spoken, candidate = conversation[-2]["transcript"], conversation[-1]["transcript"]
         label, word = _LABELS[(spoken, candidate)]
         if self.judge_disagrees:
@@ -178,6 +188,9 @@ class FakeLlm:
         for key in questions:
             p.setdefault(key, 0.95)  # conformance and factor_* checks pass
         assert set(p) == set(questions)
+        return self._decision(p)
+
+    def _decision(self, p):
         answers = {
             k: {"type": "noul", "noul": v, "confidence": max(v, 1 - v)} for k, v in p.items()
         }
