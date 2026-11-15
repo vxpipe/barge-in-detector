@@ -3,6 +3,11 @@
 Status: decided 2026-11-15 (user decisions); schema version 11. Replaces the
 earlier ten-table design of the conversation track (in git history).
 
+The later owner-authorized [phrase coverage supplement](phrase-coverage.md)
+uses a separate schema-11 store and export alongside this original dataset.
+Its judge-free provenance and `raw_sample` envelope are documented there; no
+original rows, columns or split files are rewritten by that workflow.
+
 ## Decision
 
 - **The plan file is the only record of the criteria.** A plan

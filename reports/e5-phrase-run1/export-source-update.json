@@ -1,0 +1,9 @@
+{
+  "reason": "Fix fused ONNX tensor type inference; verify all variants; compare unchanged original checkpoint",
+  "sha256": {
+    "barge_in_detector/training/onnx_export.py": "3668281fca93a5e5f4399df4c99c933100e60aadbea47e42ba74f000d721473a",
+    "experiments/verify_e5_export.py": "e12de63f9acf5ba414d6fb9f863f6f24f463eedb5cc1bf792c72dac181c07793",
+    "experiments/evaluate_original_e5.py": "ad80d567e030e53eab73f9c5bad44213f3caf96eef12bf61c4e4b33eaeeee130",
+    "tests/test_onnx_export.py": "e06e0882caa9f713b0141c942cb56e0b880f0227cca2b9c44c638aa5559fc4f7"
+  }
+}

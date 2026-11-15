@@ -1,0 +1,99 @@
+language,label,text_clean,p_barge_in
+en,barge_in,stop,0.9708528666510086
+en,barge_in,wait,0.9999903155992593
+en,barge_in,pause,0.9923536593492125
+en,barge_in,cancel,0.1059262475559118
+en,barge_in,wrong,0.9999998076691116
+en,barge_in,repeat,0.9308865981985951
+en,barge_in,slower,0.9833831778099459
+en,barge_in,restart,0.7574572374740748
+en,barge_in,enough,0.001420367502786
+en,barge_in,stop talking,0.9987183298196239
+en,barge_in,wait please,0.9999984997298179
+en,barge_in,not that,0.999906669311438
+en,barge_in,wrong date,0.9999997228947637
+en,barge_in,wrong person,0.9999993816669723
+en,barge_in,go back,0.8161694017852728
+en,barge_in,say again,0.9895628931229702
+en,barge_in,speak slower,0.9996755341889896
+en,barge_in,start over,0.34564490017996213
+en,barge_in,let me finish,0.9985657005375448
+en,barge_in,you misunderstood,0.0011607583014634662
+en,barge_in,cancel it,0.6511947746045157
+en,barge_in,change it,0.6179181646528722
+en,barge_in,which one,0.999989547356256
+en,barge_in,why not,0.9995082249494323
+en,barge_in,how much,0.09826216219985923
+en,barge_in,what time,0.8405506368856421
+en,barge_in,what address,0.9996693425189382
+en,barge_in,tuesday instead,0.9987002064918147
+en,barge_in,the second one,0.9999997857220699
+en,barge_in,that is wrong,0.9997858307328917
+en,backchannel,yes yes yes yes yes,0.00016041600484842752
+en,backchannel,okay okay okay okay okay,0.0004962249530930491
+en,backchannel,right right right i see,9.703896264975779e-05
+en,backchannel,mm hmm yes mm hmm yes,0.0004975306400317089
+en,backchannel,oh wow oh wow yeah,1.9984545827214594e-07
+en,backchannel,yeah i see i see,1.3204029396064636e-05
+en,backchannel,yes i understand what you mean,0.00039061017280865514
+en,backchannel,right that makes sense to me,0.00017736537471223254
+en,backchannel,okay i am following you so far,4.3892162275140786e-05
+en,backchannel,yes yes that sounds right,4.962635363165201e-07
+en,backchannel,ah i see what you mean now,0.0011030784476408673
+en,backchannel,mm hmm i understand yes,4.7612114757985494e-05
+en,backchannel,oh dear that sounds really difficult,2.9573836176522825e-05
+en,backchannel,wow that must have been exciting,0.021174303913823227
+en,backchannel,that is interesting yes i see,0.039222383098093935
+en,backchannel,fair enough i understand that,0.00019757022703114382
+en,backchannel,yes absolutely i agree with that,0.00010992152869453369
+en,backchannel,right okay yes that makes sense,1.7031466644053562e-06
+en,backchannel,oh no that is really sad,6.902875495570887e-05
+en,backchannel,ha ha that is funny,0.00500483094202118
+en,backchannel,mmm yes okay i hear you,9.39860942512278e-05
+en,backchannel,sure sure i am with you,0.012263298295914613
+en,backchannel,got it yes understood,4.7179014724980977e-05
+en,backchannel,uh huh uh huh right,2.6507748610535367e-05
+en,backchannel,okay,5.413842938830356e-05
+en,backchannel,yes,0.0008194008603690946
+en,backchannel,yeah,6.462447388797527e-05
+en,backchannel,mm hmm,5.450686463729197e-05
+en,backchannel,uh huh,5.0046586530781065e-05
+en,backchannel,right,6.830845750190004e-06
+en,backchannel,i see,0.00013560540829672934
+en,backchannel,got it,0.0006110773824132428
+en,backchannel,oh wow,6.526068258084399e-07
+en,backchannel,i understand,0.00021836581990005598
+en,barge_in,i need to change my delivery address,0.9999998717164749
+en,barge_in,you have the wrong customer on the line,0.9999997542149506
+en,barge_in,can you explain what that fee is for,0.9842137542394338
+en,barge_in,please stop reading and let me speak,0.9999999759992705
+en,barge_in,actually i already paid that invoice,0.9893268495184413
+en,barge_in,i want to speak to someone else,0.9999621664591103
+en,barge_in,no i said thursday and not tuesday,0.9999974832496752
+en,barge_in,before you continue i have a question,0.22480851313508504
+en,barge_in,that is not what i was asking about,0.9982386480718958
+en,barge_in,i cannot hear you please say that again,0.9999319257921051
+en,backchannel,yes,0.0008194008603690946
+en,backchannel,yes yes,9.643927515711999e-05
+en,barge_in,yes yes but change the time,0.992249741199407
+en,backchannel,okay,5.413842938830356e-05
+en,backchannel,okay okay,0.0001797629465262881
+en,barge_in,okay okay wait that is the wrong address,0.9999976726975268
+en,backchannel,right,6.830845750190004e-06
+en,backchannel,right right,0.00017754242508427612
+en,barge_in,right right but i meant the other account,0.9999386170154605
+en,backchannel,mm hmm,5.450686463729197e-05
+en,backchannel,mm hmm yes,0.0006969557953948477
+en,barge_in,mm hmm yes can you repeat the price,0.9985435714009495
+en,backchannel,i see,0.00013560540829672934
+en,backchannel,i see yes,0.00010363769642858603
+en,barge_in,i see yes but i need to cancel,0.9989149607353143
+en,backchannel,sure,0.07673833906010305
+en,backchannel,sure sure,0.2366964158243528
+en,barge_in,sure sure stop there please,0.9997863365847652
+en,backchannel,got it,0.0006110773824132428
+en,backchannel,got it okay,0.0004415839026668332
+en,barge_in,got it okay now let me explain,0.22236457068290474
+en,backchannel,yeah,6.462447388797527e-05
+en,backchannel,yeah yeah,5.3187643974192186e-05
+en,barge_in,yeah yeah no that will not work for me,0.9978577473271658

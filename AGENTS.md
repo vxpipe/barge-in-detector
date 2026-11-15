@@ -25,6 +25,30 @@ code commit. Publish source code before removing code from release repositories.
 All implementation/research uses this repo's AGENTS.md, bin/create-labnotes and
 labnotes/milestones/index.md. No history rewriting or force-push is needed.
 
+Release syncing is explicit, using `python -m barge_in_detector.releases`
+with the optional `release` dependency group; see [docs/releases.md](docs/releases.md).
+The commands publish directly to HF without using the sibling checkouts. They
+default to an offline dry run; `--publish` uploads only manifest-selected files,
+the versioned release card and licence/notice. There is no automatic CI sync.
+Keep GPU exports under gitignored `models/<run>/`, and release manifests and
+cards under versioned `releases/`. Review metadata and checksums before publishing;
+publish source first and pin exact code/dataset revisions. Remote files omitted
+from a manifest are preserved; obsolete artifacts require explicit cleanup.
+Downloading releases for inference, training or evaluation does not sync local
+changes back to HF.
+
+HF release repositories are tracked as Git submodules at `huggingface/model` and
+`huggingface/dataset`. Keep these as tracked submodules so the links remain
+portable across machines and visible online; do not replace them with local
+symlinks or gitignored links. `.gitmodules` records their HTTPS URLs, and Git
+records their pinned commits as gitlinks. Once committed and pushed, they appear
+as repository links on GitHub. Initialize them on another machine with
+`GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --recursive`; fetch model weights
+only when needed with `git -C huggingface/model lfs pull`. Direct API publishing
+does not update submodule pins; explicitly update and stage the relevant gitlink
+after a release when requested. Keep development work here and GPU exports under
+`models/`. Existing sibling HF clones remain optional independent checkouts.
+
 ## Project brief
 
 Voice agents currently treat any caller transcript during agent playback as an
@@ -190,6 +214,12 @@ bump recorded in the data format doc.
 
 ### Generator rules
 
+The owner-authorized phrase coverage supplement (2026-11-15) is a separate,
+judge-free dataset alongside the original: see [docs/phrase-coverage.md](docs/phrase-coverage.md).
+Keep the original export/splits intact. The supplement reuses the storage module
+and schema in its own working store and CSV, under `data/supplements/`. Estimate
+cost before paid calls and preserve the request ledger enforcing its budget.
+
 - Use the `google-genai` Python package. The generator is **Gemini 3.8 Flash**
   (`gemini-3.8-flash`, user decision, 2026-11-15); the model is the user's call,
   made in `generation/config.yaml`, and every request records it. The judge is
@@ -337,6 +367,10 @@ are superseded by the current Repository ownership section.
 - Never commit credentials, PII, local absolute paths, model checkpoints,
   virtualenvs, caches or build artefacts. Generated datasets under `data/` are
   committed (see Synthetic data generation).
+- Keep training-machine identifiers, offer IDs, host addresses, SSH ports and
+  location details only in gitignored local operational records. They must not
+  appear in labnotes, reports, release metadata or model cards. Hardware class,
+  model settings, durations and aggregate costs are sufficient public evidence.
 - Do not amend, rebase, reset, force-push, delete branches or undo commits
   unless the user explicitly requests that exact operation.
 

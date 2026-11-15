@@ -1,0 +1,12 @@
+{
+  "encoder/config.json": "72091cf5ddc919735d42fbc75a7a09ffffc609569ee920a91916e8ea208b79fc",
+  "encoder/model.safetensors": "9f3a1c06c465a1a73d9ec4fa6e3b2f9362cd77ef5b31678ba2849c75d9b206ed",
+  "encoder/tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+  "encoder/tokenizer_config.json": "073baeda1d4206d2884440810a167a690bfbf44c2ddc38185418fb7bb0e2dc79",
+  "head.json": "a2fb1f648e1cf8cb9db1f1d0361bd8d32ca87e80a3e9598d2c90596dbc693a7b",
+  "predictions-challenge.csv": "407edd1fa5dfbfbb79d8c828871017372106e41856b05903489db0bbb9947422",
+  "predictions-test.csv": "9c1f7e5fcbae283e233e5dca6e70e301488accfd2a98e7aa3afcfb1c9924f1ee",
+  "predictions-validation.csv": "0b58663f992aafe70ef1a7d4d941f1e27e6d5f6f1988e34b226a1fe7e668ad1a",
+  "report.json": "874377b34fd3ac2a191f46cd218fa7a5ce541c19c4ad565c324ef2d5ea4d43be",
+  "source-manifest.json": "25b9217c10aa7dda65dc9fad48a295984e6a5a9b011a848507138c60786c2475"
+}

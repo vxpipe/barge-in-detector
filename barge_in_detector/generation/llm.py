@@ -61,6 +61,7 @@ class LlmClient(Protocol):
         user_prompt: str,
         schema: Mapping[str, Any],
         thinking_level: str | None = None,
+        max_output_tokens: int | None = None,
     ) -> LlmResult: ...
 
     def decide(self, *, model: str, input: str, questions: Mapping[str, Any]) -> DecisionResult: ...
@@ -100,7 +101,11 @@ class GeminiClient:
         # v1beta: context caching (cachedContents) and the Decisions API exist
         # only there; google-genai 3.x defaults to v1, where creating a cache
         # returns 404.
-        self._client = genai.Client(http_options={"api_version": "v1beta"})
+        # Retry accounting belongs to this wrapper/the runner, not a second
+        # hidden SDK retry layer. In particular, max_retries=0 means one call.
+        self._client = genai.Client(
+            http_options={"api_version": "v1beta", "retry_options": {"attempts": 1}}
+        )
         self._decisions_client = self._client
         self._temperature = temperature
         self._explicit_cache = explicit_cache
@@ -138,6 +143,10 @@ class GeminiClient:
                 raise LlmError(redact(f"{status or type(exc).__name__}: {exc}")[:1000]) from None
 
     # ---------------------------------------------------------------- generator
+
+    def check_model_access(self, model: str) -> None:
+        """Read-only credential/model preflight; no generation or token charges."""
+        self._call(lambda: self._client.models.get(model=model))
 
     def _cache_key(self, model: str, system_prompt: str) -> tuple[str, str]:
         return (model, hashlib.sha256(system_prompt.encode()).hexdigest())
@@ -182,6 +191,7 @@ class GeminiClient:
         user_prompt: str,
         schema: Mapping[str, Any],
         thinking_level: str | None = None,
+        max_output_tokens: int | None = None,
     ) -> LlmResult:
         from google.genai import types
 
@@ -194,6 +204,7 @@ class GeminiClient:
             config = types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_json_schema=dict(schema),
+                max_output_tokens=max_output_tokens,
                 temperature=self._temperature,
                 cached_content=state["cache"],
                 system_instruction=None if state["cache"] else system_prompt,

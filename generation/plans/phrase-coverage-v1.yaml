@@ -1,0 +1,42 @@
+name: phrase-coverage-v1
+languages: [en, hi, kn, ta, te, ml, zh, ja, id, fil, fr, de, es, it]
+required_count: 3
+max_attempts: 2
+# Requested-sample allowance: max_attempts * required_count per criterion.
+# Includes failed calls. Requests ask only for the remaining accepted count.
+anchor_intents: [continuer, acknowledgment, agreement_token, reaction_token, gratitude_token, go_ahead]
+forms:
+  core:
+    switching: [none]
+    description: The most common standalone word or short expression for this intent. Set anchor to the entire text. Prefer everyday canonical forms, not creative synonyms or full sentences.
+  repetition:
+    switching: [none]
+    description: Repeat one short common anchor two to four times, with nothing else added. Set anchor to the single unrepeated expression.
+  combination:
+    switching: [none, mixed]
+    description: Begin with a common anchor and combine it with a different acknowledgment or continuer. Stay brief. The whole utterance leaves the speaker the floor.
+  expanded:
+    switching: [none, mixed]
+    description: Begin with a common anchor and extend it into a natural longer acknowledgment, understanding, empathy, or encouragement. Do not ask, correct, disagree, or say the explanation is no longer needed.
+  contrast_stop:
+    switching: [none, mixed]
+    caller_intent: floor_request
+    description: Begin with a common backchannel anchor, then explicitly ask the speaker to stop or wait and give the listener the floor.
+  contrast_correction:
+    switching: [none, mixed]
+    caller_intent: correction
+    description: Begin with a common backchannel anchor, then explicitly correct a detail or reject the proposed choice. This must interrupt the speaker.
+short_intents: [floor_request, correction, clarification_question]
+# Prices checked against Google's Standard pricing on 2026-11-15.
+# Refuse paid calls after this price validity date until the plan is reviewed.
+prices_valid_through: '2026-12-31'
+priced_model: gemini-3.8-flash
+prices_usd_per_million: {input: 0.75, output: 3.75}
+max_input_tokens: 8192
+max_output_tokens: 2048
+thinking_level: low
+concurrency: 8
+historical_recorded_usd: 13.1659674
+historical_uncertainty_reserve_usd: 2.0
+total_ceiling_usd: 30.0
+new_budget_usd: 8.0

@@ -1,0 +1,99 @@
+case_id,category,language,text_clean,label,p_barge_in
+en-001,short_interruption,en,stop,barge_in,0.5286416604982508
+en-002,short_interruption,en,wait,barge_in,0.9574296177784446
+en-003,short_interruption,en,pause,barge_in,0.6269705100612548
+en-004,short_interruption,en,cancel,barge_in,0.6639015054686456
+en-005,short_interruption,en,wrong,barge_in,0.938565922431224
+en-006,short_interruption,en,repeat,barge_in,0.7585162419671
+en-007,short_interruption,en,slower,barge_in,0.6869713783544587
+en-008,short_interruption,en,restart,barge_in,0.7563735069126253
+en-009,short_interruption,en,enough,barge_in,0.18397014363787761
+en-010,short_interruption,en,stop talking,barge_in,0.7988683121494888
+en-011,short_interruption,en,wait please,barge_in,0.9777565848522205
+en-012,short_interruption,en,not that,barge_in,0.6848418241714632
+en-013,short_interruption,en,wrong date,barge_in,0.95876515618721
+en-014,short_interruption,en,wrong person,barge_in,0.9647223864669516
+en-015,short_interruption,en,go back,barge_in,0.4654528801745108
+en-016,short_interruption,en,say again,barge_in,0.7846911525006529
+en-017,short_interruption,en,speak slower,barge_in,0.885515443279113
+en-018,short_interruption,en,start over,barge_in,0.6441181406081486
+en-019,short_interruption,en,let me finish,barge_in,0.9174379388515718
+en-020,short_interruption,en,you misunderstood,barge_in,0.1823829813541127
+en-021,short_interruption,en,cancel it,barge_in,0.7378040952415748
+en-022,short_interruption,en,change it,barge_in,0.5826500362097707
+en-023,short_interruption,en,which one,barge_in,0.9344105449364736
+en-024,short_interruption,en,why not,barge_in,0.778949853808268
+en-025,short_interruption,en,how much,barge_in,0.33118485091213556
+en-026,short_interruption,en,what time,barge_in,0.8125388932777331
+en-027,short_interruption,en,what address,barge_in,0.8567447532340697
+en-028,short_interruption,en,tuesday instead,barge_in,0.8308981661423366
+en-029,short_interruption,en,the second one,barge_in,0.9836493394072716
+en-030,short_interruption,en,that is wrong,barge_in,0.8558204184904772
+en-031,long_backchannel,en,yes yes yes yes yes,backchannel,0.1089637096948508
+en-032,long_backchannel,en,okay okay okay okay okay,backchannel,0.07242055448965601
+en-033,long_backchannel,en,right right right i see,backchannel,0.08917360542535317
+en-034,long_backchannel,en,mm hmm yes mm hmm yes,backchannel,0.027223446364519188
+en-035,long_backchannel,en,oh wow oh wow yeah,backchannel,0.0014334407381804276
+en-036,long_backchannel,en,yeah i see i see,backchannel,0.028419647205060652
+en-037,long_backchannel,en,yes i understand what you mean,backchannel,0.7736418863955109
+en-038,long_backchannel,en,right that makes sense to me,backchannel,0.08225237120141385
+en-039,long_backchannel,en,okay i am following you so far,backchannel,0.3600310117832958
+en-040,long_backchannel,en,yes yes that sounds right,backchannel,0.07138774251452634
+en-041,long_backchannel,en,ah i see what you mean now,backchannel,0.6703678531774596
+en-042,long_backchannel,en,mm hmm i understand yes,backchannel,0.11225761305870251
+en-043,long_backchannel,en,oh dear that sounds really difficult,backchannel,0.37510795787984624
+en-044,long_backchannel,en,wow that must have been exciting,backchannel,0.674688706251748
+en-045,long_backchannel,en,that is interesting yes i see,backchannel,0.5045012130432479
+en-046,long_backchannel,en,fair enough i understand that,backchannel,0.2571584827945499
+en-047,long_backchannel,en,yes absolutely i agree with that,backchannel,0.07712894983423789
+en-048,long_backchannel,en,right okay yes that makes sense,backchannel,0.007839683753091464
+en-049,long_backchannel,en,oh no that is really sad,backchannel,0.05984898500287456
+en-050,long_backchannel,en,ha ha that is funny,backchannel,0.3008859243172142
+en-051,long_backchannel,en,mmm yes okay i hear you,backchannel,0.32725429189969796
+en-052,long_backchannel,en,sure sure i am with you,backchannel,0.6755154218306859
+en-053,long_backchannel,en,got it yes understood,backchannel,0.02108057193538172
+en-054,long_backchannel,en,uh huh uh huh right,backchannel,0.011477734102370286
+en-055,ordinary_backchannel,en,okay,backchannel,0.08048462262993855
+en-056,ordinary_backchannel,en,yes,backchannel,0.12678383545871763
+en-057,ordinary_backchannel,en,yeah,backchannel,0.007188577357173253
+en-058,ordinary_backchannel,en,mm hmm,backchannel,0.021924533510680185
+en-059,ordinary_backchannel,en,uh huh,backchannel,0.012563977564938357
+en-060,ordinary_backchannel,en,right,backchannel,0.029007470679470113
+en-061,ordinary_backchannel,en,i see,backchannel,0.0867294656544066
+en-062,ordinary_backchannel,en,got it,backchannel,0.02355740212034774
+en-063,ordinary_backchannel,en,oh wow,backchannel,0.005102112380458731
+en-064,ordinary_backchannel,en,i understand,backchannel,0.24988798815744573
+en-065,ordinary_interruption,en,i need to change my delivery address,barge_in,0.9898760284586536
+en-066,ordinary_interruption,en,you have the wrong customer on the line,barge_in,0.9929226357617036
+en-067,ordinary_interruption,en,can you explain what that fee is for,barge_in,0.9670689126210713
+en-068,ordinary_interruption,en,please stop reading and let me speak,barge_in,0.9885195748299187
+en-069,ordinary_interruption,en,actually i already paid that invoice,barge_in,0.935659926850381
+en-070,ordinary_interruption,en,i want to speak to someone else,barge_in,0.9755866619412992
+en-071,ordinary_interruption,en,no i said thursday and not tuesday,barge_in,0.9606494855076563
+en-072,ordinary_interruption,en,before you continue i have a question,barge_in,0.7328051004441893
+en-073,ordinary_interruption,en,that is not what i was asking about,barge_in,0.9752788955615962
+en-074,ordinary_interruption,en,i cannot hear you please say that again,barge_in,0.9752106600401858
+en-075,prefix,en,yes,backchannel,0.12678383545871763
+en-076,prefix,en,yes yes,backchannel,0.100167735005397
+en-077,prefix,en,yes yes but change the time,barge_in,0.9167002789988229
+en-078,prefix,en,okay,backchannel,0.08048462262993855
+en-079,prefix,en,okay okay,backchannel,0.06225395358527802
+en-080,prefix,en,okay okay wait that is the wrong address,barge_in,0.9642291846180002
+en-081,prefix,en,right,backchannel,0.029007470679470113
+en-082,prefix,en,right right,backchannel,0.07738306167048652
+en-083,prefix,en,right right but i meant the other account,barge_in,0.9415751243006022
+en-084,prefix,en,mm hmm,backchannel,0.021924533510680185
+en-085,prefix,en,mm hmm yes,backchannel,0.03839194184296929
+en-086,prefix,en,mm hmm yes can you repeat the price,barge_in,0.9090456715324016
+en-087,prefix,en,i see,backchannel,0.0867294656544066
+en-088,prefix,en,i see yes,backchannel,0.0714658853646675
+en-089,prefix,en,i see yes but i need to cancel,barge_in,0.9397841266428485
+en-090,prefix,en,sure,backchannel,0.38099643916250664
+en-091,prefix,en,sure sure,backchannel,0.4988489755866878
+en-092,prefix,en,sure sure stop there please,barge_in,0.8645027919922521
+en-093,prefix,en,got it,backchannel,0.02355740212034774
+en-094,prefix,en,got it okay,backchannel,0.039280342381483965
+en-095,prefix,en,got it okay now let me explain,barge_in,0.6696349032058836
+en-096,prefix,en,yeah,backchannel,0.007188577357173253
+en-097,prefix,en,yeah yeah,backchannel,0.0067094612651952944
+en-098,prefix,en,yeah yeah no that will not work for me,barge_in,0.4793608179194602

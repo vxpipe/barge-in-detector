@@ -1,0 +1,99 @@
+case_id,category,group,language,label,text,text_clean,review_status,authored_label,p_barge_in
+en-001,short_interruption,,en,barge_in,Stop,stop,pending,barge_in,0.9931570887565613
+en-002,short_interruption,,en,barge_in,Wait,wait,pending,barge_in,0.9944374561309814
+en-003,short_interruption,,en,barge_in,Pause,pause,pending,barge_in,0.9945797920227051
+en-004,short_interruption,,en,barge_in,Cancel,cancel,pending,barge_in,0.993311882019043
+en-005,short_interruption,,en,barge_in,Wrong,wrong,pending,barge_in,0.9946237802505493
+en-006,short_interruption,,en,barge_in,Repeat,repeat,pending,barge_in,0.0038859788328409195
+en-007,short_interruption,,en,barge_in,Slower,slower,pending,barge_in,0.9947159886360168
+en-008,short_interruption,,en,barge_in,Restart,restart,pending,barge_in,0.9179291725158691
+en-009,short_interruption,,en,barge_in,Enough,enough,pending,barge_in,0.0037722564302384853
+en-010,short_interruption,,en,barge_in,Stop talking,stop talking,pending,barge_in,0.9955203533172607
+en-011,short_interruption,,en,barge_in,Wait please,wait please,pending,barge_in,0.9953184723854065
+en-012,short_interruption,,en,barge_in,Not that,not that,pending,barge_in,0.9951142072677612
+en-013,short_interruption,,en,barge_in,Wrong date,wrong date,pending,barge_in,0.9956484436988831
+en-014,short_interruption,,en,barge_in,Wrong person,wrong person,pending,barge_in,0.9954618811607361
+en-015,short_interruption,,en,barge_in,Go back,go back,pending,barge_in,0.003815371310338378
+en-016,short_interruption,,en,barge_in,Say again,say again,pending,barge_in,0.004063012078404427
+en-017,short_interruption,,en,barge_in,Speak slower,speak slower,pending,barge_in,0.9954676628112793
+en-018,short_interruption,,en,barge_in,Start over,start over,pending,barge_in,0.004374151583760977
+en-019,short_interruption,,en,barge_in,Let me finish,let me finish,pending,barge_in,0.994088888168335
+en-020,short_interruption,,en,barge_in,You misunderstood,you misunderstood,pending,barge_in,0.1405056118965149
+en-021,short_interruption,,en,barge_in,Cancel it,cancel it,pending,barge_in,0.9951488375663757
+en-022,short_interruption,,en,barge_in,Change it,change it,pending,barge_in,0.982555627822876
+en-023,short_interruption,,en,barge_in,Which one,which one,pending,barge_in,0.9946082830429077
+en-024,short_interruption,,en,barge_in,Why not,why not,pending,barge_in,0.9937300682067871
+en-025,short_interruption,,en,barge_in,How much,how much,pending,barge_in,0.9947798252105713
+en-026,short_interruption,,en,barge_in,What time,what time,pending,barge_in,0.9952791929244995
+en-027,short_interruption,,en,barge_in,What address,what address,pending,barge_in,0.9953311085700989
+en-028,short_interruption,,en,barge_in,Tuesday instead,tuesday instead,pending,barge_in,0.9946086406707764
+en-029,short_interruption,,en,barge_in,The second one,the second one,pending,barge_in,0.9950137734413147
+en-030,short_interruption,,en,barge_in,That is wrong,that is wrong,pending,barge_in,0.9949299693107605
+en-031,long_backchannel,,en,backchannel,Yes yes yes yes yes,yes yes yes yes yes,pending,backchannel,0.003793738316744566
+en-032,long_backchannel,,en,backchannel,Okay okay okay okay okay,okay okay okay okay okay,pending,backchannel,0.0037848299834877253
+en-033,long_backchannel,,en,backchannel,Right right right I see,right right right i see,pending,backchannel,0.0037600549403578043
+en-034,long_backchannel,,en,backchannel,Mm hmm yes mm hmm yes,mm hmm yes mm hmm yes,pending,backchannel,0.0037801209837198257
+en-035,long_backchannel,,en,backchannel,Oh wow oh wow yeah,oh wow oh wow yeah,pending,backchannel,0.003772389143705368
+en-036,long_backchannel,,en,backchannel,Yeah I see I see,yeah i see i see,pending,backchannel,0.003758840961381793
+en-037,long_backchannel,,en,backchannel,Yes I understand what you mean,yes i understand what you mean,pending,backchannel,0.0037605371326208115
+en-038,long_backchannel,,en,backchannel,Right that makes sense to me,right that makes sense to me,pending,backchannel,0.00376277812756598
+en-039,long_backchannel,,en,backchannel,Okay I am following you so far,okay i am following you so far,pending,backchannel,0.0037741491105407476
+en-040,long_backchannel,,en,backchannel,Yes yes that sounds right,yes yes that sounds right,pending,backchannel,0.0037690254393965006
+en-041,long_backchannel,,en,backchannel,Ah I see what you mean now,ah i see what you mean now,pending,backchannel,0.003762350883334875
+en-042,long_backchannel,,en,backchannel,Mm hmm I understand yes,mm hmm i understand yes,pending,backchannel,0.0037577138282358646
+en-043,long_backchannel,,en,backchannel,Oh dear that sounds really difficult,oh dear that sounds really difficult,pending,backchannel,0.003767922520637512
+en-044,long_backchannel,,en,backchannel,Wow that must have been exciting,wow that must have been exciting,pending,backchannel,0.0037771479692310095
+en-045,long_backchannel,,en,backchannel,That is interesting yes I see,that is interesting yes i see,pending,backchannel,0.0037605767138302326
+en-046,long_backchannel,,en,backchannel,Fair enough I understand that,fair enough i understand that,pending,backchannel,0.0037632607854902744
+en-047,long_backchannel,,en,backchannel,Yes absolutely I agree with that,yes absolutely i agree with that,pending,backchannel,0.003767716931179166
+en-048,long_backchannel,,en,backchannel,Right okay yes that makes sense,right okay yes that makes sense,pending,backchannel,0.003761173225939274
+en-049,long_backchannel,,en,backchannel,Oh no that is really sad,oh no that is really sad,pending,backchannel,0.0037632498424500227
+en-050,long_backchannel,,en,backchannel,Ha ha that is funny,ha ha that is funny,pending,backchannel,0.003760387422516942
+en-051,long_backchannel,,en,backchannel,Mmm yes okay I hear you,mmm yes okay i hear you,pending,backchannel,0.0037601690273731947
+en-052,long_backchannel,,en,backchannel,Sure sure I am with you,sure sure i am with you,pending,backchannel,0.0037654777988791466
+en-053,long_backchannel,,en,backchannel,Got it yes understood,got it yes understood,pending,backchannel,0.0037616556510329247
+en-054,long_backchannel,,en,backchannel,Uh huh uh huh right,uh huh uh huh right,pending,backchannel,0.003771690186113119
+en-055,ordinary_backchannel,,en,backchannel,Okay,okay,pending,backchannel,0.0037810327485203743
+en-056,ordinary_backchannel,,en,backchannel,Yes,yes,pending,backchannel,0.0038589765317738056
+en-057,ordinary_backchannel,,en,backchannel,Yeah,yeah,pending,backchannel,0.003871633904054761
+en-058,ordinary_backchannel,,en,backchannel,Mm hmm,mm hmm,pending,backchannel,0.003770182142034173
+en-059,ordinary_backchannel,,en,backchannel,Uh huh,uh huh,pending,backchannel,0.003765728324651718
+en-060,ordinary_backchannel,,en,backchannel,Right,right,pending,backchannel,0.0037747714668512344
+en-061,ordinary_backchannel,,en,backchannel,I see,i see,pending,backchannel,0.0037676107604056597
+en-062,ordinary_backchannel,,en,backchannel,Got it,got it,pending,backchannel,0.0037722454871982336
+en-063,ordinary_backchannel,,en,backchannel,Oh wow,oh wow,pending,backchannel,0.003762159962207079
+en-064,ordinary_backchannel,,en,backchannel,I understand,i understand,pending,backchannel,0.003762856824323535
+en-065,ordinary_interruption,,en,barge_in,I need to change my delivery address,i need to change my delivery address,pending,barge_in,0.9956786036491394
+en-066,ordinary_interruption,,en,barge_in,You have the wrong customer on the line,you have the wrong customer on the line,pending,barge_in,0.9956781268119812
+en-067,ordinary_interruption,,en,barge_in,Can you explain what that fee is for,can you explain what that fee is for,pending,barge_in,0.9955394864082336
+en-068,ordinary_interruption,,en,barge_in,Please stop reading and let me speak,please stop reading and let me speak,pending,barge_in,0.9956639409065247
+en-069,ordinary_interruption,,en,barge_in,Actually I already paid that invoice,actually i already paid that invoice,pending,barge_in,0.9953365921974182
+en-070,ordinary_interruption,,en,barge_in,I want to speak to someone else,i want to speak to someone else,pending,barge_in,0.9956150054931641
+en-071,ordinary_interruption,,en,barge_in,No I said Thursday and not Tuesday,no i said thursday and not tuesday,pending,barge_in,0.9956258535385132
+en-072,ordinary_interruption,,en,barge_in,Before you continue I have a question,before you continue i have a question,pending,barge_in,0.9949408769607544
+en-073,ordinary_interruption,,en,barge_in,That is not what I was asking about,that is not what i was asking about,pending,barge_in,0.9952870607376099
+en-074,ordinary_interruption,,en,barge_in,I cannot hear you please say that again,i cannot hear you please say that again,pending,barge_in,0.992438018321991
+en-075,prefix,prefix-1,en,backchannel,Yes,yes,pending,backchannel,0.0038589765317738056
+en-076,prefix,prefix-1,en,backchannel,Yes yes,yes yes,pending,backchannel,0.0037783861625939608
+en-077,prefix,prefix-1,en,barge_in,Yes yes but change the time,yes yes but change the time,pending,barge_in,0.9956130981445312
+en-078,prefix,prefix-2,en,backchannel,Okay,okay,pending,backchannel,0.0037810327485203743
+en-079,prefix,prefix-2,en,backchannel,Okay okay,okay okay,pending,backchannel,0.00377053115516901
+en-080,prefix,prefix-2,en,barge_in,Okay okay wait that is the wrong address,okay okay wait that is the wrong address,pending,barge_in,0.9956846237182617
+en-081,prefix,prefix-3,en,backchannel,Right,right,pending,backchannel,0.0037747714668512344
+en-082,prefix,prefix-3,en,backchannel,Right right,right right,pending,backchannel,0.003759765764698386
+en-083,prefix,prefix-3,en,barge_in,Right right but I meant the other account,right right but i meant the other account,pending,barge_in,0.9955821633338928
+en-084,prefix,prefix-4,en,backchannel,Mm hmm,mm hmm,pending,backchannel,0.003770182142034173
+en-085,prefix,prefix-4,en,backchannel,Mm hmm yes,mm hmm yes,pending,backchannel,0.0037687921430915594
+en-086,prefix,prefix-4,en,barge_in,Mm hmm yes can you repeat the price,mm hmm yes can you repeat the price,pending,barge_in,0.9955167174339294
+en-087,prefix,prefix-5,en,backchannel,I see,i see,pending,backchannel,0.0037676107604056597
+en-088,prefix,prefix-5,en,backchannel,I see yes,i see yes,pending,backchannel,0.0037656715139746666
+en-089,prefix,prefix-5,en,barge_in,I see yes but I need to cancel,i see yes but i need to cancel,pending,barge_in,0.9956021308898926
+en-090,prefix,prefix-6,en,backchannel,Sure,sure,pending,backchannel,0.0037690806202590466
+en-091,prefix,prefix-6,en,backchannel,Sure sure,sure sure,pending,backchannel,0.003760172752663493
+en-092,prefix,prefix-6,en,barge_in,Sure sure stop there please,sure sure stop there please,pending,barge_in,0.03964521363377571
+en-093,prefix,prefix-7,en,backchannel,Got it,got it,pending,backchannel,0.0037722454871982336
+en-094,prefix,prefix-7,en,backchannel,Got it okay,got it okay,pending,backchannel,0.003766755573451519
+en-095,prefix,prefix-7,en,barge_in,Got it okay now let me explain,got it okay now let me explain,pending,barge_in,0.39800459146499634
+en-096,prefix,prefix-8,en,backchannel,Yeah,yeah,pending,backchannel,0.003871633904054761
+en-097,prefix,prefix-8,en,backchannel,Yeah yeah,yeah yeah,pending,backchannel,0.003784495871514082
+en-098,prefix,prefix-8,en,barge_in,Yeah yeah no that will not work for me,yeah yeah no that will not work for me,pending,barge_in,0.9952364563941956

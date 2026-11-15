@@ -1,0 +1,25 @@
+{
+  "original": {
+    "train": 2640,
+    "validation": 333,
+    "test": 331
+  },
+  "supplement": {
+    "train": 2278,
+    "validation": 582,
+    "test": 577
+  },
+  "combined": {
+    "train": 4918,
+    "validation": 915,
+    "test": 908
+  },
+  "original_assignments_preserved": true,
+  "exact_cross_split_duplicates": 0,
+  "supplement_exact_evaluation_overlap": 0,
+  "existing_evaluation_overlap_by_original_split": {
+    "train": 3,
+    "validation": 1,
+    "test": 0
+  }
+}

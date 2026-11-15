@@ -1,0 +1,186 @@
+{
+  "original_files_preserved": true,
+  "original_accepted": 3304,
+  "supplement_accepted": 3437,
+  "statuses": {
+    "rejected": 576,
+    "retired": 3,
+    "accepted": 3437
+  },
+  "rejections": {
+    "reserved_evaluation": 31,
+    "pilot_review: Romanized Hindi in an English-only native-script criterion": 3,
+    "duplicate_original": 183,
+    "duplicate_supplement": 355,
+    "wrong_script": 7
+  },
+  "languages": [
+    {
+      "language": "en",
+      "accepted": 776,
+      "backchannel": 373,
+      "barge_in": 403,
+      "criteria": 279,
+      "criteria_with_samples": 271,
+      "criteria_full": 246,
+      "anchors": 287
+    },
+    {
+      "language": "hi",
+      "accepted": 195,
+      "backchannel": 105,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 63,
+      "anchors": 62
+    },
+    {
+      "language": "kn",
+      "accepted": 186,
+      "backchannel": 96,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 65,
+      "criteria_full": 58,
+      "anchors": 50
+    },
+    {
+      "language": "ta",
+      "accepted": 188,
+      "backchannel": 100,
+      "barge_in": 88,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 58,
+      "anchors": 62
+    },
+    {
+      "language": "te",
+      "accepted": 190,
+      "backchannel": 100,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 58,
+      "anchors": 64
+    },
+    {
+      "language": "ml",
+      "accepted": 188,
+      "backchannel": 98,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 65,
+      "criteria_full": 59,
+      "anchors": 54
+    },
+    {
+      "language": "zh",
+      "accepted": 197,
+      "backchannel": 107,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 65,
+      "anchors": 61
+    },
+    {
+      "language": "ja",
+      "accepted": 189,
+      "backchannel": 100,
+      "barge_in": 89,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 60,
+      "anchors": 54
+    },
+    {
+      "language": "id",
+      "accepted": 193,
+      "backchannel": 103,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 62,
+      "anchors": 62
+    },
+    {
+      "language": "fil",
+      "accepted": 191,
+      "backchannel": 101,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 65,
+      "criteria_full": 61,
+      "anchors": 63
+    },
+    {
+      "language": "fr",
+      "accepted": 189,
+      "backchannel": 99,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 59,
+      "anchors": 59
+    },
+    {
+      "language": "de",
+      "accepted": 190,
+      "backchannel": 100,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 60,
+      "anchors": 64
+    },
+    {
+      "language": "es",
+      "accepted": 370,
+      "backchannel": 191,
+      "barge_in": 179,
+      "criteria": 132,
+      "criteria_with_samples": 131,
+      "criteria_full": 115,
+      "anchors": 133
+    },
+    {
+      "language": "it",
+      "accepted": 195,
+      "backchannel": 105,
+      "barge_in": 90,
+      "criteria": 66,
+      "criteria_with_samples": 66,
+      "criteria_full": 63,
+      "anchors": 74
+    }
+  ],
+  "criteria": 1203,
+  "criteria_full": 1087,
+  "criteria_with_samples": 1191,
+  "candidate_expression_entries": 1149,
+  "candidate_expressions_missing_forms": 977,
+  "label_conflicts_for_review": 0,
+  "supplement_exact_overlap_original_or_evaluation": 0,
+  "judge_calls": 0,
+  "request_kinds": {
+    "generate_phrases_v1": 1567
+  },
+  "requests": 1567,
+  "usage_based_cost_usd": 1.436151750000001,
+  "unknown_cost_requests_reserved": 18,
+  "cost_including_reservations_usd": 1.684983750000001,
+  "historical_plus_new_usage_usd": 14.60211915,
+  "total_with_all_reserves_usd": 16.85095115,
+  "observed_max_input_tokens": 624,
+  "observed_max_output_tokens": 779,
+  "request_errors": [
+    [
+      "401: API key not valid. Please pass a valid API key.",
+      18
+    ]
+  ],
+  "source_sha256": "23eb64a5369c31cd3f9bd9fa1e2642690715f379ca6e40280f25a914e786b32f",
+  "limitations": "Synthetic candidate checklist, not exhaustive coverage. Local checks only; no judge or native verification. Exact deduplication does not prevent semantic near-duplicate overlap."
+}

@@ -1,0 +1,25 @@
+{
+  "base_git_commit": "db838c3c48051a18db753a01ad6d01a5171786c9",
+  "working_tree_uncommitted": true,
+  "sha256": {
+    "generation/plans/phrase-coverage-v1.yaml": "e2833c124181c60315c5fae036451f8fe5580db737790f6cd0331c54b04d3265",
+    "generation/config.yaml": "f4e707d4efc610b882289f29f170cd763c876c4e366f6853d1225cbb5965c88b",
+    "generation/factors/languages.yaml": "c5f0a5b753c588782c536108184b12615a54c9b8f4b4cbf0073c0d8aec1a376e",
+    "generation/prompts/generator_phrases_v2.md": "ad11d87dc08d3f9bdeef2797f0b67fb70f944630cbdb444232f5f9c17055a19d",
+    "generation/prompts/generator_phrases_v1.md": "e162538fedd64d9d8fa167fda59c54cc963597f107570e170944a75aeb1e080e",
+    "barge_in_detector/generation/phrase_coverage.py": "350f59c0fe3ff4ee25d279d05e79e4291c03e52d26c4bd62f4d5569fb02fa3e4",
+    "barge_in_detector/generation/phrase_runner.py": "612206671e4c68edb37b66ae8dda7eb3fa7f5bb1f48ee3ae07900c35a3be512f",
+    "barge_in_detector/generation/llm.py": "540158ae89360fd7697aa357919530cce97f32572c0955307c1986191ae22dca",
+    "barge_in_detector/supplements.py": "a17039ea5a1bc72ee16b37d5d2fe30ef697dce174b29601193387ff320dfd52c",
+    "experiments/audit_phrase_coverage.py": "19a6358a495c02b2cc4cc5d442739095d1647f8e133322be7971d256b6b5acf1",
+    "experiments/compare_phrase_supplement.py": "3e47438049b9e1e38937f8025efb913d2132bd277ade8b4eaead75792b0b1527",
+    "experiments/verify_lexical.py": "3868e7d88c9f52d18b2e47eb52380c363c54a9377a2388cc31244da17bae2f4f",
+    "data/supplements/phrase-coverage-v1/utterances.csv": "23eb64a5369c31cd3f9bd9fa1e2642690715f379ca6e40280f25a914e786b32f",
+    "data/supplements/phrase-coverage-v1/splits/test.csv": "b4d8ca14a49b9b799df7608ec4236feea7d0b949ff1cbfd2e35441c24b567ea4",
+    "data/supplements/phrase-coverage-v1/splits/validation.csv": "b8492ad9375c4628872bd2e75ad4cf33f9d3a662d32809c6371a08cd7b6cc134",
+    "data/supplements/phrase-coverage-v1/splits/train.csv": "4825babe5704fd5b9fef8a8c81c0d05291cdaf0d7eb4469266b582a95bb8ddc3",
+    "data/experiments/original-plus-phrase-v1/splits/test.csv": "9e5315c163b0a4f0151bbf3609013f328a99e89aa0a192ce6f13bddc60bf33a9",
+    "data/experiments/original-plus-phrase-v1/splits/validation.csv": "2aff187ae2de0fd48d1b2bade5e8b4097a3fc008e9c52a8ff1065fda66816ad7",
+    "data/experiments/original-plus-phrase-v1/splits/train.csv": "8ea73a4c9c22d9ef1b38ee64221c1e322c3b84ae457916080b13cf9c5a7cf751"
+  }
+}

@@ -1,0 +1,916 @@
+utterance_id,combination_id,language,regional_variant,code_switching,code_switch_set,caller_intent,label,text,text_clean
+01a1de4d-a6e5-726e-a667-580efb4ae057,4fe7f39b-d4e2-5583-9f53-303d21b5cf45,en,en-SG,mixed,zh,language_switch_request,barge_in,"Mm-hmm right, wait can switch to English ah, 我听不太懂.",mm hmm right wait can switch to english ah 我听不太懂
+01a1de4d-d0dd-750c-9eac-93f79a9ef939,2503dd37-2670-54c7-ba51-792a892f70ce,en,en-IN,mixed,hi,language_switch_request,barge_in,"Right, right, but can you please हिंदी में बोलिए?",right right but can you please हिंदी में बोलिए
+01a1de4d-eb21-75d5-bafc-8a344e1447cc,91450bfa-440a-5366-b4e5-98144e85c202,en,en-IN,mixed,ta,new_request,barge_in,"Uh, wait, actually ஒரு நிமிஷம், can you check the flight timings for tomorrow evening instead?",uh wait actually ஒரு நிமிஷம் can you check the flight timings for tomorrow evening instead
+01a1de4e-0cf5-73f4-b562-4a4ee54ce23c,bbe81cfb-6e55-5133-9473-0efbea2bee4d,en,en-IN,mixed,ta,language_switch_request,barge_in,"Uh, wait, could you please speak in தமிழ்?",uh wait could you please speak in தமிழ்
+01a1de4e-12d5-75a6-b39e-ba5de9a4da15,4cf6ecac-f782-5d9d-bb15-82bbc237b531,en,en-SG,none,none,reaction_token,backchannel,"Wah, that's really good.",wah thats really good
+01a1de4e-1973-7331-b374-46849556577f,dbf6e80b-cde0-502e-9477-90b17435a769,en,en-SG,none,none,skip_request,barge_in,"Mhm mhm, skip that part lah, just tell me what time the parcel will arrive.",mhm mhm skip that part lah just tell me what time the parcel will arrive
+01a1de4e-1fc9-77e2-aaf7-e154462f3652,7ad00901-061b-5777-ae66-31359f6b58fc,en,en-SG,none,none,language_switch_request,barge_in,"Err, actually, can explain to me in Chinese or not?",err actually can explain to me in chinese or not
+01a1de4e-21b3-75f7-ad6e-c0c92ea8f09a,b288d8a2-0902-5b59-8172-57e8021a7ced,en,en-US,none,none,repeat_request,barge_in,"Speak up a little, I can barely hear you.",speak up a little i can barely hear you
+01a1de4e-239e-70b5-b721-984969369c46,d711a197-cb3a-5d2b-8980-e449cb0b389f,en,en-SG,mixed,zh,floor_request,barge_in,"Wait ah, 稍等, my phone haven't receive the SMS code yet.",wait ah 稍等 my phone havent receive the sms code yet
+01a1de4e-4f00-745d-b129-9a7de292bcc6,08491452-a001-53be-aba6-bfd3673b86d6,en,en-IN,mixed,kn,acknowledgment,backchannel,"I see, ಅರ್ಥ ಆಯ್ತು.",i see ಅರ್ಥ ಆಯ್ತು
+01a1de4e-6edf-7149-b42a-469b2865da78,aabe2ff3-033e-5906-a2af-de24f01717e2,en,en-IN,mixed,ta,agreement_token,backchannel,"சரி தான், yes, 100 percent.",சரி தான் yes 100 percent
+01a1de4e-74ef-7790-b84a-dd2246c72068,b5c60cd0-2e9f-5a49-9cd6-4be7c28a727e,en,en-SG,mixed,zh,new_request,barge_in,"Err, wait ah, 顺便问一下, can I also book a morning doctor consultation for tomorrow?",err wait ah 顺便问一下 can i also book a morning doctor consultation for tomorrow
+01a1de4e-8d80-7620-a6f5-0a24c2e37d8e,0c55d553-8f18-51d5-bd14-b48d6c8d81b1,en,en-US,none,none,complaint,barge_in,"Er, listen, my account is completely locked out and my boarding pass is on it.",er listen my account is completely locked out and my boarding pass is on it
+01a1de4e-a99b-707a-99cc-65d331b43060,89e862fc-97f3-534e-bab1-be40281d6d6d,en,en-IN,none,none,end_call,barge_in,"Umm, look, I am getting late for my train, call me after six o'clock.",umm look i am getting late for my train call me after six oclock
+01a1de4e-bd07-7285-a567-a95170594476,55797ae1-01b8-5cd9-8d1f-143988652522,en,en-SG,mixed,zh,request_human,barge_in,"Ya ya, got it, but 不要机器人了, can connect me to your colleague directly?",ya ya got it but 不要机器人了 can connect me to your colleague directly
+01a1de4e-d705-711e-9cde-caac01b4eefe,c5aa0003-3ff8-5989-940a-82e3eceabbfa,en,en-IN,mixed,ta,continuer,backchannel,"Yeah, ம்ம், uh-huh.",yeah ம்ம் uh huh
+01a1de4e-e174-7444-afcd-7382d8f6b146,6eb96143-0ba9-5518-9fcd-eb234190a2c5,en,en-US,none,none,go_ahead,backchannel,"Keep going, I'm listening.",keep going im listening
+01a1de4e-e9c9-7076-9d4c-4b2a1440205d,1dab77c4-9e77-57a7-9cf6-1735153814e2,en,en-IN,mixed,hi,new_request,barge_in,"Uh, actually, can I change the drop-off location, मुझे दूसरा parcel भी track करना है right now?",uh actually can i change the drop off location मुझे दूसरा parcel भी track करना है right now
+01a1de4e-f1cb-71a3-95b6-c096242dc830,f4df9cf1-d2a4-5dc9-af8e-cf1697e42a74,en,en-SG,none,none,request_human,barge_in,"Let me speak to your manager directly lah, don't read the script.",let me speak to your manager directly lah dont read the script
+01a1de4e-f419-775b-b6fc-53696b36e4eb,3cefc2a3-ab47-590e-8fc7-b47d12c31448,en,en-IN,mixed,ml,repeat_request,barge_in,"Uhh, hold on, ശബ്ദം മുറിഞ്ഞുപോകുന്നുണ്ട്, could you repeat what you just said?",uhh hold on ശബ്ദം മുറിഞ്ഞുപോകുന്നുണ്ട് could you repeat what you just said
+01a1de4f-14a2-7711-95c6-0a057151b293,2ae81d2f-db74-5cc3-a352-72cb3853020b,en,en-IN,mixed,ta,end_call,barge_in,"Uhh, I need to stop you, நேரம் ஆச்சு, I really must drop off.",uhh i need to stop you நேரம் ஆச்சு i really must drop off
+01a1de4f-1db6-725f-8b03-c3880ce7133e,997cfb84-3fe0-570c-93cd-235bf90acbd3,en,en-IN,mixed,kn,floor_request,barge_in,"Ah, actually, ಒಂದು ಸೆಕೆಂಡ್ ತಡಿರಿ, let me grab a pen to note down the address.",ah actually ಒಂದು ಸೆಕೆಂಡ್ ತಡಿರಿ let me grab a pen to note down the address
+01a1de4f-1eef-76cc-99cc-b6178c9bb5f8,cc8c78e1-a43a-5e5d-a7e1-db2b48ea33bf,en,en-IN,mixed,hi,complaint,barge_in,"मेरे खाते से दो बार पैसे कट गए हैं, I am seeing continuous unauthorized charges right now!",मेरे खाते से दो बार पैसे कट गए हैं i am seeing continuous unauthorized charges right now
+01a1de4f-27af-74d5-ba76-b2b2cadd0c02,dbc953de-8ffe-5e96-93fe-b2b62108b2b9,en,en-IN,mixed,hi,end_call,barge_in,"Yes, understood, मुझे अभी फोन रखना होगा, let us speak tomorrow.",yes understood मुझे अभी फोन रखना होगा let us speak tomorrow
+01a1de4f-2f29-720a-89ff-427a793c2506,5341d01a-7944-5551-99cf-6bb89efa0419,en,en-IN,mixed,ml,new_request,barge_in,"Umm, wait, ഡോക്ടറെ നേരിട്ട് കാണാൻ പറ്റുമോ, can I schedule an in-person consultation as well?",umm wait ഡോക്ടറെ നേരിട്ട് കാണാൻ പറ്റുമോ can i schedule an in person consultation as well
+01a1de4f-30d8-700d-85e8-326e444ccb6e,ef562b04-2725-575c-b456-95978fbdbc0f,en,en-IN,mixed,te,language_switch_request,barge_in,"తెలుగులో మాట్లాడండి, can you explain in Telugu please?",తెలుగులో మాట్లాడండి can you explain in telugu please
+01a1de4f-48ad-74fb-b4a5-d494d2e018e7,a524cb19-1d2c-544f-9800-68c3c1b316a5,en,en-US,none,none,continuer,backchannel,Mm-hmm.,mm hmm
+01a1de4f-5dd7-736b-8462-fe91d1184e6b,319e2afd-9000-55c0-9f9e-53c4059bc69a,en,en-SG,mixed,zh,clarification_question,barge_in,"Right right, but wait ah, 你说的是 which data plan?",right right but wait ah 你说的是 which data plan
+01a1de4f-78d3-7469-b5b3-5f142631c323,a7e7a689-f159-5bbd-8548-419201f18398,en,en-US,none,none,correction,barge_in,"Uh, wait, my last name is spelled with an E at the end.",uh wait my last name is spelled with an e at the end
+01a1de4f-80ba-7051-a289-69fdcedae541,b305870a-13a5-50fc-bd9a-5c845cc60f03,en,en-IN,none,none,agreement_token,backchannel,"Yeah yeah, correct.",yeah yeah correct
+01a1de4f-88ab-77ba-b4a5-b6eee4e03896,9b99ae12-1173-56f4-b8ed-2b44ad52a667,en,en-US,none,none,request_human,barge_in,"Yeah, uh-huh, let me actually speak to a manager please.",yeah uh huh let me actually speak to a manager please
+01a1de4f-9330-7461-868e-eaf98548bc9f,d7e73dee-c258-5240-9f7b-988f7316dfd6,en,en-IN,mixed,te,continuer,backchannel,"Uh-huh, ఊఁ, mm-hmm.",uh huh ఊఁ mm hmm
+01a1de4f-b287-7484-8a1d-a0340f484b2c,b0dc9f44-e63d-5484-85e5-5e70dd609896,en,en-IN,mixed,kn,early_answer,barge_in,"ಮೊದಲನೆಯದು select ಮಾಡಿ, that 100 Mbps plan works for us.",ಮೊದಲನೆಯದು select ಮಾಡಿ that 100 mbps plan works for us
+01a1de4f-b5eb-70ce-9239-b2b3d1b5dbf9,4679bca4-2173-549b-ad27-f19d4ef38e03,en,en-IN,mixed,ta,disagreement,barge_in,"Er, hold on, வேண்டாம், that is completely wrong, I never selected that option.",er hold on வேண்டாம் that is completely wrong i never selected that option
+01a1de4f-ccbe-7441-9934-6e2007eb9906,ad23ccf0-36bf-58c2-85b2-7e8434652df4,en,en-IN,mixed,te,new_request,barge_in,"Umm, wait, డెలివరీ అడ్రస్ కూడా మార్చాలి, can I update my flat number before you ship it?",umm wait డెలివరీ అడ్రస్ కూడా మార్చాలి can i update my flat number before you ship it
+01a1de4f-e161-7777-84af-0eac6806b9a3,5f059c03-aad4-55a8-8d61-dbe311b3edc5,en,en-SG,none,none,new_request,barge_in,"Actually, can you help me check if my registered address is updated already?",actually can you help me check if my registered address is updated already
+01a1de4f-f39e-7346-9ce2-e1c172f251a0,3291c375-d959-5b0f-a9dd-a765813657a6,en,en-IN,none,none,acknowledgment,backchannel,"Alright, got that.",alright got that
+01a1de50-21cb-719d-a8f1-6288df274f77,069b57bc-8489-504a-a51b-d52440952b9c,en,en-SG,mixed,zh,end_call,barge_in,"Ok, I see, but actually 我要开会了, cannot talk now, bye bye.",ok i see but actually 我要开会了 cannot talk now bye bye
+01a1de50-2a8b-75a0-989a-a103b4559d90,bab404e2-73e7-5aeb-85cf-cd9015372265,en,en-IN,mixed,hi,request_human,barge_in,"Please connect me to an executive, मुझे किसी इंसान से बात करनी है।",please connect me to an executive मुझे किसी इंसान से बात करनी है
+01a1de50-3d92-736c-b21b-a4c0ae663f44,413c46cd-45ec-5162-95a1-e07fad99da70,en,en-US,none,none,language_switch_request,barge_in,"Uh-huh, got it, but can you speak Mandarin instead?",uh huh got it but can you speak mandarin instead
+01a1de50-576f-7760-9f1a-9cf318c72ed7,a5dc9f65-9169-5259-a288-8c570d4c07de,en,en-US,none,none,clarification_question,barge_in,"Yeah, uh-huh, but what do you mean by the gateway address?",yeah uh huh but what do you mean by the gateway address
+01a1de50-6736-75a6-a346-23c8655267d7,349e041b-20a8-5c3a-99ad-82398c65b1c7,en,en-IN,mixed,hi,disagreement,barge_in,"Umm, actually नहीं, this is completely wrong and I do not accept this charge.",umm actually नहीं this is completely wrong and i do not accept this charge
+01a1de50-68c6-73a6-95fe-fa82aea642fb,da0a8348-c7c7-52f1-850f-95acf4732b5d,en,en-IN,mixed,ta,correction,barge_in,"Yes yes, ஆனால் பெயர் தவறு, my surname is Sharma not Verma.",yes yes ஆனால் பெயர் தவறு my surname is sharma not verma
+01a1de50-ab32-757c-8b47-6113ddae4e76,8f32b15a-7100-5453-9170-f6fc58443934,en,en-IN,none,none,clarification_question,barge_in,"Mm-hmm, wait, which branch are you referring to?",mm hmm wait which branch are you referring to
+01a1de50-c10e-70c2-8143-f4f1c9dcdbca,3c7ec067-2880-5e1d-911c-c8bad854499c,en,en-IN,none,none,disagreement,barge_in,"That makes no sense, I already paid for the delivery.",that makes no sense i already paid for the delivery
+01a1de50-eb15-7051-82f0-b3ae358645d2,78d067ef-ca8c-51ce-84bc-dbb2fca27ada,en,en-US,none,none,acknowledgment,backchannel,Gotcha.,gotcha
+01a1de50-fd50-737e-b092-3ff12cb94f1a,472c3e00-1c1d-52a2-8d42-db1de9053e56,en,en-SG,mixed,zh,continuer,backchannel,"Uh-huh, 嗯, yeah.",uh huh 嗯 yeah
+01a1de50-fe8a-7464-8b33-6dfd525d1cd9,e4cd28b3-c530-53e7-b4e6-1332b1305214,en,en-IN,mixed,hi,floor_request,barge_in,"Wait, ज़रा सुनिए stop for just two seconds.",wait ज़रा सुनिए stop for just two seconds
+01a1de50-ffbd-77a1-a171-3ef2f91714cb,d44c2e5d-e6ef-55e1-a0e4-63d26510daa4,en,en-IN,none,none,language_switch_request,barge_in,"Umm, actually, can you please explain this in Hindi instead?",umm actually can you please explain this in hindi instead
+01a1de51-008b-746a-a600-e8493591f1f4,7414519c-b0e9-5ec5-8e97-00da5a9d27f2,en,en-IN,mixed,te,end_call,barge_in,"ఇప్పుడు కుదరదు, please ping me later.",ఇప్పుడు కుదరదు please ping me later
+01a1de51-0fc6-7193-b3a8-409110bb08b5,a48ee738-eb65-57da-91c7-3d152fbfcfc4,en,en-IN,mixed,te,repeat_request,barge_in,"కొంచెం గట్టిగా మాట్లాడండి, your voice is too low.",కొంచెం గట్టిగా మాట్లాడండి your voice is too low
+01a1de51-48de-714c-a9f2-280648bc41cf,c510f195-c120-56d8-ad2b-0fe3585d2e5f,en,en-IN,none,none,early_answer,barge_in,Yes add extra cheese and proceed.,yes add extra cheese and proceed
+01a1de51-6db5-76d5-b39f-23e60475d3a1,ff428682-9e2e-5e36-b74a-9c0d23adc225,en,en-SG,mixed,zh,complaint,barge_in,"Yeah yeah, but 太离谱了, your rider has delayed my order for almost one whole hour already lah.",yeah yeah but 太离谱了 your rider has delayed my order for almost one whole hour already lah
+01a1de51-ab76-70d9-a5a8-ee96e70573dc,8dd339cb-36ba-5431-85b5-78e0ebc033d0,en,en-IN,mixed,kn,new_request,barge_in,"Uh, wait, ನನ್ ಈಮೇಲ್ ಐಡಿ update ಮಾಡಬೇಕು, could we do that right now?",uh wait ನನ್ ಈಮೇಲ್ ಐಡಿ update ಮಾಡಬೇಕು could we do that right now
+01a1de51-b639-7272-9de8-025aee1e177c,efcc6913-1bf1-5291-a7a2-b75d1793ee33,en,en-SG,mixed,zh,gratitude_token,backchannel,"Thank you ah bro, 多谢多谢。",thank you ah bro 多谢多谢
+01a1de51-e8f1-7507-bdb4-6b36e37120cf,6b17d8b2-4d2a-50d3-83d1-b17ad2252335,en,en-SG,none,none,floor_request,barge_in,"Erm, can pause a moment, someone is at the door.",erm can pause a moment someone is at the door
+01a1de51-f961-73c8-9838-9f6f4a44ca64,646f6db1-51c4-5aa3-a918-e7da15896273,en,en-IN,mixed,hi,clarification_question,barge_in,What do you mean by अतिरिक्त शुल्क on this monthly bill?,what do you mean by अतिरिक्त शुल्क on this monthly bill
+01a1de52-2368-76e8-9c44-d258102221fa,4975244b-d504-5bfc-b93d-30301c2dd0c0,en,en-SG,mixed,zh,acknowledgment,backchannel,"Yeah got it, 知道了.",yeah got it 知道了
+01a1de52-28ad-75f7-953b-99dcd0170fa7,d378195b-807f-5c79-b1b4-67b8baaed70d,en,en-SG,none,none,correction,barge_in,"Umm, actually, the booking is for four pax, not five.",umm actually the booking is for four pax not five
+01a1de52-2a52-7478-82bb-5bbc353f0847,047f18d4-7adf-58c0-9fbe-a3a827011d08,en,en-IN,mixed,te,reaction_token,backchannel,"అయ్యో, oh no.",అయ్యో oh no
+01a1de52-6678-752d-95b9-808384ec7d3f,0e9af8cc-dc6a-5a7c-b262-dd5bfcb9a1f4,en,en-IN,mixed,te,go_ahead,backchannel,"Carry on, వింటున్నాను చెప్పండి.",carry on వింటున్నాను చెప్పండి
+01a1de53-1226-70a8-b37e-f8f1c70118f4,6e78397a-3767-59f8-9a93-00fdf7923dce,en,en-SG,none,none,disagreement,barge_in,"Right, but no leh, the doctor didn't say that at all.",right but no leh the doctor didnt say that at all
+01a1de53-2ced-749f-b523-298832b7ad3c,fcb66378-b538-51a9-bfdf-92774aae8ddb,en,en-US,none,none,early_answer,barge_in,A window seat towards the front.,a window seat towards the front
+01a1de53-59fb-70e3-9d4c-bd5804f9fc5d,e7d7370e-7b87-5865-9a49-4f612d61883b,en,en-IN,mixed,kn,complaint,barge_in,"Okay okay, ಆದರೆ ಇದು ಅನ್ಯಾಯ, money was deducted from my account twice just now!",okay okay ಆದರೆ ಇದು ಅನ್ಯಾಯ money was deducted from my account twice just now
+01a1de53-92bb-7461-94d9-8625d7fde7bd,0351bcec-4434-524a-b022-c81791d4ac71,en,en-IN,mixed,te,early_answer,barge_in,"Room with breakfast మాత్రమే చాలు, confirm that one.",room with breakfast మాత్రమే చాలు confirm that one
+01a1de53-d5a6-7781-9d68-42964c3acf4d,9ffb0da6-0a89-58a0-8042-e365b2891733,en,en-IN,mixed,hi,correction,barge_in,"Umm, actually नहीं, that is not five thousand, my pending bill was three thousand.",umm actually नहीं that is not five thousand my pending bill was three thousand
+01a1de53-e9da-72a0-9c0d-c568742c58cf,394451ba-cbd5-5cd0-98be-5c8390ebf6e7,hi,hi,none,none,request_human,barge_in,किसी दूसरे अधिकारी से बात करा दीजिए।,किसी दूसरे अधिकारी से बात करा दीजिए
+01a1de54-0a7d-70b8-b6e7-bb98fc4a9dc7,9cf26176-6ee8-54e4-ac72-6b8c60f5fab2,hi,hi,none,none,correction,barge_in,"गलत नाम बोल रहे हैं, शर्मा नहीं वर्मा लिखना है।",गलत नाम बोल रहे हैं शर्मा नहीं वर्मा लिखना है
+01a1de54-1136-779d-8533-bba7f85128d1,37907a78-4dfd-5210-89f5-b3859ffce4ea,hi,hi,mixed,en,agreement_token,backchannel,"Right, बिल्कुल बिल्कुल।",right बिल्कुल बिल्कुल
+01a1de54-1ef2-7683-9a36-456c858ab542,37c41125-9658-5d23-bfec-52882b201a7c,hi,hi,none,none,new_request,barge_in,"उम्म, दरअसल मुझे अपना डिलीवरी का पता भी बदलना था।",उम्म दरअसल मुझे अपना डिलीवरी का पता भी बदलना था
+01a1de54-2274-740e-a7da-311dacea2375,a7acbf49-892e-50e3-8e02-311b3f873a3e,hi,hi,mixed,en,skip_request,barge_in,"Yes yes, यह सब छोड़ो, straightaway tell me the balance due.",yes yes यह सब छोड़ो straightaway tell me the balance due
+01a1de54-43db-7646-86a1-225f87a570e9,30e3fa9c-6bd4-5f66-b154-c4a2846ca3df,hi,hi,mixed,en,language_switch_request,barge_in,"Please switch to Hindi, मुझे आपकी बात समझ नहीं आ रही।",please switch to hindi मुझे आपकी बात समझ नहीं आ रही
+01a1de54-4648-74bb-9bd3-24404b17a197,56661e32-5df6-5d8b-8e7d-362d2b7176a2,hi,hi,mixed,en,complaint,barge_in,"I have been waiting for two hours, मेरा खाना बिल्कुल ठंडा हो चुका है!",i have been waiting for two hours मेरा खाना बिल्कुल ठंडा हो चुका है
+01a1de54-4e0d-75ba-a8c3-638bd2769be4,d1658c53-7e0e-5a1f-9dd1-ad5902a7e459,hi,hi,mixed,en,new_request,barge_in,"सही बात है, but could you please check my latest invoice too?",सही बात है but could you please check my latest invoice too
+01a1de54-5c03-72fb-8903-c52c03e3711e,93f3cf3d-0c67-5b3b-bd11-4b0015f0d841,hi,hi,mixed,en,repeat_request,barge_in,"Please speak slowly, थोड़ा धीरे बोलिए ना।",please speak slowly थोड़ा धीरे बोलिए ना
+01a1de54-6a35-72c2-a911-ba131ff011e1,72761a32-abac-510d-860c-cafd0b9227cd,hi,hi,mixed,en,continuer,backchannel,"हम्म, mm-hmm.",हम्म mm hmm
+01a1de54-7588-7017-bf9c-572165effd44,b6cfd86b-c8e0-570d-a3de-3d68387a3d04,hi,hi,mixed,en,clarification_question,barge_in,मतलब कौन सा invoice number कह रहे हैं?,मतलब कौन सा invoice number कह रहे हैं
+01a1de54-75b5-75a1-89cb-81a5c0de2c51,e41d35b8-7a3e-597a-ac87-b877775f19fd,hi,hi,none,none,complaint,barge_in,मैं आधे घंटे से नीचे खड़ा हूँ और आपका डिलीवरी वाला अभी तक नहीं पहुँचा।,मैं आधे घंटे से नीचे खड़ा हूँ और आपका डिलीवरी वाला अभी तक नहीं पहुँचा
+01a1de54-d32b-7176-93c0-547fc8419958,97c6921c-4ce4-534d-8676-560a1545db4c,hi,hi,mixed,en,reaction_token,backchannel,"Oh wow, बहुत बढ़िया!",oh wow बहुत बढ़िया
+01a1de54-e3b9-7592-9204-b6e6d7cf9ae3,1dd3ccbc-d098-5126-9c6e-48caa2d6b7c2,hi,hi,none,none,repeat_request,barge_in,"एक बार फिर से दोहरा दीजिए, मुझे सुनाई नहीं दिया।",एक बार फिर से दोहरा दीजिए मुझे सुनाई नहीं दिया
+01a1de54-f13b-72d0-87f5-3d1518ee2848,ad2df43f-4938-5e0a-8b3c-f87fb4f83f0f,hi,hi,none,none,continuer,backchannel,हम्म।,हम्म
+01a1de54-f955-739b-a655-cdbc6ec2df2c,b24af470-fcf5-5c73-8d46-286f8453371b,hi,hi,none,none,reaction_token,backchannel,"अरे वाह, बढ़िया!",अरे वाह बढ़िया
+01a1de55-4a89-7730-82fd-499ff145344f,632dbf43-18a4-5f63-9e73-bc2dc10e2ef7,kn,kn,none,none,correction,barge_in,"ಹಾ ಹಾ, ಆದರೆ ಪ್ರಯಾಣದ ದಿನ ಮಂಗಳವಾರ ಅಲ್ಲ ಬುಧವಾರ.",ಹಾ ಹಾ ಆದರೆ ಪ್ರಯಾಣದ ದಿನ ಮಂಗಳವಾರ ಅಲ್ಲ ಬುಧವಾರ
+01a1de55-6ac6-701b-9c42-60e4f25c4e1d,62ff324c-23ae-5692-a66d-a4c11aa2ea26,kn,kn,mixed,en,agreement_token,backchannel,"ಹೌದು ಹೌದು, absolutely.",ಹೌದು ಹೌದು absolutely
+01a1de55-8241-7212-b433-a98138b7a9a2,d2ce7fa9-69b8-5970-a9e4-33b2063d458e,kn,kn,none,none,floor_request,barge_in,"ಒಂದು ನಿಮಿಷ ನಿಲ್ಲಿ, ನಾನು ದಿನಾಂಕ ಬರೆದುಕೊಳ್ಳುತ್ತೇನೆ.",ಒಂದು ನಿಮಿಷ ನಿಲ್ಲಿ ನಾನು ದಿನಾಂಕ ಬರೆದುಕೊಳ್ಳುತ್ತೇನೆ
+01a1de55-8fbe-7236-82a8-5df6ada9ee58,29a1e8d7-64a3-58ec-98d8-dc23b7f8b60a,kn,kn,none,none,reaction_token,backchannel,ಅಯ್ಯೋ ಪಾಪ.,ಅಯ್ಯೋ ಪಾಪ
+01a1de55-9965-714e-bf4e-e72aebbe371a,ec31137d-a07b-5b74-9d6a-aa540ff58b2d,kn,kn,none,none,disagreement,barge_in,"ಸರಿ, ಆದರೆ ನನಗೆ ಈ ಪ್ಲಾನ್ ಖಂಡಿತ ಬೇಡ.",ಸರಿ ಆದರೆ ನನಗೆ ಈ ಪ್ಲಾನ್ ಖಂಡಿತ ಬೇಡ
+01a1de55-ac8d-7039-bdce-507c96a6b966,85410f39-fb6d-5271-b413-dbae3b6a0bdd,kn,kn,none,none,skip_request,barge_in,"ಈ ವಿವರಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಿ, ಮುಂದಿನ ಹಂತಕ್ಕೆ ಹೋಗೋಣ.",ಈ ವಿವರಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಿ ಮುಂದಿನ ಹಂತಕ್ಕೆ ಹೋಗೋಣ
+01a1de55-b263-761a-894c-a49ccdd3ee4e,91612c0a-8667-5721-b7bc-e809009efac4,kn,kn,mixed,en,correction,barge_in,"ಇಲ್ಲ, my flight time is 6 PM, ಬೆಳಗ್ಗೆ ಅಲ್ಲ ಸಂಜೆ.",ಇಲ್ಲ my flight time is 6 pm ಬೆಳಗ್ಗೆ ಅಲ್ಲ ಸಂಜೆ
+01a1de55-b30a-738c-9ae0-d38c700f5fbc,2f8a6328-9515-5b45-9ca3-009748fa1510,kn,kn,none,none,new_request,barge_in,"ಉಮ್, ಒಂದು ನಿಮಿಷ, ನನಗೆ ಆಸ್ಪತ್ರೆಯ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಕೂಡ ಬದಲಾಯಿಸಬೇಕಿತ್ತು.",ಉಮ್ ಒಂದು ನಿಮಿಷ ನನಗೆ ಆಸ್ಪತ್ರೆಯ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಕೂಡ ಬದಲಾಯಿಸಬೇಕಿತ್ತು
+01a1de55-ba50-75a6-a100-bb849761462d,06792363-a468-55de-aee5-a8848c1a283e,kn,kn,mixed,en,continuer,backchannel,"ಹೂಂ, mm-hmm.",ಹೂಂ mm hmm
+01a1de55-d36d-713a-bb9e-dffd7a37d8d7,38aec397-6929-5573-9809-b35245be623b,kn,kn,mixed,en,request_human,barge_in,"Ah, actually, ನಿಮ್ಮ senior ಯಾರಾದರೂ ಇದ್ದಾರಾ, please connect to them.",ah actually ನಿಮ್ಮ senior ಯಾರಾದರೂ ಇದ್ದಾರಾ please connect to them
+01a1de55-de5a-712e-b2b2-620aaa4691bb,cb624bae-70dd-5814-96ad-c327ded3ed87,kn,kn,none,none,acknowledgment,backchannel,ತಿಳಿಯಿತು.,ತಿಳಿಯಿತು
+01a1de56-0204-70a4-b7c3-875d044ed1a5,b34bc04c-85e1-5d23-99b2-499c3eda79cd,kn,kn,mixed,en,gratitude_token,backchannel,"ಧನ್ಯವಾದ, thanks for the update.",ಧನ್ಯವಾದ thanks for the update
+01a1de56-0b0b-72c6-b1b9-1911f1d2f3d4,423e8ed1-507a-5b0c-a42a-94b98aa633a0,kn,kn,mixed,en,floor_request,barge_in,"ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ, pen ತಗೋತೀನಿ.",ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ pen ತಗೋತೀನಿ
+01a1de56-1057-736e-8da4-1cb9aeaa3efa,fb202e00-7f32-564b-91fb-71a7ae259f1b,kn,kn,none,none,complaint,barge_in,"ಆಯಿತು ಆಯಿತು, ಆದರೆ ಬೆಳಗಿನಿಂದ ನಮ್ಮ ಮನೆಯಲ್ಲಿ ವಿದ್ಯುತ್ ಇಲ್ಲ, ಎಷ್ಟು ಸಲ ದೂರು ನೀಡಿದರೂ ಪ್ರಯೋಜನವಾಗಿಲ್ಲ.",ಆಯಿತು ಆಯಿತು ಆದರೆ ಬೆಳಗಿನಿಂದ ನಮ್ಮ ಮನೆಯಲ್ಲಿ ವಿದ್ಯುತ್ ಇಲ್ಲ ಎಷ್ಟು ಸಲ ದೂರು ನೀಡಿದರೂ ಪ್ರಯೋಜನವಾಗಿಲ್ಲ
+01a1de56-14a0-7424-93e9-c81781e65d8a,6ea10445-dfbd-5102-ac90-1d11ce9a4be8,kn,kn,mixed,en,language_switch_request,barge_in,Can you speak in Kannada? ದಯವಿಟ್ಟು ಕನ್ನಡದಲ್ಲಿ ಹೇಳಿ.,can you speak in kannada ದಯವಿಟ್ಟು ಕನ್ನಡದಲ್ಲಿ ಹೇಳಿ
+01a1de56-385e-7249-b9f1-0bebbff09e18,569b33ae-98ee-55fd-9a67-7517cf248bb3,kn,kn,none,none,end_call,barge_in,"ಉಮ್, ಈಗ ನನಗೆ ಆಫೀಸ್‌ಗೆ ತಡವಾಗ್ತಿದೆ, ನಾನು ಆಮೇಲೆ ಕಾಲ್ ಮಾಡ್ತೀನಿ ಬೈ.",ಉಮ್ ಈಗ ನನಗೆ ಆಫೀಸ್‌ಗೆ ತಡವಾಗ್ತಿದೆ ನಾನು ಆಮೇಲೆ ಕಾಲ್ ಮಾಡ್ತೀನಿ ಬೈ
+01a1de56-6a0a-70e9-a0a8-63eb9a2ba9c9,3d419e48-5f71-51e9-9942-f53667352b3a,kn,kn,none,none,go_ahead,backchannel,ಹಾಗೇ ಮುಂದುವರಿಸಿ.,ಹಾಗೇ ಮುಂದುವರಿಸಿ
+01a1de56-838b-75c7-b6cc-1bbf28169db6,a9d3be8d-b260-5baa-838a-da74f3302332,ta,ta-IN,none,none,new_request,barge_in,கடந்த ஆறு மாசத்துக்கான கட்டண ரசீதையும் எனக்கு அனுப்பி வைங்க.,கடந்த ஆறு மாசத்துக்கான கட்டண ரசீதையும் எனக்கு அனுப்பி வைங்க
+01a1de56-93d5-738b-b06f-07d1a7da154a,b490a453-31a4-5a0a-bcc5-430bd792de72,ta,ta-IN,none,none,end_call,barge_in,"அது வந்து, இப்போ பேச முடியாது, எனக்கு மருத்துவரிடம் போக நேரம் ஆயிடுச்சு அப்புறமா கூப்பிடுங்க.",அது வந்து இப்போ பேச முடியாது எனக்கு மருத்துவரிடம் போக நேரம் ஆயிடுச்சு அப்புறமா கூப்பிடுங்க
+01a1de56-c169-7773-87c7-6b486f5cdf59,988797ef-8c10-530e-a1a0-bfa6e81f0b62,ta,ta-IN,mixed,en,end_call,barge_in,"இப்ப பேச முடியாது, call me later.",இப்ப பேச முடியாது call me later
+01a1de56-ce42-75e0-bfc5-a3f9c37d786e,05666c15-e7ae-59dc-8d0a-b4454484fd9b,ta,ta-IN,mixed,en,go_ahead,backchannel,"Yes, go ahead சொல்லுங்க.",yes go ahead சொல்லுங்க
+01a1de56-d4cc-7293-a40d-de38f5ca66a2,1c430d00-5420-5f25-ac29-961664e40346,ta,ta-IN,mixed,en,correction,barge_in,"இல்ல இல்ல, delivery address is different, அது my office address இல்ல.",இல்ல இல்ல delivery address is different அது my office address இல்ல
+01a1de56-fa75-7540-9205-073f24075609,d6852ff4-2128-5145-80d4-0d16fdf16f08,ta,ta-IN,mixed,en,acknowledgment,backchannel,"சரி சரி, noted.",சரி சரி noted
+01a1de57-059d-7517-a682-b6d95857097f,c2b0ebcc-d9ec-5d96-87fd-b196160f189b,ta,ta-IN,none,none,reaction_token,backchannel,"ஆஹா, சூப்பர்.",ஆஹா சூப்பர்
+01a1de57-0c90-7412-ac2e-caf2c2c69604,bab3534b-ae5a-58bd-8c1f-ae2961168a02,ta,ta-IN,mixed,en,language_switch_request,barge_in,"Please speak in Tamil, எனக்கு English அவ்வளவா தெரியாதுங்க.",please speak in tamil எனக்கு english அவ்வளவா தெரியாதுங்க
+01a1de57-14b5-758a-8ad7-4ddaeb1b0bd5,81b050b4-0245-53b5-9531-d57a07436b08,ta,ta-IN,mixed,en,disagreement,barge_in,"That is not true, எனக்கு அப்படி சொல்லலையே.",that is not true எனக்கு அப்படி சொல்லலையே
+01a1de57-1969-73e6-b93b-003864cad2f5,d8b25b0c-80d9-5038-872f-ebb3120752e4,ta,ta-IN,mixed,en,skip_request,barge_in,"இதெல்லாம் skip பண்ணிட்டு, direct-ah bill amount சொல்லுங்க.",இதெல்லாம் skip பண்ணிட்டு direct ah bill amount சொல்லுங்க
+01a1de57-20f6-7761-ba1a-493ed523680f,59c022bf-6401-5a39-88ba-69d29bbf5375,ta,ta-IN,none,none,disagreement,barge_in,"சரிங்க, ஆனா நாங்க அப்படி பேசவே இல்லைங்க அது தவறு.",சரிங்க ஆனா நாங்க அப்படி பேசவே இல்லைங்க அது தவறு
+01a1de57-37c5-7083-af3a-3cf9b8b7dbc9,e9360976-36a5-5598-a390-02ff08048945,ta,ta-IN,mixed,en,floor_request,barge_in,"Uh, hold on hold on, ஒரு நிமிஷம் நான் note பண்ணிக்கிறேன்.",uh hold on hold on ஒரு நிமிஷம் நான் note பண்ணிக்கிறேன்
+01a1de57-4a03-72e8-a14e-af2ed1259625,26841f52-5d62-5b56-a289-6a7a1480a2c7,ta,ta-IN,none,none,complaint,barge_in,"ஆமா, ஆனா என் கணக்குல இருந்து இப்பதான் மறுபடியும் பணம் போயிருக்கு.",ஆமா ஆனா என் கணக்குல இருந்து இப்பதான் மறுபடியும் பணம் போயிருக்கு
+01a1de57-762a-74ea-8b1d-2c31d27c7dbc,135c5098-b57d-58f8-9aa5-2cc0a80372a5,ta,ta-IN,none,none,request_human,barge_in,மனித முகவர் ஒருவருடன் பேச வேண்டும்.,மனித முகவர் ஒருவருடன் பேச வேண்டும்
+01a1de57-9254-71d9-b399-c668a199c0c8,41ad1aac-e188-5be5-82dd-eb866892144d,ta,ta-IN,mixed,en,agreement_token,backchannel,"ஆமா, exactly that.",ஆமா exactly that
+01a1de57-9f9c-71ae-b92d-20adcaca728a,3ea4fd8e-9c41-5184-ab5d-34e6d2ee9d77,ta,ta-IN,none,none,clarification_question,barge_in,அப்படின்னா என்ன அர்த்தம்?,அப்படின்னா என்ன அர்த்தம்
+01a1de57-b795-77fa-b656-f97eb571b7ca,d7f124dc-27af-5ce2-b3c5-e33115275634,te,te,none,none,disagreement,barge_in,"అవునండి, అయినా నాకు ఆ అదనపు సేవలు అస్సలు వద్దు.",అవునండి అయినా నాకు ఆ అదనపు సేవలు అస్సలు వద్దు
+01a1de57-c791-742a-8a90-b5fc0fec4340,9cfa063b-769f-571f-a0c3-9f50a894d5b5,ta,ta-IN,none,none,continuer,backchannel,ம்ம்.,ம்ம்
+01a1de57-d08d-7168-9d77-9e33a925f6d9,3cee3402-4fad-5c0a-88a2-d45f81bfc613,te,te,none,none,clarification_question,barge_in,దాని అర్థం ఏంటో కాస్త వివరిస్తారా?,దాని అర్థం ఏంటో కాస్త వివరిస్తారా
+01a1de57-e0c9-7079-9e35-dd39eeb25439,11dc03da-dacf-5249-8dca-1c8f45eb2273,te,te,mixed,en,complaint,barge_in,"సరే, but my card was charged again just now, నా డబ్బులు వెంటనే రీఫండ్ చేయండి!",సరే but my card was charged again just now నా డబ్బులు వెంటనే రీఫండ్ చేయండి
+01a1de57-e20c-7468-8754-968d3515aeaa,bf892c1f-93c3-5e06-ac20-05df471a10ee,te,te,mixed,en,skip_request,barge_in,"అవును, but please skip this introduction.",అవును but please skip this introduction
+01a1de58-3e31-7637-85bf-8f701f9a9cfc,7cbb5424-90f1-50a4-a11f-e77cb3863928,te,te,mixed,en,disagreement,barge_in,"నాకు ఇది వద్దు, this was not part of the deal.",నాకు ఇది వద్దు this was not part of the deal
+01a1de58-5064-755e-b5f9-1b137cbc7e94,5508bd6c-2ab4-51bc-a0e2-9c5eb6f853e1,te,te,none,none,language_switch_request,barge_in,దయచేసి తెలుగులో చెప్పండి.,దయచేసి తెలుగులో చెప్పండి
+01a1de58-528d-7411-94d3-3bd32ac536cc,d13bf6d1-5280-527c-9037-4090ee717ffe,te,te,mixed,en,correction,barge_in,"అవునవును, but the payment mode was cash, not card.",అవునవును but the payment mode was cash not card
+01a1de58-8ae2-74c7-b10e-501ab64bfe85,a447b22e-1cf4-5241-b191-2004bd4e0a4d,te,te,none,none,request_human,barge_in,"ఆహ్, వినండి, ఎవరైనా మనిషితో మాట్లాడాలి నేను.",ఆహ్ వినండి ఎవరైనా మనిషితో మాట్లాడాలి నేను
+01a1de58-8ebd-732f-8c4f-ab8efd58fe25,ba385e3b-ade7-5a19-8a88-ab762a4d5389,te,te,mixed,en,request_human,barge_in,"హా నిజమే, but please connect me to a real person instead.",హా నిజమే but please connect me to a real person instead
+01a1de58-9390-70a6-a174-14c1e0336176,a2832036-80ef-5aca-8f33-1094aa4ec3ac,te,te,none,none,acknowledgment,backchannel,"ఓహో, అలాగా.",ఓహో అలాగా
+01a1de58-ab2f-7477-b5e7-32da0b7ece7f,d9c32207-df13-557d-a2bd-c47ed52fa92f,te,te,mixed,en,reaction_token,backchannel,శభాష్ very good.,శభాష్ very good
+01a1de58-ba79-7090-b371-11bdcd897c93,b77508d7-6861-545f-85d9-49d8ab7b78d8,te,te,none,none,go_ahead,backchannel,"ముందుకు సాగండి, వింటున్నాను.",ముందుకు సాగండి వింటున్నాను
+01a1de58-cdb9-76a3-ac4c-34e4224d3199,f2aaa999-0a66-5131-b004-09fd127a7e92,te,te,none,none,repeat_request,barge_in,కొంచెం నెమ్మదిగా చెప్పండి ప్లీజ్.,కొంచెం నెమ్మదిగా చెప్పండి ప్లీజ్
+01a1de58-d0c5-70c8-8428-134b51ab4c99,93db09ad-b854-5d16-82dc-28a0fd2da191,te,te,mixed,en,agreement_token,backchannel,"Exactly, నిజమేనండి.",exactly నిజమేనండి
+01a1de58-dc4d-714c-ab2e-b39d8012f0ef,c921aa20-7ad2-5f68-a867-e77c22f7418a,te,te,none,none,reaction_token,backchannel,అయ్యయ్యో.,అయ్యయ్యో
+01a1de58-e81e-7450-bc41-bc6cf67ab161,858e4664-567e-57af-8012-f43f424d0b45,te,te,none,none,new_request,barge_in,"హాం వింటున్నాను, కానీ ముందు నా అకౌంట్ స్టేట్‌మెంట్ పంపగలరా?",హాం వింటున్నాను కానీ ముందు నా అకౌంట్ స్టేట్‌మెంట్ పంపగలరా
+01a1de59-033a-77a4-9ae5-476428d30be8,b720ddb5-2103-56c8-bc53-80b884160b2b,ml,ml,none,none,floor_request,barge_in,"ഏയ്, ഒരു മിനിറ്റ്, അവിടെ ഒന്ന് നിർത്താമോ?",ഏയ് ഒരു മിനിറ്റ് അവിടെ ഒന്ന് നിർത്താമോ
+01a1de59-04a8-72e1-bc08-1c27a48d919f,28e7d09a-bf6e-54ba-b966-4e416a763f7a,ml,ml,mixed,en,request_human,barge_in,"Please transfer this call to your manager, എനിക്ക് ഇത് മനസ്സിലാകുന്നില്ല.",please transfer this call to your manager എനിക്ക് ഇത് മനസ്സിലാകുന്നില്ല
+01a1de59-41fd-73f5-a76a-ac761aea556e,e18e2983-a427-5223-adf7-8ed0283a3752,ml,ml,none,none,disagreement,barge_in,"അത്, അങ്ങനെ ഒരു ഓർഡർ ഞാൻ നൽകിയിട്ടില്ല, അത് തെറ്റാണ്.",അത് അങ്ങനെ ഒരു ഓർഡർ ഞാൻ നൽകിയിട്ടില്ല അത് തെറ്റാണ്
+01a1de59-4413-7755-adfb-6658bc220843,6ca0bb82-9417-57e5-8132-950717fa00c6,ml,ml,mixed,en,floor_request,barge_in,"Just hold on, ഒരല്പം സമയം തരൂ, I am checking the dates right now.",just hold on ഒരല്പം സമയം തരൂ i am checking the dates right now
+01a1de59-4969-76b8-975b-3d71574722e8,ea28058b-4963-52a9-9b7d-a16895ce467f,ml,ml,none,none,repeat_request,barge_in,"മനസ്സിലായില്ല, ഒന്നുകൂടി പറയാമോ?",മനസ്സിലായില്ല ഒന്നുകൂടി പറയാമോ
+01a1de59-6043-717e-bd79-ca669c37277e,89ec4517-d461-52ff-ae98-f44b53499fd6,ml,ml,none,none,continuer,backchannel,മ്മ്.,മ്മ്
+01a1de59-65bb-720d-ab6b-74e0ac896ae8,4339899d-ce12-568e-ab9c-c84b63be858f,ml,ml,none,none,new_request,barge_in,"അത് പിന്നെ, എനിക്ക് പുതിയൊരു അപ്പോയിന്റ്മെന്റ് കൂടി എടുക്കണമായിരുന്നു.",അത് പിന്നെ എനിക്ക് പുതിയൊരു അപ്പോയിന്റ്മെന്റ് കൂടി എടുക്കണമായിരുന്നു
+01a1de59-8249-7113-9a38-4fe8c2140d89,0a17258d-8935-5f84-948a-72658e920fc4,ml,ml,mixed,en,agreement_token,backchannel,"അതുതന്നെ, exactly that.",അതുതന്നെ exactly that
+01a1de59-a255-7480-a17f-52c06ce8969e,809dccd4-5305-5ac8-85d6-4301ab3a4836,ml,ml,none,none,language_switch_request,barge_in,ഇംഗ്ലീഷിൽ പറയാൻ പറ്റുമോ?,ഇംഗ്ലീഷിൽ പറയാൻ പറ്റുമോ
+01a1de59-d815-74f1-927d-ae92f3e90817,22380538-811c-5b7c-95dd-a3306ab72983,ml,ml,mixed,en,clarification_question,barge_in,"ശരി ശരി, but which plan do you mean?",ശരി ശരി but which plan do you mean
+01a1de59-fa47-7429-99f2-05a348465294,d34f9220-b733-53b4-9c49-2c3d1754457f,ml,ml,mixed,en,skip_request,barge_in,"മ്മ് മ്മ്, direct ആയിട്ട് final date മാത്രം പറയാമോ?",മ്മ് മ്മ് direct ആയിട്ട് final date മാത്രം പറയാമോ
+01a1de5a-2326-71d6-b3ee-91aa500a5cb4,5a800dae-e546-5cf8-9321-f41ffb2ed49d,ml,ml,mixed,en,end_call,barge_in,"ആഹ്, umm, എനിക്ക് വേറൊരു urgent meeting ഉണ്ട്, please cut the call.",ആഹ് umm എനിക്ക് വേറൊരു urgent meeting ഉണ്ട് please cut the call
+01a1de5a-240e-7126-8d86-1f8ccc57366c,01495858-b4d9-5d6c-8f2f-79595aee9ce8,ml,ml,mixed,en,correction,barge_in,"Ehh, no no, അത് credit card അല്ല debit card ആയിരുന്നു.",ehh no no അത് credit card അല്ല debit card ആയിരുന്നു
+01a1de5a-2574-775b-b923-137e3a904f4a,14fe1988-4ca2-58e0-8ce6-44f7f8932b96,ml,ml,none,none,clarification_question,barge_in,അതുകൊണ്ട് ഉദ്ദേശിച്ചത് എന്താണ്?,അതുകൊണ്ട് ഉദ്ദേശിച്ചത് എന്താണ്
+01a1de5a-3b0b-7129-b369-35b686a87ea7,153b10b9-6809-504e-8edd-e3407b874bf9,ml,ml,none,none,reaction_token,backchannel,"ഓഹ് അങ്ങനെയാണോ, കഷ്ടമായിപ്പോയി.",ഓഹ് അങ്ങനെയാണോ കഷ്ടമായിപ്പോയി
+01a1de5a-4c35-7666-b301-ac17a7daf4f9,9eb92371-a80d-58c6-aa72-d13da2c9a0cf,zh,zh-CN,none,none,language_switch_request,barge_in,能说普通话吗，我听不太懂方言。,能说普通话吗 我听不太懂方言
+01a1de5a-4dc4-744f-a464-401d553d3bfd,ec72369a-596f-5c39-9192-6fdb73938def,zh,zh-CN,none,none,early_answer,barge_in,第二个方案就可以，不用再念后面的了。,第二个方案就可以 不用再念后面的了
+01a1de5a-584d-750d-9162-e70a7e03e168,606635c8-85d8-50d5-ae63-fdfe7be59ac5,zh,zh-CN,mixed,en,clarification_question,barge_in,等等，你说的 discount 具体是指哪一项？,等等 你说的 discount 具体是指哪一项
+01a1de5a-6a5c-7479-872d-9ef8fb3b42db,568ad249-1843-5831-ab2e-352e860074bc,zh,zh-CN,none,none,skip_request,barge_in,呃，这个我知道了，跳到下一步吧。,呃 这个我知道了 跳到下一步吧
+01a1de5a-6e6f-71e1-958e-28f4f29de146,d6ed5f49-c2c0-54f0-a26c-144e8a67ec5b,zh,zh-CN,mixed,en,reaction_token,backchannel,"That's great, 真是万幸.",thats great 真是万幸
+01a1de5a-7274-71db-8e24-e2874dc7fa53,a9cde8d8-a431-5cc1-b92e-4f59dd6d2b02,zh,zh-CN,mixed,en,skip_request,barge_in,前面的 options 先跳过，直接看周末有没有 slot。,前面的 options 先跳过 直接看周末有没有 slot
+01a1de5a-87b3-769d-9561-c734959bd139,3b81c1e0-dde8-55dd-a004-76cf94edd1bc,zh,zh-CN,mixed,en,end_call,barge_in,"对对对，我现在信号不太好，I really have to go, 挂了拜拜。",对对对 我现在信号不太好 i really have to go 挂了拜拜
+01a1de5a-99d1-7569-a5cd-7a164b5d5bab,b1f29d83-f4ce-5f97-a85f-a62d78c26997,zh,zh-CN,none,none,floor_request,barge_in,等一下，请先停一下。,等一下 请先停一下
+01a1de5a-cdbf-7046-b3c8-29b17e78234b,711d6844-95ff-5054-9858-06d31fa54963,zh,zh-CN,mixed,en,agreement_token,backchannel,"True, 确实。",true 确实
+01a1de5a-d278-70c2-80e3-3b1d8bdf25ea,ddfc5a85-b148-581c-973e-a113a4ea67c3,zh,zh-CN,none,none,end_call,barge_in,是的，不好意思我马上要进电梯了，回头再说吧。,是的 不好意思我马上要进电梯了 回头再说吧
+01a1de5a-d406-778b-8bbd-d79b4d8d6fd1,031e1183-0618-503f-ba2a-d2782bbcd847,zh,zh-CN,none,none,disagreement,barge_in,呃，那个，不行，这笔费用绝对不对，我根本没有办过分期。,呃 那个 不行 这笔费用绝对不对 我根本没有办过分期
+01a1de5a-dc29-739c-adec-c3ce15ee728b,cc9a57b5-f5bd-52b2-80f2-339d24f43e9c,zh,zh-CN,mixed,en,acknowledgment,backchannel,了解，I see.,了解 i see
+01a1de5a-e7ed-717f-b6cc-3c10d1410d5d,3003c710-8a95-54bc-bab4-bd58b9fbf795,zh,zh-CN,none,none,new_request,barge_in,对对对，那个顺便帮我改一下绑定的手机号吧。,对对对 那个顺便帮我改一下绑定的手机号吧
+01a1de5b-2782-72ae-a943-c161fd496e47,a8358b3e-e5dd-5409-914f-b4c8f782ce7b,zh,zh-CN,mixed,en,repeat_request,barge_in,Can you repeat that? 医生给的复诊时间我没记下来。,can you repeat that 医生给的复诊时间我没记下来
+01a1de5b-6f6e-70a6-9d4b-45583af533b6,0f9a9b91-ef3e-5915-95a9-7c1449d71458,zh,zh-CN,mixed,en,go_ahead,backchannel,"Go on, 没事你接着念就行。",go on 没事你接着念就行
+01a1de5b-741e-7345-968b-fb136af2179d,7dcf10eb-4e02-51c0-a91a-83c9082129fe,zh,zh-CN,none,none,repeat_request,barge_in,稍微慢一点说，刚才那段语速太快了。,稍微慢一点说 刚才那段语速太快了
+01a1de5b-7aec-70bc-8f3a-aded575c3a14,000b2480-f424-5d4b-907a-e35c40d9c759,ja,ja,none,none,disagreement,barge_in,ええと、いや、それは前に聞いた説明と全然違います。,ええと いや それは前に聞いた説明と全然違います
+01a1de5b-850c-77de-9136-35dd93a54a74,c2772f73-314b-5487-bf43-31bf6a151536,ja,ja,mixed,en,clarification_question,barge_in,"What do you mean, その手数料は別途かかるという意味ですか？",what do you mean その手数料は別途かかるという意味ですか
+01a1de5b-8eab-7351-8f60-affd4bf3b11b,8634afe6-0530-54e4-b324-c908b86d5830,ja,ja,mixed,en,floor_request,barge_in,"Please wait, メモを取るので少しだけ待ってもらえますか。",please wait メモを取るので少しだけ待ってもらえますか
+01a1de5b-90f5-714f-82c3-08188944a1f4,6d1bc19c-3140-576b-9144-c922fd8b9c2e,ja,ja,mixed,en,acknowledgment,backchannel,"Makes sense, はい。",makes sense はい
+01a1de5b-a988-7510-bae4-e8fc376e2e5e,01b8b830-fac4-5301-8307-79cd62fd1aba,ja,ja,none,none,repeat_request,barge_in,恐れ入りますが、電波が途切れたのでもう一度説明していただけますか。,恐れ入りますが 電波が途切れたのでもう一度説明していただけますか
+01a1de5b-abbd-7052-a68d-f97c9c0edc24,5d61f19e-4932-5b9b-8c38-0246003a5a21,ja,ja,mixed,en,correction,barge_in,"No, not 500 dollars, 合計は 400 dollars のはずです。",no not 500 dollars 合計は 400 dollars のはずです
+01a1de5b-acb5-7319-a87c-7717184e6ba4,9fa12850-1b8e-5041-849e-c5ba90e18ae2,ja,ja,mixed,en,reaction_token,backchannel,"Oh no, それは大変。",oh no それは大変
+01a1de5b-be96-73ce-bff9-db77f3dc546a,249de2c9-c352-5a71-a6ad-39bff76100fc,ja,ja,mixed,en,language_switch_request,barge_in,"Sorry, can you speak Japanese, 日本語対応は可能ですか。",sorry can you speak japanese 日本語対応は可能ですか
+01a1de5b-c3c7-77ee-8d69-d78b7fe09489,69d48802-74bc-52fe-9690-30679322719a,ja,ja,mixed,en,agreement_token,backchannel,"Right, まさにその通りです。",right まさにその通りです
+01a1de5b-e680-7481-9ffc-e26a5706a896,d5ce5852-84c5-5352-988c-d2b97c91bdae,ja,ja,mixed,en,request_human,barge_in,"Can I speak to a real person, 自動音声ではなく窓口の担当者の方にお願いできますか。",can i speak to a real person 自動音声ではなく窓口の担当者の方にお願いできますか
+01a1de5b-fbdb-72a1-a250-d71894fe95ab,f2d3a66c-7c56-52bb-90c9-87d46ed12be6,ja,ja,mixed,en,early_answer,barge_in,"The second one, 遅い方のフライトにします。",the second one 遅い方のフライトにします
+01a1de5c-01a9-7186-95d9-2769bb2eea30,bab291dc-5f19-5b35-b8a6-ff3f9019da75,ja,ja,mixed,en,skip_request,barge_in,"うーん、あの、just tell me the total, 金額のところまでスキップしてください。",うーん あの just tell me the total 金額のところまでスキップしてください
+01a1de5c-145e-7198-8310-89a0c5b95493,d0e765dd-2891-5e07-94ed-a02e0e9f6b4a,ja,ja,none,none,end_call,barge_in,すいません、これから会議が始まりますので後ほど折り返しますね。,すいません これから会議が始まりますので後ほど折り返しますね
+01a1de5c-402c-714b-b344-0d21dbb31a88,0f513e24-3baa-5bf6-94f2-75aa307e1153,ja,ja,none,none,continuer,backchannel,ふむふむ。,ふむふむ
+01a1de5c-5e30-766a-bbfb-d19902bc4eaa,5a980690-c7a5-53b3-940e-e0b820728714,ja,ja,none,none,acknowledgment,backchannel,承知いたしました。,承知いたしました
+01a1de5c-9b89-724e-bf9a-74d39a9bcb4a,6bff8a8d-e488-567e-9822-049f803b931e,ja,ja,none,none,complaint,barge_in,このままだと乗り継ぎの電車に間に合わなくなってしまいます！,このままだと乗り継ぎの電車に間に合わなくなってしまいます
+01a1de5c-ca97-7798-b9b3-5fe804a439b7,077f9fa2-d3e7-53a3-9fd7-d1aa97a9d291,id,id,mixed,en,repeat_request,barge_in,"Aduh, sorry, what was that, tolong pelan-pelan ya waktu baca nomor resinya.",aduh sorry what was that tolong pelan pelan ya waktu baca nomor resinya
+01a1de5c-d019-7738-8b53-b7e98000ea72,5deb1dea-2d5d-566b-88ef-a6691ae37fe6,id,id,none,none,request_human,barge_in,"Alihkan panggilan ini ke operator manusia, tolong.",alihkan panggilan ini ke operator manusia tolong
+01a1de5c-d1b0-7580-8d46-6221f7c68273,6b75289a-2814-521f-90b9-7af0cdcb8a8a,id,id,mixed,en,acknowledgment,backchannel,"Got it, sudah paham langkahnya.",got it sudah paham langkahnya
+01a1de5c-d959-7112-adce-bb16daeb2684,fc56e449-98d8-54fd-ae56-a2cf0e64c3fd,id,id,none,none,acknowledgment,backchannel,"Iya, mengerti.",iya mengerti
+01a1de5c-e06a-73e4-9135-bae831e160d1,e14ac713-3227-5986-bc97-92e338bf4434,id,id,none,none,disagreement,barge_in,"Tidak, saya tidak mau paket yang itu.",tidak saya tidak mau paket yang itu
+01a1de5c-f3c1-771e-8cf2-3f0e28c1773f,de00f19c-285f-565d-91a7-6807fcb24847,id,id,none,none,language_switch_request,barge_in,Bisa tolong bicara dalam bahasa Inggris saja?,bisa tolong bicara dalam bahasa inggris saja
+01a1de5c-f758-73d8-80a0-781a11d75980,f5b6a5f0-4d0f-5aaf-adad-e18b37d4b5c9,id,id,none,none,correction,barge_in,"Eee, sebenarnya bukan blok B tapi blok D.",eee sebenarnya bukan blok b tapi blok d
+01a1de5c-f9f6-7523-989d-6b564a49eeb3,40b8aabc-e190-588d-b5cb-b711c87f4a69,id,id,mixed,en,correction,barge_in,"Salah nama penerimanya, it is for Mr Budi not Mrs Siti.",salah nama penerimanya it is for mr budi not mrs siti
+01a1de5d-0992-7747-9dc7-1a3791365b5d,cc1c46e2-2bed-5c40-852e-83ad9ab31687,id,id,none,none,repeat_request,barge_in,"Anu, tolong pelan-pelan sedikit, saya belum sempat catat nomornya.",anu tolong pelan pelan sedikit saya belum sempat catat nomornya
+01a1de5d-0bac-7234-9f27-49aa18ea5aa1,2bcd7a4f-3754-5a63-9bb7-6664c13f2b64,id,id,mixed,en,disagreement,barge_in,"Umm, wait, bukan begitu yang dibilang waktu awal, that's completely wrong.",umm wait bukan begitu yang dibilang waktu awal thats completely wrong
+01a1de5d-1fb8-7409-a2dd-785deba927a4,ba5ceafe-e185-571f-b1ad-0a9dc1e199dd,id,id,mixed,en,end_call,barge_in,"Eng, sebentar, baterai mau habis, can you call back later please?",eng sebentar baterai mau habis can you call back later please
+01a1de5d-278b-702a-8a75-924a5b4fab94,9a101072-76ac-5fa8-88d6-87306dd0ef90,id,id,mixed,en,reaction_token,backchannel,"Asyik, that is awesome.",asyik that is awesome
+01a1de5d-62e8-7562-98c7-fe4c1f73cba9,0c2560cb-7f31-506c-ba69-49e4f5b9b87c,id,id,none,none,reaction_token,backchannel,"Wah, mantap.",wah mantap
+01a1de5d-696a-74f0-afe4-2a1b685f279c,4f1d4e57-8e1c-59a5-bed5-f7578a149fe6,id,id,none,none,agreement_token,backchannel,Bener banget itu.,bener banget itu
+01a1de5d-7ad3-7648-9d48-0686595d41c0,525b6122-bdd7-5f88-bcdd-6fd1351be25b,id,id,none,none,skip_request,barge_in,"Oke baik, lewati saja syarat dan ketentuannya, langsung ke bagian persetujuan.",oke baik lewati saja syarat dan ketentuannya langsung ke bagian persetujuan
+01a1de5d-7df3-76fe-af91-63dade30af05,64912901-28bc-5019-ac55-863aa4442d9e,id,id,none,none,complaint,barge_in,"Iya oke, tapi pipa kamar mandinya bocor parah dan airnya sudah meluap ke kamar tidur.",iya oke tapi pipa kamar mandinya bocor parah dan airnya sudah meluap ke kamar tidur
+01a1de5d-8a1d-77fa-a885-b69bfc0fb030,03006127-285a-5132-99a4-94a04d54c22e,id,id,mixed,en,early_answer,barge_in,"Yes book it, saya mau ambil kamar yang deluxe.",yes book it saya mau ambil kamar yang deluxe
+01a1de5d-92ec-772e-aa78-a3f3c9f8f711,a6b0ff65-f39d-5f15-b62d-c6bc6e1da5c7,id,id,none,none,gratitude_token,backchannel,Makasih ya.,makasih ya
+01a1de5d-e866-7692-9078-99889fdb1d48,1eaa66a9-84f1-56a4-9156-201ae810f771,fil,fil,mixed,en,correction,barge_in,"Wait, hindi June, it's July twenty-one ang flight.",wait hindi june its july twenty one ang flight
+01a1de5d-efd4-7320-ad51-0fa62e6638ed,a37e179f-a2bc-5dc6-95bc-3a55fd47e3aa,fil,fil,mixed,en,repeat_request,barge_in,"Wait lang, umm, medyo mabilis, can you slow down a bit please?",wait lang umm medyo mabilis can you slow down a bit please
+01a1de5d-f140-7305-bd67-9a8c716e0af1,287e63a8-0915-5271-b4d6-7af6587d932e,fil,fil,mixed,en,end_call,barge_in,"Yes, oo, but call me back later na lang please, busy pa ako ngayon.",yes oo but call me back later na lang please busy pa ako ngayon
+01a1de5d-fbcc-7195-a037-857878322aa5,bf9794c5-6652-5a0c-9d16-f49cccdcae3c,fil,fil,none,none,new_request,barge_in,Gusto ko sanang itanong kung paano magpalit ng delivery address.,gusto ko sanang itanong kung paano magpalit ng delivery address
+01a1de5e-1a6e-7276-8aaf-41fb4b5eb648,de56d373-7b1f-5f55-83c5-2b703509f601,fil,fil,mixed,en,acknowledgment,backchannel,"Copy that, naiintindihan ko.",copy that naiintindihan ko
+01a1de5e-29e2-7396-9c74-8e191ad0274b,73d48bfb-b953-54c5-9eec-921ea761a7c8,fil,fil,mixed,en,go_ahead,backchannel,"Go ahead po, tuloy niyo lang.",go ahead po tuloy niyo lang
+01a1de5e-551e-76c5-828f-927f031f1e7c,3bfd5a8e-bc8d-57a2-90ba-927265f5c898,fil,fil,mixed,en,reaction_token,backchannel,"Ay grabe, really amazing.",ay grabe really amazing
+01a1de5e-67b6-766a-9fd7-9b779ff87a5f,ba07ea9f-21db-556b-b028-8bab0ba97c08,fil,fil,mixed,en,disagreement,barge_in,"Mali iyan, that is definitely not what your customer support promised me.",mali iyan that is definitely not what your customer support promised me
+01a1de5e-7e83-75e7-b769-7f34db27a065,dbaeb5f4-da8d-5c9b-984c-5ab9818d4ba9,fil,fil,none,none,correction,barge_in,"Oo oo, pero 2024 ang nakasulat hindi 2023.",oo oo pero 2024 ang nakasulat hindi 2023
+01a1de5e-7fbf-75c3-8fd5-2a2a4f62c0d7,0dde2967-faac-580c-b489-dcac35540f69,fil,fil,none,none,disagreement,barge_in,"Mali po iyan, iba ang sinabi sa akin ng ahente kahapon.",mali po iyan iba ang sinabi sa akin ng ahente kahapon
+01a1de5e-923d-7457-85b9-dc252b91ab96,659237c4-efdd-58f3-a27d-c9ad23eb4d64,fil,fil,none,none,request_human,barge_in,Gusto kong kumausap ng supervisor ninyo ngayon din.,gusto kong kumausap ng supervisor ninyo ngayon din
+01a1de5e-aa60-75f9-b74c-ec562b48752d,8b4a61f3-1d49-56ed-9f05-6e2939d23c6b,fil,fil,none,none,end_call,barge_in,"Ibaba ko muna ito, tatawag na lang ako ulit bukas.",ibaba ko muna ito tatawag na lang ako ulit bukas
+01a1de5e-b229-7208-aac8-721c3fbfb0a7,f4c2ac3e-7ade-541b-aa2b-88beb6dc254e,fil,fil,mixed,en,complaint,barge_in,"Umm, sandali, tatlong araw nang disconnected yung line namin and I am losing clients!",umm sandali tatlong araw nang disconnected yung line namin and i am losing clients
+01a1de5e-b63d-70c8-9430-c8d302c0f860,d87b6841-fe42-5e08-9382-a92baaa028a9,fil,fil,mixed,en,floor_request,barge_in,"Hold on muna, saglit, let me look at the screen.",hold on muna saglit let me look at the screen
+01a1de5e-e7ff-72f0-a288-b828397b38c5,b38d4581-2d38-5917-b649-82588d5fb827,fil,fil,none,none,agreement_token,backchannel,"Oo nga, tama.",oo nga tama
+01a1de5f-277b-70b4-8d32-8e165eaeaee8,55294105-890a-512f-a53b-5a97121e5394,fr,fr-FR,none,none,floor_request,barge_in,"Euh pardon, juste un instant s'il vous plaît.",euh pardon juste un instant sil vous plaît
+01a1de5f-392f-7318-988c-c15bf1cc5e8c,0769ff8a-610a-5524-b3c8-414db562e4a5,fr,fr-FR,mixed,en,agreement_token,backchannel,"Oui voilà, definitely.",oui voilà definitely
+01a1de5f-3cbd-7183-8d05-a40494875934,32683df0-972f-54bb-ae8b-8404d6c4fbb0,fil,fil,none,none,repeat_request,barge_in,"Pakibagalan lang po nang kaunti, hindi ko po nasundan yung petsa.",pakibagalan lang po nang kaunti hindi ko po nasundan yung petsa
+01a1de5f-4073-771b-8db5-edb2a65f0b51,deea632d-47a2-593e-a00d-19dfb8be87ba,fr,fr-FR,none,none,skip_request,barge_in,"Bah, en fait sautez les vérifications de base, passons directement à la suite.",bah en fait sautez les vérifications de base passons directement à la suite
+01a1de5f-4755-74ee-a96d-a7e8338449f6,1bffdcd9-edca-5d4b-8166-f04033f6e6aa,fr,fr-FR,mixed,en,language_switch_request,barge_in,"Excusez-moi, could you speak English please, je préfère en anglais.",excusez moi could you speak english please je préfère en anglais
+01a1de5f-4849-729c-9cdf-43676936a2ac,24180b8e-bf8d-536a-abc4-24d04f6e9d2d,fr,fr-FR,mixed,en,acknowledgment,backchannel,"Ah d'accord, I see.",ah daccord i see
+01a1de5f-52ce-717d-8a96-f4db913d08a9,b9be6514-1f0e-523d-94a0-9e6c26adc7f1,fr,fr-FR,none,none,language_switch_request,barge_in,Pouvez-vous me parler en allemand?,pouvez vous me parler en allemand
+01a1de5f-5dde-77ea-83d6-85b96b243bd1,75cb8a59-5613-5411-8d78-9ede6409d28a,fr,fr-FR,mixed,en,request_human,barge_in,"I need to talk to your supervisor s'il vous plaît, c'est urgent.",i need to talk to your supervisor sil vous plaît cest urgent
+01a1de5f-816b-705b-96d3-71e9fc6bb1f4,3dc704b8-9418-5940-acf4-72c58e79a46c,fr,fr-FR,none,none,acknowledgment,backchannel,"Très bien, d'accord.",très bien daccord
+01a1de5f-8247-72d8-b8cb-638b8ec16ef5,eda8eb49-2d1a-5dd4-961e-a8bf74f34b13,fr,fr-FR,mixed,en,complaint,barge_in,"Oui, I see, mais ça fait trois jours que votre service is completely down and I cannot work!",oui i see mais ça fait trois jours que votre service is completely down and i cannot work
+01a1de5f-b435-75a7-a08c-f3c3984bc232,0fd83e34-3866-5000-8240-44ba1de8b83b,fr,fr-FR,mixed,en,floor_request,barge_in,"Euh, sorry, wait a second, attendez deux petites secondes.",euh sorry wait a second attendez deux petites secondes
+01a1de5f-bfff-75a1-8d86-2ef734ded5cb,7a57dafb-f7c8-5421-b143-09c875f7fba6,fr,fr-FR,mixed,en,disagreement,barge_in,"I disagree, ce n'est absolument pas ce qu'on m'avait garanti au départ.",i disagree ce nest absolument pas ce quon mavait garanti au départ
+01a1de5f-c5bc-7446-90e1-01779a9eec6c,3e6184f8-0eba-5626-b2e6-c8c9e2e74f53,fr,fr-FR,none,none,request_human,barge_in,"Passez-moi un conseiller en chair et en os, s'il vous plaît.",passez moi un conseiller en chair et en os sil vous plaît
+01a1de5f-d7eb-7143-987a-f16f861180eb,82c3fb70-60ca-5bac-840d-5cb1e1858bd8,fr,fr-FR,mixed,en,continuer,backchannel,"Yeah, ouais, mm-hmm.",yeah ouais mm hmm
+01a1de5f-fe58-77b6-b960-4a54b5139556,96093f7d-46c3-5f7f-8a51-172c0c47a024,fr,fr-FR,mixed,en,correction,barge_in,"Umm, wait a second, non, the zip code c'est 75011, pas 75012.",umm wait a second non the zip code cest 75011 pas 75012
+01a1de60-1297-7724-a599-bf8295f6d219,193f7530-1f35-5d22-a0a7-083e897631eb,fr,fr-FR,none,none,continuer,backchannel,"Hum hum, oui.",hum hum oui
+01a1de60-223c-76cb-84f0-a09366586451,c5139864-3198-59ca-bb31-027ac9e2b793,fr,fr-FR,mixed,en,repeat_request,barge_in,"Uh, attendez, can you slow down a bit, vous parlez un peu trop vite là.",uh attendez can you slow down a bit vous parlez un peu trop vite là
+01a1de60-2c1c-729f-8216-b0fc823f7014,38c2cbf2-a2a5-54cb-a75c-cfb0167c3b4b,fr,fr-FR,none,none,clarification_question,barge_in,De quelle facture vous parlez là ?,de quelle facture vous parlez là
+01a1de60-85d0-77ec-b652-c85b379da547,132a7407-a397-58c9-baa3-d7118a215f34,de,de-DE,mixed,en,end_call,barge_in,"I really must hang up now, mein Zug fährt gleich ab, auf Wiederhören!",i really must hang up now mein zug fährt gleich ab auf wiederhören
+01a1de60-964e-74a1-8514-149c78c9af17,6a08a765-af8e-5a92-aba4-521fbd715e3a,de,de-DE,none,none,end_call,barge_in,"Auf Wiederhören, ich steige gerade in den Zug ein und muss Schluss machen.",auf wiederhören ich steige gerade in den zug ein und muss schluss machen
+01a1de60-9866-741c-a692-c8ae3242fa0c,062f9675-7eea-5b71-90f3-b1e1a43cb2f2,de,de-DE,mixed,en,language_switch_request,barge_in,"Ach so, ja, but English please, können wir auf Englisch weitermachen?",ach so ja but english please können wir auf englisch weitermachen
+01a1de60-9940-75ef-b6ce-477c3e4f737a,89df9655-9dc2-5e36-bd91-8262ee803a73,de,de-DE,mixed,en,request_human,barge_in,"I need a supervisor bitte, geben Sie mir sofort Ihren Teamleiter.",i need a supervisor bitte geben sie mir sofort ihren teamleiter
+01a1de60-9c99-720c-b53a-ef08aeb9e268,8fea0eac-bc33-5d9f-9ec6-b7946a41faa3,de,de-DE,none,none,new_request,barge_in,Könnten Sie bitte stattdessen mein Überweisungslimit erhöhen?,könnten sie bitte stattdessen mein überweisungslimit erhöhen
+01a1de60-a7a5-7188-b7a8-96be63c56690,a5f0288d-712c-5d5e-8954-c56726293250,de,de-DE,mixed,en,reaction_token,backchannel,"Haha no way, wie lustig.",haha no way wie lustig
+01a1de60-c827-74f4-962e-592ee880aaf4,c6efda97-2ed5-57af-8d9c-8f7b2bbbc0de,de,de-DE,none,none,disagreement,barge_in,"Verstehe, aber nein, das möchte ich auf gar keinen Fall so buchen.",verstehe aber nein das möchte ich auf gar keinen fall so buchen
+01a1de60-cded-71bf-a436-029614e057df,f7449849-6735-5638-abd6-71aae5cf7e5d,de,de-DE,mixed,en,disagreement,barge_in,"Das akzeptiere ich nicht, that was definitely not the deal als wir das vereinbart haben.",das akzeptiere ich nicht that was definitely not the deal als wir das vereinbart haben
+01a1de60-dc65-76c5-88ce-d1a0d04e0f91,e0193648-e5e8-5dae-a705-7777da081442,de,de-DE,mixed,en,complaint,barge_in,"Wait, stop talking, meine Kreditkarte wurde gerade schon wieder double charged!",wait stop talking meine kreditkarte wurde gerade schon wieder double charged
+01a1de60-de2b-7471-a126-cb3b675a8d21,6949e470-cfd8-5a49-abd2-edf1dbb0bb5e,de,de-DE,mixed,en,go_ahead,backchannel,"Keep going, erzähl nur weiter.",keep going erzähl nur weiter
+01a1de60-fedd-72b0-8751-b2c61171cfcd,cd87c407-80f3-5867-9f61-48394df91ced,de,de-DE,none,none,complaint,barge_in,"Mhm, genau, aber mein Anschlusszug fährt in zehn Minuten und ich brauche jetzt sofort eine Lösung.",mhm genau aber mein anschlusszug fährt in zehn minuten und ich brauche jetzt sofort eine lösung
+01a1de61-0072-7796-9430-4c16b1e6d3c6,af6957d6-3477-5105-8626-db7b4087fe2b,de,de-DE,mixed,en,floor_request,barge_in,"Please hold on, warte mal kurz, ich muss erst das Fenster öffnen.",please hold on warte mal kurz ich muss erst das fenster öffnen
+01a1de61-089d-759c-88f7-239ed82479d2,7e602db8-d83a-5f99-8b97-2478de6bd635,de,de-DE,mixed,en,new_request,barge_in,"Mhm genau, aber actually I need to update my shipping address first.",mhm genau aber actually i need to update my shipping address first
+01a1de61-1199-70e1-aa6f-95447c4f32ab,47cd03a3-c026-5334-bf67-dae984ce015c,de,de-DE,mixed,en,agreement_token,backchannel,"True, das sehe ich genauso.",true das sehe ich genauso
+01a1de61-2bba-707b-9a84-a1e32079871d,97dde154-462e-5c86-ba07-0b6e7bb87326,de,de-DE,mixed,en,continuer,backchannel,"Mm-hmm, ja, yeah.",mm hmm ja yeah
+01a1de61-ac03-70ee-a15f-e08e106d2c22,cd9757b3-71c3-594b-996f-15a594ae707f,es,es-MX,none,none,gratitude_token,backchannel,Gracias.,gracias
+01a1de61-af16-7137-96fb-604c24f27e48,f35e52a8-a4e2-5a26-91fb-12c52f411bd7,es,es-MX,none,none,skip_request,barge_in,"Mmm, mira, mejor brinca esa parte y dime cuánto tengo que pagar.",mmm mira mejor brinca esa parte y dime cuánto tengo que pagar
+01a1de61-d614-701e-a149-0996c0a1bf16,04130828-57f8-51b7-a4c6-888dc4f0ea0b,es,es-MX,none,none,request_human,barge_in,"Comunícame con tu supervisor, por favor.",comunícame con tu supervisor por favor
+01a1de61-d7d2-712c-b8de-3a90b8ac12ed,03855e71-2331-55b8-98f4-cd030eb7c3c2,es,es-MX,mixed,en,end_call,barge_in,"Claro, sí, pero not right now please, ando ocupadísimo, hablamos después.",claro sí pero not right now please ando ocupadísimo hablamos después
+01a1de61-ed5b-73d6-8edf-571665fe071c,de9b1467-c00f-5d49-85b7-660ec113adf3,es,es-MX,mixed,en,new_request,barge_in,"Umm, este, wait, I also need to add un conductor extra a la póliza.",umm este wait i also need to add un conductor extra a la póliza
+01a1de62-14fe-760f-b5aa-1d85e53a00a3,30455f4a-5336-5f07-93e2-f0504c8ff470,es,es-MX,none,none,end_call,barge_in,Háblame mañana mejor porque ya voy de salida.,háblame mañana mejor porque ya voy de salida
+01a1de62-172d-7381-917d-30b452f61dd9,cfb26f7e-abcc-5442-be7e-bb763166e3c3,es,es-ES,mixed,en,clarification_question,barge_in,"¿Qué quieres decir con eso, what do you mean by extra charge?",qué quieres decir con eso what do you mean by extra charge
+01a1de62-1e4b-74bf-b0ec-92a3e42bf281,6c95b301-1600-5ff6-8a48-78cfd55660ac,es,es-MX,mixed,en,language_switch_request,barge_in,"¿Podemos cambiar a English, por favor?",podemos cambiar a english por favor
+01a1de62-266e-7323-b168-f70289ac102a,c92e5d8a-85ee-53c4-beae-f32372b0bed3,es,es-MX,none,none,correction,barge_in,"Mmm, perdón, pero mi apellido va con zeta, no con ese.",mmm perdón pero mi apellido va con zeta no con ese
+01a1de62-3361-7467-b77f-eb507ae394c8,d255652c-f5cf-5792-affc-c84b19811a77,es,es-ES,none,none,new_request,barge_in,"Sí, perfecto, pero antes de seguir, ¿me puedes enviar la factura del mes pasado a mi correo?",sí perfecto pero antes de seguir me puedes enviar la factura del mes pasado a mi correo
+01a1de62-34f4-704a-9fbe-d5b315d2b27f,6525cd8f-a906-54a3-adc5-e64edc88aa69,es,es-ES,none,none,end_call,barge_in,"Uhm, es que voy conduciendo ahora mismo, te cuelgo y me llamas luego.",uhm es que voy conduciendo ahora mismo te cuelgo y me llamas luego
+01a1de62-5231-7307-840d-5ee43a9d5236,7df36ae8-297b-5a02-9ade-dd1ea91d9920,es,es-ES,mixed,en,skip_request,barge_in,"Entendido, yes, yes, pero cut to the chase y pasa al siguiente paso, por favor.",entendido yes yes pero cut to the chase y pasa al siguiente paso por favor
+01a1de62-550d-77a6-9d3a-e8671818cdae,5b685000-40ba-59fd-9b01-ece69b770bd0,es,es-ES,mixed,en,repeat_request,barge_in,"Perdona, can you speak louder? Es que apenas te oigo.",perdona can you speak louder es que apenas te oigo
+01a1de62-637d-71a4-9cf9-9bf7d90c23bb,a72015a6-a7f4-553e-a985-3ea032666cc9,es,es-MX,mixed,en,correction,barge_in,"No, that is wrong, no eran dos noches sino tres.",no that is wrong no eran dos noches sino tres
+01a1de62-6ae3-7649-b55d-84841502c7d7,484091f5-c1fd-5c0d-a2d2-7686c33440f0,es,es-ES,none,none,early_answer,barge_in,El jueves por la mañana me viene perfecto.,el jueves por la mañana me viene perfecto
+01a1de62-9fb3-73e2-b344-4c3b75505307,85c56995-c6ca-5f57-abb9-ab61ccafd836,es,es-ES,mixed,en,complaint,barge_in,"Oye, me acaban de hacer un double charge en la cuenta y esto es inaceptable.",oye me acaban de hacer un double charge en la cuenta y esto es inaceptable
+01a1de62-b3a9-7138-8916-5dad5f6fcfec,8f473f87-f902-5fa5-accb-acc599d25baf,es,es-ES,mixed,en,floor_request,barge_in,"Stop, frena ahí, déjame comprobar los datos primero.",stop frena ahí déjame comprobar los datos primero
+01a1de62-c61b-746d-81bb-dc7d57eec919,846caf26-989d-5a28-9a00-5c99b2a72afe,es,es-ES,none,none,request_human,barge_in,Quiero hablar con un operador humano.,quiero hablar con un operador humano
+01a1de62-c7b6-76c4-bf9d-17210ddbc0b5,38648bde-06fd-50d8-a959-a921c179bbff,es,es-ES,none,none,correction,barge_in,"Mmm, oye, que no termina en ocho sino en nueve.",mmm oye que no termina en ocho sino en nueve
+01a1de62-c942-7481-b687-4aebe91e1276,8385da45-e8a7-57a9-ab79-512d3c18a304,es,es-MX,none,none,go_ahead,backchannel,"Prosigue, te sigo.",prosigue te sigo
+01a1de62-e6af-777d-b0cc-acd1e8fc969e,dce10b6c-3faf-599b-a19f-fcb5f0ab228a,es,es-MX,none,none,reaction_token,backchannel,"¡Ah, qué padre!",ah qué padre
+01a1de63-397b-7034-8b23-5d1c3f3f1214,5f4ec592-6c69-54e6-86a8-6625e5cdf01c,es,es-MX,none,none,agreement_token,backchannel,"Claro, así es.",claro así es
+01a1de63-43ec-72dc-832f-1fe5e7f39f3c,b6b8443b-3e4d-5402-8cd5-79d49fb2f5b4,es,es-MX,none,none,new_request,barge_in,"Oiga, mejor ayúdeme a cambiar la dirección de entrega de una vez.",oiga mejor ayúdeme a cambiar la dirección de entrega de una vez
+01a1de63-51a7-75ff-b6dc-783782c06c2b,7ad106e4-9e14-50f6-8570-14796c9fe1c4,es,es-ES,none,none,skip_request,barge_in,"Mmm, esto, pasa a la siguiente parte por favor, que las cláusulas ya me las sé.",mmm esto pasa a la siguiente parte por favor que las cláusulas ya me las sé
+01a1de63-53c3-755d-aaca-0350bc9357e3,04d72c0b-0d63-5025-879b-159fadf91765,es,es-ES,mixed,en,reaction_token,backchannel,"Aww, qué mono, so cute.",aww qué mono so cute
+01a1de63-9544-7109-b6a2-4f9c130898f0,44006a17-02df-5cf9-b129-dcbe70f04422,es,es-ES,none,none,go_ahead,backchannel,Sigue contando.,sigue contando
+01a1de63-b932-76c2-927f-9cd2ff9a27b6,c837bf25-22c7-589c-9637-9358a0de090c,es,es-ES,none,none,floor_request,barge_in,"A ver, espera, espera un segundo que abra el correo.",a ver espera espera un segundo que abra el correo
+01a1de63-c1bf-7156-a260-21a96f7bc2ac,06aa2925-a695-53a8-9a29-c8bf32bf98bc,es,es-MX,mixed,en,go_ahead,backchannel,"Yes, tú continúa, go on.",yes tú continúa go on
+01a1de63-e9fe-758d-8dba-407b2558a07d,1acb312b-8a38-57a6-a6a7-b531d23aecaa,es,es-MX,mixed,en,floor_request,barge_in,"Hold on, espérame tantito que voy por una pluma.",hold on espérame tantito que voy por una pluma
+01a1de64-0719-747c-a159-a837cc97ac43,a51c60d8-ecff-5941-b1f2-b6197d7fa2d1,es,es-ES,mixed,en,agreement_token,backchannel,"Yeah, exacto, eso es.",yeah exacto eso es
+01a1de64-09bb-75bf-8b2c-f8e7516a30e3,ace90b34-e777-5416-b55d-4ee2f788abb9,it,it,mixed,en,language_switch_request,barge_in,"Possiamo parlare in inglese please, I don't follow Italian well.",possiamo parlare in inglese please i dont follow italian well
+01a1de64-0df6-7488-808e-4e9dadb08703,3cc88df6-64cf-5e94-8be2-3941bb5913a7,es,es-MX,mixed,en,repeat_request,barge_in,¿Me lo repites más despacio please? I didn't catch the last part.,me lo repites más despacio please i didnt catch the last part
+01a1de64-20c7-733d-b370-14ee02f1c793,66eeecb1-9b35-5b70-b28e-31ac375ad598,it,it,mixed,en,end_call,barge_in,"Please hang up now, ho un'altra chiamata urgente in attesa.",please hang up now ho unaltra chiamata urgente in attesa
+01a1de64-3640-709e-a157-358c0a08140e,00dc8ccf-87d4-550e-9c02-da41808d5ff1,it,it,none,none,end_call,barge_in,"Ho capito, certo, però devo proprio scappare ora, mi richiami pure più tardi.",ho capito certo però devo proprio scappare ora mi richiami pure più tardi
+01a1de64-3b5f-7696-95f9-3b1cced16722,4636dfff-af7d-5360-bb26-a62e7746a1c6,it,it,mixed,en,correction,barge_in,"Umm, well, aspetta, you said five PM, ma l'orario giusto sono le sei.",umm well aspetta you said five pm ma lorario giusto sono le sei
+01a1de64-4d76-756d-8c35-3053cd85e8b4,1f3ddca6-ee35-5b42-99f4-daece721d710,it,it,none,none,floor_request,barge_in,"Uhm, aspetti, mi dia un istante.",uhm aspetti mi dia un istante
+01a1de64-65ac-7074-bac1-be43e27f81eb,e2c07f28-9960-50de-9a50-07055ea8a0b9,it,it,mixed,en,agreement_token,backchannel,"Sì sì, that makes total sense.",sì sì that makes total sense
+01a1de64-6d7c-71ee-9da1-fdb193acc8f9,91c39cc6-e1b1-500a-9f1a-4a494ca86934,it,it,none,none,disagreement,barge_in,"Ho capito, però non sono assolutamente d'accordo con questa tariffa.",ho capito però non sono assolutamente daccordo con questa tariffa
+01a1de64-817d-773b-b11a-0c5c5f188d58,71a28ba4-b415-57aa-8363-8cf7c4323aba,it,it,mixed,en,floor_request,barge_in,"Un secondo, give me just a second to open the file.",un secondo give me just a second to open the file
+01a1de64-8727-734b-a789-0f4800bbba19,445b73ec-e96f-5b1c-b1e7-f14daddff5f7,it,it,mixed,en,clarification_question,barge_in,"Ah ho capito, but which lights on the router should I look at?",ah ho capito but which lights on the router should i look at
+01a1de64-acf4-7479-befd-eb4221869538,3acaa527-5c90-5817-825f-d742d27c452d,it,it,none,none,language_switch_request,barge_in,"Mmh, mi scusi, ci sarebbe qualcuno che parla tedesco?",mmh mi scusi ci sarebbe qualcuno che parla tedesco
+01a1de64-ae9b-7670-9611-b7b4bf45ef8b,3a971acb-673f-555b-bad6-4fe0359f5e27,it,it,mixed,en,acknowledgment,backchannel,"Understood, va benissimo.",understood va benissimo
+01a1de64-e8ed-7651-af91-c582f61b6b8d,edcc65b9-6fd8-5bde-8e0a-ab2332280a0b,it,it,mixed,en,skip_request,barge_in,"Salta tutti i dettagli per favore, just tell me the final amount.",salta tutti i dettagli per favore just tell me the final amount
+01a1de64-ea46-72b5-ac0c-47e7a1cf2cbc,d2043d9e-d79a-5ec8-a15e-bc8b6331b391,it,it,mixed,en,repeat_request,barge_in,"Come scusa? Can you say that again, non si sente quasi niente.",come scusa can you say that again non si sente quasi niente
+01a1de65-1a8f-72d8-a216-debdf83f1aa6,bd8c5ec7-41b3-5d85-a404-9966dd4971f3,it,it,none,none,go_ahead,backchannel,"Continua pure, ti ascolto.",continua pure ti ascolto
+01a1de65-3046-7263-91f8-9e23fee3ec1a,0bea4a1a-22ab-5081-942f-4f091440ac30,it,it,mixed,en,continuer,backchannel,"Mhm, yeah, dimmi pure.",mhm yeah dimmi pure
+01a1de65-71d7-73b9-9f30-3aa9f354561f,7e7c40a7-ee95-5e06-9aca-929d050634b5,en,en-IN,mixed,ta,repeat_request,barge_in,"Sorry, I didn't hear that properly, கொஞ்சம் சத்தமா சொல்லுங்க please.",sorry i didnt hear that properly கொஞ்சம் சத்தமா சொல்லுங்க please
+01a1de65-ef1a-7780-abcc-db95ae721037,ce356c9e-0250-5035-a176-bc7069833d3a,en,en-IN,mixed,hi,reaction_token,backchannel,"Oh no, अरे रे, that is awful.",oh no अरे रे that is awful
+01a1de67-8d8d-77e8-be58-d39c2e592b79,5cbf14a2-db36-50f3-85c3-1b7092472579,en,en-IN,mixed,kn,agreement_token,backchannel,"ಹೌದು ಹೌದು, exactly right.",ಹೌದು ಹೌದು exactly right
+01a1de68-097e-711b-9252-b6f7d71c0f82,1e1dff63-585c-5f2d-aaf1-829e9b7073ce,en,en-IN,mixed,te,clarification_question,barge_in,"Er, hang on, ఏ branch అండి, which location are you referring to?",er hang on ఏ branch అండి which location are you referring to
+01a1de68-fdc1-702e-9441-6d1dd7f27215,e7ff54ba-d27d-506e-a11e-dfad72b8e81a,en,en-SG,none,none,gratitude_token,backchannel,"Thanks, thanks.",thanks thanks
+01a1de6a-329e-731d-be70-29536101305a,02fc005f-f77f-5371-af66-bb78754b2b29,hi,hi,mixed,en,early_answer,barge_in,"Morning flight, सुबह वाली फ़ाइनल कर दीजिए।",morning flight सुबह वाली फ़ाइनल कर दीजिए
+01a1de6a-6a28-7228-a6ae-e4001aa2c638,7e80b2cb-8522-52b6-98b0-a1f5381eb7ff,hi,hi,mixed,en,acknowledgment,backchannel,Okay ठीक है.,okay ठीक है
+01a1de6a-a964-739f-87d5-6f60963d5cfc,10bc740b-17b5-5fb2-b4c6-23cca473086a,kn,kn,none,none,early_answer,barge_in,"ಎರಡನೇ ಆಯ್ಕೆ ಸಾಕು, ಅದನ್ನೇ ಕಾಯ್ದಿರಿಸಿ.",ಎರಡನೇ ಆಯ್ಕೆ ಸಾಕು ಅದನ್ನೇ ಕಾಯ್ದಿರಿಸಿ
+01a1de6b-d6b5-77dd-8afe-5e334d26a6c8,17ded3be-a33b-56ae-b335-8e1303511c47,ta,ta-IN,mixed,en,continuer,backchannel,"ம்ம், yeah.",ம்ம் yeah
+01a1de6d-2100-7297-b54a-8a52849fc917,5edc54cc-610a-545d-a9cc-db23820a71e7,te,te,mixed,en,early_answer,barge_in,"Tuesday slot సరిపోతుంది, book చేసేయండి.",tuesday slot సరిపోతుంది book చేసేయండి
+01a1de6f-09e2-71e6-8b8f-f0fa47c74fc3,3930e892-9185-5a21-8e7d-075227c2dc8b,ja,ja,mixed,en,repeat_request,barge_in,"Sorry, what was that? もう一度言ってください。",sorry what was that もう一度言ってください
+01a1de73-526c-770b-bcda-ab7c4bf1fa8a,7ef2a6f8-8612-5f02-a9df-92184a5ff80f,es,es-MX,none,none,early_answer,barge_in,"La segunda opción con dos camas, por favor.",la segunda opción con dos camas por favor
+01a1de73-ea1c-77ba-9473-bcf6940009e1,248ea7b3-e6d3-56d9-8353-35870edb6017,es,es-MX,mixed,en,reaction_token,backchannel,"Oh no, qué mala onda, seriously.",oh no qué mala onda seriously
+01a1de74-b664-747b-a952-6d34b5e0a67b,ab791526-c4be-5ff0-af83-8e9d9ccb2c11,it,it,mixed,en,early_answer,barge_in,"Prendo the second option, va benissimo quella.",prendo the second option va benissimo quella
+01a1de76-058b-75e8-a30d-9c58fe65bc77,bc8dbfb4-e049-58be-8f46-a8e4e2db1b61,en,en-SG,mixed,zh,agreement_token,backchannel,"Ya lah, 对对, correct.",ya lah 对对 correct
+01a1de77-235a-7104-aa3a-9f356da8d3a1,846572fe-0d1f-57b0-97f0-dba46cb4b775,en,en-IN,mixed,kn,reaction_token,backchannel,"Aww ಅಯ್ಯೋ, that is so sad.",aww ಅಯ್ಯೋ that is so sad
+01a1de7a-d12f-75a9-9216-e649d50f1e06,52e090c2-3359-57d6-aa4a-a0c51646ccda,ml,ml,none,none,agreement_token,backchannel,"അതെ അതെ, അത് ശരിയാണ്.",അതെ അതെ അത് ശരിയാണ്
+01a1de7b-0962-715a-9d28-fea6875c0cb7,b76afe5e-11b3-5b11-a989-aaa7fdac29bb,ml,ml,mixed,en,acknowledgment,backchannel,"Got it, ശരി.",got it ശരി
+01a1de82-f458-74b5-a200-8f68b28cf927,2e6a6b9b-b8d2-57bf-99e3-d2f83f6fb88e,de,de-DE,none,none,early_answer,barge_in,"Das Standardpaket reicht mir völlig, bitte direkt buchen.",das standardpaket reicht mir völlig bitte direkt buchen
+01a1de82-fc8e-7522-b7e5-5520a6392453,d319eef8-30cf-519f-ad2e-1cff10cfab96,de,de-DE,none,none,gratitude_token,backchannel,Dankeschön.,dankeschön
+01a1de83-8493-7424-9dbb-8ab24c7f9e06,6de84ae9-8382-5d63-94ad-30c8684f518d,en,en-IN,mixed,kn,continuer,backchannel,"ಹೂಂ, mm-hmm, yeah.",ಹೂಂ mm hmm yeah
+01a1de83-d882-75de-967b-dfbf7d7f245f,bed6e593-1f66-59f8-a3e4-346be8f25c86,en,en-IN,mixed,ta,early_answer,barge_in,"Tuesday works for me, எனக்கு செவ்வாய்க்கிழமை காலையில நேரமே போதும்.",tuesday works for me எனக்கு செவ்வாய்க்கிழமை காலையில நேரமே போதும்
+01a1de84-5223-76de-b66f-0f93ace9bc28,5e1c22e6-1af3-590c-a4a8-7380d4f815ed,fr,fr-FR,none,none,gratitude_token,backchannel,"Ah, merci beaucoup.",ah merci beaucoup
+01a1de84-a981-711f-b351-d56e58de1316,d4b575ea-6756-5c0e-8e22-3c1f1cfcf41f,es,es-ES,mixed,en,continuer,backchannel,"Yeah, ajá, ajá.",yeah ajá ajá
+01a1de85-3af0-7583-bb06-892995a67355,8adfef81-7e63-5599-a8fc-37d7c9531999,ja,ja,none,none,gratitude_token,backchannel,あ、ありがと。,あ ありがと
+01a1de86-6a52-7321-a7cc-3af35dd7c6fa,a70c3ef1-aaa1-5dbd-80bd-72bb78393a5f,en,en-US,none,none,gratitude_token,backchannel,"Thanks, appreciate it.",thanks appreciate it
+01a1de86-6f9e-7412-932a-dc30fcc87935,cf382010-7c1e-51bd-a1fa-cc059f4774d0,en,en-IN,mixed,ta,gratitude_token,backchannel,"Okay okay, நன்றி, thanks.",okay okay நன்றி thanks
+01a1de86-6ff5-74fa-9d84-f7bee5ab6d74,5ab68d16-f136-542c-9677-78849e4f9906,en,en-IN,mixed,ml,gratitude_token,backchannel,"Thank you, വലിയ ഉപകാരം.",thank you വലിയ ഉപകാരം
+01a1de86-b0c8-75d5-bd76-58a5d735a0b7,1e998e6d-6eb1-5ae0-ad7c-3404dd6aa450,te,te,none,none,gratitude_token,backchannel,ధన్యవాదాలండి.,ధన్యవాదాలండి
+01a1de86-bc38-7357-a0b3-a17650183b07,3785dfc5-a222-58cd-bc54-b829abe75a80,ml,ml,none,none,gratitude_token,backchannel,വളരെ ഉപകാരം.,വളരെ ഉപകാരം
+01a1de86-d969-7703-8951-647578a7e388,5a360472-2d28-5386-95ac-37d8eafbd382,zh,zh-CN,mixed,en,gratitude_token,backchannel,太好了，thanks a lot，辛苦辛苦。,太好了 thanks a lot 辛苦辛苦
+01a1de86-effe-70b7-ac7f-3412db3e3524,f43a3feb-a08b-5772-94e4-abbbd6a9325e,fil,fil,mixed,en,gratitude_token,backchannel,"Salamat, thank you po.",salamat thank you po
+01a1de86-fe22-7085-9980-b1fee1e44f28,0f329e2a-06f8-5874-9b30-f6aecdc8b709,de,de-DE,mixed,en,gratitude_token,backchannel,"Danke schön, thanks a lot.",danke schön thanks a lot
+01a1de87-2523-73ae-9062-b06f5a37d01c,4835d476-90cc-549d-93c2-e683edcd9d9d,it,it,none,none,gratitude_token,backchannel,Ti ringrazio tanto.,ti ringrazio tanto
+01a1de87-2711-738e-916c-97c1434553f3,2e26c50c-ff5d-50fb-8a87-3b097a1cd936,it,it,mixed,en,gratitude_token,backchannel,"Grazie mille, thanks a lot.",grazie mille thanks a lot
+01a1de87-48f2-7366-89bc-22dab069a2ea,e0f5e706-3c6e-5b07-bd9e-a45f95e27318,en,en-IN,none,none,continuer,backchannel,"Hmm, uh-huh.",hmm uh huh
+01a1de87-4d14-7796-862e-d46fc8a5f06b,3e105c5e-18d9-5791-9c9d-fd0dbb6c289e,en,en-IN,mixed,hi,gratitude_token,backchannel,"Oh, thank you, बहुत धन्यवाद।",oh thank you बहुत धन्यवाद
+01a1de87-6787-747c-a5cc-ab751659752a,88b19a97-522d-55ad-ac8c-db3847e1b6ee,en,en-IN,mixed,te,gratitude_token,backchannel,"Right, thank you, చాలా ధన్యవాదాలు.",right thank you చాలా ధన్యవాదాలు
+01a1de87-701f-70bc-954c-df94ebeb9d7e,38208ec9-1ef5-5856-99b1-1229bf4a9efe,zh,zh-CN,none,none,gratitude_token,backchannel,多谢多谢。,多谢多谢
+01a1de87-986a-74ac-bfb5-7a56012e164e,c27b3a33-94eb-509d-a470-7417086be311,es,es-ES,none,none,gratitude_token,backchannel,"Ah, muchas gracias.",ah muchas gracias
+01a1de87-a3bf-700d-8c14-ac3652b4951e,914c3c0e-8649-5f89-8203-3026e6978b0e,es,es-ES,mixed,en,gratitude_token,backchannel,"Muchas gracias, thanks.",muchas gracias thanks
+01a1de89-ac21-75b0-8533-f1d8f1ff64d3,941e60ae-95e2-593d-a84e-e18ad0888591,fil,fil,none,none,continuer,backchannel,Mm-hmm po.,mm hmm po
+01a1e02f-f0e5-72ac-b905-933b3666e42e,e0e890d2-13ad-52fa-8088-4dceab5af82f,en,en-US,none,none,agreement_token,backchannel,Exactly.,exactly
+01a1e02f-f195-7186-a4e0-5e9688389193,405e42e9-0196-578d-8663-6af946d34c6e,en,en-US,none,none,go_ahead,backchannel,Keep going.,keep going
+01a1e02f-fbec-711e-b663-eee8b0f81515,b31a8690-82c4-5228-b194-d305db3cc0c6,en,en-SG,none,none,reaction_token,backchannel,Alamak!,alamak
+01a1e032-1ec3-7006-ad76-356fa65e6473,8952fa4d-a5e6-525c-b79c-13368a1fae2e,kn,kn,none,none,acknowledgment,backchannel,ಹೌದಾ.,ಹೌದಾ
+01a1e032-2144-76ae-977e-6980f7222c62,f4e74ef1-df6d-5539-9fa2-21626b0bd274,hi,hi,none,none,acknowledgment,backchannel,समझ गया।,समझ गया
+01a1e032-2319-7007-9617-58b38f3e0b5a,4ae637f5-b7f3-5112-b9cc-bbab77f86077,hi,hi,none,none,reaction_token,backchannel,बहुत बुरा हुआ।,बहुत बुरा हुआ
+01a1e032-287b-7000-841b-0bd1e0358e6e,052d7ae1-d03b-501f-8662-3f29c04c5d06,kn,kn,none,none,reaction_token,backchannel,ಓಹೋ!,ಓಹೋ
+01a1e032-2ea8-77c6-b5ce-077dfc0cd369,8668c0c2-44e8-5e91-bbac-45efa15f0af9,ta,ta-IN,none,none,continuer,backchannel,ஆமா,ஆமா
+01a1e032-36af-73cf-9042-d373b913586b,6250e25c-8f33-5437-994b-93841751bef4,ta,ta-IN,none,none,go_ahead,backchannel,அப்புறம்,அப்புறம்
+01a1e032-3b05-70d7-bad1-88b43b3dfe87,6cfeaf9e-5a4e-5f6d-a991-459bb910a610,te,te,none,none,agreement_token,backchannel,అవును,అవును
+01a1e032-4a70-75d8-a9df-94a1f2fdc0bd,37f1df6e-339f-5947-b494-fdc2e92370fa,zh,zh-CN,none,none,continuer,backchannel,嗯。,嗯
+01a1e032-4bb8-709e-b5ef-02c1ebbbe82b,42320324-129b-50ba-b339-fb55355843c9,zh,zh-CN,none,none,acknowledgment,backchannel,了解。,了解
+01a1e032-4e0a-765f-a034-a66aad74bdf8,546d67e6-8609-586d-8bde-ff850edd9dbd,zh,zh-CN,none,none,go_ahead,backchannel,您说。,您说
+01a1e032-55f6-760d-bb82-513730ac2754,74842ee0-059a-5f9e-b807-8ffa961552d1,zh,zh-CN,none,none,reaction_token,backchannel,哇！,哇
+01a1e032-5827-721c-a48a-671849798766,e41ddb47-3667-5390-b9c0-abef9f0b4592,ja,ja,none,none,go_ahead,backchannel,ええ、どうぞ。,ええ どうぞ
+01a1e032-59f8-7456-8993-38a4fbb289ed,b379fac0-5dac-5833-b35b-b63c51f4aa45,ja,ja,none,none,gratitude_token,backchannel,すみません。,すみません
+01a1e032-5b14-732c-90ea-99f81c0dc036,5c8ceeb3-fad9-5f27-9160-62aa3954b947,ja,ja,none,none,reaction_token,backchannel,えっ。,えっ
+01a1e032-5f15-748d-a766-2ffb5dec7f7d,57c1354c-8b02-5b5e-baf2-9a24747dac36,id,id,none,none,agreement_token,backchannel,Iya betul.,iya betul
+01a1e032-618f-7362-8f07-53ead54284e7,6c6ae47e-c1a5-5519-9b69-daf72e960d66,id,id,none,none,reaction_token,backchannel,Astaga!,astaga
+01a1e032-653f-7416-933b-740dd5236529,9f70e5cd-1b04-5334-bf63-30f974f190dd,fil,fil,none,none,agreement_token,backchannel,Korek.,korek
+01a1e032-6554-772b-952f-8cd2c8a22e49,9f98496a-8e0c-57cf-86ca-2b5cf3a71de3,id,id,none,none,go_ahead,backchannel,Terus?,terus
+01a1e032-65f2-761a-995d-551a62610912,ff8ff975-e2b3-53d7-9c0d-b64bc1e5756a,fil,fil,none,none,acknowledgment,backchannel,Naintindihan ko.,naintindihan ko
+01a1e032-66e3-74db-ba4d-b475ab2b8693,b5c8475a-0f42-5026-8d45-52135326fd64,fil,fil,none,none,reaction_token,backchannel,Kawawa naman.,kawawa naman
+01a1e032-6ee7-774e-977f-c7f367429d9e,b0697a88-2c7e-5b87-82cc-d299ae9f3b04,fr,fr-FR,none,none,agreement_token,backchannel,D'accord.,daccord
+01a1e032-71b6-71bd-a8a1-311693c61d9b,e02cb829-1257-5ce9-8253-61b06877ed76,fr,fr-FR,none,none,reaction_token,backchannel,Ah super !,ah super
+01a1e032-767a-74d8-aa9a-3140f7780943,57b48fe0-357c-56ec-aaf3-838c95d8cc9d,de,de-DE,none,none,continuer,backchannel,Aha.,aha
+01a1e032-7a63-76e3-98db-086e3cbd7092,d48bc132-f94b-5a10-9b46-71bad2addf76,de,de-DE,none,none,gratitude_token,backchannel,Danke.,danke
+01a1e032-7aba-7143-af1d-b77146ef9627,9d8094f5-4e5a-55d3-913a-69a59a0321ae,de,de-DE,none,none,go_ahead,backchannel,Erzählen Sie weiter.,erzählen sie weiter
+01a1e032-7ba5-71a6-988d-4b254034cb1a,011c3d39-5308-5b05-b627-245116aed2f4,de,de-DE,none,none,reaction_token,backchannel,Ach herrje!,ach herrje
+01a1e032-7fa5-713c-b1ff-cee5843cf8e8,a03f6c73-feea-5cfd-a24a-d0075f2835d7,es,es-ES,none,none,continuer,backchannel,Sí.,sí
+01a1e032-7fe4-710d-baff-f11412d18110,204bb301-22a7-58fb-9b65-d4714d6ef189,es,es-ES,none,none,acknowledgment,backchannel,Entendido.,entendido
+01a1e032-852a-71a5-85a0-d36506c06164,6196ed64-2f6b-5afc-a8c2-06fccf30e18a,es,es-ES,none,none,go_ahead,backchannel,Dime.,dime
+01a1e032-8dca-71a9-986a-c20b7a70c66f,b0332048-9085-5225-af65-d3714861cc52,es,es-MX,none,none,go_ahead,backchannel,"Sí, dime.",sí dime
+01a1e032-900a-728d-9a73-2459447650a7,a5cd1245-402b-5433-84e8-010785fbcd48,it,it,none,none,continuer,backchannel,Certo.,certo
+01a1e032-91c0-70f4-a49d-c7d9676d180e,b89da737-9a9d-5e27-8b2d-ad08bee4587f,it,it,none,none,gratitude_token,backchannel,Grazie.,grazie
+01a1e032-a24e-70f5-b259-02366243d09a,11b6c614-3ebe-5e5d-8ad9-ca0982544ea1,en,en-IN,none,none,reaction_token,backchannel,"Oh wow, oh wow.",oh wow oh wow
+01a1e032-a5be-740c-a08c-dc014cb09cc3,5eeaa7fe-a590-5293-b137-f06c23f55048,en,en-IN,none,none,gratitude_token,backchannel,"Thank you, thank you, thank you.",thank you thank you thank you
+01a1e032-a895-7163-a4d7-904fba1bb499,749c951a-4a25-57da-a216-b70ae1f23ffc,en,en-SG,none,none,reaction_token,backchannel,"Aiyo, aiyo, aiyo.",aiyo aiyo aiyo
+01a1e032-ac09-71c8-8792-717119bb1eb9,eb0c363c-e438-5a8d-9f9a-c5c769ab63e2,en,en-SG,none,none,agreement_token,backchannel,"Can, can, can.",can can can
+01a1e033-83c7-7326-9f87-507550bceec4,18629674-cb58-5482-945f-4e8ec849e945,en,en-US,none,none,continuer,backchannel,"Uh-huh, uh-huh, uh-huh.",uh huh uh huh uh huh
+01a1e033-9766-715c-8f87-1aa8c7cd2062,16cb13af-a58d-5274-b036-25743b65dec8,en,en-SG,none,none,go_ahead,backchannel,"Carry on, carry on.",carry on carry on
+01a1e033-9f56-76ec-9cde-3d23cc4c39b0,414c85ba-6b58-52cd-891b-412f9289bbcb,hi,hi,none,none,go_ahead,backchannel,बोलिए बोलिए।,बोलिए बोलिए
+01a1e033-a15f-7773-a6c6-be31b5ab69d2,ca6c79ad-bee2-5591-916c-bf9dd9b42d85,kn,kn,none,none,continuer,backchannel,"ಹಾ, ಹಾ, ಹಾ.",ಹಾ ಹಾ ಹಾ
+01a1e033-a3d6-7044-abc7-a65a9b8fcb48,8f077aa9-78d5-5140-925e-aead3adfe647,kn,kn,none,none,gratitude_token,backchannel,"ಥ್ಯಾಂಕ್ಸ್, ಥ್ಯಾಂಕ್ಸ್, ಥ್ಯಾಂಕ್ಸ್.",ಥ್ಯಾಂಕ್ಸ್ ಥ್ಯಾಂಕ್ಸ್ ಥ್ಯಾಂಕ್ಸ್
+01a1e033-a616-7170-b593-ce759165cb30,c8e7abdc-4d2b-539b-9799-a7523046a6c7,ta,ta-IN,none,none,continuer,backchannel,"சரி, சரி, சரி.",சரி சரி சரி
+01a1e033-a9cf-75ca-95d7-fe55b9f1c520,a98d9c05-3758-5d30-9762-f2af430f7c45,kn,kn,none,none,go_ahead,backchannel,"ಹೇಳಿ, ಹೇಳಿ.",ಹೇಳಿ ಹೇಳಿ
+01a1e033-ad27-738d-b716-7933cf98412b,d8ca232d-1862-5fda-ae40-50bc45dd2838,ta,ta-IN,none,none,reaction_token,backchannel,ஆஹா ஆஹா ஆஹா.,ஆஹா ஆஹா ஆஹா
+01a1e033-b17b-771c-b02c-61da0255cc31,b18e1c3b-b30a-5ee9-84b2-20a32f0f1a37,te,te,none,none,acknowledgment,backchannel,ఓకే ఓకే.,ఓకే ఓకే
+01a1e033-b57d-75f5-83d5-2107caa2a804,ddbd5b8b-a127-52e4-96ec-1306c005d88c,te,te,none,none,agreement_token,backchannel,నిజమే నిజమే.,నిజమే నిజమే
+01a1e033-b89c-766a-9685-8d73d5afd7bb,026ab0ab-66f9-5e58-b537-f4a3748d8b65,te,te,none,none,gratitude_token,backchannel,ధన్యవాదాలు ధన్యవాదాలు.,ధన్యవాదాలు ధన్యవాదాలు
+01a1e033-bc47-70e5-8a41-7176c0d37b2b,50811bce-0cdc-575b-8bd0-a839e6c3ccee,ml,ml,none,none,reaction_token,backchannel,ഹാ ഹാ ഹാ ഹാ.,ഹാ ഹാ ഹാ ഹാ
+01a1e033-bffc-77bd-868e-2467f9298021,37622af3-be9b-595b-8f55-75bec7b02edb,ml,ml,none,none,go_ahead,backchannel,പറഞ്ഞോളൂ പറഞ്ഞോളൂ.,പറഞ്ഞോളൂ പറഞ്ഞോളൂ
+01a1e033-c37a-7488-8ac9-79fa5480b3a0,ef5c220e-56a4-52f1-84f8-c90e4e159e7b,ml,ml,none,none,acknowledgment,backchannel,ശരി ശരി ശരി,ശരി ശരി ശരി
+01a1e033-c3fa-7310-9d2b-a8403f2dc1ae,27ba11b3-9215-5bb7-bca5-7020357d83c4,zh,zh-CN,none,none,continuer,backchannel,嗯，嗯，嗯。,嗯 嗯 嗯
+01a1e033-cb09-720f-a959-5c387154c51d,ebc0538f-e25d-5cd5-a5ee-56434b16939f,zh,zh-CN,none,none,go_ahead,backchannel,你说，你说，你说。,你说 你说 你说
+01a1e033-cc2f-739f-9bee-1db9ac7a10ed,ec840af7-9b2e-531d-9b35-e69c827e8cbe,ja,ja,none,none,continuer,backchannel,はい、はい、はい。,はい はい はい
+01a1e033-cccf-73de-b1db-42f36d30fc14,984f4f31-cca4-5bc4-a74e-bc9fb1f463b7,ja,ja,none,none,gratitude_token,backchannel,すいません、すいません、すいません。,すいません すいません すいません
+01a1e033-d0fb-74dc-9dc4-155f30665dc2,0b37b8d3-f4b7-50a5-a767-8f645e916015,id,id,none,none,continuer,backchannel,"Hm, hm, hm.",hm hm hm
+01a1e033-d831-72ac-a0e8-1e5c45f73d68,b46c1401-f5e6-5c03-8e64-9b82f5509307,id,id,none,none,go_ahead,backchannel,"Terus, terus, terus.",terus terus terus
+01a1e033-d965-76d9-b8d2-7d9c7041bc51,faa8c4e5-98fc-5c61-a339-2e13b7f0c2d8,fil,fil,none,none,continuer,backchannel,"Sige, sige, sige.",sige sige sige
+01a1e033-dc58-755a-94c6-f42c5314181c,05605ea6-f8e1-5214-8253-dfb5ffdcfbe5,fil,fil,none,none,agreement_token,backchannel,"Tama, tama, tama.",tama tama tama
+01a1e033-e0e0-7647-89fc-3dd1c247b9a5,33e896d9-4086-5fcb-b5ec-9eff63a28d4b,fil,fil,none,none,go_ahead,backchannel,"Sige, sige.",sige sige
+01a1e033-e184-7145-8659-533004ea11c7,78f1af3f-7a21-5e82-a198-49bb6435c3f0,fil,fil,none,none,reaction_token,backchannel,Hala hala hala.,hala hala hala
+01a1e033-e2ac-732a-b4cd-fe076e62722c,db290f5d-7580-533a-ad87-edd4e6ee1a1a,fr,fr-FR,none,none,acknowledgment,backchannel,"D'accord, d'accord, d'accord.",daccord daccord daccord
+01a1e033-e4eb-71bc-baf1-0e7015dcc35f,bea2052b-d379-5c24-a448-247176d2423e,fil,fil,none,none,gratitude_token,backchannel,"Salamat, salamat.",salamat salamat
+01a1e033-e524-7048-911c-d05b03bc3e09,cb73e324-7635-57a5-8970-05bc1a7f7260,fr,fr-FR,none,none,reaction_token,backchannel,"Oh la la, oh la la !",oh la la oh la la
+01a1e033-eb90-715b-9cc9-317c3abadcbc,4f70fafc-b3e0-57d4-aa98-76e946bfe468,fr,fr-FR,none,none,go_ahead,backchannel,"Continuez, continuez.",continuez continuez
+01a1e033-f1ec-7216-8ee6-448f91420eb7,8544e1e9-0a90-5655-a287-357b086646de,de,de-DE,none,none,gratitude_token,backchannel,"Danke, danke, danke.",danke danke danke
+01a1e033-f815-75a2-b763-7dddcf491882,be829a57-26d1-5e4f-83ac-e908ab84b623,es,es-ES,none,none,agreement_token,backchannel,"Claro, claro.",claro claro
+01a1e033-faed-7302-a75f-fd31be894bf6,d257674c-a80d-57c0-94ec-04556b1f49fa,es,es-ES,none,none,reaction_token,backchannel,"Ay, ay, ay.",ay ay ay
+01a1e033-fb52-7704-b741-6bb6c6991f61,0e5a011f-5bbc-536b-a06c-820674a30450,es,es-MX,none,none,acknowledgment,backchannel,"Ya veo, ya veo, ya veo.",ya veo ya veo ya veo
+01a1e034-04b2-70b7-8854-adca48a9f336,94973ef8-6d59-57a1-a57a-b22cbf4e1a98,es,es-MX,none,none,reaction_token,backchannel,"¡Órale, órale!",órale órale
+01a1e034-071d-773f-bb73-60a7c7e5b308,fba19735-3b3a-54e2-91fd-2ae30bc11a03,it,it,none,none,agreement_token,backchannel,"Certo, certo, certo.",certo certo certo
+01a1e034-07aa-77f8-a077-6f86d780421b,73ff1e85-06c0-5345-b1c0-79994b146f3c,it,it,none,none,reaction_token,backchannel,Ah ah ah!,ah ah ah
+01a1e034-117d-734a-bb8d-a25cf7c07ba9,ef00ebd1-1fb6-5bdf-9a50-65e24161577f,en,en-US,none,none,reaction_token,backchannel,"Haha, that's hilarious, go ahead.",haha thats hilarious go ahead
+01a1e034-1228-70c8-81bf-a5d4aab98a55,ba50dc3f-f22a-5292-801d-69637a189724,en,en-US,none,none,gratitude_token,backchannel,"Thank you, I'm listening.",thank you im listening
+01a1e034-1425-7761-a018-4a5e0ba61a89,4ed0d22d-ffda-5197-94f2-b00170229353,en,en-US,none,none,agreement_token,backchannel,"Right, totally agree.",right totally agree
+01a1e034-16d9-7659-8085-f3d3a276134c,09209bbd-5a0e-57d9-b5b8-43f2509ef389,en,en-IN,none,none,continuer,backchannel,"Yes, I am listening.",yes i am listening
+01a1e034-1cdc-7402-b7fc-80df0f0082e9,79234488-32f1-5045-80dd-82c4982a5d8b,en,en-IN,none,none,go_ahead,backchannel,"Go ahead, please continue.",go ahead please continue
+01a1e034-1d20-7091-b136-1ae1d0bb06b2,e6edd107-9c71-5fd2-90f8-9bf2706ae6ca,en,en-IN,none,none,agreement_token,backchannel,"Yes, right, please carry on.",yes right please carry on
+01a1e034-1ed1-741b-a0a4-ab027ce41570,d9b260c9-1ee1-5fe4-a049-fffec9dbb7d8,en,en-IN,mixed,hi,continuer,backchannel,"हाँ, go on please.",हाँ go on please
+01a1e034-2061-71ca-ac10-b92fbda5e43e,3cc22ee4-9112-5042-b9fd-61ceeeea8f1b,en,en-IN,none,none,reaction_token,backchannel,"Oh goodness, that is wonderful.",oh goodness that is wonderful
+01a1e034-2339-735f-933e-adef325dfdb9,bc681945-3769-5b5e-91f9-958f2491c1ba,en,en-IN,mixed,hi,agreement_token,backchannel,"Right, बिल्कुल, please continue.",right बिल्कुल please continue
+01a1e034-27db-71f7-988b-19aa60f5098e,0efb1834-e402-5cfd-a026-eeb4e8d22a05,en,en-IN,mixed,hi,gratitude_token,backchannel,"Thank you, शुक्रिया, go ahead.",thank you शुक्रिया go ahead
+01a1e034-280c-7497-b5fc-8411b9488bbc,a6c8d062-d24a-52fb-ac2d-0af060b52a6e,en,en-IN,mixed,kn,continuer,backchannel,"Yes, ಹೇಳಿ.",yes ಹೇಳಿ
+01a1e034-2928-728c-8c51-c73e0bb6be22,074421fa-5cc5-530a-8ae3-d88028abff7b,en,en-IN,mixed,hi,go_ahead,backchannel,"Please go on, बताइए I am with you.",please go on बताइए i am with you
+01a1e034-2d40-7263-a3e8-fa86f429c5b8,036ae7d5-3cfb-556c-88b8-875806605944,en,en-IN,mixed,kn,gratitude_token,backchannel,"Thank you, ಸರಿ ಸರಿ.",thank you ಸರಿ ಸರಿ
+01a1e034-2e95-751f-8783-d48578036f56,d572b219-033b-5f92-9b19-f508d5544d06,en,en-IN,mixed,kn,reaction_token,backchannel,"ಅಯ್ಯೋ, that is really very sad.",ಅಯ್ಯೋ that is really very sad
+01a1e034-32db-7763-b8e8-119cdf9442f7,51ef50f8-de76-5bc7-a8e6-36b711ac83ed,en,en-IN,mixed,kn,go_ahead,backchannel,"ಹೇಳಿ, please go ahead.",ಹೇಳಿ please go ahead
+01a1e034-336b-7068-afe1-ed3b27f1f1a9,620ed5f9-3162-5303-9bc3-d762b9789c13,en,en-IN,mixed,ta,continuer,backchannel,"Yeah, சொல்லுங்க.",yeah சொல்லுங்க
+01a1e034-36bc-7379-a3cb-32a25e746e70,9a3162f5-00b0-507b-aab6-d1b6eb517d37,en,en-IN,mixed,ta,gratitude_token,backchannel,"Thank you, புரியுது go ahead.",thank you புரியுது go ahead
+01a1e034-3df8-72cb-9fcc-8d61d8e29739,0628c515-6a0e-5173-9a38-d759a4401b35,en,en-IN,mixed,te,reaction_token,backchannel,"అయ్యో, that is really sad ya.",అయ్యో that is really sad ya
+01a1e034-4087-747b-91bc-4f8ac49e85ba,f819a454-7cf9-5173-a263-a6c5b235a8b2,en,en-IN,mixed,te,go_ahead,backchannel,"చెప్పండి, please continue.",చెప్పండి please continue
+01a1e034-40f1-71c5-b923-6c12b1e29d06,80710caa-8ba6-50e8-b7ca-bbc675f51b71,en,en-IN,mixed,te,agreement_token,backchannel,"Yes, నిజమే అది.",yes నిజమే అది
+01a1e034-4214-7087-9cd9-bb8ef01c02e0,15fb836e-0ad8-589d-8697-6e862ad2edab,en,en-IN,mixed,te,gratitude_token,backchannel,"చాలా thanks, please continue చెప్పండి.",చాలా thanks please continue చెప్పండి
+01a1e034-47e5-74be-ad27-da520ce49ae6,e9022718-7197-52d8-84a0-5333daac32af,en,en-IN,mixed,ml,gratitude_token,backchannel,"Thanks, മനസ്സിലായി, please continue.",thanks മനസ്സിലായി please continue
+01a1e034-4985-7306-a1ff-e4ad227443c4,58350f2d-5f86-5082-9ff2-0b54941c3d27,en,en-IN,mixed,ml,reaction_token,backchannel,"Wow കൊള്ളാമല്ലോ, that sounds really amazing.",wow കൊള്ളാമല്ലോ that sounds really amazing
+01a1e034-53ad-743b-a2d6-c831bcd5b9bd,63aafb6f-8849-5347-bf4c-20f1ba88a386,en,en-SG,none,none,go_ahead,backchannel,"Go ahead, please carry on.",go ahead please carry on
+01a1e034-5778-766e-be3e-4763ee296a9d,9313cd85-32b1-5e8c-b893-2ac34dbc3c7c,en,en-SG,mixed,zh,acknowledgment,backchannel,"明白, I see already.",明白 i see already
+01a1e034-5c7b-708e-8059-92e65060250e,1c8f8ff0-7194-5d6d-a442-c1e7598c9dfc,en,en-SG,mixed,zh,agreement_token,backchannel,"对, totally agree with you.",对 totally agree with you
+01a1e034-5f48-7536-af1c-fdabb54576c5,8be0c061-2d16-54a8-9045-f4f25c7b6fcc,hi,hi,none,none,continuer,backchannel,"जी, मैं सुन रहा हूँ।",जी मैं सुन रहा हूँ
+01a1e034-601c-7072-95db-85976e8bfdbc,0426d089-1400-5793-b5a8-4917631fd396,hi,hi,none,none,acknowledgment,backchannel,"हाँ, बिल्कुल सही।",हाँ बिल्कुल सही
+01a1e034-62e6-758c-8fce-db97d68293bc,37508a4e-efa8-51bf-ae7a-59bbc2d246d5,hi,hi,none,none,reaction_token,backchannel,"अरे बाप रे, यह तो सच में कमाल है।",अरे बाप रे यह तो सच में कमाल है
+01a1e034-6640-75b8-b046-0b7ee8f845b7,5810ac9f-375d-5fb5-bdd3-1ea1799b9a04,hi,hi,none,none,go_ahead,backchannel,"आगे बताइए, बिल्कुल ठीक है।",आगे बताइए बिल्कुल ठीक है
+01a1e034-666e-736b-9474-b0eda7fbc036,b576802c-9464-580c-ab45-6a2a19596a3a,hi,hi,mixed,en,continuer,backchannel,"Yes, बोलिए.",yes बोलिए
+01a1e034-68d0-73b6-aa0d-1772883d6aea,ddf79d0b-8307-5f08-8248-213ebdef576a,hi,hi,mixed,en,acknowledgment,backchannel,"अच्छा, I understand.",अच्छा i understand
+01a1e034-6e5f-754c-96b8-7eef5ee7bb32,b29ffe51-728e-5e8b-89b3-9737c7581b68,hi,hi,mixed,en,gratitude_token,backchannel,"Thank you, बहुत शुक्रिया जी।",thank you बहुत शुक्रिया जी
+01a1e034-7112-73fc-9154-b6e951c58b12,d6f6726c-4394-5300-8dbd-c50ca133bdf8,kn,kn,none,none,agreement_token,backchannel,"ಹೌದು, ಸರಿ ಮುಂದುವರಿಸಿ.",ಹೌದು ಸರಿ ಮುಂದುವರಿಸಿ
+01a1e034-74ad-73d6-9b79-8810cbb1396f,ee56d2c3-0c83-5642-ac94-c837facff338,kn,kn,none,none,gratitude_token,backchannel,"ಥ್ಯಾಂಕ್ಸ್, ಸರಿ ಹೇಳಿ.",ಥ್ಯಾಂಕ್ಸ್ ಸರಿ ಹೇಳಿ
+01a1e034-7bb0-7013-8cac-e0c42011b111,2b7dbe30-6b05-54c7-867c-d494ce2b9ab1,kn,kn,mixed,en,agreement_token,backchannel,"ಹೌದು ಹೌದು, totally agree with you.",ಹೌದು ಹೌದು totally agree with you
+01a1e034-7e11-7743-9f80-24891d33725d,f8127012-1abe-5d9d-920a-b4cae3be10bd,kn,kn,mixed,en,gratitude_token,backchannel,"Thanks, ಮುಂದುವರಿಸಿ.",thanks ಮುಂದುವರಿಸಿ
+01a1e034-7f92-72f2-824a-9efe5ed46393,b14e6ac6-65a7-5b18-b0b1-9ce4b1953f55,kn,kn,mixed,en,go_ahead,backchannel,"ಹೇಳಿ, please continue.",ಹೇಳಿ please continue
+01a1e034-8630-7539-9a86-18c6cf27b20a,95c09d6e-c9f1-580c-976b-383bccbe382b,ta,ta-IN,none,none,agreement_token,backchannel,"சரிங்க, நீங்க சொல்றது சரிதான்.",சரிங்க நீங்க சொல்றது சரிதான்
+01a1e034-8720-73b8-a847-2d94676642fd,2d590384-3951-5aa0-8766-c768d535f992,ta,ta-IN,none,none,gratitude_token,backchannel,"நன்றிங்க, புரியுது தொடருங்க.",நன்றிங்க புரியுது தொடருங்க
+01a1e034-88e5-7592-ac93-d0a7b1629d1b,53e896be-dcd9-5b25-9a0b-97f56377288b,ta,ta-IN,mixed,en,continuer,backchannel,"சரி, carry on.",சரி carry on
+01a1e034-8a9d-76df-8736-66cb234de4c9,7ab4cca8-51fc-5cd5-9270-1909df82f23e,ta,ta-IN,mixed,en,acknowledgment,backchannel,"சரி, I see.",சரி i see
+01a1e034-8f5a-72d5-8ce2-bfef5f6d2e1c,9b5a3a50-373d-507a-b4ed-487086569d85,ta,ta-IN,mixed,en,reaction_token,backchannel,"அச்சச்சோ, that is so sad really.",அச்சச்சோ that is so sad really
+01a1e034-92a1-744f-bd9e-3a02c96c5a12,cd7a0a40-6fdb-5ef0-b7f2-452303f3bc09,te,te,none,none,acknowledgment,backchannel,"సరేనండి, అలాగే చెప్పండి.",సరేనండి అలాగే చెప్పండి
+01a1e034-9723-7433-9684-2733c2182fea,5deadd25-c8cb-5375-b284-bb2e61ac8df9,te,te,none,none,gratitude_token,backchannel,"థాంక్స్ అండి, సరే చెప్పండి.",థాంక్స్ అండి సరే చెప్పండి
+01a1e034-9766-73dd-84c3-6115dfdd5203,03f9535d-88ce-5cad-8f39-de90ae459d66,te,te,none,none,agreement_token,backchannel,"అవును, నిజమే కదా.",అవును నిజమే కదా
+01a1e034-9794-71e1-bb38-9cb93ed52c69,2afaf2e1-8bf1-559a-bc45-338b3f890ad5,te,te,none,none,reaction_token,backchannel,"అయ్యో అవునా, వింటున్నాను చెప్పండి.",అయ్యో అవునా వింటున్నాను చెప్పండి
+01a1e034-9c3f-76e9-8a4d-de677791e456,3fccbbdd-249e-5b89-8a14-a6f2e0c5f860,te,te,none,none,continuer,backchannel,"ఊఁ, వింటున్నాను చెప్పండి.",ఊఁ వింటున్నాను చెప్పండి
+01a1e034-a058-7207-a92b-e39e805d5b98,d7a07e89-5db0-5195-9141-52dff10a4871,te,te,mixed,en,agreement_token,backchannel,"సరే, exactly right.",సరే exactly right
+01a1e034-a3e9-7473-82d0-116251c6fdd8,ab26993b-3cd6-5af8-974a-c92f7c7c6846,ml,ml,none,none,continuer,backchannel,"ശരി, പറയൂ കേൾക്കുന്നുണ്ട്.",ശരി പറയൂ കേൾക്കുന്നുണ്ട്
+01a1e034-ab3b-7515-949e-0fbc088a3607,d9f49028-daf4-59cc-a3a8-88fa8e1228da,ml,ml,none,none,gratitude_token,backchannel,"നന്ദി, ശരി കേൾക്കുന്നുണ്ട്.",നന്ദി ശരി കേൾക്കുന്നുണ്ട്
+01a1e034-acb9-7074-a427-a73ab7a9272e,9645decb-9e77-5843-8895-b55cb8f7c1d5,ml,ml,none,none,go_ahead,backchannel,"പറയൂ, ഞാൻ കേൾക്കുന്നുണ്ട്.",പറയൂ ഞാൻ കേൾക്കുന്നുണ്ട്
+01a1e034-ad6f-728b-af5e-5c55fb213955,b646c50c-2145-519b-b321-cb899a23348d,ml,ml,mixed,en,continuer,backchannel,"Mm, continue ചെയ്യൂ.",mm continue ചെയ്യൂ
+01a1e034-af65-76ef-93b6-3ce4dfc8a5cc,e9716729-d7ba-5659-8b63-ccf537789616,ml,ml,none,none,acknowledgment,backchannel,"അതെ, കാര്യം മനസ്സിലായി.",അതെ കാര്യം മനസ്സിലായി
+01a1e034-afb0-7179-9c70-b367563a62e0,907a2084-76e7-553b-8a32-197b797f4b70,ml,ml,mixed,en,agreement_token,backchannel,"അതെ exactly, I agree.",അതെ exactly i agree
+01a1e034-b261-701d-9113-56bdfe6204c3,e76eed93-02e1-5f4d-a669-2b841d190b44,ml,ml,mixed,en,gratitude_token,backchannel,"Thank you, മനസ്സിലാവുന്നുണ്ട്.",thank you മനസ്സിലാവുന്നുണ്ട്
+01a1e034-b2a3-7177-afb1-1422ac68164c,40b77163-dee6-5ffd-b523-c9af937746a3,ml,ml,mixed,en,reaction_token,backchannel,ഓഹോ that is great news.,ഓഹോ that is great news
+01a1e034-b635-7295-a02f-e40c41542423,3347e57d-e466-5536-9c1b-c69c70a25bba,ml,ml,mixed,en,go_ahead,backchannel,"പറഞ്ഞോളൂ, continue please.",പറഞ്ഞോളൂ continue please
+01a1e034-beaa-75b6-af58-6a571960fd9b,4bef7d43-ee63-598b-8d8f-93bdb33ad4ce,zh,zh-CN,mixed,en,continuer,backchannel,"Yeah, 您接着说。",yeah 您接着说
+01a1e034-c236-73a5-a2e3-64a565344b8d,9eb79562-4880-5617-bace-a0650e467cce,zh,zh-CN,mixed,en,agreement_token,backchannel,Right，确实是这样。,right 确实是这样
+01a1e034-c434-773a-b824-f2e943468c02,69cd1935-794a-5ecb-ba56-a570fcb5afd0,zh,zh-CN,mixed,en,reaction_token,backchannel,"Oh no, 太遗憾了吧。",oh no 太遗憾了吧
+01a1e034-c758-76cd-8ee9-a7b8ad3d0978,45b695f2-4164-5bb4-ab5c-a45f23196142,ja,ja,none,none,agreement_token,backchannel,そうですね、確かにその通りです。,そうですね 確かにその通りです
+01a1e034-c97a-72d5-a8fd-0d165305c65e,efebbbd5-b7d7-5467-b994-4061f1a4049f,ja,ja,none,none,continuer,backchannel,ええ、どうぞ続けてください。,ええ どうぞ続けてください
+01a1e034-d0d3-75d2-ac3c-4e1a869d4106,cf5fccfb-8cc2-56f1-b7b6-1bbea17e636b,ja,ja,mixed,en,agreement_token,backchannel,"そうですね, yeah absolutely.",そうですね yeah absolutely
+01a1e034-d227-70fb-9c07-b6e7cb130513,91253009-7a72-5251-98b3-5f8c2ce156b0,ja,ja,none,none,go_ahead,backchannel,ええ、続けてどうぞ。,ええ 続けてどうぞ
+01a1e034-d48c-741f-8036-ad85805f4f81,b71828c6-86ed-5d49-b7e1-8f47a1e220aa,ja,ja,mixed,en,gratitude_token,backchannel,"Thanks, ありがとうございます、はい。",thanks ありがとうございます はい
+01a1e034-dad3-74a9-b522-38abafc0c88c,f291fd70-3736-5aaf-989c-8c0703d56bb4,id,id,none,none,continuer,backchannel,"Iya, terus?",iya terus
+01a1e034-dcc2-7298-a152-7fc35bfee8d8,a760d141-b9a5-5a97-bef7-b6490de07db6,id,id,none,none,agreement_token,backchannel,"Benar sekali, saya mengerti.",benar sekali saya mengerti
+01a1e034-dd9a-72cd-9d9c-f5aef1c5a48c,03a5bc3b-9e45-5c06-bc99-19f5180eeeb2,id,id,none,none,gratitude_token,backchannel,"Makasih, oke baik.",makasih oke baik
+01a1e034-e2e9-76c4-8f67-3e6c3b933980,f960b1fe-9fef-575d-979b-184014b92e00,id,id,mixed,en,continuer,backchannel,"Okay, terus terus.",okay terus terus
+01a1e034-e691-76b6-a922-9056418e3eae,d476fc96-2ace-5afa-9bbd-1f3f5c9bb508,id,id,mixed,en,agreement_token,backchannel,"Right, setuju banget sama itu.",right setuju banget sama itu
+01a1e034-e70b-77a7-9664-32b1bf58ef81,741f1ed7-836f-5dc8-aac2-c2cdcd1228da,id,id,mixed,en,acknowledgment,backchannel,"I understand, mengerti.",i understand mengerti
+01a1e034-ed73-74bc-bb0f-e2d8025ec8a4,c629f120-d527-580c-9f44-d0ec86de7508,fil,fil,none,none,acknowledgment,backchannel,"Opo, naintindihan ko po.",opo naintindihan ko po
+01a1e034-ee81-7781-a8ac-d6f32dcc80b7,35463eea-3818-5890-9e91-520b707b1652,fil,fil,none,none,agreement_token,backchannel,"Oo nga, totoo iyan.",oo nga totoo iyan
+01a1e034-ef43-734c-9a8c-7dace9de9f4d,3c0197ce-ae1f-52bd-a9e6-470719076787,id,id,mixed,en,go_ahead,backchannel,"Terus, keep going.",terus keep going
+01a1e034-f1d0-73f6-82f8-12903809bb93,53f5ab1e-7b70-5d9a-b130-78b5cfa776d7,fil,fil,none,none,reaction_token,backchannel,"Hala, nakakalungkot naman sige po.",hala nakakalungkot naman sige po
+01a1e034-f497-7297-9d5b-d7ed25a3cbef,0ee96132-dbfb-5a22-9fec-9c387d2e005c,fil,fil,mixed,en,continuer,backchannel,"Opo, go ahead.",opo go ahead
+01a1e034-f602-7040-b65d-20034dcb1412,f5c38339-eef5-5adc-bbe2-0a93e7afde70,fil,fil,none,none,gratitude_token,backchannel,"Salamat po, sige po.",salamat po sige po
+01a1e034-fb5d-7756-b796-ddc448973f69,57e36e4f-96d6-5ba3-8d20-90b98820c7a5,fr,fr-FR,none,none,continuer,backchannel,"D'accord, continuez.",daccord continuez
+01a1e035-005b-7536-8447-feca3f871f19,4b69bc25-a87b-5175-9372-0a65c29bb4c9,fr,fr-FR,none,none,reaction_token,backchannel,"Oh mince, je comprends.",oh mince je comprends
+01a1e035-06df-708b-ae3f-d2fa365896eb,ef307973-9245-5094-bd54-70fdc9a17f6c,fr,fr-FR,none,none,gratitude_token,backchannel,"Merci, je vous écoute.",merci je vous écoute
+01a1e035-09c3-70f5-b7f0-cfbc8c53feee,b5cd77f0-ec1b-515d-a935-2aeea388489b,fr,fr-FR,mixed,en,agreement_token,backchannel,"Exactement, that makes sense.",exactement that makes sense
+01a1e035-0ade-74f4-a350-ff65d6599498,842364c5-fbfe-52a9-8441-fc6d937bcfe5,fr,fr-FR,mixed,en,continuer,backchannel,"Oui, I'm listening.",oui im listening
+01a1e035-1429-7724-8924-2409d0520209,963f1782-d847-555d-b5eb-1169ae99103a,de,de-DE,none,none,gratitude_token,backchannel,"Danke schön, genau.",danke schön genau
+01a1e035-18e5-70e8-b152-f53ef1765d3a,72510700-3a7c-53b8-ae4c-c06f173cb23d,de,de-DE,none,none,continuer,backchannel,"Ja, ich höre zu.",ja ich höre zu
+01a1e035-1a9a-75de-a721-cfe2ef638104,67810171-0ea0-5b9c-8590-2f1c9e5c5456,de,de-DE,mixed,en,acknowledgment,backchannel,"Ach so, got it.",ach so got it
+01a1e035-1be6-73d9-b2a1-b3edf42c73fc,0fe1ed61-82b4-5c2a-a3a5-a651b2a6ae97,de,de-DE,mixed,en,reaction_token,backchannel,"Echt, wow.",echt wow
+01a1e035-1d4c-7187-bb97-20b4edb320db,f71413c8-eb6f-50e0-b08d-057c220a566c,de,de-DE,mixed,en,gratitude_token,backchannel,"Vielen Dank, I see.",vielen dank i see
+01a1e035-1e32-779d-84ff-c780c9b5e57e,b8854c1a-4ef1-580f-abce-8e38479c01b1,de,de-DE,mixed,en,agreement_token,backchannel,"Yes, stimmt genau.",yes stimmt genau
+01a1e035-21b4-775e-bea2-f5490c4e8156,4c0fb262-58b0-5a02-9a48-520c40d7de44,es,es-ES,none,none,acknowledgment,backchannel,"Entiendo, te sigo.",entiendo te sigo
+01a1e035-21f1-7469-936a-c4368de10558,9f04c4bc-df06-5b0f-8c35-6173dbcc7a0d,es,es-ES,none,none,agreement_token,backchannel,"Sí, claro, totalmente de acuerdo.",sí claro totalmente de acuerdo
+01a1e035-25b5-7516-a243-1434155db962,f7d9de06-a3c8-5648-bdc9-2455b8cc7b29,es,es-ES,none,none,go_ahead,backchannel,"Cuéntame, continúa.",cuéntame continúa
+01a1e035-2873-7351-bef0-0250201fc6d2,909b07f6-3a6b-5350-88c2-380c1fec48ac,es,es-ES,none,none,reaction_token,backchannel,"Madre mía, qué bien, sigue.",madre mía qué bien sigue
+01a1e035-2c37-7428-a50d-5dd22239d1cb,52da8f1c-6d14-549b-99ea-03412943d058,es,es-ES,mixed,en,acknowledgment,backchannel,"Entendido, got it.",entendido got it
+01a1e035-2eac-758d-9b55-d900a18407d9,b8922cb8-656b-57fa-a4c1-cf7374ec0eb4,es,es-ES,mixed,en,gratitude_token,backchannel,"Gracias, thank you, vale.",gracias thank you vale
+01a1e035-2fbe-73e6-9569-53e1bbbcff11,190d836a-bed4-5416-a618-17b75863bde3,es,es-ES,mixed,en,reaction_token,backchannel,"¡Hala, that is amazing!",hala that is amazing
+01a1e035-32a0-715b-a1c5-f8e8e8b02e3a,734e1e39-1c51-5429-b2d5-c94011d94907,es,es-MX,none,none,acknowledgment,backchannel,"Ah ok, comprendo.",ah ok comprendo
+01a1e035-3995-75e1-9a52-c04ad35f9c7a,e44c65d8-0e3f-5b30-a0f7-bfeec232f984,es,es-MX,mixed,en,acknowledgment,backchannel,"Ya veo, got it.",ya veo got it
+01a1e035-3df8-7542-96da-64294683886e,adf0db4d-2f4c-5216-af1d-d88e159951fb,es,es-MX,mixed,en,agreement_token,backchannel,"Yeah, claro que sí.",yeah claro que sí
+01a1e035-3f80-72ca-a182-6bd881578026,93100a5b-c58c-53dc-a0ef-0a0dd6e26d22,es,es-MX,mixed,en,reaction_token,backchannel,"¡Órale, that's awesome!",órale thats awesome
+01a1e035-41b5-7559-9f73-796477731bf3,ac5c733b-2090-570f-a7e8-cc04cb6eeadb,it,it,none,none,continuer,backchannel,"Sì, dimmi pure.",sì dimmi pure
+01a1e035-4256-73ad-8cb1-5a74520a5654,9c595a6f-f7c9-59b9-bcc4-70edfcfa16fe,it,it,none,none,agreement_token,backchannel,"D'accordo, ti seguo.",daccordo ti seguo
+01a1e035-4867-7318-85b7-abec2395b225,bc358b46-b99b-5a21-8e8c-953d27e858fc,it,it,none,none,gratitude_token,backchannel,"Grazie, ho capito benissimo.",grazie ho capito benissimo
+01a1e035-4a50-73f6-bad9-c3c0d266799d,cf53f0e2-5f79-5d73-a388-be88f4e3886d,it,it,mixed,en,continuer,backchannel,"Sì, keep going.",sì keep going
+01a1e035-4aee-7675-b489-9b562a25ddfc,00576c65-438c-5a7f-ae97-989beb9e9a8c,it,it,none,none,go_ahead,backchannel,"Prosegui, ti sto seguendo.",prosegui ti sto seguendo
+01a1e035-4d14-75fd-a9f8-5ffb22797c39,7babfe8a-b9bc-5ba2-b4d5-f4bedcf42f8c,it,it,mixed,en,agreement_token,backchannel,"Esatto, that makes total sense.",esatto that makes total sense
+01a1e035-4db4-74e2-811f-39745850a264,53bfc425-4f54-51b7-ad1d-c426133bbb14,it,it,mixed,en,gratitude_token,backchannel,"Grazie, thanks, go on.",grazie thanks go on
+01a1e035-4ee3-7392-8543-a8a04ab9eba9,d1c2a1ce-f831-51b6-bdfa-39756825956e,it,it,mixed,en,acknowledgment,backchannel,"Capito, makes sense.",capito makes sense
+01a1e035-5b4a-764b-b4c9-0242a3fa977d,cf40923c-f08e-53c6-ae47-c3aeea97dc26,en,en-IN,none,none,continuer,backchannel,"Mm-hmm, please go ahead, I am right here.",mm hmm please go ahead i am right here
+01a1e035-5e69-7555-ae47-68d363597569,8bd62e19-0bb5-561d-82c5-ef9db1c3949e,en,en-IN,none,none,acknowledgment,backchannel,"I see, yes, that makes total sense.",i see yes that makes total sense
+01a1e035-64ce-7172-b0c3-b96d78a86735,30329509-35a3-5941-a86b-4b42c09ad826,en,en-IN,mixed,hi,agreement_token,backchannel,"Right, बिल्कुल सही बात है आपकी.",right बिल्कुल सही बात है आपकी
+01a1e035-6788-75aa-9254-358e82a5b1c4,e0353355-42e4-52c7-9f92-5297b7ce4da6,en,en-IN,mixed,hi,acknowledgment,backchannel,"हाँ, I understand completely what you mean.",हाँ i understand completely what you mean
+01a1e035-6a0b-74f7-9935-ade243bc2507,4705c4b1-c0e0-5f7b-8cd2-e92cbbf115fc,en,en-IN,mixed,hi,reaction_token,backchannel,"अरे वाह, that is really such wonderful news to hear.",अरे वाह that is really such wonderful news to hear
+01a1e035-6f30-74db-a6b1-6e792febccc5,6affaa60-d3a2-5c1d-91ff-0ec90221db15,en,en-IN,mixed,hi,gratitude_token,backchannel,"Thank you, बहुत-बहुत शुक्रिया for explaining this properly.",thank you बहुत बहुत शुक्रिया for explaining this properly
+01a1e035-7003-7149-b0b6-a6ef07484782,540d0fab-032d-50bf-a002-87ff02a45320,en,en-IN,mixed,kn,agreement_token,backchannel,"ಖಂಡಿತ, I completely agree with your explanation.",ಖಂಡಿತ i completely agree with your explanation
+01a1e035-70c7-721d-ad4a-e4158f68f967,a1580be2-f11d-5a4b-9fa2-72b5e35ac0d5,en,en-IN,mixed,kn,continuer,backchannel,"Yes, ಹೇಳಿ I am listening.",yes ಹೇಳಿ i am listening
+01a1e035-7911-75ed-b0fb-1536801827d1,53b14fd5-27ed-5e3f-b926-c3c3d71d63f3,en,en-IN,mixed,ta,continuer,backchannel,"Mm-hmm, சொல்லுங்க, I am following you.",mm hmm சொல்லுங்க i am following you
+01a1e035-7ac3-720d-ae6f-bb0d46142003,6f6c09fc-309a-5b9c-aa37-afce69de4668,en,en-IN,mixed,ta,acknowledgment,backchannel,"ஆமா, got it, clearly understood.",ஆமா got it clearly understood
+01a1e035-7eb3-7344-913b-39b93aedab76,b4764f4f-1be2-5d9f-aa4b-b5994a5d523d,en,en-IN,mixed,ta,go_ahead,backchannel,"Yes, continue பண்ணுங்க, I am following you.",yes continue பண்ணுங்க i am following you
+01a1e035-81a2-70f5-91ae-adfb32abbc41,e5492331-f4e8-5326-96a3-bd9e35d62c89,en,en-IN,mixed,te,acknowledgment,backchannel,"సరే, I understood what you explained.",సరే i understood what you explained
+01a1e035-81ea-7211-92c6-587c7a047253,bda93b5d-3d91-504f-ab36-2fe581959a6b,en,en-IN,mixed,te,continuer,backchannel,"హ్మ్, please continue I am listening to you.",హ్మ్ please continue i am listening to you
+01a1e035-8475-750a-ac59-a9ecc751312c,a2635ef9-c945-5ee4-b547-fb6a9e3ff568,en,en-IN,mixed,te,agreement_token,backchannel,"సరే, that makes complete sense.",సరే that makes complete sense
+01a1e035-8b3a-7378-8db5-2d3e20198d66,94ee06e0-7c71-525f-8b35-e9ad7226db6d,en,en-IN,mixed,ml,continuer,backchannel,"Mm, പറയൂ I am following.",mm പറയൂ i am following
+01a1e035-8b70-73b7-a581-07a4fab444af,d71efebc-df67-5a07-825a-97b834177f11,en,en-IN,mixed,ml,acknowledgment,backchannel,"ശരി, I completely understand the steps you explained.",ശരി i completely understand the steps you explained
+01a1e035-8ecd-73e8-8280-1217a8417e6c,c9114ad9-4206-5242-8ccb-8d50ba29eb64,en,en-IN,mixed,ml,gratitude_token,backchannel,"നന്ദി, that is very helpful to know while you explain.",നന്ദി that is very helpful to know while you explain
+01a1e035-8f10-7048-b176-9e8b2575300b,acf18879-145a-5d63-9f30-c3281dcd6b42,en,en-IN,mixed,ml,reaction_token,backchannel,"ആഹാ, that is actually amazing news.",ആഹാ that is actually amazing news
+01a1e035-8fd6-71a0-97b8-9e4e8ad5f4b2,f22f5a8c-00a1-5150-9bff-62c7d3a0960e,en,en-IN,mixed,ml,go_ahead,backchannel,"പറയൂ, I am listening to what you say.",പറയൂ i am listening to what you say
+01a1e035-98ec-71a2-bdc9-2ff7b01ef6fb,f587cb01-977f-5498-b174-b374a8d3dec7,en,en-SG,none,none,agreement_token,backchannel,"Yeah, that makes a lot of sense lah.",yeah that makes a lot of sense lah
+01a1e035-9c04-75cb-a574-06e4a0773c4c,276e39a5-5308-57e3-8dfb-52ec565769d5,en,en-SG,mixed,zh,continuer,backchannel,"Mm-hmm, 请继续讲, I'm listening.",mm hmm 请继续讲 im listening
+01a1e035-a1bb-7450-a096-de1c8dcedc79,2c11478e-fa5f-5b6c-a8b2-25fd930f4612,en,en-SG,mixed,zh,go_ahead,backchannel,"继续, please go on, I'm following you.",继续 please go on im following you
+01a1e035-a203-7776-924a-14daf6a30b2e,29053e1d-c511-546d-8cd9-4b815a6ca581,en,en-SG,mixed,zh,gratitude_token,backchannel,"Thanks ah, 真的帮了大忙, appreciate it so much.",thanks ah 真的帮了大忙 appreciate it so much
+01a1e035-a27c-74fe-95cd-ec15df085e2c,e2604638-21c0-527c-a724-dc58b9a23b1a,en,en-SG,mixed,zh,reaction_token,backchannel,"Aiyo, 真的是很不方便, must be so troublesome for you all.",aiyo 真的是很不方便 must be so troublesome for you all
+01a1e035-a615-73d9-8570-4d963d7f3da0,79d10f09-7a0e-5ea1-8890-b72f52a920be,hi,hi,none,none,continuer,backchannel,"हूँ, आगे कहिए मैं सुन ही रहा हूँ।",हूँ आगे कहिए मैं सुन ही रहा हूँ
+01a1e035-a64d-7006-b26a-434f97fba318,c6a7b1c7-2e0b-5a3f-8d95-517038101c56,hi,hi,none,none,acknowledgment,backchannel,"हाँ, मैं यह प्रक्रिया अच्छी तरह समझ रहा हूँ।",हाँ मैं यह प्रक्रिया अच्छी तरह समझ रहा हूँ
+01a1e035-a67c-7583-b745-8f07dadeafd9,87338d95-2e77-5907-bd99-aea6e0ba3eff,hi,hi,none,none,agreement_token,backchannel,"हाँ, आप बिल्कुल सही कह रहे हैं।",हाँ आप बिल्कुल सही कह रहे हैं
+01a1e035-aa76-715b-b5ae-73b8887caa4c,a07c7ef4-1a25-500b-8f0e-b5f994e47e7d,hi,hi,none,none,gratitude_token,backchannel,"धन्यवाद, मैं आपकी सारी बातें ध्यान से सुन रहा हूँ।",धन्यवाद मैं आपकी सारी बातें ध्यान से सुन रहा हूँ
+01a1e035-aa9e-711a-90dd-dcbc4d49806f,13bd8428-6d7f-53b8-9c8a-aa360cb3aedb,hi,hi,none,none,reaction_token,backchannel,"अरे वाह, यह जानकर बहुत अच्छा लगा।",अरे वाह यह जानकर बहुत अच्छा लगा
+01a1e035-abcf-75d9-85d4-ab6674823c0b,bff5c79a-e043-59a5-8783-739b62bc83ae,hi,hi,mixed,en,continuer,backchannel,"जी, go ahead, मैं सुन रहा हूँ।",जी go ahead मैं सुन रहा हूँ
+01a1e035-b1e4-7676-8ee2-01652f273a4d,ace66d7c-84d3-5be2-a6f0-9581a239e837,hi,hi,mixed,en,agreement_token,backchannel,"Yes बिल्कुल, I totally agree with that point.",yes बिल्कुल i totally agree with that point
+01a1e035-b592-7582-9573-64605d0e598e,63f594c5-8ff7-5a50-af02-5938b409ffcf,hi,hi,mixed,en,gratitude_token,backchannel,"धन्यवाद, thanks a lot for all this helpful guidance.",धन्यवाद thanks a lot for all this helpful guidance
+01a1e035-bb63-7546-a2f0-c8a55890440a,31801379-f39c-583a-a4d5-067fae69b993,kn,kn,none,none,reaction_token,backchannel,"ಹೌದಾ, ಇದು ಕೇಳಲು ನಿಜಕ್ಕೂ ತುಂಬಾ ಸಂತೋಷವಾಗಿದೆ.",ಹೌದಾ ಇದು ಕೇಳಲು ನಿಜಕ್ಕೂ ತುಂಬಾ ಸಂತೋಷವಾಗಿದೆ
+01a1e035-bfce-74f1-825b-6712d8b4cef0,57f0bfd2-8871-5d9a-b476-25e1a5b8faab,kn,kn,mixed,en,continuer,backchannel,"ಹೂಂ, go ahead ಹೇಳಿ.",ಹೂಂ go ahead ಹೇಳಿ
+01a1e035-c7d0-7408-86cb-9ef7d7195f75,4abcd861-4ae6-5ade-958c-286d81cef35a,kn,kn,mixed,en,agreement_token,backchannel,"Yes, ನೀವು ಹೇಳ್ತಿರೋದು absolutely correct ಆಗಿದೆ.",yes ನೀವು ಹೇಳ್ತಿರೋದು absolutely correct ಆಗಿದೆ
+01a1e035-c80f-7623-828f-1a1688e7228d,c3bd14a2-8ffd-5bb7-9e1d-9806a570ae79,kn,kn,mixed,en,gratitude_token,backchannel,"ಥ್ಯಾಂಕ್ಸ್, ನೀವು ಹೇಳ್ತಿರೋದು clearly ಅರ್ಥ ಆಗ್ತಿದೆ.",ಥ್ಯಾಂಕ್ಸ್ ನೀವು ಹೇಳ್ತಿರೋದು clearly ಅರ್ಥ ಆಗ್ತಿದೆ
+01a1e035-c9d8-71d8-bd65-2c5c7ff2f9a1,e6230da9-b8ef-52c7-93ad-4f00f389f908,ta,ta-IN,none,none,continuer,backchannel,"ம்ம், சொல்லுங்க கேட்டுட்டுதான் இருக்கேன்.",ம்ம் சொல்லுங்க கேட்டுட்டுதான் இருக்கேன்
+01a1e035-cae6-769f-9ab9-39f454104c82,801364ab-ad99-5a47-8b97-f1dfb551fd49,kn,kn,mixed,en,go_ahead,backchannel,"Yes, ಮುಂದೆ ಹೇಳಿ please, I am listening.",yes ಮುಂದೆ ಹೇಳಿ please i am listening
+01a1e035-cfa2-7312-8e76-24df3c10cc04,3b25ffbc-80a0-529e-83e1-90a390104fd9,ta,ta-IN,none,none,agreement_token,backchannel,"சரிங்க, அது எனக்கு நல்லாவே புரியுது சொல்லுங்க.",சரிங்க அது எனக்கு நல்லாவே புரியுது சொல்லுங்க
+01a1e035-d204-727f-8b90-3c75830fffcf,287578bf-7ac0-5b99-a7aa-a3977a902b65,ta,ta-IN,none,none,go_ahead,backchannel,"பேசுங்க, நான் முழுசா கவனிக்கிறேன்.",பேசுங்க நான் முழுசா கவனிக்கிறேன்
+01a1e035-d4b9-75b7-b610-334a8c463639,70dca2cd-3e09-51a2-aa6c-63c5be25ed79,ta,ta-IN,none,none,gratitude_token,backchannel,"ரொம்ப நன்றி, நீங்கள் சொன்ன விவரம் எனக்கு தெளிவாக புரிகிறது.",ரொம்ப நன்றி நீங்கள் சொன்ன விவரம் எனக்கு தெளிவாக புரிகிறது
+01a1e035-d650-7263-99d0-3da19d7a9373,bd0b9ece-8d76-52e9-9695-71795281bb24,ta,ta-IN,mixed,en,acknowledgment,backchannel,"Ok, எனக்கு அது தெளிவாகப் புரிகிறது.",ok எனக்கு அது தெளிவாகப் புரிகிறது
+01a1e035-d76e-7213-b318-1a9f5642125b,087c7bc0-8ebe-5187-903b-f052c004654c,ta,ta-IN,mixed,en,agreement_token,backchannel,"ஆமா, exactly right, நீங்கள் சொல்வது சரிதான்.",ஆமா exactly right நீங்கள் சொல்வது சரிதான்
+01a1e035-d916-7334-843d-9340ac320b58,f53411a4-7e98-59f1-b208-8aff1f1b3aa0,ta,ta-IN,mixed,en,reaction_token,backchannel,"Wow, ரொம்ப சந்தோஷமா இருக்கு hearing this!",wow ரொம்ப சந்தோஷமா இருக்கு hearing this
+01a1e035-ddf3-726d-b3f8-a0c04ed075e4,4560c839-dc76-5e16-9a26-c153705c0f0e,ta,ta-IN,mixed,en,go_ahead,backchannel,"Go ahead, மேற்கொண்டு பேசுங்க.",go ahead மேற்கொண்டு பேசுங்க
+01a1e035-df61-704a-a28d-3c8c1aa31df7,4dcfd5fd-f42c-5776-ac94-642c33975da2,te,te,none,none,agreement_token,backchannel,"అవును, మీరు చెప్పేది నిజంగా సరైనదే.",అవును మీరు చెప్పేది నిజంగా సరైనదే
+01a1e035-e161-77d0-ba0b-c1c10931639d,54165bdd-4b19-55f5-9abc-c0c79c2c9d81,te,te,none,none,acknowledgment,backchannel,"అవును, ఆ వివరాలు నాకు చక్కగా అర్థమవుతున్నాయి.",అవును ఆ వివరాలు నాకు చక్కగా అర్థమవుతున్నాయి
+01a1e035-e5fa-7533-a4f7-848b94ad7c81,8bcfb3fd-c2b0-54d9-83f8-6c79bca414b3,te,te,none,none,go_ahead,backchannel,"చెప్పండి, నేను వింటూనే ఉన్నాను మీరు కొనసాగించండి.",చెప్పండి నేను వింటూనే ఉన్నాను మీరు కొనసాగించండి
+01a1e035-e985-7298-ab35-ad6a36c76631,3a3cdae4-1798-5614-abac-2a2132f5c057,te,te,mixed,en,continuer,backchannel,"అవును, please continue.",అవును please continue
+01a1e035-ec10-7386-843d-5618de06d280,d233b8dd-cead-5048-8cd2-3403f245cc01,te,te,mixed,en,reaction_token,backchannel,"అయ్యో, that is really so sad to hear.",అయ్యో that is really so sad to hear
+01a1e035-ede4-740c-a11e-91b2b79fcd64,b7665013-29bb-5227-8e77-96eb983ea1db,te,te,mixed,en,agreement_token,backchannel,"నిజమే, you are absolutely right about this.",నిజమే you are absolutely right about this
+01a1e035-ee48-75b3-979b-ba8bf8aa2287,2d3eb1cf-2bdc-5d3d-919b-8fd5f1132c16,te,te,mixed,en,gratitude_token,backchannel,"చాలా thanks అండీ, మీరు చాలా clearly explain చేస్తున్నారు.",చాలా thanks అండీ మీరు చాలా clearly explain చేస్తున్నారు
+01a1e035-f140-751a-98ce-0234952f06c5,36ac0a68-0585-5bb6-a555-66180d12777c,te,te,mixed,en,go_ahead,backchannel,"Continue, నెక్స్ట్ ఏంటో చెప్పండి.",continue నెక్స్ట్ ఏంటో చెప్పండి
+01a1e035-f2ef-7283-b9a6-9a00bb09ad3b,aa3fa8d3-f583-5705-a3a6-c99fc34b29eb,ml,ml,none,none,continuer,backchannel,"അതെ, ബാക്കി പറഞ്ഞോളൂ കേൾക്കുന്നുണ്ട്.",അതെ ബാക്കി പറഞ്ഞോളൂ കേൾക്കുന്നുണ്ട്
+01a1e035-f362-7702-8922-bc4abbec2d3b,55215c8a-bd72-57ac-ac7e-ce768770c18b,ml,ml,none,none,agreement_token,backchannel,"അതെ, താങ്കൾ പറഞ്ഞത് തികച്ചും ശരിയാണ്.",അതെ താങ്കൾ പറഞ്ഞത് തികച്ചും ശരിയാണ്
+01a1e035-f9a9-761e-a4ea-34bb9676f7d1,0a3fe3cd-89fe-519b-a45b-9cada6ec53c2,ml,ml,none,none,go_ahead,backchannel,"ശരി, ബാക്കി കൂടി പറഞ്ഞോളൂ ഞാൻ കേൾക്കുന്നുണ്ട്.",ശരി ബാക്കി കൂടി പറഞ്ഞോളൂ ഞാൻ കേൾക്കുന്നുണ്ട്
+01a1e035-fd0c-7088-a440-2571c4bdfc8a,fd95e048-6aa4-57c9-b4fc-458b12c50fd1,ml,ml,mixed,en,acknowledgment,backchannel,"ശരി, I understand what you are explaining.",ശരി i understand what you are explaining
+01a1e035-fe7c-7555-9de8-d4079b2b26e3,7c9f234c-a276-56f2-8d38-048ead1455b3,ml,ml,mixed,en,agreement_token,backchannel,"ശരിയാണ്, that makes absolute sense.",ശരിയാണ് that makes absolute sense
+01a1e036-00c1-7645-9e9b-2c4de3457ca5,6bc36978-1b23-5006-9da5-6a153c03f1e1,ml,ml,mixed,en,reaction_token,backchannel,അയ്യോ that sounds really painful.,അയ്യോ that sounds really painful
+01a1e036-05fa-731f-a94a-6a76cae432a4,bf60df1c-6ce0-5b45-bf8b-353f04abadcd,zh,zh-CN,none,none,continuer,backchannel,好的，您接着往下讲吧。,好的 您接着往下讲吧
+01a1e036-0843-76fe-b7e7-612f26a012e8,2ae571aa-22a5-5794-b652-7321c41176d0,zh,zh-CN,none,none,agreement_token,backchannel,对，确实是这样没错。,对 确实是这样没错
+01a1e036-0b28-73ad-a956-c308673653b4,54e09870-a998-5bf4-a2cb-cee524b3c2f5,zh,zh-CN,none,none,reaction_token,backchannel,天哪，这也太不容易了吧。,天哪 这也太不容易了吧
+01a1e036-0cb8-74cb-acbf-a14cc9f898cb,33df7e77-54f3-5f7e-bb95-d3d14a8db7ad,zh,zh-CN,none,none,gratitude_token,backchannel,太感谢了，我都明白了请继续说。,太感谢了 我都明白了请继续说
+01a1e036-1043-722f-9ec7-0eedfeff01ee,91cadf4b-7cef-5133-b2e8-7dc761fe2628,zh,zh-CN,mixed,en,acknowledgment,backchannel,I see，我收到这个信息了。,i see 我收到这个信息了
+01a1e036-107a-72db-9453-f45d534e32f0,22f4bace-60dc-5f77-9599-e30e16349dd9,zh,zh-CN,mixed,en,continuer,backchannel,Yeah，我一直在听着呢。,yeah 我一直在听着呢
+01a1e036-1460-74be-904d-00a7adba8167,6ae4fea3-da72-5ba0-9e22-593d8ebb8a7f,zh,zh-CN,mixed,en,agreement_token,backchannel,没错，I totally agree with that，没毛病。,没错 i totally agree with that 没毛病
+01a1e036-1795-74f4-a263-57c62d7da219,b626fb18-94ee-5313-a808-ed3366ef806a,ja,ja,none,none,continuer,backchannel,ええ、しっかり聞いておりますのでどうぞ。,ええ しっかり聞いておりますのでどうぞ
+01a1e036-18f6-72c0-a7f6-743672062f9f,1c2e0ca5-ce56-59a6-8ed4-842e8b9f4e80,zh,zh-CN,mixed,en,gratitude_token,backchannel,Thank you，这样解释就很清楚了。,thank you 这样解释就很清楚了
+01a1e036-21f5-7637-9d38-7a6d51211a37,6486a3b4-f241-51f5-a9bd-d9e37a9c7d00,ja,ja,mixed,en,acknowledgment,backchannel,なるほど、I understand what you mean.,なるほど i understand what you mean
+01a1e036-2267-729f-856f-812319e1d9b8,a009b248-84f2-58a8-a52e-9086af36ebb3,ja,ja,none,none,acknowledgment,backchannel,なるほど、よく分かりました。,なるほど よく分かりました
+01a1e036-240a-74b4-a3b3-f9ff0977d92b,80f4a17f-973b-54fb-a473-167907ae5fae,ja,ja,mixed,en,continuer,backchannel,"うん, please go on.",うん please go on
+01a1e036-27a6-7227-b16e-a38d9a2c6977,71036d12-cf51-5cf6-bec4-6de30d9dad83,ja,ja,mixed,en,reaction_token,backchannel,わあ、that is so nice to hear.,わあ that is so nice to hear
+01a1e036-2c32-72a9-9206-be9dca02ab9a,bb479b0b-20e4-52ee-96e9-df048d3ffa6d,id,id,none,none,agreement_token,backchannel,"Benar, itu memang masuk akal.",benar itu memang masuk akal
+01a1e036-32ad-73af-be0c-8c58552d6d35,cce1d759-1d6d-5013-a2e7-a8616dd0f0d1,id,id,mixed,en,acknowledgment,backchannel,"I see, paham kok penjelasannya.",i see paham kok penjelasannya
+01a1e036-348d-7569-b3b1-4b0d278a99e8,abb0382b-3839-5b43-9645-be58f88b0438,id,id,none,none,go_ahead,backchannel,"Terus, silakan lanjutkan lagi apa yang tadi mau disampaikan.",terus silakan lanjutkan lagi apa yang tadi mau disampaikan
+01a1e036-3830-7599-b447-64a9010e8a33,4c87b106-bd58-511f-8541-f99ff7daa7b3,id,id,mixed,en,reaction_token,backchannel,"Oh no, kasihan banget itu sounds tough.",oh no kasihan banget itu sounds tough
+01a1e036-4068-754e-8325-ad70841b4b2d,095b3f4c-4235-597f-8077-7c7fa247253f,fil,fil,none,none,acknowledgment,backchannel,"Naiintindihan ko, nakukuha ko ang punto mo.",naiintindihan ko nakukuha ko ang punto mo
+01a1e036-409b-746b-adea-3ddb34f85168,31119f0e-9a91-5833-8fd8-4aebfdf3ffc4,id,id,mixed,en,go_ahead,backchannel,"Go on, silakan lanjutkan penjelasannya.",go on silakan lanjutkan penjelasannya
+01a1e036-4431-72cc-9b47-a2aca6921010,8542eac1-44fc-5117-80be-e1e9fb3ef564,fil,fil,none,none,reaction_token,backchannel,"Ay naku, nakakalungkot naman pala talaga ang nangyari.",ay naku nakakalungkot naman pala talaga ang nangyari
+01a1e036-44d7-70f5-8e02-301ea579cad9,22b89ce2-2882-54a7-9192-5f2b2463d376,fil,fil,none,none,go_ahead,backchannel,"Sige po, ipagpatuloy mo lang ang iyong paliwanag.",sige po ipagpatuloy mo lang ang iyong paliwanag
+01a1e036-4da2-7795-96f1-5560fe1bc5aa,59ef97a3-5b04-5fd3-8159-b43986e25106,fil,fil,mixed,en,acknowledgment,backchannel,"Okay po, gets ko na completely.",okay po gets ko na completely
+01a1e036-519c-7430-b4ad-eb10184abf78,f8dbe4bc-ca74-57df-8776-fe29a5af9bb4,fr,fr-FR,none,none,acknowledgment,backchannel,"D'accord, je vois tout à fait ce que vous voulez dire.",daccord je vois tout à fait ce que vous voulez dire
+01a1e036-55f5-77e7-863f-5591e0fc0d9f,88a0af35-9be8-5dcb-a205-cff164d8ab39,fr,fr-FR,none,none,reaction_token,backchannel,"Ah super, c'est vraiment une excellente nouvelle pour nous.",ah super cest vraiment une excellente nouvelle pour nous
+01a1e036-57f1-770f-93d2-43c4b860d98d,ad5dea63-dba5-5006-9fcd-a137964efead,fr,fr-FR,none,none,gratitude_token,backchannel,"C'est gentil, merci pour toutes ces précisions très claires.",cest gentil merci pour toutes ces précisions très claires
+01a1e036-5884-73e6-9163-aaf534fbb0fa,0ca5b248-80e3-50c1-ad69-40f60b66fbac,fr,fr-FR,none,none,go_ahead,backchannel,"Allez-y, je vous suis toujours.",allez y je vous suis toujours
+01a1e036-5d8b-71d7-bf1f-0c9263a7aef7,6be92cb2-f389-544c-9e47-75a6cbf42e41,fr,fr-FR,mixed,en,acknowledgment,backchannel,"Je comprends, that makes total sense.",je comprends that makes total sense
+01a1e036-601c-77ac-a0d3-d4be95e6cf3c,b8af331c-fe59-5089-826c-6696772fb9e3,fr,fr-FR,mixed,en,go_ahead,backchannel,"Go on, je vous écoute attentivement continuez.",go on je vous écoute attentivement continuez
+01a1e036-636c-71d3-9929-a1817e2fbf5b,74be3ebd-584b-5ae1-9ed9-607279911e1f,de,de-DE,none,none,continuer,backchannel,"Aha, erzählen Sie gerne weiter, ich bin ganz bei Ihnen.",aha erzählen sie gerne weiter ich bin ganz bei ihnen
+01a1e036-64e1-70ec-9d33-5938e9dc15cb,ac2c3e10-10a8-58cc-ba85-23def41f49eb,de,de-DE,none,none,agreement_token,backchannel,"Ja, genau so sehe ich das auch.",ja genau so sehe ich das auch
+01a1e036-66e1-70df-acc3-532acede742e,bf3b535b-ed2e-51ca-a237-079869cc8ab3,de,de-DE,none,none,gratitude_token,backchannel,"Danke schön, ich höre Ihnen aufmerksam zu.",danke schön ich höre ihnen aufmerksam zu
+01a1e036-69b4-7632-a2a2-a093317ec6ea,b7202fd6-4dd3-5e4a-9852-79ee1af8adeb,de,de-DE,none,none,go_ahead,backchannel,"Fahr ruhig fort, das klingt bisher wirklich sehr interessant.",fahr ruhig fort das klingt bisher wirklich sehr interessant
+01a1e036-6bd4-7621-b501-5c684f85a731,e417bcb8-002b-50d5-9793-21bb366b39dd,de,de-DE,mixed,en,continuer,backchannel,"Aha, keep going, ich höre noch zu.",aha keep going ich höre noch zu
+01a1e036-70ce-7244-b0b4-57c52a850b45,3b98dd80-c0be-5fc5-8931-3b7576eec624,de,de-DE,mixed,en,go_ahead,backchannel,"Mach weiter, please go ahead with the details.",mach weiter please go ahead with the details
+01a1e036-7102-73f8-b98b-a98c76f163ac,3568f0c6-b81c-500a-81c3-e41f1cf54c76,es,es-ES,none,none,continuer,backchannel,"Vale, te voy siguiendo, sigue por favor.",vale te voy siguiendo sigue por favor
+01a1e036-7298-7024-980f-5d0054b46d7a,50d4bd32-104f-563a-bf4d-cd722ac260aa,de,de-DE,mixed,en,gratitude_token,backchannel,"Thanks, danke dir für die Erklärung.",thanks danke dir für die erklärung
+01a1e036-757f-76cb-a5a4-9537de994c1a,bcd1b2e8-dfbf-5c89-89b1-a307d471c55e,es,es-ES,none,none,acknowledgment,backchannel,"Vale, ya veo por dónde vas.",vale ya veo por dónde vas
+01a1e036-780e-72c2-b281-0b98d66748b8,027d7b51-43e4-5f71-8728-496f5a3bbbac,es,es-ES,none,none,agreement_token,backchannel,"Totalmente de acuerdo, tiene todo el sentido lo que comentas.",totalmente de acuerdo tiene todo el sentido lo que comentas
+01a1e036-79b3-7118-ac26-7f1b516aef8b,85c71e73-a199-5ffa-90d1-769d51a5d3c7,es,es-ES,mixed,en,acknowledgment,backchannel,"Vale, I understand the details completely.",vale i understand the details completely
+01a1e036-7b42-7716-9ff3-554298821b6c,43d43819-a825-55f3-9b59-f864b67aba01,es,es-ES,none,none,go_ahead,backchannel,"Sigue, sigue, te estoy escuchando con atención.",sigue sigue te estoy escuchando con atención
+01a1e036-7e5f-70fe-8318-9b3eb4fcd22b,6c441bff-36ca-57b3-92ca-befc52ae0955,es,es-ES,none,none,gratitude_token,backchannel,"Gracias, te lo agradezco de verdad mientras me lo explicas.",gracias te lo agradezco de verdad mientras me lo explicas
+01a1e036-8020-756e-9df0-5a5824499c53,39b2cede-9275-564f-a8ff-73dfb15b91c3,es,es-ES,mixed,en,reaction_token,backchannel,"Ostras, that is really amazing news para todos.",ostras that is really amazing news para todos
+01a1e036-855a-76f4-b11e-362875684994,a2d9fbd5-0ac3-53e3-8540-e5cb1e325e6b,es,es-MX,none,none,continuer,backchannel,"Sí, te sigo escuchando con atención.",sí te sigo escuchando con atención
+01a1e036-8994-752c-a3a3-70885f98fd97,4a6f0935-a980-53cf-bbce-6840ed62dc9a,es,es-MX,none,none,agreement_token,backchannel,"De acuerdo, estoy totalmente de acuerdo con eso.",de acuerdo estoy totalmente de acuerdo con eso
+01a1e036-89d8-712b-8014-2435a4497363,3f506cc4-a555-54c1-876c-47368f8e6b7c,es,es-MX,none,none,reaction_token,backchannel,"¡Híjole, qué coraje de verdad!",híjole qué coraje de verdad
+01a1e036-8d0d-7081-bada-115601980c30,4e5faf41-8724-55e0-b4f6-dd75ae968873,es,es-MX,mixed,en,continuer,backchannel,"Sí, go ahead please.",sí go ahead please
+01a1e036-8f5e-75c5-b89a-a25e45ca3bb3,0407202c-f17c-520c-982b-2fffd44b9ed6,es,es-MX,none,none,go_ahead,backchannel,"Sigue, te escucho muy bien.",sigue te escucho muy bien
+01a1e036-8f90-770f-af4f-d3ad0f7908ef,0149775b-f19a-5a22-be02-7f44d7b47e21,es,es-MX,mixed,en,acknowledgment,backchannel,"I see, me queda muy claro.",i see me queda muy claro
+01a1e036-94b8-7790-bf39-3dd3af18cc61,fce0b97a-7b44-5330-855a-4dc4784ec461,es,es-MX,mixed,en,gratitude_token,backchannel,"Gracias, I really appreciate the help you are giving me.",gracias i really appreciate the help you are giving me
+01a1e036-9523-741d-b1b8-23d9dfa5c5d5,4b214bff-2c7a-5e79-8bc3-6258a3f14120,it,it,none,none,continuer,backchannel,"Certo, continua pure, ti seguo.",certo continua pure ti seguo
+01a1e036-98ce-7700-aa9a-9bc4b70fb619,ed004f83-79ba-56d5-b75e-285d8f4151f1,it,it,none,none,acknowledgment,backchannel,"Chiaro, sto seguendo punto per punto.",chiaro sto seguendo punto per punto
+01a1e036-9c9e-745a-b1d8-c041c6ce4796,3124fc36-59b0-5280-91ab-d591394a003d,it,it,none,none,agreement_token,backchannel,"Giusto, infatti è proprio la cosa più corretta da fare.",giusto infatti è proprio la cosa più corretta da fare
+01a1e036-a03a-7752-8bcc-0db92a0bdf5c,13a067c8-8df5-5b65-836c-85d2bfd84c74,it,it,none,none,go_ahead,backchannel,"Dimmi pure, sto seguendo tutto quello che dici.",dimmi pure sto seguendo tutto quello che dici
+01a1e036-a5bd-76a4-ba87-e68b441f4009,f3d6b408-8e06-5603-80a0-69ad3fa0d058,it,it,mixed,en,reaction_token,backchannel,"Oh wow, che bella cosa davvero!",oh wow che bella cosa davvero
+01a1e036-aa5a-76d3-8647-c2a4506062f4,2766beac-f1a4-5e88-ba35-4c80734342f2,it,it,mixed,en,gratitude_token,backchannel,"Grazie, thank you so much for explaining that.",grazie thank you so much for explaining that
+01a1e036-ade4-7656-bfa8-b81f9f34f3b9,84e79059-33c7-5648-8dc1-f50788a1396a,en,en-US,none,none,floor_request,barge_in,"Okay, hold on a second please.",okay hold on a second please
+01a1e036-b2b0-76b2-a409-204e784cf573,ae155eaa-9d99-53d3-a486-edd7dc2903cd,en,en-US,none,none,floor_request,barge_in,"Thanks, but could you hold on a second?",thanks but could you hold on a second
+01a1e036-b3c1-71a1-909b-4c21d373244c,fdcaee04-1ac5-5836-b770-f5a4e792da3d,en,en-US,none,none,floor_request,barge_in,"Exactly, but wait a minute let me speak.",exactly but wait a minute let me speak
+01a1e036-b4a2-7217-bb43-1ef0f99fc7b4,a98eb395-bdaa-5dc7-b99f-1a268cf98811,en,en-US,none,none,floor_request,barge_in,"Yeah, wait just a moment please.",yeah wait just a moment please
+01a1e036-b781-7436-8602-d694f53749b0,9d41be63-0442-552e-bc1d-8139fbd54103,en,en-IN,none,none,floor_request,barge_in,"Okay, but kindly stop for a moment and hear me out.",okay but kindly stop for a moment and hear me out
+01a1e036-baad-7281-8fe9-d993e517c26a,c9b1c960-2ddc-5344-86ab-72820f813b53,en,en-IN,none,none,floor_request,barge_in,"Oh dear, wait a minute, please stop.",oh dear wait a minute please stop
+01a1e036-c76f-7137-b75d-ba3603df1d1f,eeb90580-4e58-5580-a3ee-0deaec267ffc,en,en-IN,mixed,hi,floor_request,barge_in,"Thank you, पर ज़रा एक मिनट रुकना please.",thank you पर ज़रा एक मिनट रुकना please
+01a1e036-c7fa-75fe-85ac-f4f0871a6b1b,4a165c89-f201-5c39-9516-812de0bfd5f8,en,en-IN,mixed,kn,floor_request,barge_in,"Mm-hmm, ಸ್ವಲ್ಪ ನಿಲ್ಲಿ listen to me first.",mm hmm ಸ್ವಲ್ಪ ನಿಲ್ಲಿ listen to me first
+01a1e036-c890-701a-9fd4-9233419906ac,89e2e271-c70d-5d13-9fb0-0e6da5ec81f4,en,en-IN,mixed,hi,floor_request,barge_in,"Yes carry on, but wait a second please ज़रा ठहरिए।",yes carry on but wait a second please ज़रा ठहरिए
+01a1e036-cccf-773a-882a-62dda1821536,1199114c-dd07-5328-9be3-834efc05544b,en,en-IN,mixed,kn,floor_request,barge_in,"ಹೌದು, but please hold on for a minute.",ಹೌದು but please hold on for a minute
+01a1e036-d260-71b7-8be7-1ef6909924c9,4b72a3d1-777f-5c2f-a56e-911950b6f2d1,en,en-IN,mixed,ta,floor_request,barge_in,"சரி, please hold on for a minute.",சரி please hold on for a minute
+01a1e036-d302-7369-85c7-c680ac1fe395,44d7d7b2-6ee3-57ba-ad9b-3238adca95cb,en,en-IN,mixed,kn,floor_request,barge_in,"ಹೌದಾ, but please hold on for a second.",ಹೌದಾ but please hold on for a second
+01a1e036-d3d0-71cf-a650-1ba37e96147e,694e9fb6-2675-5ce7-9a38-97cea6fcf970,en,en-IN,mixed,kn,floor_request,barge_in,"Haha, ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ, please listen to me now.",haha ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ please listen to me now
+01a1e036-da19-709a-83fe-efd4d259602c,5df843e7-0091-5a13-a5ae-83a6e1a2d0ab,en,en-IN,mixed,ta,floor_request,barge_in,"Go on, ஆனால் கொஞ்சம் ஒரு நிமிஷம் wait பண்ணுங்க.",go on ஆனால் கொஞ்சம் ஒரு நிமிஷம் wait பண்ணுங்க
+01a1e036-dbd8-7337-b3a6-1c682b0cdf3c,97b29279-28ba-5e87-ab93-635ee53e573b,en,en-IN,mixed,ta,floor_request,barge_in,"Thanks, கொஞ்சம் நிறுத்துங்க please let me speak.",thanks கொஞ்சம் நிறுத்துங்க please let me speak
+01a1e036-dea0-74fb-9181-25903d16bcaf,c007abce-b0b1-52e6-b893-8814ec02ab27,en,en-IN,mixed,te,floor_request,barge_in,"Okay, ఒక్క నిమిషం ఆగండి, please wait for a moment.",okay ఒక్క నిమిషం ఆగండి please wait for a moment
+01a1e036-dfa8-752f-8796-93cfecaaa503,085f6b3b-27cb-5827-8b27-556ef2960d4d,en,en-IN,mixed,te,floor_request,barge_in,"Thanks a lot, but ప్లీజ్ ఒక్క క్షణం wait please.",thanks a lot but ప్లీజ్ ఒక్క క్షణం wait please
+01a1e036-e284-73a7-8ac7-a54ccf53ad24,75e1e318-1f96-538c-b135-f6fe82eec4bd,en,en-IN,mixed,te,floor_request,barge_in,"Oh great, ఒక్క నిమిషం ఆగండి please let me talk.",oh great ఒక్క నిమిషం ఆగండి please let me talk
+01a1e036-e2dd-77f9-98cd-11bdea29319c,edfaee04-80c1-5666-b424-5f8c36273d89,en,en-IN,mixed,te,floor_request,barge_in,"చెప్పండి, but wait please give me a moment.",చెప్పండి but wait please give me a moment
+01a1e036-e775-75e5-b8c9-7b4c5ff3f6a2,1e0aea6d-34ee-5d12-b4c3-7362f4a22793,en,en-IN,mixed,ml,floor_request,barge_in,"Mm, ഒരു നിമിഷം please wait let me speak.",mm ഒരു നിമിഷം please wait let me speak
+01a1e036-e90f-7285-92bf-20a1074c2de9,6455b938-897f-5bb6-acdf-4eee8af0ffbd,en,en-IN,mixed,ml,floor_request,barge_in,"ശരി, please wait a minute and listen to me.",ശരി please wait a minute and listen to me
+01a1e036-e9d7-75ba-8dce-972cad2fd62f,7b734017-eb0b-5fea-9631-8c1ea945dd9c,en,en-IN,mixed,ml,floor_request,barge_in,Haha please wait a minute ഒന്നു നിൽക്കൂ.,haha please wait a minute ഒന്നു നിൽക്കൂ
+01a1e036-ef03-772a-9c4c-177a041e2218,9e8fc658-d1c9-5600-a70e-133846e7315c,en,en-SG,none,none,floor_request,barge_in,"I see, hold on, let me speak first please.",i see hold on let me speak first please
+01a1e036-f474-7336-90de-c7a436cf80b8,cd552a49-e68a-5e7f-951f-53172c13da83,en,en-SG,none,none,floor_request,barge_in,"Right, but hold on lah, let me speak first.",right but hold on lah let me speak first
+01a1e036-f4cb-771e-872d-67e65cb62d62,fb014799-de76-508e-a0df-211894d737aa,en,en-SG,none,none,floor_request,barge_in,"Yes go ahead, but wait a minute, stop talking first.",yes go ahead but wait a minute stop talking first
+01a1e036-f4f6-7640-a069-e36ee4e8c4a0,bc12f88d-ee54-573d-b440-2f95d789d032,en,en-SG,none,none,floor_request,barge_in,"Thanks so much, but please stop talking for a moment.",thanks so much but please stop talking for a moment
+01a1e036-f5d4-7388-90a2-49690ab2075c,14a81725-d266-5735-bac1-c5e4bb04b9e0,en,en-SG,mixed,zh,floor_request,barge_in,"Mm, 等等, give me a moment please.",mm 等等 give me a moment please
+01a1e036-fa65-72e5-b9a0-1c71d07719ad,c2bf6ade-f449-579d-a6ad-74451cf2e2ac,en,en-SG,mixed,zh,floor_request,barge_in,"Aiyo, wait first lah, 等一下, please stop talking for a second.",aiyo wait first lah 等一下 please stop talking for a second
+01a1e036-fb44-76b3-969b-cc7255d21046,4d32100f-e891-5b24-a278-d43c0d13c429,en,en-SG,mixed,zh,floor_request,barge_in,"Yes right, 先等一下, please pause first can?",yes right 先等一下 please pause first can
+01a1e036-ffa7-74cd-bc36-d02b064bba39,de705f2a-3ef8-515b-a24f-59623d471c1f,en,en-SG,mixed,zh,floor_request,barge_in,"Yeah go ahead, but 停一下 hold on first lah.",yeah go ahead but 停一下 hold on first lah
+01a1e037-0050-755a-bf87-bcb4c5a8793d,62a9cda2-6584-5a36-8080-23119daad801,hi,hi,none,none,floor_request,barge_in,"हूँ, बस एक सेकंड रुक जाइए मुझे बोलने दीजिए।",हूँ बस एक सेकंड रुक जाइए मुझे बोलने दीजिए
+01a1e037-0208-72a6-91df-6548bcfc7ce9,511953ae-082a-5996-b696-14d96313b1e4,hi,hi,none,none,floor_request,barge_in,ठीक है लेकिन ज़रा एक मिनट ठहरिए।,ठीक है लेकिन ज़रा एक मिनट ठहरिए
+01a1e037-0627-7282-bee4-a4655895d0de,ba57d6a7-fc47-50ff-9850-45c478c9061a,hi,hi,none,none,floor_request,barge_in,"ओह, बस एक सेकंड ठहरिए।",ओह बस एक सेकंड ठहरिए
+01a1e037-07ed-7770-8c82-88f4fd405454,eddc99c1-7d4b-558e-a1e3-5b3fbc57a3df,hi,hi,none,none,floor_request,barge_in,"हाँ कहिए, पर एक सेकंड रुक जाइए।",हाँ कहिए पर एक सेकंड रुक जाइए
+01a1e037-10e2-7163-8f4d-85b9947cd960,e6832a41-fedc-539d-b320-57bad11b0baa,hi,hi,mixed,en,floor_request,barge_in,"Please continue, लेकिन ज़रा एक मिनट रुकिए.",please continue लेकिन ज़रा एक मिनट रुकिए
+01a1e037-14e4-741a-8ce1-5b882193de2b,09c74bab-cf8f-5069-994b-8b32f3ef80bc,kn,kn,none,none,floor_request,barge_in,"ಹೂಂ, ಒಂದು ಕ್ಷಣ ತಾಳಿ ನನಗೆ ಮಾತನಾಡಲು ಬಿಡಿ.",ಹೂಂ ಒಂದು ಕ್ಷಣ ತಾಳಿ ನನಗೆ ಮಾತನಾಡಲು ಬಿಡಿ
+01a1e037-19f3-7479-99a7-9f20b77889a5,7c6c4cc2-cc35-5cee-9b7b-ad98f1389d86,kn,kn,none,none,floor_request,barge_in,"ತುಂಬಾ ಧನ್ಯವಾದ, ಆದರೆ ಒಂದು ಕ್ಷಣ ತಡೆಯಿರಿ ನಾನು ಮಾತನಾಡಬೇಕು.",ತುಂಬಾ ಧನ್ಯವಾದ ಆದರೆ ಒಂದು ಕ್ಷಣ ತಡೆಯಿರಿ ನಾನು ಮಾತನಾಡಬೇಕು
+01a1e037-1cd6-727e-b013-178d4bb5e210,9e132903-3666-5ba2-932f-83fae2c139ff,kn,kn,mixed,en,floor_request,barge_in,"Okay, ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ.",okay ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ
+01a1e037-1e26-7046-b68b-2e4fb1d24b98,8d3569e6-0664-5813-9559-169caef4728c,kn,kn,none,none,floor_request,barge_in,"ಹೂಂ, ಒಂದು ಕ್ಷಣ ತಡೆಯಿರಿ ನನಗೆ ಮಾತನಾಡಲು ಬಿಡಿ.",ಹೂಂ ಒಂದು ಕ್ಷಣ ತಡೆಯಿರಿ ನನಗೆ ಮಾತನಾಡಲು ಬಿಡಿ
+01a1e037-1f06-720c-9c1e-ab15662f7926,ddbb3ee8-bcbc-58f7-b6af-295ac5327894,kn,kn,mixed,en,floor_request,barge_in,"ಹೌದು ಹೌದು, just hold on a second please.",ಹೌದು ಹೌದು just hold on a second please
+01a1e037-2290-743c-8771-9225e293cdbe,e6f808d3-688c-5a76-8ae0-d93797b46e0b,kn,kn,mixed,en,floor_request,barge_in,"ಹೌದಾ, please wait a minute and let me talk.",ಹೌದಾ please wait a minute and let me talk
+01a1e037-265a-7524-b5f8-8269cc7eb4c3,bfcbf0d5-f9ad-5c56-988c-ba7ae3ed0b1e,kn,kn,mixed,en,floor_request,barge_in,"Go on, ಆದರೆ ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ.",go on ಆದರೆ ಒಂದು ನಿಮಿಷ wait ಮಾಡಿ
+01a1e037-28fb-7157-ba6f-817df82c4a3a,fab6c57c-a500-510c-a78b-0b5d03a43d3e,ta,ta-IN,none,none,floor_request,barge_in,"சரி, கொஞ்சம் நிறுத்துங்க நான் சொல்றத கேளுங்க.",சரி கொஞ்சம் நிறுத்துங்க நான் சொல்றத கேளுங்க
+01a1e037-298b-7251-9029-5612d93dcf1b,88d547fe-63d2-5ec5-acf2-0775b36be7e9,ta,ta-IN,none,none,floor_request,barge_in,"அப்படியா, கொஞ்சம் நிறுத்துங்க நான் சொல்றத கேளுங்க.",அப்படியா கொஞ்சம் நிறுத்துங்க நான் சொல்றத கேளுங்க
+01a1e037-29c8-719b-9375-ffa3512be811,d5027958-dc97-571a-8514-0cfae24bda17,ta,ta-IN,none,none,floor_request,barge_in,"சரி, ஒரு நிமிஷம் பேசுவதை நிறுத்துங்கள்.",சரி ஒரு நிமிஷம் பேசுவதை நிறுத்துங்கள்
+01a1e037-29fe-7145-a4c4-594bc3bda22a,743f9451-780b-5c3e-b265-adc5aee905b5,ta,ta-IN,none,none,floor_request,barge_in,"சரிங்க, கொஞ்சம் பேசுறதை நிறுத்துங்க.",சரிங்க கொஞ்சம் பேசுறதை நிறுத்துங்க
+01a1e037-2efd-721c-89bf-f62d0231b455,92af6b41-e14b-5aea-b5c6-850bb1f76c9f,ta,ta-IN,mixed,en,floor_request,barge_in,"ஆம், please wait a minute.",ஆம் please wait a minute
+01a1e037-3152-765f-80d5-d3087f5ad89c,11be9035-f03a-5e3c-85e9-41d53d256657,ta,ta-IN,none,none,floor_request,barge_in,"சரிங்க, ஆனா கொஞ்சம் பொறுங்க நான் சொல்ல வர்றேன்.",சரிங்க ஆனா கொஞ்சம் பொறுங்க நான் சொல்ல வர்றேன்
+01a1e037-334f-769c-bb1e-1730ac5d36ca,010e8f42-07bc-5fce-bced-10283f336851,ta,ta-IN,mixed,en,floor_request,barge_in,"Okay, கொஞ்சம் நிறுத்துங்க.",okay கொஞ்சம் நிறுத்துங்க
+01a1e037-367c-71cf-8ba0-19ef0f5d2514,2889f1f3-a86c-50f9-9f1c-be13796bd3e5,ta,ta-IN,mixed,en,floor_request,barge_in,"நன்றி, please stop for a second.",நன்றி please stop for a second
+01a1e037-3e19-74be-94ff-7b73cf42ce72,7c102e0f-ab37-5ead-be85-150ba95e1984,te,te,none,none,floor_request,barge_in,అవును కానీ ఒక్క నిమిషం ఆగండి నన్ను మాట్లాడనివ్వండి.,అవును కానీ ఒక్క నిమిషం ఆగండి నన్ను మాట్లాడనివ్వండి
+01a1e037-3f62-7041-a8d3-dafa5f01fe30,bc451a27-21ce-5efb-af7a-e5748a234d08,te,te,none,none,floor_request,barge_in,ఓహో ఒక్క క్షణం ఆపండి నేను మాట్లాడాలి.,ఓహో ఒక్క క్షణం ఆపండి నేను మాట్లాడాలి
+01a1e037-4406-7729-a68e-77e7e9557a85,ea9d12ab-ca94-5207-a190-79bfcd072be5,te,te,none,none,floor_request,barge_in,సరే కానీ కాస్త ఆగుతారా?,సరే కానీ కాస్త ఆగుతారా
+01a1e037-48f5-76c0-9b51-26a6b549c371,17678535-4cb9-5575-91b8-338b2d02e508,te,te,mixed,en,floor_request,barge_in,"సరే, please hold on and let me speak.",సరే please hold on and let me speak
+01a1e037-4d5b-716d-97dc-81ec8290ae5a,06bbaf2c-3734-5115-a6d4-cb0107f3956c,ml,ml,none,none,floor_request,barge_in,"ശരി, പക്ഷേ ഒരു മിനിറ്റ് നിൽക്കൂ എനിക്ക് സംസാരിക്കണം.",ശരി പക്ഷേ ഒരു മിനിറ്റ് നിൽക്കൂ എനിക്ക് സംസാരിക്കണം
+01a1e037-5007-737e-a568-a7b2ba1b24ae,27ac69f8-5b76-5672-8b41-af53db2ee3bb,ml,ml,none,none,floor_request,barge_in,"കഷ്ടം, ഒന്ന് നിർത്തൂ എനിക്ക് പറയാൻ കുറച്ചു സമയമാണ് വേണ്ടത്.",കഷ്ടം ഒന്ന് നിർത്തൂ എനിക്ക് പറയാൻ കുറച്ചു സമയമാണ് വേണ്ടത്
+01a1e037-5611-74c2-af0f-fb56095d6887,8e9a4105-752d-5ef5-bf2f-bb8c896ec19e,ml,ml,none,none,floor_request,barge_in,"നന്ദി, പക്ഷേ ഒരു നിമിഷം ഒന്ന് നിൽക്കൂ.",നന്ദി പക്ഷേ ഒരു നിമിഷം ഒന്ന് നിൽക്കൂ
+01a1e037-5ade-7414-9fab-efec64ee52cb,a5a1b004-e4a7-5320-8e80-55efd60bc56a,ml,ml,mixed,en,floor_request,barge_in,"ശരി, please wait a minute.",ശരി please wait a minute
+01a1e037-5b3f-7202-8307-79f4279b7768,5991d021-354b-592b-a62e-7219ee10f608,ml,ml,none,none,floor_request,barge_in,"ശരി പറയൂ, പക്ഷെ ഒരു നിമിഷം ഒന്ന് നിൽക്കൂ.",ശരി പറയൂ പക്ഷെ ഒരു നിമിഷം ഒന്ന് നിൽക്കൂ
+01a1e037-5bef-740b-a668-46d23297264f,35500687-d431-5f32-9427-46be73581c6f,ml,ml,mixed,en,floor_request,barge_in,"Yes, ഒന്ന് നിൽക്കൂ, please give me a second.",yes ഒന്ന് നിൽക്കൂ please give me a second
+01a1e037-5c68-7270-ac3a-b918085d96d9,842332e0-742c-5bda-90a6-73160f7e48de,ml,ml,mixed,en,floor_request,barge_in,"തുടരൂ, but please stop for a moment.",തുടരൂ but please stop for a moment
+01a1e037-5cff-7123-90c5-dfa2d1f11497,c023c7b3-ca26-541f-b573-121e68e935e2,ml,ml,mixed,en,floor_request,barge_in,"നന്ദി, please wait ഒരു നിമിഷം നിൽക്കൂ.",നന്ദി please wait ഒരു നിമിഷം നിൽക്കൂ
+01a1e037-60a3-73d8-ba67-e7ccf03b37d6,7519d4e9-fe06-5e6b-815e-b5547299052a,zh,zh-CN,none,none,floor_request,barge_in,嗯，请先等一下。,嗯 请先等一下
+01a1e037-6125-7190-9268-4a0cd4bcfd65,610cd1e6-5f0c-5586-b56b-d12fc0fa8b0e,zh,zh-CN,none,none,floor_request,barge_in,知道了，请先停一下听我说。,知道了 请先停一下听我说
+01a1e037-654f-70e5-b137-601764d9dddb,c3e01665-884a-58e6-98a9-13a80eba67fd,zh,zh-CN,none,none,floor_request,barge_in,对，先等一下，听我说完。,对 先等一下 听我说完
+01a1e037-65e9-7611-bfc1-2fb653b327e1,142974d6-376a-5f6a-8db8-64157a66e83b,zh,zh-CN,none,none,floor_request,barge_in,哈哈，你先打住让我插一句。,哈哈 你先打住让我插一句
+01a1e037-6953-7520-8b6a-609908f6c063,86a53db1-ecc8-58d0-bfc2-57e07776b9e2,zh,zh-CN,mixed,en,floor_request,barge_in,OK，请先暂停一下，让我先说两句。,ok 请先暂停一下 让我先说两句
+01a1e037-744c-7070-8fb6-704ddfbb4df6,3c874ddc-e9c9-5833-96ec-a6585c8c2b29,ja,ja,none,none,floor_request,barge_in,はい、少しだけ待ってください。,はい 少しだけ待ってください
+01a1e037-7c8c-7074-8457-72ae788df27c,7d67a20f-e9e4-54ef-9e16-d79c261ac0a0,ja,ja,mixed,en,floor_request,barge_in,"I understand, 少しストップしてください。",i understand 少しストップしてください
+01a1e037-7f9e-7360-b8a0-b653f980ee51,c60350af-2c6e-5baa-b049-8da37a6239ca,ja,ja,none,none,floor_request,barge_in,はい、ただ一度止めてもらえますか。,はい ただ一度止めてもらえますか
+01a1e037-8045-764c-a972-60a9d56f3953,0d3162cc-d644-58ff-ae6a-38e6f09e97f1,ja,ja,mixed,en,floor_request,barge_in,ええ、stop there for a second please.,ええ stop there for a second please
+01a1e037-88a6-71d5-a2a8-eff96e77ba25,0af44d39-0d37-5f29-b30c-0749aeef5c38,id,id,none,none,floor_request,barge_in,"He-eh, tapi tolong berhenti dulu sebentar.",he eh tapi tolong berhenti dulu sebentar
+01a1e037-89ce-701a-87be-dcb119b249c1,ab0881d8-a4e1-576f-8dbf-537ecf08ecee,id,id,none,none,floor_request,barge_in,"Wah, sebentar dulu biar saya bicara sekarang.",wah sebentar dulu biar saya bicara sekarang
+01a1e037-9033-75a9-b625-17bf5a4f111d,28d41dfc-1a8b-5daa-b785-dc6c70ecd52d,id,id,mixed,en,floor_request,barge_in,"Paham, but please stop talking for a second.",paham but please stop talking for a second
+01a1e037-90dd-71bd-bf37-6104103e178f,d8a5e7f8-9623-51fb-a190-bde65a623d44,id,id,mixed,en,floor_request,barge_in,"Mm-hmm, sebentar stop dulu please.",mm hmm sebentar stop dulu please
+01a1e037-94e1-762f-931a-ddf30351cc26,f49e0b98-2d73-5ccd-8f8d-fd6ff596a985,id,id,mixed,en,floor_request,barge_in,"Makasih ya, but wait a moment please.",makasih ya but wait a moment please
+01a1e037-9563-741f-9435-cbdc79113777,fd2917fe-c9ec-5c7e-80f0-06cfe0b3ec3f,id,id,mixed,en,floor_request,barge_in,"Iya, please wait a minute let me speak.",iya please wait a minute let me speak
+01a1e037-99d6-77ba-818c-a911c40ebbe1,8b8aadf2-45df-575c-a420-b0343eacab54,fil,fil,none,none,floor_request,barge_in,"Oo, teka lang pakinggan mo muna ako.",oo teka lang pakinggan mo muna ako
+01a1e037-a26f-7107-8113-77f5e15bcd2c,426d2b70-37b6-5198-b0a1-ac2c6dcc9ada,fil,fil,none,none,floor_request,barge_in,"Sige lang, pero teka muna pakinggan mo ako.",sige lang pero teka muna pakinggan mo ako
+01a1e037-a562-7413-8f44-5383ad2549af,7b56de40-1bc5-5d29-8f97-c7befe0c2653,fil,fil,mixed,en,floor_request,barge_in,"Opo, pero can you hold on muna?",opo pero can you hold on muna
+01a1e037-a634-728a-a981-5d240e8f225d,9b2800b1-afd7-523f-8b5f-861397a05eb2,fil,fil,mixed,en,floor_request,barge_in,"Sige, please wait a minute sandali lang.",sige please wait a minute sandali lang
+01a1e037-a7e9-77bc-a2e7-8d9eb02efa0c,49327359-78d8-5fea-8875-77f4f1d1822d,fil,fil,mixed,en,floor_request,barge_in,"Hala, wait lang muna please hold on.",hala wait lang muna please hold on
+01a1e037-a94d-76e4-93d1-f48b12e93a1d,a8006185-ed6d-511c-84db-3c1d6a82763a,fil,fil,mixed,en,floor_request,barge_in,"Thank you, sandali lang please stop talking muna.",thank you sandali lang please stop talking muna
+01a1e037-adf2-74a7-9dc6-3464cc4d726b,00b0d465-f3d5-55bb-8884-ff273e7f5015,fil,fil,mixed,en,floor_request,barge_in,"Sige, but please stop for a second kasi may sasabihin ako.",sige but please stop for a second kasi may sasabihin ako
+01a1e037-ae39-72da-bc67-33de2d7b82ad,7442b522-3166-5722-9fd7-12d0ef3b42b4,fr,fr-FR,none,none,floor_request,barge_in,"Ok, mais laissez-moi une minute pour vérifier s'il vous plaît.",ok mais laissez moi une minute pour vérifier sil vous plaît
+01a1e037-afa0-70a4-8492-b7aac249cb5a,9cf1526a-6d2f-516c-b1ca-73b67cfde2cf,fr,fr-FR,none,none,floor_request,barge_in,"Tout à fait, mais laissez-moi juste parler deux secondes.",tout à fait mais laissez moi juste parler deux secondes
+01a1e037-b187-77d5-bc97-c7680ad323a0,f50a05e0-3305-51a6-bf83-161ba615b15e,fr,fr-FR,none,none,floor_request,barge_in,"Ah bon, attendez deux secondes s'il vous plaît laissez-moi parler.",ah bon attendez deux secondes sil vous plaît laissez moi parler
+01a1e037-b1f4-715d-914e-4a85a6a0dfab,1921bba2-71f0-5a4a-8201-f02571ac9e74,fr,fr-FR,none,none,floor_request,barge_in,"C'est gentil, mais arrêtez-vous un instant je vous prie.",cest gentil mais arrêtez vous un instant je vous prie
+01a1e037-b4bd-7165-9abd-118ad7dfaf6a,105476ed-ef3c-57b6-9e49-b5530fa317df,fr,fr-FR,mixed,en,floor_request,barge_in,"Yeah, attendez une seconde let me speak.",yeah attendez une seconde let me speak
+01a1e037-b944-7175-bdc8-4d7ca0dee5c5,538cfc4b-a3a6-5dea-8bc2-20548d480868,fr,fr-FR,mixed,en,floor_request,barge_in,"D'accord, but please stop talking for a second.",daccord but please stop talking for a second
+01a1e037-bd1c-7566-8278-f88ee85e680c,3cde4fee-34fb-5504-a201-1e73c49fcc01,fr,fr-FR,mixed,en,floor_request,barge_in,"Je vous écoute, but please hold on a second.",je vous écoute but please hold on a second
+01a1e037-c312-7099-989d-46d820f07db0,30f5ddd5-d109-58f2-935a-77faeb81d675,de,de-DE,none,none,floor_request,barge_in,"Genau, aber stopp mal kurz bitte.",genau aber stopp mal kurz bitte
+01a1e037-ca15-765a-9ab9-570e78cf2954,d3903a1c-b2f1-5fb9-acc5-f24d6eb041f9,de,de-DE,none,none,floor_request,barge_in,"Oh je, halt bitte kurz an!",oh je halt bitte kurz an
+01a1e037-ca60-739e-a5c3-dfe4b5df74fa,33484130-0e8b-5cf2-adbc-feec95a9a630,de,de-DE,mixed,en,floor_request,barge_in,"Mhm, please stop for a second and let me speak.",mhm please stop for a second and let me speak
+01a1e037-cca6-7406-b6ab-0f560accfbba,25c15854-66c3-5906-a35c-635fd0d9ea39,de,de-DE,mixed,en,floor_request,barge_in,"I see, aber warte bitte kurz einen Moment.",i see aber warte bitte kurz einen moment
+01a1e037-cce5-725c-ab1b-bfd8ff08be96,c3a0f66b-b777-5d94-9909-77bd4580a488,de,de-DE,mixed,en,floor_request,barge_in,"Oh wow, warte mal kurz please stop talking for a second.",oh wow warte mal kurz please stop talking for a second
+01a1e037-d0cf-7460-bdb6-22e418db010b,82657573-78c6-5d74-95f0-ed13ed991a76,de,de-DE,mixed,en,floor_request,barge_in,"Vielen Dank, but please hold on a minute.",vielen dank but please hold on a minute
+01a1e037-d4b9-7316-b9ca-ea9391efec78,df768578-8eb4-52c8-b4a5-65c2ee96c774,es,es-ES,none,none,floor_request,barge_in,"Ajá, pero espera un segundo por favor.",ajá pero espera un segundo por favor
+01a1e037-d5c9-7571-ac51-0ad42b3ec22c,7722d01e-5d8d-5ad7-b8bf-4b7c1d085f7f,es,es-ES,none,none,floor_request,barge_in,"¡Hala!, para un momento y déjame hablar.",hala para un momento y déjame hablar
+01a1e037-d665-707f-921a-320cba82f203,20e629ba-8f86-59ac-ae27-d7b566e2ccd1,es,es-ES,none,none,floor_request,barge_in,"Entiendo, pero espérate un momento por favor.",entiendo pero espérate un momento por favor
+01a1e037-db29-7130-ad7b-220dab66dfda,2e3cc4dc-9ed1-57b4-8a12-6385a38246ca,es,es-ES,none,none,floor_request,barge_in,"Sí, sí, pero espera un momento, por favor.",sí sí pero espera un momento por favor
+01a1e037-dfcf-7697-a0df-8644ee14a7eb,6b5951e4-2435-5890-a2bd-74207793fd0e,es,es-ES,mixed,en,floor_request,barge_in,"Entiendo, but please stop for a second and let me speak.",entiendo but please stop for a second and let me speak
+01a1e037-e0be-70b9-b770-cf85e3689d39,d5c356ef-160c-56d7-a614-9b3280896c01,es,es-ES,mixed,en,floor_request,barge_in,"¡Ostras! Wait a minute, let me speak.",ostras wait a minute let me speak
+01a1e037-e13a-7150-9c3e-ac9074f38981,5cc150de-5f28-5f69-ba2e-b36eb7545fb8,es,es-ES,mixed,en,floor_request,barge_in,"Vale, but please stop talking for a second.",vale but please stop talking for a second
+01a1e037-e738-76fa-b8a8-54438b1f43ce,7b082658-9eae-58b1-b597-11f3734d0ada,es,es-MX,none,none,floor_request,barge_in,"Ok, pero permíteme un momento por favor.",ok pero permíteme un momento por favor
+01a1e037-ec59-739e-842e-f68e86dd7eec,4c9edf41-1829-5711-a0c5-f4304490d45f,es,es-MX,none,none,floor_request,barge_in,"Gracias, pero espérame un momento por favor.",gracias pero espérame un momento por favor
+01a1e037-ecfe-7443-ab92-2850ce59da9f,2fadf14a-aebe-5ee7-b943-5036ae8970f2,es,es-MX,none,none,floor_request,barge_in,"Ya, pero dame un momento por favor.",ya pero dame un momento por favor
+01a1e037-eeb6-72bd-9bd7-fb59bd422a5e,0c41d1b3-2ee4-54cb-8c4b-6eaf8bb5d4a8,es,es-MX,mixed,en,floor_request,barge_in,"I see, pero dame un momento por favor.",i see pero dame un momento por favor
+01a1e037-f7e9-75ac-a576-c238072795b1,b36f6367-46a6-5de0-9f8f-7dd26cf41a3e,es,es-MX,mixed,en,floor_request,barge_in,"Muchas gracias, but stop talking for a second.",muchas gracias but stop talking for a second
+01a1e037-f962-7613-9ae9-d5697cc26dfb,e32d9f03-4c55-529a-b767-c01821587bd1,it,it,none,none,floor_request,barge_in,"Esatto, ma ti chiederei di fermarti un attimo.",esatto ma ti chiederei di fermarti un attimo
+01a1e038-0338-7296-993e-1d5108b9174a,fd963370-0d9c-5dc0-92a5-dbe78ee452df,it,it,none,none,floor_request,barge_in,"Continua pure, però aspetta un attimo fammi parlare.",continua pure però aspetta un attimo fammi parlare
+01a1e038-03d5-7371-b3ff-bb18a62c8ac5,5031c672-cb90-5bfd-9b79-4681484221f1,it,it,mixed,en,floor_request,barge_in,"Chiarissimo, but hold on and let me talk.",chiarissimo but hold on and let me talk
+01a1e038-0422-77a7-8ce8-f11c75898a82,a6bffbee-1f60-5869-a163-cb3245c7c031,it,it,mixed,en,floor_request,barge_in,"Oh no, hold on please, fermati un momento.",oh no hold on please fermati un momento
+01a1e038-07df-7409-84f1-c5c53a1f87e8,8c652025-1866-50e8-ad44-97c632e33125,it,it,mixed,en,floor_request,barge_in,"Sì, but please stop for a second and let me speak.",sì but please stop for a second and let me speak
+01a1e038-0ab3-74d6-87af-b5888c427f30,6e3ff3b9-84f6-5734-a3e7-0f04653e1612,it,it,mixed,en,floor_request,barge_in,"Avanti, but please hold on a second.",avanti but please hold on a second
+01a1e038-10a0-7337-bc6a-856d5498be0d,1c679643-7d75-5147-9dcc-ab10871b6669,en,en-US,none,none,correction,barge_in,"Mm-hmm, but you have the wrong date down for that.",mm hmm but you have the wrong date down for that
+01a1e038-1e86-7538-a494-baab33eab05e,96a9ff99-eac6-5610-a04c-b0d023f81dc5,en,en-IN,mixed,hi,correction,barge_in,"हाँ, but that date is wrong.",हाँ but that date is wrong
+01a1e038-1f26-7565-9ea5-b6002f0d0cbf,d7811043-6645-5727-9dad-fef6b00a8fe5,en,en-IN,none,none,correction,barge_in,"Aww, but no, you have noted down the wrong mobile number.",aww but no you have noted down the wrong mobile number
+01a1e038-2bfe-748a-bb60-8e3d76416452,572a856c-2854-57f1-86cc-eb22951a9476,en,en-IN,mixed,kn,correction,barge_in,"ಹೌದು, but the phone number you mentioned is wrong.",ಹೌದು but the phone number you mentioned is wrong
+01a1e038-2c54-72c9-b879-ab23fbdde57f,72fdedac-93b7-5629-b185-a3a5cc48fae6,en,en-IN,mixed,kn,correction,barge_in,"ಸರಿ, but that is not my phone number.",ಸರಿ but that is not my phone number
+01a1e038-2c84-75df-b814-c09c352d09da,6b7461e5-2ec4-59a6-ab84-eea218457d70,en,en-IN,mixed,hi,correction,barge_in,"धन्यवाद, but that account number is wrong, kindly verify it.",धन्यवाद but that account number is wrong kindly verify it
+01a1e038-2cbd-7594-8f17-48eb3b920423,4ec373a0-88f0-5cb5-b124-bea75b12b528,en,en-IN,mixed,kn,correction,barge_in,"Thank you, ಆದರೆ ನಾನು ಹೇಳಿದ್ದು ಬೇರೆ address.",thank you ಆದರೆ ನಾನು ಹೇಳಿದ್ದು ಬೇರೆ address
+01a1e038-2cff-7243-9a87-b3c0aaabd434,9c4f3ee2-44ba-5703-bc8e-1ab4b2987b12,en,en-IN,mixed,kn,correction,barge_in,"Aww, ಅದು ಸರಿ ಇಲ್ಲ, the amount should be five hundred.",aww ಅದು ಸರಿ ಇಲ್ಲ the amount should be five hundred
+01a1e038-370e-740b-9479-f69cfac84a63,7869b1f2-8bf8-56bf-b9a8-b284cf6a0e31,en,en-IN,mixed,ta,correction,barge_in,"ஆமா, wait you got the spelling wrong.",ஆமா wait you got the spelling wrong
+01a1e038-38cd-7584-a14b-f63285d3c46d,81e8a003-351a-552c-966d-53b4474e5fcb,en,en-IN,mixed,ta,correction,barge_in,"அச்சச்சோ, no, you got my account number totally wrong.",அச்சச்சோ no you got my account number totally wrong
+01a1e038-390e-75ba-a410-3b383ab39d86,b47a499f-a9fc-5764-9dbf-729e15e27822,en,en-IN,mixed,ta,correction,barge_in,"Thank you, ஆனால் that delivery address is not correct sir.",thank you ஆனால் that delivery address is not correct sir
+01a1e038-39e6-7476-845a-706e3d2354bf,29105632-7e2a-5c5d-92f5-b12c988a2ba3,en,en-IN,mixed,ta,correction,barge_in,"Mm-hmm, சரி, but that is not my current phone number.",mm hmm சரி but that is not my current phone number
+01a1e038-4114-7664-bd06-adb7ff49e6f4,0c3c565d-063e-50d6-9435-a516090ecc0c,en,en-IN,mixed,te,correction,barge_in,"Yeah, కానీ ఆ address కరెక్ట్ కాదు sir.",yeah కానీ ఆ address కరెక్ట్ కాదు sir
+01a1e038-4345-7224-8cd4-bc995a502e5f,a3128da7-ead3-5ea0-a69c-502f67e04320,en,en-IN,mixed,te,correction,barge_in,"Thank you, కానీ ఆ పేరు కరెక్ట్ కాదు.",thank you కానీ ఆ పేరు కరెక్ట్ కాదు
+01a1e038-445b-701d-a4b1-34fb8242b2fe,4633a984-26d9-57cd-9578-e3daf712e61b,en,en-IN,mixed,te,correction,barge_in,"Oh no, మీరు చెప్పిన address పూర్తిగా తప్పు, check the new location.",oh no మీరు చెప్పిన address పూర్తిగా తప్పు check the new location
+01a1e038-4565-7111-8fd7-04bc450ca0d2,5b55afc8-2d7f-5966-b41f-ef48a4971dec,en,en-IN,mixed,ml,correction,barge_in,"Uh-huh, പക്ഷെ the date you mentioned is completely wrong.",uh huh പക്ഷെ the date you mentioned is completely wrong
+01a1e038-4646-7698-83fd-d645947e0ecb,cabf5ad4-8eaf-58ae-b4cc-255c340b49ad,en,en-IN,mixed,te,correction,barge_in,"హ్మ్, but that date is wrong, అది కాదండి.",హ్మ్ but that date is wrong అది కాదండి
+01a1e038-46fd-724c-b6f8-942c7d359394,093a4133-803d-53ea-bf4d-7a7f2d56e82b,en,en-IN,mixed,ml,correction,barge_in,"Yes, but അത് ശരിയല്ല, the date was Tuesday.",yes but അത് ശരിയല്ല the date was tuesday
+01a1e038-4f8e-73fd-9661-b9506910c7bc,66652c86-d5d0-53e3-8f52-f8f08cddc56b,en,en-SG,none,none,correction,barge_in,"Okay, but that is not my correct postal code lah.",okay but that is not my correct postal code lah
+01a1e038-5273-7642-b26e-b14cceb315fd,27c3b003-e1b8-5558-b254-5b18563597b9,en,en-SG,none,none,correction,barge_in,"Yeah, but the booking is actually for tomorrow not today lah.",yeah but the booking is actually for tomorrow not today lah
+01a1e038-52e4-768d-a8e1-eb543f325fdf,e2240e24-2b8f-5319-8f5d-034505e50f68,en,en-SG,none,none,correction,barge_in,"Yeah, but actually the unit number is twelve B, not twelve A.",yeah but actually the unit number is twelve b not twelve a
+01a1e038-5484-73bc-83a8-dcba2e9ffbe4,04680461-0d30-5eee-91a1-a55725138b3b,en,en-IN,mixed,ml,correction,barge_in,"ശരി, but the date is wrong, അത് ഇന്നലെയല്ല.",ശരി but the date is wrong അത് ഇന്നലെയല്ല
+01a1e038-59f2-7687-930f-0cd0ba17454b,2badbf45-177c-5afc-824d-a386e4388028,en,en-SG,mixed,zh,correction,barge_in,"Uh-huh, actually 你读错我的名字 already lah.",uh huh actually 你读错我的名字 already lah
+01a1e038-5e3c-7443-b015-52df27b73991,011678df-362f-5bf9-85ac-12213e0f7091,en,en-SG,mixed,zh,correction,barge_in,"I see, but 那个价格不对, you quoted thirty dollars instead of twenty.",i see but 那个价格不对 you quoted thirty dollars instead of twenty
+01a1e038-61fe-7340-a2c5-4a7ebaf906e7,239035be-3c27-5594-8fee-27cad20da524,hi,hi,none,none,correction,barge_in,"अच्छा, नहीं मुझे दिल्ली नहीं मुंबई जाना है।",अच्छा नहीं मुझे दिल्ली नहीं मुंबई जाना है
+01a1e038-6294-7768-938a-1a1248934704,a5458a79-de73-51a9-8daa-83faa4192498,en,en-SG,mixed,zh,correction,barge_in,"Thank you, but 那个日期错了, the appointment should be next Monday instead.",thank you but 那个日期错了 the appointment should be next monday instead
+01a1e038-62cd-7436-9a9d-76b375d0f496,e106a822-41f4-5338-a35d-849c30389764,hi,hi,none,none,correction,barge_in,"ठीक है, मगर वो मुंबई नहीं दिल्ली का पता था।",ठीक है मगर वो मुंबई नहीं दिल्ली का पता था
+01a1e038-6c25-77d5-9746-787eac4959f8,cdc48e04-61c3-5962-9e7a-8978adc1d9bd,hi,hi,none,none,correction,barge_in,"अरे बाप रे, यह नाम नहीं है स्पेलिंग गलत है।",अरे बाप रे यह नाम नहीं है स्पेलिंग गलत है
+01a1e038-6ca6-73c3-bd92-22732dbe2db5,63eb04a3-9af4-56a6-9e31-907dcd89e4da,hi,hi,none,none,correction,barge_in,धन्यवाद लेकिन यह पुराना पता है नया वाला लिखिए।,धन्यवाद लेकिन यह पुराना पता है नया वाला लिखिए
+01a1e038-6d4e-7060-acd8-46a6da69052a,8ed9d23a-acd2-569c-80c0-ee1890dbe13b,hi,hi,mixed,en,correction,barge_in,"हाँ, but that date is completely wrong.",हाँ but that date is completely wrong
+01a1e038-6f16-7757-bc88-3cc818da6da8,71ed587c-5e90-5cc1-b0ba-7e7bdeac36de,hi,hi,mixed,en,correction,barge_in,"Right, लेकिन मेरा phone number बदल गया है।",right लेकिन मेरा phone number बदल गया है
+01a1e038-77de-731c-b480-8d7c796cd63f,c787abf0-7a85-5e8d-ad0c-c4077b3fc1f2,hi,hi,mixed,en,correction,barge_in,"Hmm, actually वो email address सही नहीं है।",hmm actually वो email address सही नहीं है
+01a1e038-795d-74e2-8d5b-d0a8bf64f372,2d21529d-14ee-552b-abc2-191908d3d362,kn,kn,none,none,correction,barge_in,ಹೌದು ಆದರೆ ನೀವು ಹೇಳಿದ ದಿನಾಂಕ ತಪ್ಪಾಗಿದೆ.,ಹೌದು ಆದರೆ ನೀವು ಹೇಳಿದ ದಿನಾಂಕ ತಪ್ಪಾಗಿದೆ
+01a1e038-7b08-77d2-89f9-638fa1516393,1b39da2e-062b-5767-8d2b-d5511cc2f3b6,kn,kn,none,none,correction,barge_in,"ಅರೆ, ನೀವು ಹೇಳುತ್ತಿರುವುದು ತಪ್ಪಾದ ದಿನಾಂಕ, ಅದು ನಾಳೆ ಅಲ್ಲ.",ಅರೆ ನೀವು ಹೇಳುತ್ತಿರುವುದು ತಪ್ಪಾದ ದಿನಾಂಕ ಅದು ನಾಳೆ ಅಲ್ಲ
+01a1e038-7cdf-73b8-b1a1-31e031dc7a55,6b542c80-7349-5a76-ae25-9f7f3c6d5b7b,kn,kn,none,none,correction,barge_in,"ಧನ್ಯವಾದಗಳು, ಆದರೆ ನೀವು ಹೇಳಿದ ದಿನಾಂಕ ತಪ್ಪಾಗಿದೆ.",ಧನ್ಯವಾದಗಳು ಆದರೆ ನೀವು ಹೇಳಿದ ದಿನಾಂಕ ತಪ್ಪಾಗಿದೆ
+01a1e038-8141-70c0-bf82-a1c324abb96f,a5fdd97f-2c9b-5c72-aca8-ce9e3d25d666,kn,kn,none,none,correction,barge_in,"ಹೂಂ, ಆದ್ರೆ ನೀವು ಹೇಳಿದ ಸಂಖ್ಯೆ ತಪ್ಪಿದೆ ನೋಡಿ.",ಹೂಂ ಆದ್ರೆ ನೀವು ಹೇಳಿದ ಸಂಖ್ಯೆ ತಪ್ಪಿದೆ ನೋಡಿ
+01a1e038-8279-776d-9be9-e72b426ae194,cbb01522-f100-5eba-ae87-ca5258989668,kn,kn,mixed,en,correction,barge_in,"ಸರಿ, but the account number you mentioned is wrong.",ಸರಿ but the account number you mentioned is wrong
+01a1e038-831f-738d-8617-bbf64a389c68,dab0d0b3-8ca8-512b-a74d-1dac5c1beb07,kn,kn,mixed,en,correction,barge_in,"ಹೌದು, but that date is wrong.",ಹೌದು but that date is wrong
+01a1e038-83db-75cf-b3fb-0c7bf8e743b8,ae3bbe13-c1e0-5a89-8a2f-fb64b961048c,kn,kn,mixed,en,correction,barge_in,"ಸರಿ, but the account number is not correct.",ಸರಿ but the account number is not correct
+01a1e038-8733-76e8-a8fa-8df71dde849f,3af1dcb6-6f8b-5c9b-b142-a746b610284b,kn,kn,mixed,en,correction,barge_in,"ಸರಿ, but the delivery date is wrong actually.",ಸರಿ but the delivery date is wrong actually
+01a1e038-902d-7704-b2a7-fe145d2e5e8d,6fa2a1b6-01a2-507d-b5de-44bf84530afe,ta,ta-IN,none,none,correction,barge_in,"அடடா அது என் எண் இல்லை, கடைசி எண் எட்டு.",அடடா அது என் எண் இல்லை கடைசி எண் எட்டு
+01a1e038-929e-7110-b52d-1a7c2524d494,35697fc6-f366-529b-aea4-883f6a6805c1,ta,ta-IN,none,none,correction,barge_in,"ஆம், ஆனால் நீங்கள் சொன்ன பெயர் தவறானது.",ஆம் ஆனால் நீங்கள் சொன்ன பெயர் தவறானது
+01a1e038-93c0-7519-91a8-7e3bf653c47c,aaf55016-8e54-5e51-8679-fc21a551e201,ta,ta-IN,none,none,correction,barge_in,ஆமாம் ஆனால் அந்த விலாசம் தப்பாக இருக்கு.,ஆமாம் ஆனால் அந்த விலாசம் தப்பாக இருக்கு
+01a1e038-93ff-753a-bdd3-45232051d73f,8ee3d181-6a28-567d-ad03-92f00a9e0208,ta,ta-IN,mixed,en,correction,barge_in,"Okay, ஆனா அது my phone number இல்ல.",okay ஆனா அது my phone number இல்ல
+01a1e038-9eb0-755e-b0e6-f0831f685ada,52cdf113-3211-57ed-a69c-da974ee0458f,te,te,none,none,correction,barge_in,ఊ కానీ నా చిరునామా అది కాదు మార్చండి.,ఊ కానీ నా చిరునామా అది కాదు మార్చండి
+01a1e038-9fe9-758b-bde8-265876b4c215,98380b20-81fc-5260-8dd6-3f904dbe0e1e,te,te,none,none,correction,barge_in,సరే కానీ నా అడ్రస్ అది కాదు విజయవాడ అడ్రస్.,సరే కానీ నా అడ్రస్ అది కాదు విజయవాడ అడ్రస్
+01a1e038-a18e-702f-be9d-9f9dbd9e2005,ce2da6d6-d57f-5d49-a4d2-7fb2eafca7d8,te,te,none,none,correction,barge_in,నిజమే కానీ నేను చెప్పిన తేదీ అది కాదు.,నిజమే కానీ నేను చెప్పిన తేదీ అది కాదు
+01a1e038-a67e-701c-aa66-89cd67ea847b,b663cd44-e01d-5f0c-b277-78adfda2069b,te,te,none,none,correction,barge_in,చాలా ధన్యవాదాలు కానీ నా పేరు మీరు తప్పుగా పలికారు.,చాలా ధన్యవాదాలు కానీ నా పేరు మీరు తప్పుగా పలికారు
+01a1e038-a784-7198-90ec-9704b3a871a7,8ddb801d-8b80-55b0-828d-3cb53e975612,te,te,none,none,correction,barge_in,సరే కానీ మీరు చెప్పిన పేరు తప్పు.,సరే కానీ మీరు చెప్పిన పేరు తప్పు
+01a1e038-aac2-7616-b8a3-d5f21c4c2243,0b3d60e7-ab38-524b-9acd-8858e480b61c,te,te,mixed,en,correction,barge_in,"అవును, కానీ ఆ time కాదు మీరు చెప్పాల్సింది.",అవును కానీ ఆ time కాదు మీరు చెప్పాల్సింది
+01a1e038-adc4-755a-8e81-17daf3665019,5953541a-58f7-5b3a-a22e-4020d924c099,te,te,mixed,en,correction,barge_in,"సరే, but you got my name wrong.",సరే but you got my name wrong
+01a1e038-b3c4-73ff-9320-6ddb1abf0682,adf298a1-bbc6-5006-a135-da7ff17cd9f7,ml,ml,none,none,correction,barge_in,"ശരി, പക്ഷേ ആ പേര് തെറ്റാണ് രമേശ് എന്നല്ല സുരേഷ് എന്നാണ്.",ശരി പക്ഷേ ആ പേര് തെറ്റാണ് രമേശ് എന്നല്ല സുരേഷ് എന്നാണ്
+01a1e038-b63d-75d2-8f6a-fa3d843c946e,1e092f48-6466-5fca-a2a7-bdc72899225f,ml,ml,none,none,correction,barge_in,"നന്ദി, എന്നാൽ ആ വിലാസമല്ല എനിക്കുള്ളത്.",നന്ദി എന്നാൽ ആ വിലാസമല്ല എനിക്കുള്ളത്
+01a1e038-b700-7382-8bd6-d85b7c18ad93,9a952b9b-c522-5bdc-8a0e-2ae9aa42cbfd,ml,ml,none,none,correction,barge_in,"ശരിയാണ്, എങ്കിലും ആ നമ്പർ മാറിയിട്ടുണ്ട്.",ശരിയാണ് എങ്കിലും ആ നമ്പർ മാറിയിട്ടുണ്ട്
+01a1e038-ba28-779a-8f21-c14a70079bb7,ec2742f4-1aae-5c13-a287-5fdf71e75fa9,ml,ml,mixed,en,correction,barge_in,"ശരി, but that date is wrong, അത് അടുത്ത ആഴ്ചയാണ്.",ശരി but that date is wrong അത് അടുത്ത ആഴ്ചയാണ്
+01a1e038-c173-7352-88db-0f4f2cce2d13,cd275f1f-2573-59d4-a159-bc0a27ebd66e,ml,ml,mixed,en,correction,barge_in,"ഓഹോ, but that is not my phone number.",ഓഹോ but that is not my phone number
+01a1e038-c30e-7426-991b-fa19e25511eb,473a3db5-338f-5088-ad4a-1fb9e231b261,zh,zh-CN,none,none,correction,barge_in,是的，不过我说的不是这个意思。,是的 不过我说的不是这个意思
+01a1e038-c37b-745d-94d3-2263fa0c2a1f,4fb8b725-64a3-5c21-919d-84bbf58282e1,ml,ml,mixed,en,correction,barge_in,"അതെ, but that is not my correct phone number.",അതെ but that is not my correct phone number
+01a1e038-c4e9-71d3-9756-2acf48e9a117,53216c42-c21a-54d8-b844-97ad25979919,zh,zh-CN,none,none,correction,barge_in,对，但是送达地址不是朝阳区是海淀区。,对 但是送达地址不是朝阳区是海淀区
+01a1e038-c5d8-7056-99cb-c540442145dd,03afa0bb-f1df-56c1-9796-1f610105a9ac,zh,zh-CN,none,none,correction,barge_in,天哪，不是这个名字，是李明不是李敏。,天哪 不是这个名字 是李明不是李敏
+01a1e038-cfa4-7357-a021-08efcd9207b6,a6ee9990-60f6-53a9-a807-e76a776f2bb1,zh,zh-CN,mixed,en,correction,barge_in,Yeah，但是你刚才念的 phone number 少了一位数字。,yeah 但是你刚才念的 phone number 少了一位数字
+01a1e038-d46b-7030-8a4d-e37298a8bb0c,48362f64-18eb-5fd2-99c6-d35c8f476639,zh,zh-CN,mixed,en,correction,barge_in,"Thanks, 但不是下周一而是下周二。",thanks 但不是下周一而是下周二
+01a1e038-d4cf-7209-aeb8-804ee9d68025,cfbd5b7c-4ae2-5a27-bedb-46d3b9f17d61,zh,zh-CN,mixed,en,correction,barge_in,嗯，不过你刚才说的 flight number 不对。,嗯 不过你刚才说的 flight number 不对
+01a1e038-d909-7452-a632-f6031513baa8,8c52dd45-9cc0-50cc-8b20-98f069323e0d,ja,ja,none,none,correction,barge_in,うん、じゃなくて日付は明日です。,うん じゃなくて日付は明日です
+01a1e038-d9bb-72b1-ac51-56b7f000074b,d12ddf20-2bef-594e-b3ba-76eb085233ce,ja,ja,none,none,correction,barge_in,うん、いや名前の漢字が違っています。,うん いや名前の漢字が違っています
+01a1e038-e13e-77ce-899d-102a61cdf424,6581d41a-dd31-5b2b-9cd6-c39ec0237562,ja,ja,none,none,correction,barge_in,うん、そうじゃなくて電話番号の末尾は四です。,うん そうじゃなくて電話番号の末尾は四です
+01a1e038-e18e-752d-89e2-74fe7d32df17,18132e56-a8fb-54d8-a3e8-fe1152fe5f0b,ja,ja,none,none,correction,barge_in,えっ、それは先週ではなくて来週の予定です。,えっ それは先週ではなくて来週の予定です
+01a1e038-e4ca-7481-9811-9390d5c3e2d8,4bea15a7-2080-5150-a427-882440cc12f9,ja,ja,mixed,en,correction,barge_in,わかりました、でも destination は Tokyo ではなく Kyoto です。,わかりました でも destination は tokyo ではなく kyoto です
+01a1e038-e959-77fd-bfd4-93fe06d87716,ed67b099-3bcb-5e30-b777-d706e698f0c1,ja,ja,mixed,en,correction,barge_in,"うわ、that's not what I ordered, コーヒーじゃなくて紅茶です。",うわ thats not what i ordered コーヒーじゃなくて紅茶です
+01a1e038-e9a3-7293-831e-3473b91e3700,cb3a6ab9-ba4d-57a9-90d5-5371c45e1418,ja,ja,mixed,en,correction,barge_in,うん、でも名前は John ではなく James です。,うん でも名前は john ではなく james です
+01a1e038-ea53-7659-8d7d-87a89633c14d,296c9a65-3c4e-55f2-ba52-b884041ae211,ja,ja,mixed,en,correction,barge_in,"どうもありがとう, but that reservation name is wrong, it is Smith.",どうもありがとう but that reservation name is wrong it is smith
+01a1e038-efc3-7484-a741-a4326ce3f66a,c0d6f084-e01b-5ace-84c9-56db80cf5c7a,id,id,none,none,correction,barge_in,"Paham, tapi nama yang Anda sebutkan itu keliru.",paham tapi nama yang anda sebutkan itu keliru
+01a1e038-f3e6-7224-bba3-415101d95623,7a502324-0f6d-5725-81bd-fc5c9cb64580,id,id,none,none,correction,barge_in,"Betul, cuma tanggal lahir saya bukan bulan Mei melainkan Juni.",betul cuma tanggal lahir saya bukan bulan mei melainkan juni
+01a1e038-f664-71f9-982f-7bee5f481747,151863d1-a66a-56a3-8f8a-f695f3ff8ee7,id,id,none,none,correction,barge_in,"Oke, tapi alamat pengirimannya bukan ke situ.",oke tapi alamat pengirimannya bukan ke situ
+01a1e038-fb98-7614-a7e0-3225aed6eda4,2d3aef10-fdb0-5226-b152-37c891fa0ebc,id,id,mixed,en,correction,barge_in,"Benar, but that is the wrong date, harusnya minggu depan.",benar but that is the wrong date harusnya minggu depan
+01a1e038-fe3f-76bc-9e8d-37495cbf5271,4f519bfb-3dcc-56d9-9405-10a2de7fc012,id,id,mixed,en,correction,barge_in,"Thanks, tapi bukan itu alamat yang benar melainkan Jalan Sudirman.",thanks tapi bukan itu alamat yang benar melainkan jalan sudirman
+01a1e039-0001-7426-aca6-68ce5d2ce243,40c6328c-6aa9-5402-8ea8-c9bb989351cf,id,id,mixed,en,correction,barge_in,"Aduh, that is not my phone number, yang benar ujungnya delapan.",aduh that is not my phone number yang benar ujungnya delapan
+01a1e039-014a-70d9-a27d-7182fac67168,a8b7cd8d-ba90-5a5c-9666-758d401faf83,id,id,mixed,en,correction,barge_in,"Iya, but that is actually the wrong date.",iya but that is actually the wrong date
+01a1e039-030b-7253-8486-0b4db3836589,846a3309-1821-5db6-b902-63ca842db9ea,fil,fil,none,none,correction,barge_in,Opo pero hindi po iyan ang tamang numero.,opo pero hindi po iyan ang tamang numero
+01a1e039-04ef-75ef-b3fd-2ce5b75209c5,1039684e-b4a7-5d53-b69d-3ec49e8a223a,fil,fil,none,none,correction,barge_in,"Opo, pero mali po ang spelling ng apelyido ko.",opo pero mali po ang spelling ng apelyido ko
+01a1e039-05a9-70cd-b52d-ed8e819fe807,e1860f38-30ab-55cb-96c6-fa56797fdeff,fil,fil,none,none,correction,barge_in,"Uh-huh, pero hindi po iyan ang tamang numero.",uh huh pero hindi po iyan ang tamang numero
+01a1e039-06e4-7022-b6f9-b4fa7f6a0b2f,d8c7b163-d748-569f-a658-1da93b075bc3,fil,fil,none,none,correction,barge_in,"Naku, mali po ang numero na binanggit mo.",naku mali po ang numero na binanggit mo
+01a1e039-0a07-7050-b7fe-56d88006570f,c25b49a8-fd59-5567-8297-8d8db2f7f4ea,fil,fil,none,none,correction,barge_in,"Opo, pero hindi iyan ang tamang petsa ng appointment.",opo pero hindi iyan ang tamang petsa ng appointment
+01a1e039-1e9c-77cb-ac20-7544c877e7ae,8b19c8ac-e39f-58af-990e-b6771fbf715d,fr,fr-FR,mixed,en,correction,barge_in,"D'accord, but you actually made a mistake on my email address.",daccord but you actually made a mistake on my email address
+01a1e039-1f7a-7333-830a-854ba3f40dd3,4d5a7195-b229-581f-ab79-f1fc97c7052c,fr,fr-FR,mixed,en,correction,barge_in,"Oh là là, you just charged the wrong credit card.",oh là là you just charged the wrong credit card
+01a1e039-2085-7200-811f-5834a664e2cf,217b5d79-f8df-512f-bc1e-ee80bc9b8ba6,fr,fr-FR,mixed,en,correction,barge_in,"Merci, but you got the email address wrong.",merci but you got the email address wrong
+01a1e039-24f1-71eb-8376-6709aa74b562,d20e4c0e-ac99-545b-83a5-d4a3b4f1269f,fr,fr-FR,mixed,en,correction,barge_in,"Go on, mais ce n'est pas du tout mon nom de famille.",go on mais ce nest pas du tout mon nom de famille
+01a1e039-2a10-73ea-96a3-2773dcf0f876,5e7bcc01-035c-5605-bdb7-b71c62bcd386,de,de-DE,none,none,correction,barge_in,"Genau, allerdings lautet die Hausnummer zwölf statt zwanzig.",genau allerdings lautet die hausnummer zwölf statt zwanzig
+01a1e039-2be2-731c-854b-9d46589508f3,f985f131-1b92-5911-ba29-c81a63beb5c7,de,de-DE,none,none,correction,barge_in,"Vielen Dank, aber mein Nachname wird mit Doppel-S geschrieben.",vielen dank aber mein nachname wird mit doppel s geschrieben
+01a1e039-2c8d-70b7-bd07-ed6da1ff02b0,94efaed4-7681-586e-b9e9-b7b29b187ff8,de,de-DE,none,none,correction,barge_in,"Ach je, nein, die Hausnummer ist die fünfzehn und nicht die fünfzig.",ach je nein die hausnummer ist die fünfzehn und nicht die fünfzig
+01a1e039-2f56-708c-8bff-86e2a332f793,2d577985-acf4-5381-8f7b-7734dbd8bfb6,de,de-DE,mixed,en,correction,barge_in,"I see, aber das ist not the correct address.",i see aber das ist not the correct address
+01a1e039-2fbe-75b3-821d-e98a37b9728a,abb59054-b585-5dc2-a01c-11313855a729,de,de-DE,none,none,correction,barge_in,"Mhm, aber die Hausnummer ist die zwölf und nicht die zwanzig.",mhm aber die hausnummer ist die zwölf und nicht die zwanzig
+01a1e039-32b5-75f8-bae9-f2a1972c741e,f20f0d17-1ebf-55b6-8343-426cfd0efb30,de,de-DE,mixed,en,correction,barge_in,"Genau, but you misspelled my last name, it starts with an S.",genau but you misspelled my last name it starts with an s
+01a1e039-36c6-7637-8efb-7e85f1e61422,5581ccea-2a10-5d72-a379-53e2aa5a1af1,de,de-DE,mixed,en,correction,barge_in,"Mhm, aber actually my last name is Weber.",mhm aber actually my last name is weber
+01a1e039-36fc-76a6-8290-1bdc5eed453f,9c07f3f6-be52-5f81-84b2-04f04351f4fe,de,de-DE,mixed,en,correction,barge_in,"Danke, but actually that was not my order number.",danke but actually that was not my order number
+01a1e039-38b2-7589-b837-6d6c906b1ecc,e0598899-0324-5ba6-832b-939e896e67d8,es,es-ES,none,none,correction,barge_in,"Entendido, pero el apellido está mal escrito.",entendido pero el apellido está mal escrito
+01a1e039-404a-7214-aca6-39c84f353239,fc55e7f7-6ba9-532c-a91c-f49d75d14740,es,es-ES,none,none,correction,barge_in,"Muchas gracias, pero el apellido está mal escrito.",muchas gracias pero el apellido está mal escrito
+01a1e039-42f9-75ba-9d8e-6f011d94ab3f,bca0299d-e619-5a65-971e-7cdb7960d8e3,es,es-ES,mixed,en,correction,barge_in,"Sí, but you got the email address equivocado.",sí but you got the email address equivocado
+01a1e039-4347-733c-8692-3d6e02f23c21,99afedc6-1cff-5bf0-891f-0539657b8b71,es,es-ES,mixed,en,correction,barge_in,"Sí, but that is the wrong date because I meant tomorrow.",sí but that is the wrong date because i meant tomorrow
+01a1e039-45a3-7277-b4f7-bb12e3392cea,c955d817-a58d-5068-968b-18f521e9ac59,es,es-ES,mixed,en,correction,barge_in,"Ya, pero you said the wrong date.",ya pero you said the wrong date
+01a1e039-4e00-734a-bff3-ef671ead441c,56a4a5e1-4b72-5fcc-a7c1-9e5966912015,es,es-MX,none,none,correction,barge_in,"¡Ah caray!, no es para el martes sino para el miércoles.",ah caray no es para el martes sino para el miércoles
+01a1e039-5778-77b7-80ab-332bc6cd6dbf,7335e501-3aa0-5317-a932-e608dcd54fb1,es,es-MX,mixed,en,correction,barge_in,"Thank you, pero dijiste el número equivocado.",thank you pero dijiste el número equivocado
+01a1e039-5915-74d0-8cf4-db4a714ace9d,afdf8450-cda0-50e7-b373-1ec4eefccabd,es,es-MX,mixed,en,correction,barge_in,"Uh-huh, pero mi last name está mal escrito.",uh huh pero mi last name está mal escrito
+01a1e039-5ab4-7075-8901-e8fe59c54845,cd24dffa-b3bf-5b11-b22c-c52ef60d1328,es,es-MX,mixed,en,correction,barge_in,"¡Órale! Pero wait, el apellido está mal escrito.",órale pero wait el apellido está mal escrito
+01a1e039-5ece-720d-bdf3-28e29e24bf8b,3fa6f2cf-a450-515c-89a3-0d79f68dc79c,it,it,none,none,correction,barge_in,"Oh no, guarda che non era quella l'email che ti ho dato.",oh no guarda che non era quella lemail che ti ho dato
+01a1e039-5f0e-7429-8059-d4063ee944b1,ef370455-f577-523e-8ab6-c9520ce6f971,it,it,none,none,correction,barge_in,"Esatto, ma la data corretta è il quindici maggio.",esatto ma la data corretta è il quindici maggio
+01a1e039-6700-771c-8d1d-917e3c76ba9a,2f4a056f-9ff0-5bbc-99be-274a3878cfd2,it,it,mixed,en,correction,barge_in,"Sì, but actually you got my name wrong.",sì but actually you got my name wrong
+01a1e039-6794-7124-a2b3-a18a90637eca,37901276-ea8d-5804-99b8-7282157a3899,it,it,mixed,en,correction,barge_in,"Accipicchia, you got the spelling of the surname wrong!",accipicchia you got the spelling of the surname wrong
+01a1e039-6cb0-76b1-a2a6-17cb3436e46b,ce1320c5-95da-537d-9df7-fd402c17a930,it,it,mixed,en,correction,barge_in,"Sì, but that was actually yesterday's meeting.",sì but that was actually yesterdays meeting
+01a1e039-6fb7-72b9-9d13-f74cc5ac555b,41e38e23-c276-5237-aa99-2560886d4f04,en,en-US,none,none,correction,barge_in,That's not the right number.,thats not the right number
+01a1e039-7191-7080-91e5-f6b9eaff518f,33d74f65-6843-5101-9d40-31b3372786cb,en,en-US,none,none,clarification_question,barge_in,What do you mean?,what do you mean
+01a1e039-7331-74a4-a9a2-2a2bea591071,e6e912b7-89f9-5868-9acc-522217b2065a,en,en-IN,none,none,correction,barge_in,"No, that is wrong.",no that is wrong
+01a1e039-76cb-75c2-af63-2a32d7dd0fc5,e847a80f-82e4-598f-9b1c-0969388bb3bb,en,en-IN,mixed,hi,correction,barge_in,"Wait, date गलत है।",wait date गलत है
+01a1e039-7c20-751a-8d5c-aaf8f1fdc43c,ff0f4284-56ff-5791-a650-91e98c3d3c3d,en,en-IN,mixed,kn,floor_request,barge_in,ಸ್ವಲ್ಪ hold on please.,ಸ್ವಲ್ಪ hold on please
+01a1e039-7c74-74e0-8027-9d6ec8ffd5e1,bf9f3273-4f12-5928-be6b-84fb836fe3ee,en,en-IN,mixed,kn,correction,barge_in,"ಅಲ್ಲ, that is wrong number.",ಅಲ್ಲ that is wrong number
+01a1e039-7dbe-73ab-a676-0b49696bea17,db831bed-abea-56f0-8c5d-e898ecbdafb4,en,en-IN,mixed,kn,clarification_question,barge_in,"Sorry, ಯಾವುದು exactly ಹೇಳ್ತಿದ್ದೀರಾ?",sorry ಯಾವುದು exactly ಹೇಳ್ತಿದ್ದೀರಾ
+01a1e039-802a-7793-9bd7-12bd5ac484e0,ddead715-c4d6-51a4-852c-b31a7323636a,en,en-IN,mixed,ta,clarification_question,barge_in,எந்த option சொல்றீங்க?,எந்த option சொல்றீங்க
+01a1e039-84c8-741e-a248-5d4ab905f892,399b637a-2d4a-5249-9afa-05b0b8036bc0,en,en-IN,mixed,te,correction,barge_in,"Wait, అది నా address కాదు.",wait అది నా address కాదు
+01a1e039-8b35-7102-8923-163ed41650ce,d40de423-fbfa-5de0-8ea7-769e51530481,en,en-SG,none,none,floor_request,barge_in,Wait ah.,wait ah
+01a1e039-8ff0-7111-9afe-58d1c03c5b52,01cfa383-25ea-52bb-a2f2-45e494292831,hi,hi,none,none,floor_request,barge_in,एक मिनट रुकिए।,एक मिनट रुकिए
+01a1e039-9075-7749-8f4f-1d698e1e01d2,17a58a19-ce98-5d0b-97cd-20c84724a5e0,en,en-SG,none,none,clarification_question,barge_in,Which one you mean?,which one you mean
+01a1e039-90c7-7091-b69d-395e8f8884f1,8928dfbc-29c4-5e20-ac94-ec35b8eb737f,en,en-SG,mixed,zh,clarification_question,barge_in,"Sorry, what do you mean 什么意思?",sorry what do you mean 什么意思
+01a1e039-9138-71c3-8c6b-059ab6d34749,b9765295-abee-519c-a844-50ea520691de,en,en-SG,mixed,zh,correction,barge_in,Sorry not that one 你讲错了.,sorry not that one 你讲错了
+01a1e039-954f-75e4-a0fe-03cce4e10d45,2a0ae262-a4d9-5ae5-854f-fa6d744e985f,hi,hi,none,none,correction,barge_in,"नहीं, यह गलत है।",नहीं यह गलत है
+01a1e039-9e01-7155-9dd3-6e7dd7bb9400,fc525a81-c7af-5e7f-b4c6-4cfc3c221c5d,hi,hi,mixed,en,clarification_question,barge_in,कौन सा item mean कर रहे हैं?,कौन सा item mean कर रहे हैं
+01a1e039-a911-7432-9b03-f62a834de8fb,5d1f4089-c3fb-5740-946b-e8b51d8f6201,ta,ta-IN,none,none,clarification_question,barge_in,எதை சொல்றீங்க?,எதை சொல்றீங்க
+01a1e039-ab20-70a4-85fe-c152468a23b9,9b20f40a-b899-5a50-a925-ba7a9f50140e,ta,ta-IN,mixed,en,correction,barge_in,"அது தப்பு, that is wrong.",அது தப்பு that is wrong
+01a1e039-ab94-77a7-8dbf-85022593d5fb,be1709a2-d047-5d9c-8b9f-2ab65010047a,ta,ta-IN,none,none,correction,barge_in,"இல்லை, அது தப்பு.",இல்லை அது தப்பு
+01a1e039-aec3-71f4-a1b1-0f6d0df7474c,be97e223-e929-568e-81f8-d6e2694d296b,te,te,none,none,correction,barge_in,కాదు అది వేరే నంబర్.,కాదు అది వేరే నంబర్
+01a1e039-b2f6-735b-9ca1-4c9b47fd0705,2362a8c4-1d36-5b70-b62f-b6ccd71bad4e,te,te,mixed,en,correction,barge_in,లేదు అది wrong number.,లేదు అది wrong number
+01a1e039-b3be-70c8-b0b7-c6e72ea48a3d,67c4385d-d0ec-5e51-b929-fe8bb6a967bb,te,te,mixed,en,floor_request,barge_in,Just one second ఆగండి.,just one second ఆగండి
+01a1e039-b905-7189-a6c7-310c62518e65,768c94e3-be13-5e4c-a0b4-c4c1fc5fb85c,te,te,mixed,en,clarification_question,barge_in,ఏ plan గురించి మీరు చెప్తున్నారు?,ఏ plan గురించి మీరు చెప్తున్నారు
+01a1e039-ba9f-7481-a119-1fa4e8958173,73377cc1-9d92-5980-9a18-af51b45bec88,ml,ml,mixed,en,correction,barge_in,അത് തെറ്റാണ് wrong date ആണ്.,അത് തെറ്റാണ് wrong date ആണ്
+01a1e039-c059-7682-a5e0-a73306b87899,dabf06b1-c920-53de-b6cf-aee7e7849b0b,zh,zh-CN,none,none,correction,barge_in,你念错了。,你念错了
+01a1e039-c4a0-7313-9544-1f6c0717f4c0,9b30bd53-2c8d-5976-a37e-4be23010da55,zh,zh-CN,mixed,en,floor_request,barge_in,Hold on 先停一下。,hold on 先停一下
+01a1e039-c544-7219-8668-4efd3459a5d1,df4d6368-8043-5b2a-9797-4c4785984c7f,zh,zh-CN,none,none,clarification_question,barge_in,什么意思？,什么意思
+01a1e039-c5b4-7699-83d6-1ad0eff4dd01,2413a00b-5408-5d16-aff2-79e1d1c9c1c0,zh,zh-CN,mixed,en,correction,barge_in,不是，我的 email 写错了。,不是 我的 email 写错了
+01a1e039-c64a-74f1-8f28-d2adad69e974,a59f5f6a-51b8-584b-ac04-a5dda8ce69d4,ja,ja,none,none,clarification_question,barge_in,どういう意味ですか？,どういう意味ですか
+01a1e039-ce51-7790-848f-399a6043a27e,a30ff7d1-05b6-5573-8eb6-f8337c456d34,ja,ja,mixed,en,correction,barge_in,"No, 違います。",no 違います
+01a1e039-d173-738a-803e-d369e9db75a8,68396f61-88eb-516e-96c1-8bfbc653ee88,id,id,mixed,en,correction,barge_in,"Bukan begitu, you got it wrong.",bukan begitu you got it wrong
+01a1e039-d267-71cc-aeb8-96def5169743,8dd4d9df-1b4a-58e1-bd22-12316d740004,id,id,mixed,en,floor_request,barge_in,Wait sebentar.,wait sebentar
+01a1e039-d905-739c-b0d6-1d9a84785c65,0aa19942-35c7-51b0-b545-f9e6b3186902,fil,fil,none,none,floor_request,barge_in,Teka muna.,teka muna
+01a1e039-dad2-70f9-80fa-463272689429,dfe31cc4-555f-5894-844e-016276e6371f,fil,fil,none,none,correction,barge_in,Mali ang nabanggit mo.,mali ang nabanggit mo
+01a1e039-dd6a-75bb-b85a-6a583a17bda1,ad708cb5-b1e4-53c0-a9da-d1f9cee95158,fil,fil,mixed,en,clarification_question,barge_in,Aling option ang ibig mong sabihin?,aling option ang ibig mong sabihin
+01a1e039-e117-7723-918d-603ed79b1b2a,41f9354d-ed62-52a9-ba7b-75c81be408e6,fr,fr-FR,none,none,clarification_question,barge_in,Lequel ?,lequel
+01a1e039-e58e-73ea-b0ee-35ac58cefd3c,68d70ec9-37df-5e2e-ae37-c73d03cfd87b,fr,fr-FR,none,none,correction,barge_in,Non c'est faux.,non cest faux
+01a1e039-e610-75a4-a8b6-576692a5fb55,0d89adc5-1220-5f82-afd6-c6ad95a9e8c3,fr,fr-FR,mixed,en,floor_request,barge_in,"Stop, un instant.",stop un instant
+01a1e039-e6da-70c7-a9ca-e0763dfcbe5a,e04e8a11-9fc9-598a-8f62-1f0cb06e2649,fr,fr-FR,mixed,en,clarification_question,barge_in,"Attends, what do you mean?",attends what do you mean
+01a1e039-e7dc-75ac-b990-f48f834f2c47,00e4e4f1-2fe5-565b-8cad-27d4f13b9e12,de,de-DE,none,none,clarification_question,barge_in,Was meinen Sie damit?,was meinen sie damit
+01a1e039-f3b6-755d-80c4-3fdb8fc7597d,2c14d09e-f220-528b-969c-4ff647ee8a44,es,es-ES,none,none,floor_request,barge_in,Espera un momento.,espera un momento
+01a1e039-f3ef-7140-a717-7ef7a9c424a1,8b9e93d8-0a8a-5a1d-94da-4ebdce90bb72,es,es-ES,mixed,en,floor_request,barge_in,"Para un segundo, stop please.",para un segundo stop please
+01a1e039-f68f-77f4-9033-62989109b52a,c478e726-e02b-53d4-86e1-ffa167f6059a,es,es-ES,mixed,en,correction,barge_in,"No, dijiste Friday, pero es Thursday.",no dijiste friday pero es thursday
+01a1e039-ff57-76e5-8c1b-c0d10ac44aa9,07cb8abd-101e-55a4-beb1-fadc37899ded,es,es-MX,none,none,clarification_question,barge_in,¿Cuál de todos?,cuál de todos
+01a1e03a-0291-7263-9371-99387e6e0318,1abf5766-35ae-5516-aad7-798498b137fe,es,es-MX,none,none,correction,barge_in,"No, ese número está mal.",no ese número está mal
+01a1e03a-03c2-7528-a350-a1da2d899031,227c3d47-71d2-5ca5-9ecf-d9a603ad7fc9,es,es-MX,none,none,floor_request,barge_in,Pérate tantito.,pérate tantito
+01a1e03a-04ad-701b-9e3b-2352a516f011,50b899bc-39dc-5c65-bd42-1c798f484905,es,es-MX,mixed,en,correction,barge_in,"No es así, you got the name wrong.",no es así you got the name wrong
+01a1e03a-05c4-7774-902b-9276ad6f9804,01cf9063-1d70-5dab-9687-ec0a67dc81af,it,it,none,none,correction,barge_in,Non è esatto.,non è esatto
+01a1e03a-0a28-715f-9781-d4e5a94d34d8,864d02c7-2c57-5d1c-8946-55621b9df7aa,it,it,none,none,clarification_question,barge_in,Quale intendi?,quale intendi
+01a1e03a-0ffb-7108-9fac-c9dd90817dd5,5583a98c-deeb-5016-9edd-6e726661f4a0,it,it,mixed,en,clarification_question,barge_in,Which one intendi?,which one intendi
+01a1e03a-105b-7578-92a8-7b39f39910e6,d285c9ad-bd4c-5894-b144-0e2b64297818,it,it,mixed,en,floor_request,barge_in,"Stop, un momento!",stop un momento
+01a1e03a-2af6-7641-b3a7-d0d3e7def37b,f3835b75-d33c-5aa2-9f50-4cd934bb3681,zh,zh-CN,none,none,gratitude_token,backchannel,谢谢，谢谢，谢谢。,谢谢 谢谢 谢谢
+01a1e03a-44b4-75b2-bb91-a38f025d5b8f,7ca9079b-3cfa-54e3-bbc5-bf949edd2261,en,en-US,none,none,acknowledgment,backchannel,"Got it, I understand.",got it i understand
+01a1e03a-614d-70de-ac78-ff2e72d3442c,2583dec2-21a1-57c2-b0fb-6e82d2a35e89,ja,ja,mixed,en,reaction_token,backchannel,Wow、すごいですね。,wow すごいですね
+01a1e03a-6620-7673-a68e-79a9a8ee5604,13d0c601-97f2-5aad-94c4-51ce0b2fc187,fr,fr-FR,none,none,go_ahead,backchannel,"Vas-y, continue je t'écoute.",vas y continue je técoute
+01a1e03a-6e19-73e4-a314-6da672166550,a5ff8d4b-c2c5-5d7a-8ea8-8a626c4d347a,es,es-MX,mixed,en,gratitude_token,backchannel,"Gracias, thank you, te sigo escuchando.",gracias thank you te sigo escuchando
+01a1e03a-7fed-77c4-a2b9-44c23a4dc185,01d274ad-c962-5e38-95af-dcfa46cab3bc,ja,ja,mixed,en,floor_request,barge_in,うん、please wait a second and let me talk.,うん please wait a second and let me talk
+01a1e03a-9aa0-76e5-9c35-edf7d490196b,9d9ac551-ad05-5dbb-a45e-9cc166c1b683,es,es-MX,mixed,en,clarification_question,barge_in,"Espera, ¿which one?",espera which one
+01a1e03b-07de-75f3-a94c-4e43a9064b36,11f0011a-c0b5-5870-af5a-ec60d30c7d87,ta,ta-IN,none,none,gratitude_token,backchannel,ரொம்ப நன்றி.,ரொம்ப நன்றி
+01a1e03b-7f4b-72c6-8b54-08f8b6ef38b6,9aa6cb70-ee35-58c6-a2fa-72203c476122,kn,kn,mixed,en,reaction_token,backchannel,"ಅಯ್ಯೋ, that is really sad to hear.",ಅಯ್ಯೋ that is really sad to hear
+01a1e03b-851f-7769-9608-6f03eca09436,37365cb7-39d1-5a9d-95fe-268fcf9d953a,es,es-MX,none,none,floor_request,barge_in,"Sí, pero espérame un tantito, por favor.",sí pero espérame un tantito por favor
+01a1e03b-989c-7243-b168-f945e524d297,99806847-5708-5a30-83e8-74c1491b3b78,fil,fil,none,none,continuer,backchannel,Sige po.,sige po

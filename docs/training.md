@@ -77,6 +77,62 @@ batch one warmed, and separately cold process through first label; they exclude
 HTTP/network/queue/Vxpipe boundary. Original first-run evidence is retained under
 reports/e5-small-run1/ and historical labnotes.
 
+The completed owner-review audit and first character-baseline comparison are in
+[Review follow-up](review-followup.md), including the coverage gaps and next
+training checkpoint. Reproduce without GPU or Gemini calls:
+
+```shell
+uv run python -m experiments.audit_reviewed_errors
+uv run --group baseline python -m experiments.compare_character_baseline
+```
+
+Frozen E5 experiment artifacts are under `models/frozen-e5-run1/` locally;
+versioned results are under `reports/frozen-e5-run1/`. The encoder uses the
+original pretrained revision, query prefix, masked mean pooling, L2 normalization
+and the 64-token total budget; a validation-selected logistic head provides the
+uncalibrated probability. Run downloaded-artifact inference and CPU measurement:
+
+```shell
+uv run --no-sync python -m barge_in_detector.training.frozen_e5 "please wait"
+uv run --no-sync python -m experiments.benchmark_frozen_e5
+```
+
+This candidate did not improve the 98-case score or meet the model p99 gate.
+The user's local machine is the designated CPU for this measurement; whole-path
+latency still requires Vxpipe integration.
+
+The subsequent character-plus-word candidate and all comparisons are documented
+in [Model improvement results](model-improvement-results.md). Its local portable
+artifact uses only the optional baseline dependencies for CPU inference:
+
+```shell
+uv run --group baseline python -m barge_in_detector.training.lexical "stop"
+```
+
+It scores 90/98 on the owner-reviewed development set and meets the measured
+model-path CPU budget, but retains false stops and multilingual synthetic
+regressions. It has not replaced the published model.
+
+The additive-data experiment fine-tunes E5 on all 4,918 combined training rows
+and compares 27 sparse configurations on the same validation/test splits.
+See [E5 and lightweight results](e5-phrase-results.md). The E5 candidate retains
+PyTorch safetensors, FP32 ONNX and dynamic INT8 ONNX, plus all three seed
+checkpoints, in `huggingface/model/candidates/e5-phrase-run1/`. This local staging
+does not publish to HF. Source and dataset revision pins remain required.
+
+CPU export verification is separate from training and uses the export group:
+
+```shell
+uv sync --group export
+uv run --no-sync python -m experiments.verify_e5_export \
+  --run huggingface/model/candidates/e5-phrase-run1 \
+  --reports reports/e5-phrase-run1 --benchmark
+```
+
+Benchmark verification scores INT8 at serving batch size one because dynamic
+quantization can depend on batch composition. Scores, p50/p95/p99 and artifacts
+are recorded in the reports directory; no research reports enter HF staging.
+
 ## Releases
 
 Commit and publish source on GitHub first. Publish only model artifacts/cards/

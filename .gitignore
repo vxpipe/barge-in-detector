@@ -1,6 +1,7 @@
 # Model artefacts (datasets under data/ are committed; see docs/data-format.md)
 # DuckDB working store (rebuilt from data/export/; see docs/data-format.md)
 /data/work/
+# GPU exports and local HF model release inputs; provenance stays in releases/.
 /models/
 /checkpoints/
 /data/evaluation/reviews/*.lock

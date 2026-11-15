@@ -6,6 +6,9 @@ milestone's acceptance gates pass.
 - [x] [GitHub source and Hugging Face releases](github-source-and-hub-releases.md)
   — current ownership and publication boundary.
 
+- [x] [Direct Hugging Face release workflow](huggingface-release-workflow.md)
+  — validated dataset/model publishing and portable HF release submodules.
+
 - [ ] [Dataset release and coverage audit](dataset-release-and-coverage-audit.md)
   — active dataset work after separating model ownership.
 

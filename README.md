@@ -66,6 +66,11 @@ training, 333 validation, and 331 test examples. A separate **98-example English
 challenge** has been owner-reviewed. Rejected samples stay in the source export
 for audit, and are excluded from training.
 
+A separate phrase-coverage supplement adds 3,437 accepted examples while keeping
+the original data intact. The combined experiment uses 4,918 train / 915 validation
+/ 908 test examples across all 14 languages. See the [E5 and lightweight comparison](docs/e5-phrase-results.md)
+for the new candidate, its FP32/INT8 exports, CPU measurements and evaluation limits.
+
 ```shell
 uv run python -m barge_in_detector check-catalogue
 uv run python -m barge_in_detector.review
@@ -87,6 +92,7 @@ For hosted data without cloning the source repo, start with the
 | Clean caller transcripts consistently | [Transcript format](docs/transcript-format.md) |
 | Train, evaluate, and benchmark on CPU | [Training guide](docs/training.md) |
 | Inspect recorded results and failures | [First-run reports](reports/e5-small-run1/) |
+| Compare the additive-data E5 and sparse candidates | [Current experimental results](docs/e5-phrase-results.md) |
 
 Generation uses an environment Gemini API key. Training dependencies are
 optional: `uv sync --group train`. CPU model evaluation runs locally; GPU
@@ -150,3 +156,9 @@ GitHub owns all code, tests, docs, labnotes, and milestones, plus a dataset copy
 Hugging Face hosts model and dataset releases. Release metadata links artifacts
 to exact source and dataset revisions. The project is available under the
 [MIT licence](https://github.com/vxpipe/barge-in-detector/blob/main/LICENSE).
+
+To publish dataset or model releases directly from this checkout, follow the
+[release workflow](docs/releases.md). Local GPU exports stay under ignored
+`models/`; release manifests and HF cards are versioned under `releases/`. HF repos are tracked as submodules at
+`huggingface/model` and `huggingface/dataset`; initialize them without large model
+downloads using `GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --recursive`.

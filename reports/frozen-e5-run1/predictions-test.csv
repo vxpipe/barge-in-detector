@@ -1,0 +1,332 @@
+language,label,text_clean,p_barge_in
+en,barge_in,yes yes but can we talk in kannada please ಸ್ವಲ್ಪ ಕನ್ನಡದಲ್ಲಿ ಮಾತಾಡಿ,0.9882038831710815
+en,backchannel,please proceed சொல்லுங்க சொல்லுங்க,0.1675012856721878
+en,barge_in,right समझ गया but skip these basic checks and tell me how to reset the password,0.9989745616912842
+en,barge_in,umm actually leave all that and just tell me the final payable amount,0.9892974495887756
+en,barge_in,yeah yeah but your delivery boy has been roaming around my colony for forty minutes already,0.9869404435157776
+en,barge_in,well actually എനിക്ക് ഇപ്പോൾ തിരക്കാണ് i have to hang up now,0.9642951488494873
+en,barge_in,sorry which delivery date is that,0.9915966391563416
+en,barge_in,i dont agree with that at all your website says something different,0.9966068267822266
+en,barge_in,what do you mean by extra charges എന്താണ് അത്,0.9694769978523254
+en,barge_in,that is wrong my vehicle is a petrol variant not diesel,0.9962077140808105
+en,barge_in,umm actually അതല്ല the delivery address is flat number 4b,0.9906416535377502
+en,barge_in,please talk in മലയാളം english is a bit difficult for me,0.9899442195892334
+en,barge_in,hold on pause right there for just a moment,0.8944845795631409
+en,barge_in,can repeat that reference number again 再讲一次 can or not,0.971807599067688
+en,barge_in,umm actually skip all the intro ನೇರವಾಗಿ final amount ಹೇಳಿ please,0.9873190522193909
+en,barge_in,also please book an appointment for tomorrow evening,0.9940699338912964
+en,barge_in,my card was deducted twice for the exact same grocery bill just now,0.9986529350280762
+en,barge_in,mm hm yeah 这个不用讲了 just skip to the delivery timing,0.9726073145866394
+en,barge_in,okay okay కానీ నా ఆర్డర్ ఇంకా రాలేదు i have been waiting for over an hour,0.9903783798217773
+en,backchannel,mm hmm ഉം i am listening,0.015952210873365402
+en,barge_in,like could we bypass this part and get right to the confirmation number,0.9970933198928833
+en,barge_in,umm ఒక్క నిమిషం please pause there for a second,0.9859547019004822
+en,barge_in,umm actually while i have you can i also check on my prescription refill,0.95201176404953
+en,barge_in,err one second ಇವಾಗ ಮಾತಾಡೋಕೆ ಆಗಲ್ಲ can you contact me later evening,0.999847412109375
+en,barge_in,please skip the introduction അടുത്ത പോയിന്റിലേക്ക് വേഗം കടക്കൂ,0.9951855540275574
+en,backchannel,go ahead പറഞ്ഞോളൂ i am listening,0.049898989498615265
+en,barge_in,right అర్థమైంది skip all these routine instructions and just tell me what to do next,0.9898704886436462
+en,barge_in,దయచేసి connect me to a human executive right now,0.9827145934104919
+en,barge_in,umm look எனக்கு ரொம்ப அவசரம் i have been waiting for over an hour already,0.9051779508590698
+en,backchannel,go ahead lah continue,0.001996988197788596
+en,barge_in,yeah yeah but ದಯವಿಟ್ಟು connect me to a human agent,0.8773377537727356
+en,barge_in,incorrect 姓陈 not 姓林 check again please,0.9770113825798035
+en,backchannel,हूँ uh huh,0.013943228870630264
+en,barge_in,uh sorry to cut you off but please call me back later this evening,0.9967849254608154
+en,barge_in,yes but അത് പറ്റില്ല that delivery date is unacceptable for me,0.9984170198440552
+en,barge_in,connect me to an actual human agent please,0.970487117767334
+en,backchannel,alright makes sense,0.027356954291462898
+en,barge_in,please connect me to an agent എനിക്ക് ഒരു കസ്റ്റമർ കെയർ എക്സിക്യൂട്ടീവിനോട് സംസാരിക്കണം,0.9982271790504456
+en,barge_in,uh wait అది తప్పు the flat number is 402,0.9913410544395447
+en,backchannel,yeah నిజమే exactly,0.006448062602430582
+en,barge_in,which plan do you mean எந்த package பத்தி சொல்றீங்க,0.9959591031074524
+en,backchannel,oh no 太惨了 poor thing,0.23169724643230438
+en,backchannel,makes sense சரிங்க,0.008982473984360695
+en,barge_in,no అది కాదు i never agreed to this yearly plan,0.993382453918457
+en,barge_in,hold on please just give me a minute to grab a notepad,0.9979082345962524
+en,backchannel,సరే సరే i see,0.011018901132047176
+en,barge_in,wait ah come again didnt catch that number,0.9783923625946045
+en,barge_in,please pause for a second കുറച്ചു സമയം തരൂ someone is calling at the gate,0.9960389137268066
+en,barge_in,uh well ಬೇಡ that is completely wrong i never selected this option,0.9969883561134338
+en,backchannel,haha nice,0.006739423610270023
+en,barge_in,can you please repeat that ನನಗೆ ಸರಿಯಾಗಿ ಕೇಳಿಸಲಿಲ್ಲ,0.9906591176986694
+en,backchannel,go ahead tell me the timings,0.7460998296737671
+en,barge_in,yeah yeah but i am driving now lah call me back later can,0.9933093786239624
+en,barge_in,right right ಆದರೆ my name spelling is wrong it ends with double e,0.9841628074645996
+en,barge_in,uh well இதெல்லாம் எனக்கு தெரியும் please skip ahead and tell me the available appointment slots,0.993835985660553
+en,barge_in,two thirty pm slot can already book that one,0.9901973009109497
+en,backchannel,correct बिल्कुल,0.0033507132902741432
+en,barge_in,wait wait கொஞ்சம் நில்லுங்க i need to open the app first,0.9958891272544861
+en,backchannel,ഓഹ് കഷ്ടമായിപ്പോയി that is so sad,0.12102147191762924
+en,backchannel,aww so sweet,0.001245344989001751
+en,backchannel,ya that is true,0.015580742619931698
+en,barge_in,right right 不可以啦 you cannot just cancel my appointment like that,0.9804932475090027
+en,barge_in,err i mean எனக்கு ஒரு supervisor கிட்ட பேசணும் please put me through to a human,0.9816535115242004
+en,backchannel,yeah totally,0.003183477558195591
+en,barge_in,umm actually i completely missed that last sentence can you repeat it,0.9941482543945312
+en,backchannel,okay okay ठीक है,0.005486700683832169
+en,barge_in,okay okay वो दूसरा वाला take the combo meal,0.9492097496986389
+hi,barge_in,हाँ सुन रहा हूँ मगर यह नियम सही नहीं है,0.9782264828681946
+hi,barge_in,umm नहीं नहीं that is not correct at all,0.8830794095993042
+hi,barge_in,दो मिनट रुक जाइए पहले मुझे तारीख देखने दीजिए,0.9994381070137024
+hi,backchannel,जी जारी रखिए,0.017936501652002335
+hi,barge_in,मतलब सुबह का समय या शाम का,0.9550589919090271
+hi,backchannel,हाँ जी सही बात है,0.008641024120151997
+hi,barge_in,हाँ वो सब ठीक है लेकिन सीधा तारीख बताइए,0.9883524775505066
+hi,backchannel,right आप proceed कीजिए,0.05661112815141678
+hi,barge_in,just stop for a second मुझे लिखने दीजिए,0.9982513785362244
+hi,barge_in,अह्ह जरा रुकिए क्या आप बंगाली में बता सकते हैं,0.9963803887367249
+hi,barge_in,मुझे नहीं चाहिए कुछ भी बाय,0.9665970802307129
+hi,barge_in,yeah yeah but the flight number is triple two नहीं वह तीन दो नहीं है,0.9937554597854614
+hi,barge_in,umm actually मुझे किसी live representative से बात करनी है,0.9924737215042114
+hi,backchannel,हाँ ठीक है,0.005785167217254639
+hi,barge_in,मुझे अभी निकलना है so i am ending the call bye,0.9836406111717224
+kn,barge_in,ಹೂಂ ಹೂಂ ಸ್ವಲ್ಪ ನಿಲ್ಲಿಸಿ ನಿಮ್ಮ ಸೂಪರ್‌ವೈಸರ್‌ಗೆ ಕೊಡಿ,0.9214066863059998
+kn,backchannel,i see ಸರಿ,0.012535827234387398
+kn,barge_in,ಹೂಂ ಕ್ಷಮಿಸಿ ನೀವು ಹೇಳಿದ್ದು ಮೊದಲನೆಯದೋ ಅಥವಾ ಎರಡನೆಯದೋ,0.9850487112998962
+kn,barge_in,pardon me ಇನ್ನೊಂದು ಸಲ repeat ಮಾಡ್ತೀರಾ please,0.9887120723724365
+kn,backchannel,ಹೌದು ಸರಿ,0.009993938729166985
+kn,barge_in,umm wait ಯಾವ plan ಬಗ್ಗೆ ನೀವು ಹೇಳ್ತಾ ಇದ್ದೀರಾ,0.9899049401283264
+kn,barge_in,ಮ್ಮ್ ಸ್ವಲ್ಪ ತಡೆಯಿರಿ ಆ ದಿನಾಂಕ ಯಾವುದು ಅಂತ ಇನ್ನೊಮ್ಮೆ ಹೇಳ್ತೀರಾ,0.9989571571350098
+kn,barge_in,ಹೊಸ wi fi connection ಬೇಕಿತ್ತು please tell me the monthly plans,0.9991057515144348
+kn,backchannel,ಹ್ಞೂಂ,0.017184600234031677
+kn,barge_in,umm sorry but ನನಗೆ ಈ plan ಇಷ್ಟವಿಲ್ಲ,0.9964783787727356
+kn,barge_in,uhh wait ಈಗ ಮಾತನಾಡೋಕೆ ಆಗಲ್ಲ can we talk tomorrow bye,0.9951155185699463
+kn,barge_in,ಸರಿ ಸರಿ but just skip that part and give me the tracking id,0.9950569868087769
+kn,barge_in,ಹಿಂದಿಯಲ್ಲಿ ಹೇಳಲು ಆಗುತ್ತಾ,0.4544526934623718
+kn,backchannel,oh nice ತುಂಬಾ ಒಳ್ಳೆಯದು,0.000950391695369035
+kn,backchannel,go on ಪರವಾಗಿಲ್ಲ ಹೇಳಿ,0.07399114221334457
+kn,barge_in,ಹೌದು yeah ಆದರೆ my card was just charged again without any otp,0.9951359629631042
+ta,barge_in,கொஞ்சம் மெதுவா சொல்லுங்க ரொம்ப வேகமா சொல்றீங்க,0.9744958877563477
+ta,barge_in,இல்ல காலை நேரம் இல்ல மாலை நான்கு மணிக்கு மாத்துங்க,0.9900181293487549
+ta,backchannel,அய்யோ பாவம் oh no that is sad,0.17845962941646576
+ta,barge_in,breakfast buffet கூட add பண்ணிடுங்க can you also include airport pickup in this reservation,0.9962236881256104
+ta,barge_in,sorry எந்த slot சொல்றீங்க,0.9502621293067932
+ta,barge_in,சரி சரி but i have already waited for two hours and nobody has arrived,0.9985330104827881
+ta,backchannel,சரிங்க,0.016477175056934357
+ta,backchannel,ஆமா கரெக்ட்தான்,0.015104295685887337
+ta,backchannel,சொல்லுங்க கேட்டுட்டு இருக்கேன்,0.22881914675235748
+ta,barge_in,ம்ம் ஒரு நிமிஷம் நில்லுங்க நான் பேனா எடுத்துக்கிறேன்,0.9966788291931152
+ta,barge_in,சரி அது தெரியும் இந்த விளக்கத்தை விட்டுட்டு அடுத்த படிக்கு போங்க,0.9862383604049683
+ta,barge_in,கொஞ்சம் slow down பண்ணுங்க please எனக்கு புரியல,0.9970229268074036
+ta,barge_in,தயவுசெய்து ஒரு மனிதரிடம் பேசுவதற்கு மாற்றுங்கள் please connect me to an agent,0.9985792636871338
+ta,barge_in,கொஞ்சம் தமிழ்ல பேச முடியுமா,0.9881240725517273
+te,barge_in,సరే అండి actually i am in a meeting can you call me back in the evening,0.9976736903190613
+te,barge_in,ఆఁ లేదు లేదు వేరే చిరునామాకి పంపాలి,0.9805520176887512
+te,barge_in,ఓకే ఓకే but could you also help me activate internet banking on my account,0.9939020872116089
+te,barge_in,ఒక్క నిమిషం ఉండండి నేను నా సమయం చూసుకోవాలి,0.9840784072875977
+te,backchannel,uh huh హా yeah,0.004067401401698589
+te,barge_in,okay అవును but ఏ doctor గురించి which one do you mean,0.8833535313606262
+te,barge_in,uh hold on మీరు తెలుగులో చెప్పగలరా please say it in my language,0.9137182831764221
+te,barge_in,మంగళవారం సమయమే సరిపోతుంది,0.8861379623413086
+te,backchannel,proceed అవ్వండి no problem,0.020022263750433922
+te,backchannel,నిజమేనండి,0.002582113491371274
+te,barge_in,ఇవన్నీ వదిలేసి ఎంత కట్టాలో నేరుగా చెప్పండి,0.9813907146453857
+te,barge_in,నాకు అర్జెంట్ పని ఉంది నేను ఇప్పుడు పెట్టేస్తున్నాను సరేనా,0.9677937626838684
+te,barge_in,అవును కానీ నేను గంట నుంచి ఎదురుచూస్తున్నాను నా ఆర్డర్ ఇంకా రాలేదు,0.9977335929870605
+te,barge_in,wait wait ఒక్క సెకండ్ ఆగండి please,0.9127019643783569
+ml,barge_in,ഇതെല്ലാം എനിക്കറിയാം അടുത്ത ഘട്ടത്തിലേക്ക് കടക്കൂ,0.9402647018432617
+ml,barge_in,okay okay പക്ഷെ the patient is having severe pain ഇനിയും കാത്തിരിക്കാൻ പറ്റില്ല,0.9407474994659424
+ml,barge_in,i also need to link my new email address അത് ഇപ്പോൾ തന്നെ ചെയ്യാൻ പറ്റുമോ,0.9987828135490417
+ml,barge_in,മൂന്നാമത്തെ plan എടുത്തോളൂ activate the subscription now,0.9927144646644592
+ml,barge_in,can you speak in malayalam please എനിക്ക് മനസ്സിലാകുന്നില്ല,0.9952307343482971
+ml,barge_in,മെഷീൻ വേണ്ട എനിക്ക് ഏതെങ്കിലും ഒരു ഉദ്യോഗസ്ഥനോട് നേരിട്ട് സംസാരിക്കണം,0.9993294477462769
+ml,barge_in,അല്ല ഒരു മീറ്റിങ് തുടങ്ങാറായി ഞാൻ പിന്നെ വിളിക്കാം,0.9953855872154236
+ml,backchannel,തുടർന്നോളൂ,0.004055289085954428
+ml,barge_in,ശരി ശരി but that is completely wrong ഞാൻ അങ്ങനെ പറഞ്ഞിട്ടില്ല,0.9777422547340393
+ml,backchannel,തുടർന്നോളൂ carry on please,0.01691346988081932
+ml,barge_in,ഉം അത് ചൊവ്വാഴ്ചയല്ല ബുധനാഴ്ചയാണ് പറഞ്ഞിരുന്നത്,0.9843871593475342
+ml,backchannel,മനസ്സിലായി,0.011087363585829735
+ml,barge_in,one more time please അവസാനത്തെ നമ്പർ കേട്ടില്ല,0.9972199201583862
+ml,barge_in,ഡെലിവറി ഇതുവരെ വന്നില്ല എത്ര തവണ ഞാൻ ഇത് വിളിച്ചു പറയണം,0.9986308217048645
+zh,barge_in,我已经投诉三次了 nobody cares 你们到底有没有人在处理这个 ticket,0.9909862279891968
+zh,barge_in,那个 不对 我的 email 地址写错了,0.989189863204956
+zh,barge_in,帮我转接人工客服,0.966042160987854
+zh,backchannel,hmm 唔 yeah,0.021891219541430473
+zh,barge_in,行行行 另外再帮我 reschedule 到下周五行吗,0.9951702952384949
+zh,barge_in,对 直接帮我 book it 吧,0.9393025040626526
+zh,barge_in,不对 thats completely wrong 你们之前根本不是这么说的,0.9720046520233154
+zh,barge_in,对对 不过门牌号是三零二不是三零一,0.9701482653617859
+zh,backchannel,继续说 我听着呢,0.05812373384833336
+zh,backchannel,好的好的 明白了,0.014522703364491463
+zh,barge_in,麻烦用 english 沟通好吗 我的普通话不是太流利,0.9814094305038452
+zh,barge_in,stop for a second 先等一下 我这边有点吵,0.9922710657119751
+zh,barge_in,呃 等等 你刚才说的到底是指哪一笔扣款,0.9144573211669922
+zh,backchannel,嗯嗯,0.012242855504155159
+zh,barge_in,我房间空调一直在漏水 地毯全湿透了你们快来看看,0.9250972270965576
+zh,backchannel,噢 挺不错的,0.00292194914072752
+zh,barge_in,对对对 right but please transfer me to a human agent 我需要人工服务,0.9954478144645691
+zh,backchannel,对对对 确实是这样的,0.0801863744854927
+ja,backchannel,そのまま続けてください,0.0725991353392601
+ja,barge_in,あ あの 違う住所で 会社じゃなくて自宅宛てです,0.9964635968208313
+ja,barge_in,通話定額のオプションプランも追加したいです,0.9971750974655151
+ja,barge_in,うーん そこはもう分かっているので 合計金額だけ言ってください,0.9756539463996887
+ja,barge_in,あの actually no 前に聞いていた条件と違います,0.9087401032447815
+ja,barge_in,日本語での対応をお願いできますか,0.9240388870239258
+ja,barge_in,i will call you back later 電波が悪くなってきたので一旦切ります,0.998211145401001
+ja,barge_in,うん そうですね ただ人間の方に対応をお願いしたいのですが,0.9516739249229431
+ja,barge_in,ええ あ どのコースのことをおっしゃってますか,0.8911279439926147
+ja,barge_in,あの すみません ちょっとだけ待ってください,0.778401255607605
+ja,backchannel,yeah go ahead どうぞ進めてください,0.03223226219415665
+ja,barge_in,はいはい でも i have been waiting for an hour already もう限界なんですけど,0.9840758442878723
+ja,backchannel,おっしゃる通りですね,0.10882748663425446
+ja,backchannel,あら 大変ですね,0.034257203340530396
+ja,barge_in,also 荷物の配送先を別の address に update してほしいです,0.9983456134796143
+id,barge_in,skip aja penjelasan itu get straight to the point please,0.9714069366455078
+id,barge_in,anu sebentar dulu ya tolong tahan dulu,0.9469582438468933
+id,barge_in,hmm actually bisa bicara sama orang beneran aja nggak,0.905861496925354
+id,barge_in,iya iya but i have been waiting for an hour and this is ridiculous,0.993290901184082
+id,barge_in,iya paham but sorry which room do you mean kamar yang deluxe atau standard,0.9975863695144653
+id,barge_in,err speaking of which bisa tolong cek my return flight schedule yang satu lagi sekalian,0.99952232837677
+id,barge_in,bisa switch to english please saya kurang paham penjelasannya,0.9978850483894348
+id,barge_in,jadwal dokter yang tanggal berapa maksudnya,0.9727168679237366
+id,barge_in,mmm maaf ya baterai saya sudah mau habis nanti telepon saya lagi saja,0.9933767914772034
+id,backchannel,thank you ya terima kasih,0.012858528643846512
+id,backchannel,silakan lanjut keep going,0.010251852683722973
+id,backchannel,setuju definitely,0.004058040212839842
+id,barge_in,baik terus sekalian tolong buatkan tagihan terpisah untuk bulan ini,0.9970958232879639
+id,barge_in,ya langsung pesan saja tiketnya,0.914979875087738
+id,backchannel,terus lanjut,0.0008875257917679846
+id,barge_in,umm wait a minute sebentar saya mau ambil pulpen dulu,0.9980605244636536
+fil,barge_in,ano excuse me marunong po ba kayo mag english,0.9976673126220703
+fil,barge_in,teka teka sandali lang po bigyan mo muna ako ng isang minuto,0.998102605342865
+fil,barge_in,opo pero please skip that part na lang diretso sa total bill,0.9981663823127747
+fil,barge_in,wait anong plan ba iyan for next month,0.9881425499916077
+fil,barge_in,yung first option na lang please book that one,0.9895474910736084
+fil,barge_in,diretsuhin mo na lang ako kung anong oras darating ang package,0.9990572333335876
+fil,backchannel,uh huh sige yeah,0.005145559087395668
+fil,barge_in,oo pero alin doon sa dalawang petsa ang sinasabi mo,0.9980124235153198
+fil,barge_in,uhm sandali lang puwede po bang mag ingles na lang tayo,0.9990522265434265
+fil,backchannel,ay ang galing naman,0.008976847864687443
+fil,barge_in,pangalawa na lang po yung sa tabi ng bintana,0.9786258935928345
+fil,barge_in,uh teka lang please transfer me to a real person kasi hindi ito nakakatulong,0.9947804808616638
+fil,barge_in,kanina pa akong naghihintay dito at wala pa ring dumarating na rider,0.9693249464035034
+fil,backchannel,tuloy lang nakikinig ako,0.035625532269477844
+fil,barge_in,oo nga po pero by the way pwede bang mag apply din for a credit card upgrade,0.9979221224784851
+fil,backchannel,totoo that makes a lot of sense,0.0493692010641098
+fil,backchannel,sige po naintindihan ko,0.03863242641091347
+fr,barge_in,laissez tomber pour le moment on verra ça une autre fois,0.9444257616996765
+fr,barge_in,répétez plus lentement sil vous plaît ça va trop vite,0.9724474549293518
+fr,barge_in,cest lautre adresse celle rue de la paix,0.8445762991905212
+fr,barge_in,daccord daccord sauf que ma carte vient dêtre débitée une deuxième fois à linstant,0.998856782913208
+fr,backchannel,ah mince alors,0.10203246027231216
+fr,backchannel,daccord bien sûr,0.012564629316329956
+fr,barge_in,euh well rappelez moi plus tard sil vous plaît i really have to go,0.8486297130584717
+fr,barge_in,umm écoutez skip that part please donnez moi juste le montant total,0.9563739895820618
+fr,backchannel,go on je técoute,0.00599891971796751
+fr,barge_in,yeah daccord mais tu veux dire quoi par là exactly,0.8747976422309875
+fr,barge_in,daccord mais non cest faux je nai jamais validé cette commande,0.9954079985618591
+fr,barge_in,jaimerais aussi modifier mon adresse postale sil vous plaît,0.9964643716812134
+fr,backchannel,vas y continue,0.0069435350596904755
+fr,barge_in,je voudrais aussi switch to paperless billing sur mon compte bancaire,0.9996272325515747
+de,backchannel,verstanden that makes sense,0.11999184638261795
+de,barge_in,die einleitung können wir überspringen sagen sie mir nur das datum,0.9891459941864014
+de,barge_in,welcher anschluss ist da gemeint,0.8135495781898499
+de,barge_in,öhm tschuldigung können wir auf englisch weitermachen,0.9165300130844116
+de,barge_in,ja ja i know überspringen sie das bitte und kommen sie direkt zum endbetrag,0.8918349146842957
+de,barge_in,ja ja aber verbinden sie mich bitte direkt mit einem mitarbeiter,0.9846246242523193
+de,backchannel,sprechen sie ruhig weiter,0.11138725280761719
+de,barge_in,können sie bitte etwas lauter sprechen ich verstehe sie kaum,0.9596602320671082
+de,barge_in,nicht im mai der termin war für juni geplant,0.9983339905738831
+de,backchannel,ja ja vollkommen richtig,0.00292570935562253
+de,barge_in,uh actually das stimmt nicht it was fifty euros and not sixty,0.9783726334571838
+de,barge_in,öhm ganz kurz stopp lassen sie mich das kurz aufschreiben,0.9860538840293884
+de,barge_in,tuesday morning passt mir super nehmen wir gleich diesen termin,0.9695354700088501
+de,backchannel,oh wie schön,0.0013431137194857001
+de,backchannel,verstehe,0.020630057901144028
+de,barge_in,what do you mean genau mit dieser cancellation policy,0.9843605160713196
+es,barge_in,aha sí pero no estoy para nada de acuerdo con ese cobro,0.9867587685585022
+es,backchannel,va me queda claro,0.07359766960144043
+es,backchannel,de acuerdo de acuerdo,0.04228268936276436
+es,barge_in,pásame con una persona i need to talk to a real agent please,0.9966245889663696
+es,barge_in,cuál doctor the specialist o el general,0.8823406100273132
+es,barge_in,ajá sí pero el conductor se fue para el lado contrario y voy a perder mi vuelo,0.989175021648407
+es,barge_in,yes book it cóbralo de una vez a mi tarjeta,0.9891372323036194
+es,barge_in,ajá sí oye podemos continuar en euskera,0.8578745722770691
+es,barge_in,umm oye estoy entrando en una reunión talk to you later chao,0.9906726479530334
+es,barge_in,sí sí but that is totally wrong a mí me dijeron otra tarifa,0.9965732097625732
+es,barge_in,vale vale pero no es correcto lo que me estás diciendo,0.9891721606254578
+es,barge_in,eh perdona puedes repetir el número de referencia,0.9773404598236084
+es,backchannel,makes sense ya capté,0.07395785301923752
+es,barge_in,se me va a caducar la reserva si no me dais una solución ya,0.9993115663528442
+es,backchannel,ajá,0.026929743587970734
+es,barge_in,that is completely wrong eso no fue lo que me dijeron en la sucursal,0.9969308972358704
+es,barge_in,skip todo ese rollo por favor solo dime el total balance,0.986546516418457
+es,barge_in,sí claro but my name is spelled with double e no con i latina,0.95979243516922
+es,barge_in,perdona can we speak in english please,0.9614650011062622
+es,backchannel,eso sí thats true,0.020538758486509323
+es,backchannel,vaya qué faena,0.11548257619142532
+es,barge_in,disculpe me puede atender en inglés,0.9758137464523315
+es,backchannel,ajá yeah,0.005804700311273336
+es,backchannel,claro desde luego,0.06630159914493561
+es,barge_in,un segundito nada más déjame abrir la aplicación,0.9899260997772217
+es,barge_in,a cuál de las dos cuentas te refieres,0.9790576696395874
+es,barge_in,eh un momento de qué factura me estás hablando exactamente,0.9872751235961914
+es,barge_in,sí sí but wait me acaban de hacer un double charge en la tarjeta ahorita mismo y ya me urge resolverlo,0.9988784193992615
+es,barge_in,ajá entiendo but let me talk to an agent comunícame con alguien de soporte,0.9980208873748779
+es,barge_in,podrías hablar más fuerte se oye lejísimos,0.4409160315990448
+it,barge_in,ehm guarda salta pure questa parte e dimmi solo il totale,0.9659992456436157
+it,barge_in,no no lindirizzo corretto è via garibaldi dodici non ventidue,0.9878385066986084
+it,backchannel,proprio così,0.02263888344168663
+it,barge_in,scusa puoi parlare un po più forte che cè troppo disturbo,0.9646506905555725
+it,barge_in,ho capito but i definitely do not want that plan,0.9982882142066956
+it,barge_in,sì confermi pure la camera matrimoniale,0.8437976837158203
+it,barge_in,ho capito però per cortesia mi passi il suo responsabile di turno,0.9820975661277771
+it,barge_in,ehm in realtà vorrei anche controllare il saldo del conto,0.9919264316558838
+it,barge_in,mi avete appena scalato di nuovo i soldi dalla carta di credito,0.9851905703544617
+it,barge_in,vorrei richiedere anche a duplicate of the contract per posta ordinaria,0.9995577931404114
+it,backchannel,va bene ho capito,0.04165320843458176
+it,backchannel,cavolo,0.11218804866075516
+it,backchannel,sure vai avanti go on,0.032184846699237823
+it,barge_in,guardi che i have been waiting here for forty minutes and the train is leaving,0.9917968511581421
+it,barge_in,scusa cosa intendi con tariffa base,0.9753877520561218
+it,barge_in,mm hmm va bene but is it possible to talk to a real human instead,0.9611029028892517
+it,backchannel,poverina oh no,0.2079688459634781
+en,barge_in,tuesday afternoon 可以 book that slot for me lah,0.9757062196731567
+en,barge_in,एक बार फिर से बोलिए i couldnt catch the tracking number,0.9992249011993408
+en,barge_in,okay okay but വളരെ താമസിച്ചു my delivery is already two hours late and food is cold,0.9825140833854675
+kn,barge_in,veg meals ಸಾಕು ಅದನ್ನೇ ಕಳಿಸಿಕೊಡಿ,0.5946664810180664
+ta,barge_in,செவ்வாய்க்கிழமையே எனக்கு சரியாக வரும்,0.6752870082855225
+ta,barge_in,yes yes அந்த express delivery யே போதும்,0.46443766355514526
+te,backchannel,okay okay అర్థమైంది,0.005466497503221035
+te,barge_in,uh wait కొంచెం మెల్లగా చెబుతారా you are speaking too fast,0.9499257206916809
+te,backchannel,ఊ హ్మ్,0.011532997712492943
+ml,backchannel,yeah ഉം mm hmm,0.004540301859378815
+ml,backchannel,oh no കഷ്ടം,0.015009191818535328
+fr,barge_in,the second one réservez directement le vol de vingt heures,0.9955915808677673
+fr,backchannel,thats great trop bien,0.01650029607117176
+de,barge_in,a bit slower please das ging gerade viel zu schnell für mich,0.9516406655311584
+es,backchannel,adelante please continue,0.12024278193712234
+es,barge_in,eh espera by the way could you also send a copy del contrato a mi gestor,0.9959558844566345
+es,barge_in,ajá ajá the second option esa mera quiero,0.9782479405403137
+it,backchannel,mhm dimmi pure,0.07528295367956161
+en,barge_in,non ac seat മതിയാകും just book that one,0.9946824908256531
+en,backchannel,go ahead lah 你继续讲,0.03515205904841423
+en,backchannel,go ahead आगे बोलिए,0.03312971070408821
+en,barge_in,what do you mean by additional charge ಯಾವುದರ ಬಗ್ಗೆ ಹೇಳ್ತಿದ್ದೀರಾ,0.9933505654335022
+ml,barge_in,ഉം ഉം ആദ്യത്തെ ഓപ്ഷൻ മതി ആ വലിയ മുറി തന്നെ എടുത്തോളൂ,0.995804488658905
+ja,barge_in,うんうん その二番目のコースで大丈夫です,0.9064807295799255
+en,backchannel,അതെ exactly,0.01485088374465704
+en,backchannel,ശരി got it,0.004398080985993147
+en,backchannel,yeah ಹೇಳಿ please continue,0.01174990925937891
+kn,backchannel,ಧನ್ಯವಾದ ರೀ,0.009662611410021782
+hi,barge_in,मुझे शाम वाला ही समय चाहिए वही बुक कर दें,0.9991412162780762
+fil,backchannel,salamat ha,0.0050422195345163345
+fr,barge_in,oui réservez directement pour vendredi soir,0.9173623323440552
+es,backchannel,ah perfecto thank you te lo agradezco mucho,0.028712330386042595
+en,backchannel,mm hmm yah,0.006319249514490366
+en,backchannel,ஐயோ oh no that is so sad,0.1506737917661667
+ja,backchannel,uh huh うんうん,0.01487436331808567
+en,backchannel,mm hmm ತುಂಬಾ thanks,0.004363162908703089
+fr,backchannel,ah merci thanks,0.006187862250953913
+hi,backchannel,जी शुक्रिया,0.0031189066357910633
+hi,backchannel,okay great शुक्रिया आपका,0.0058997152373194695
+ta,backchannel,நன்றிங்க நன்றி,0.00563807925209403
+ta,backchannel,மிக்க நன்றி thanks a lot,0.00834126677364111
+te,backchannel,thank you చాలా సంతోషం అండి,0.008547174744307995
+ml,backchannel,thank you വളരെ ഉപകാരം,0.011128869839012623
+ja,backchannel,あ はい thank you です,0.007253387942910194
+id,backchannel,iya mm hmm yeah,0.005387750454246998
+es,backchannel,ah vale got it,0.02912346087396145
+es,backchannel,ajá mm hmm,0.00660796370357275
+en,backchannel,thank you so much sir,0.009573522955179214

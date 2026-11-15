@@ -1,0 +1,18 @@
+{
+  "data/export/utterances.csv": {
+    "sha256": "556a2820e4a24ac13bab44321fb32b464c5fb225750d41a5a10ebcde7cdbab8a",
+    "unchanged": true
+  },
+  "data/splits/train.csv": {
+    "sha256": "aab224bd0526eee915295e6f5c52076e29bb751cd0d664eefb4321843ad22533",
+    "unchanged": true
+  },
+  "data/splits/validation.csv": {
+    "sha256": "c6b4c526fb4b1df96754119e409cedc8c7e85c77659e1fc1c3829da70084edc1",
+    "unchanged": true
+  },
+  "data/splits/test.csv": {
+    "sha256": "8b630782362b05249b3be94b0213850258422be5ddeb62fcf703817b0bf9e11a",
+    "unchanged": true
+  }
+}

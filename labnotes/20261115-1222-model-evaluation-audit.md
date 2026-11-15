@@ -14,7 +14,7 @@ previously existed.
   is diagnostic evidence, not human-verified or representative evaluation.
 - Frozen checkpoint: `models/e5-small-run1`, no retraining or threshold tuning;
   existing threshold 0.5, 64-token budget. Evaluate inside tmux `gpubox` on
-  instance 60784409. A separate report leaves original synthetic metrics intact.
+  training instance. A separate report leaves original synthetic metrics intact.
 - Report exact overlap between splits and challenge; score unseen cases
   separately. Repeated prefixes intentionally remain grouped.
 - English word-length baseline chooses its cutoff on validation macro F1,

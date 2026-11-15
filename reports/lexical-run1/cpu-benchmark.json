@@ -1,0 +1,43 @@
+{
+  "scope": "Owner-designated local CPU; batch one, 100 warmups, 1000 iterations. Includes 64-token truncation, character/word TF-IDF and probability. No Vxpipe integration.",
+  "cpu": "AMD EPYC-Genoa Processor",
+  "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.43",
+  "load_seconds_excluded": 0.6457288009114563,
+  "threads": 1,
+  "parity": {
+    "validation": {
+      "max_probability_difference": 0.0,
+      "label_disagreements": 0
+    },
+    "test": {
+      "max_probability_difference": 0.0,
+      "label_disagreements": 0
+    },
+    "challenge": {
+      "max_probability_difference": 0.0,
+      "label_disagreements": 0
+    }
+  },
+  "model_path": {
+    "multilingual_test": {
+      "p50_ms": 0.8991865,
+      "p95_ms": 1.2660126999999999,
+      "p99_ms": 1.4221442499999999
+    },
+    "full_64_tokens": {
+      "p50_ms": 2.160686,
+      "p95_ms": 4.433206,
+      "p99_ms": 5.3523548199999995
+    }
+  },
+  "whole_path": null,
+  "whole_path_reason": "Vxpipe boundary is not implemented",
+  "peak_rss_mib": 469.96484375,
+  "artifact_bytes": 22898881,
+  "artifact_sha256": {
+    "classifier.json": "d8464abeef37b6d8071041a66a84924b93fa9b3e7d076f401e1be07b21ff2c37",
+    "tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a"
+  },
+  "verification_code_sha256": "26a1f4859f97263efbbe6fc75910fc1f8185ded62d61453b1fdea0ffa26ea451",
+  "inference_code_sha256": "835531bd89420f9ada20868d6947edfa2c20aadf63f635e2db5c28516ab88209"
+}

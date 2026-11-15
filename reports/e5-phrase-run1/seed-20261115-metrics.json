@@ -1,0 +1,521 @@
+{
+  "args": {
+    "out": "models/e5-phrase-run1/seed-20261115",
+    "model": "models/base-e5-pinned",
+    "splits": "data/experiments/original-plus-phrase-v1/splits",
+    "epochs": "5",
+    "batch_size": "32",
+    "lr": "3e-05",
+    "warmup": "0.1",
+    "max_length": "64",
+    "seed": "20261115",
+    "dataset_repo": "HashNuke/barge-in-detector-data",
+    "dataset_revision": "None"
+  },
+  "best": {
+    "epoch": 4,
+    "train_loss": 0.012843005764235648,
+    "seconds": 3.2,
+    "validation": {
+      "count": 915,
+      "accuracy": 0.9923497267759562,
+      "macro_f1": 0.992281542341856,
+      "false_interruption_rate": 0.00963855421686747,
+      "missed_interruption_rate": 0.006,
+      "per_class": {
+        "backchannel": {
+          "precision": 0.9927536231884058,
+          "recall": 0.9903614457831326,
+          "f1": 0.9915560916767189,
+          "count": 415
+        },
+        "barge_in": {
+          "precision": 0.9920159680638723,
+          "recall": 0.994,
+          "f1": 0.993006993006993,
+          "count": 500
+        }
+      },
+      "per_language": {
+        "de": {
+          "accuracy": 1.0,
+          "count": 51
+        },
+        "en": {
+          "accuracy": 0.9952153110047847,
+          "count": 209
+        },
+        "es": {
+          "accuracy": 0.99,
+          "count": 100
+        },
+        "fil": {
+          "accuracy": 1.0,
+          "count": 51
+        },
+        "fr": {
+          "accuracy": 1.0,
+          "count": 50
+        },
+        "hi": {
+          "accuracy": 1.0,
+          "count": 51
+        },
+        "id": {
+          "accuracy": 1.0,
+          "count": 50
+        },
+        "it": {
+          "accuracy": 0.9607843137254902,
+          "count": 51
+        },
+        "ja": {
+          "accuracy": 0.9795918367346939,
+          "count": 49
+        },
+        "kn": {
+          "accuracy": 1.0,
+          "count": 49
+        },
+        "ml": {
+          "accuracy": 1.0,
+          "count": 51
+        },
+        "ta": {
+          "accuracy": 1.0,
+          "count": 51
+        },
+        "te": {
+          "accuracy": 1.0,
+          "count": 51
+        },
+        "zh": {
+          "accuracy": 0.9607843137254902,
+          "count": 51
+        }
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.3880473049724912,
+      "seconds": 3.8,
+      "validation": {
+        "count": 915,
+        "accuracy": 0.9868852459016394,
+        "macro_f1": 0.9867867492033541,
+        "false_interruption_rate": 0.007228915662650603,
+        "missed_interruption_rate": 0.018,
+        "per_class": {
+          "backchannel": {
+            "precision": 0.9786223277909739,
+            "recall": 0.9927710843373494,
+            "f1": 0.985645933014354,
+            "count": 415
+          },
+          "barge_in": {
+            "precision": 0.9939271255060729,
+            "recall": 0.982,
+            "f1": 0.9879275653923542,
+            "count": 500
+          }
+        },
+        "per_language": {
+          "de": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "en": {
+            "accuracy": 0.9904306220095693,
+            "count": 209
+          },
+          "es": {
+            "accuracy": 0.99,
+            "count": 100
+          },
+          "fil": {
+            "accuracy": 0.9803921568627451,
+            "count": 51
+          },
+          "fr": {
+            "accuracy": 0.96,
+            "count": 50
+          },
+          "hi": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "id": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "it": {
+            "accuracy": 0.9607843137254902,
+            "count": 51
+          },
+          "ja": {
+            "accuracy": 0.9795918367346939,
+            "count": 49
+          },
+          "kn": {
+            "accuracy": 1.0,
+            "count": 49
+          },
+          "ml": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "ta": {
+            "accuracy": 0.9803921568627451,
+            "count": 51
+          },
+          "te": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "zh": {
+            "accuracy": 0.9607843137254902,
+            "count": 51
+          }
+        }
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.05402317917903854,
+      "seconds": 3.3,
+      "validation": {
+        "count": 915,
+        "accuracy": 0.9879781420765027,
+        "macro_f1": 0.9878855354617397,
+        "false_interruption_rate": 0.007228915662650603,
+        "missed_interruption_rate": 0.016,
+        "per_class": {
+          "backchannel": {
+            "precision": 0.9809523809523809,
+            "recall": 0.9927710843373494,
+            "f1": 0.9868263473053891,
+            "count": 415
+          },
+          "barge_in": {
+            "precision": 0.9939393939393939,
+            "recall": 0.984,
+            "f1": 0.9889447236180904,
+            "count": 500
+          }
+        },
+        "per_language": {
+          "de": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "en": {
+            "accuracy": 0.9952153110047847,
+            "count": 209
+          },
+          "es": {
+            "accuracy": 0.99,
+            "count": 100
+          },
+          "fil": {
+            "accuracy": 0.9803921568627451,
+            "count": 51
+          },
+          "fr": {
+            "accuracy": 0.98,
+            "count": 50
+          },
+          "hi": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "id": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "it": {
+            "accuracy": 0.9803921568627451,
+            "count": 51
+          },
+          "ja": {
+            "accuracy": 0.9591836734693877,
+            "count": 49
+          },
+          "kn": {
+            "accuracy": 1.0,
+            "count": 49
+          },
+          "ml": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "ta": {
+            "accuracy": 0.9803921568627451,
+            "count": 51
+          },
+          "te": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "zh": {
+            "accuracy": 0.9411764705882353,
+            "count": 51
+          }
+        }
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.028370425320976923,
+      "seconds": 3.2,
+      "validation": {
+        "count": 915,
+        "accuracy": 0.9923497267759562,
+        "macro_f1": 0.9922749886928991,
+        "false_interruption_rate": 0.014457831325301205,
+        "missed_interruption_rate": 0.002,
+        "per_class": {
+          "backchannel": {
+            "precision": 0.9975609756097561,
+            "recall": 0.9855421686746988,
+            "f1": 0.9915151515151515,
+            "count": 415
+          },
+          "barge_in": {
+            "precision": 0.9881188118811881,
+            "recall": 0.998,
+            "f1": 0.9930348258706467,
+            "count": 500
+          }
+        },
+        "per_language": {
+          "de": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "en": {
+            "accuracy": 0.9952153110047847,
+            "count": 209
+          },
+          "es": {
+            "accuracy": 0.99,
+            "count": 100
+          },
+          "fil": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "fr": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "hi": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "id": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "it": {
+            "accuracy": 0.9607843137254902,
+            "count": 51
+          },
+          "ja": {
+            "accuracy": 0.9591836734693877,
+            "count": 49
+          },
+          "kn": {
+            "accuracy": 1.0,
+            "count": 49
+          },
+          "ml": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "ta": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "te": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "zh": {
+            "accuracy": 0.9803921568627451,
+            "count": 51
+          }
+        }
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.012843005764235648,
+      "seconds": 3.2,
+      "validation": {
+        "count": 915,
+        "accuracy": 0.9923497267759562,
+        "macro_f1": 0.992281542341856,
+        "false_interruption_rate": 0.00963855421686747,
+        "missed_interruption_rate": 0.006,
+        "per_class": {
+          "backchannel": {
+            "precision": 0.9927536231884058,
+            "recall": 0.9903614457831326,
+            "f1": 0.9915560916767189,
+            "count": 415
+          },
+          "barge_in": {
+            "precision": 0.9920159680638723,
+            "recall": 0.994,
+            "f1": 0.993006993006993,
+            "count": 500
+          }
+        },
+        "per_language": {
+          "de": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "en": {
+            "accuracy": 0.9952153110047847,
+            "count": 209
+          },
+          "es": {
+            "accuracy": 0.99,
+            "count": 100
+          },
+          "fil": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "fr": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "hi": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "id": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "it": {
+            "accuracy": 0.9607843137254902,
+            "count": 51
+          },
+          "ja": {
+            "accuracy": 0.9795918367346939,
+            "count": 49
+          },
+          "kn": {
+            "accuracy": 1.0,
+            "count": 49
+          },
+          "ml": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "ta": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "te": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "zh": {
+            "accuracy": 0.9607843137254902,
+            "count": 51
+          }
+        }
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.01033365767052978,
+      "seconds": 3.3,
+      "validation": {
+        "count": 915,
+        "accuracy": 0.9923497267759562,
+        "macro_f1": 0.992281542341856,
+        "false_interruption_rate": 0.00963855421686747,
+        "missed_interruption_rate": 0.006,
+        "per_class": {
+          "backchannel": {
+            "precision": 0.9927536231884058,
+            "recall": 0.9903614457831326,
+            "f1": 0.9915560916767189,
+            "count": 415
+          },
+          "barge_in": {
+            "precision": 0.9920159680638723,
+            "recall": 0.994,
+            "f1": 0.993006993006993,
+            "count": 500
+          }
+        },
+        "per_language": {
+          "de": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "en": {
+            "accuracy": 0.9952153110047847,
+            "count": 209
+          },
+          "es": {
+            "accuracy": 0.99,
+            "count": 100
+          },
+          "fil": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "fr": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "hi": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "id": {
+            "accuracy": 1.0,
+            "count": 50
+          },
+          "it": {
+            "accuracy": 0.9607843137254902,
+            "count": 51
+          },
+          "ja": {
+            "accuracy": 0.9795918367346939,
+            "count": 49
+          },
+          "kn": {
+            "accuracy": 1.0,
+            "count": 49
+          },
+          "ml": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "ta": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "te": {
+            "accuracy": 1.0,
+            "count": 51
+          },
+          "zh": {
+            "accuracy": 0.9607843137254902,
+            "count": 51
+          }
+        }
+      }
+    }
+  ]
+}

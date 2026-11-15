@@ -1,0 +1,37 @@
+{
+  "scope": "Local machine designated by owner for CPU measurement, 2026-11-15. Tokenization through probability; excludes Vxpipe boundary/queueing.",
+  "cpu": "AMD EPYC-Genoa Processor",
+  "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.43",
+  "torch": "2.15.0+cpu",
+  "threads": 4,
+  "interop_threads": 1,
+  "batch_size": 1,
+  "iterations": 1000,
+  "warmup": 100,
+  "max_length": 64,
+  "head_sha256": "a2fb1f648e1cf8cb9db1f1d0361bd8d32ca87e80a3e9598d2c90596dbc693a7b",
+  "encoder_sha256": "9f3a1c06c465a1a73d9ec4fa6e3b2f9362cd77ef5b31678ba2849c75d9b206ed",
+  "test_sha256": "8b630782362b05249b3be94b0213850258422be5ddeb62fcf703817b0bf9e11a",
+  "cpu_gpu_max_probability_difference": 6.633101498620952e-07,
+  "cpu_gpu_label_disagreements": 0,
+  "load_seconds_excluded": 6.701228276011534,
+  "model_path": {
+    "multilingual_test": {
+      "p50_ms": 14.532349499999999,
+      "p95_ms": 19.32439709999999,
+      "p99_ms": 25.447481489999998,
+      "mean_ms": 14.990129699,
+      "max_ms": 73.569413
+    },
+    "full_64_tokens": {
+      "p50_ms": 27.6618085,
+      "p95_ms": 35.713214199999996,
+      "p99_ms": 53.193597379999986,
+      "mean_ms": 28.96779864,
+      "max_ms": 112.816773
+    }
+  },
+  "whole_path": null,
+  "whole_path_reason": "Vxpipe integration boundary is not implemented in this experiment",
+  "peak_rss_mib": 1389.94921875
+}

@@ -1,0 +1,795 @@
+{
+  "onnxruntime": "1.32.0",
+  "threads": 4,
+  "whole_path": null,
+  "whole_path_reason": "Vxpipe boundary is not implemented",
+  "reference": "Remote export verification only; not a latency reference",
+  "runtimes": {
+    "fp32": {
+      "load_seconds_excluded": 0.9114819290116429,
+      "parity": {
+        "combined_validation": {
+          "max_probability_difference": 1.3527894255488393e-07,
+          "label_disagreements": 0,
+          "gpu_metrics": {
+            "count": 915,
+            "accuracy": 0.9956284153005465,
+            "macro_f1": 0.9955903614457831,
+            "false_interruption_rate": 0.004819277108433735,
+            "missed_interruption_rate": 0.004,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9951807228915662,
+                "recall": 0.9951807228915662,
+                "f1": 0.9951807228915662,
+                "count": 415
+              },
+              "barge_in": {
+                "precision": 0.996,
+                "recall": 0.996,
+                "f1": 0.996,
+                "count": 500
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "en": {
+                "accuracy": 1.0,
+                "count": 209
+              },
+              "es": {
+                "accuracy": 0.99,
+                "count": 100
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.9795918367346939,
+                "count": 49
+              },
+              "kn": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ta": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "te": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              }
+            }
+          },
+          "cpu_metrics": {
+            "count": 915,
+            "accuracy": 0.9956284153005465,
+            "macro_f1": 0.9955903614457831,
+            "false_interruption_rate": 0.004819277108433735,
+            "missed_interruption_rate": 0.004,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9951807228915662,
+                "recall": 0.9951807228915662,
+                "f1": 0.9951807228915662,
+                "count": 415
+              },
+              "barge_in": {
+                "precision": 0.996,
+                "recall": 0.996,
+                "f1": 0.996,
+                "count": 500
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "en": {
+                "accuracy": 1.0,
+                "count": 209
+              },
+              "es": {
+                "accuracy": 0.99,
+                "count": 100
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.9795918367346939,
+                "count": 49
+              },
+              "kn": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ta": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "te": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              }
+            }
+          }
+        },
+        "combined_test": {
+          "max_probability_difference": 9.038677068140544e-06,
+          "label_disagreements": 0,
+          "gpu_metrics": {
+            "count": 908,
+            "accuracy": 0.9900881057268722,
+            "macro_f1": 0.9899962663500205,
+            "false_interruption_rate": 0.007334963325183374,
+            "missed_interruption_rate": 0.012024048096192385,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9854368932038835,
+                "recall": 0.9926650366748166,
+                "f1": 0.9890377588306942,
+                "count": 409
+              },
+              "barge_in": {
+                "precision": 0.9939516129032258,
+                "recall": 0.9879759519038076,
+                "f1": 0.9909547738693467,
+                "count": 499
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 0.9583333333333334,
+                "count": 48
+              },
+              "en": {
+                "accuracy": 1.0,
+                "count": 212
+              },
+              "es": {
+                "accuracy": 0.96875,
+                "count": 96
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.96,
+                "count": 50
+              },
+              "kn": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ta": {
+                "accuracy": 0.9795918367346939,
+                "count": 49
+              },
+              "te": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 1.0,
+                "count": 51
+              }
+            }
+          },
+          "cpu_metrics": {
+            "count": 908,
+            "accuracy": 0.9900881057268722,
+            "macro_f1": 0.9899962663500205,
+            "false_interruption_rate": 0.007334963325183374,
+            "missed_interruption_rate": 0.012024048096192385,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9854368932038835,
+                "recall": 0.9926650366748166,
+                "f1": 0.9890377588306942,
+                "count": 409
+              },
+              "barge_in": {
+                "precision": 0.9939516129032258,
+                "recall": 0.9879759519038076,
+                "f1": 0.9909547738693467,
+                "count": 499
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 0.9583333333333334,
+                "count": 48
+              },
+              "en": {
+                "accuracy": 1.0,
+                "count": 212
+              },
+              "es": {
+                "accuracy": 0.96875,
+                "count": 96
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.96,
+                "count": 50
+              },
+              "kn": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ta": {
+                "accuracy": 0.9795918367346939,
+                "count": 49
+              },
+              "te": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 1.0,
+                "count": 51
+              }
+            }
+          }
+        },
+        "challenge": {
+          "max_probability_difference": 6.401240879028158e-07,
+          "label_disagreements": 0,
+          "gpu_metrics": {
+            "count": 98,
+            "accuracy": 0.9489795918367347,
+            "macro_f1": 0.9487179487179487,
+            "false_interruption_rate": 0.0,
+            "missed_interruption_rate": 0.10416666666666667,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9090909090909091,
+                "recall": 1.0,
+                "f1": 0.9523809523809523,
+                "count": 50
+              },
+              "barge_in": {
+                "precision": 1.0,
+                "recall": 0.8958333333333334,
+                "f1": 0.945054945054945,
+                "count": 48
+              }
+            },
+            "per_language": {
+              "en": {
+                "accuracy": 0.9489795918367347,
+                "count": 98
+              }
+            }
+          },
+          "cpu_metrics": {
+            "count": 98,
+            "accuracy": 0.9489795918367347,
+            "macro_f1": 0.9487179487179487,
+            "false_interruption_rate": 0.0,
+            "missed_interruption_rate": 0.10416666666666667,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9090909090909091,
+                "recall": 1.0,
+                "f1": 0.9523809523809523,
+                "count": 50
+              },
+              "barge_in": {
+                "precision": 1.0,
+                "recall": 0.8958333333333334,
+                "f1": 0.945054945054945,
+                "count": 48
+              }
+            },
+            "per_language": {
+              "en": {
+                "accuracy": 0.9489795918367347,
+                "count": 98
+              }
+            }
+          }
+        }
+      },
+      "model_path": {},
+      "model_bytes": 470654766
+    },
+    "int8": {
+      "load_seconds_excluded": 0.7204279839061201,
+      "parity": {
+        "combined_validation": {
+          "max_probability_difference": 0.9428254074945874,
+          "label_disagreements": 1,
+          "gpu_metrics": {
+            "count": 915,
+            "accuracy": 0.9956284153005465,
+            "macro_f1": 0.9955903614457831,
+            "false_interruption_rate": 0.004819277108433735,
+            "missed_interruption_rate": 0.004,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9951807228915662,
+                "recall": 0.9951807228915662,
+                "f1": 0.9951807228915662,
+                "count": 415
+              },
+              "barge_in": {
+                "precision": 0.996,
+                "recall": 0.996,
+                "f1": 0.996,
+                "count": 500
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "en": {
+                "accuracy": 1.0,
+                "count": 209
+              },
+              "es": {
+                "accuracy": 0.99,
+                "count": 100
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.9795918367346939,
+                "count": 49
+              },
+              "kn": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ta": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "te": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              }
+            }
+          },
+          "cpu_metrics": {
+            "count": 915,
+            "accuracy": 0.994535519125683,
+            "macro_f1": 0.9944868159584686,
+            "false_interruption_rate": 0.007228915662650603,
+            "missed_interruption_rate": 0.004,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9951690821256038,
+                "recall": 0.9927710843373494,
+                "f1": 0.993968636911942,
+                "count": 415
+              },
+              "barge_in": {
+                "precision": 0.9940119760479041,
+                "recall": 0.996,
+                "f1": 0.995004995004995,
+                "count": 500
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "en": {
+                "accuracy": 0.9952153110047847,
+                "count": 209
+              },
+              "es": {
+                "accuracy": 0.99,
+                "count": 100
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.9795918367346939,
+                "count": 49
+              },
+              "kn": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ta": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "te": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              }
+            }
+          }
+        },
+        "combined_test": {
+          "max_probability_difference": 0.8123692251500066,
+          "label_disagreements": 3,
+          "gpu_metrics": {
+            "count": 908,
+            "accuracy": 0.9900881057268722,
+            "macro_f1": 0.9899962663500205,
+            "false_interruption_rate": 0.007334963325183374,
+            "missed_interruption_rate": 0.012024048096192385,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9854368932038835,
+                "recall": 0.9926650366748166,
+                "f1": 0.9890377588306942,
+                "count": 409
+              },
+              "barge_in": {
+                "precision": 0.9939516129032258,
+                "recall": 0.9879759519038076,
+                "f1": 0.9909547738693467,
+                "count": 499
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 0.9583333333333334,
+                "count": 48
+              },
+              "en": {
+                "accuracy": 1.0,
+                "count": 212
+              },
+              "es": {
+                "accuracy": 0.96875,
+                "count": 96
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.96,
+                "count": 50
+              },
+              "kn": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ta": {
+                "accuracy": 0.9795918367346939,
+                "count": 49
+              },
+              "te": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 1.0,
+                "count": 51
+              }
+            }
+          },
+          "cpu_metrics": {
+            "count": 908,
+            "accuracy": 0.9911894273127754,
+            "macro_f1": 0.991105886962484,
+            "false_interruption_rate": 0.007334963325183374,
+            "missed_interruption_rate": 0.01002004008016032,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9878345498783455,
+                "recall": 0.9926650366748166,
+                "f1": 0.9902439024390245,
+                "count": 409
+              },
+              "barge_in": {
+                "precision": 0.993963782696177,
+                "recall": 0.9899799599198397,
+                "f1": 0.9919678714859437,
+                "count": 499
+              }
+            },
+            "per_language": {
+              "de": {
+                "accuracy": 0.9583333333333334,
+                "count": 48
+              },
+              "en": {
+                "accuracy": 1.0,
+                "count": 212
+              },
+              "es": {
+                "accuracy": 0.96875,
+                "count": 96
+              },
+              "fil": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "fr": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "hi": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "id": {
+                "accuracy": 1.0,
+                "count": 50
+              },
+              "it": {
+                "accuracy": 1.0,
+                "count": 51
+              },
+              "ja": {
+                "accuracy": 0.98,
+                "count": 50
+              },
+              "kn": {
+                "accuracy": 0.98,
+                "count": 50
+              },
+              "ml": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "ta": {
+                "accuracy": 1.0,
+                "count": 49
+              },
+              "te": {
+                "accuracy": 0.9803921568627451,
+                "count": 51
+              },
+              "zh": {
+                "accuracy": 1.0,
+                "count": 51
+              }
+            }
+          }
+        },
+        "challenge": {
+          "max_probability_difference": 0.1656115443701065,
+          "label_disagreements": 0,
+          "gpu_metrics": {
+            "count": 98,
+            "accuracy": 0.9489795918367347,
+            "macro_f1": 0.9487179487179487,
+            "false_interruption_rate": 0.0,
+            "missed_interruption_rate": 0.10416666666666667,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9090909090909091,
+                "recall": 1.0,
+                "f1": 0.9523809523809523,
+                "count": 50
+              },
+              "barge_in": {
+                "precision": 1.0,
+                "recall": 0.8958333333333334,
+                "f1": 0.945054945054945,
+                "count": 48
+              }
+            },
+            "per_language": {
+              "en": {
+                "accuracy": 0.9489795918367347,
+                "count": 98
+              }
+            }
+          },
+          "cpu_metrics": {
+            "count": 98,
+            "accuracy": 0.9489795918367347,
+            "macro_f1": 0.9487179487179487,
+            "false_interruption_rate": 0.0,
+            "missed_interruption_rate": 0.10416666666666667,
+            "per_class": {
+              "backchannel": {
+                "precision": 0.9090909090909091,
+                "recall": 1.0,
+                "f1": 0.9523809523809523,
+                "count": 50
+              },
+              "barge_in": {
+                "precision": 1.0,
+                "recall": 0.8958333333333334,
+                "f1": 0.945054945054945,
+                "count": 48
+              }
+            },
+            "per_language": {
+              "en": {
+                "accuracy": 0.9489795918367347,
+                "count": 98
+              }
+            }
+          }
+        }
+      },
+      "model_path": {},
+      "model_bytes": 406787634
+    }
+  },
+  "peak_process_rss_mib": 1167.65234375,
+  "artifact_sha256": {
+    "model-fp32.onnx": "185596eb5d57ffaac87334ca842a96894ff1cbfb3914f4056d73fa3c84f68ceb",
+    "model-int8.onnx": "d8b8f606e5fda9ef9b64c908c222402e3385d9d46f4ff00f2841aa7493845c6b",
+    "tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+    "metadata.json": "5a1a8d27a010860f9395d4c02488f1da2c8bc4ab54cddd7b9d8210123815a0d1"
+  },
+  "code_sha256": "e12de63f9acf5ba414d6fb9f863f6f24f463eedb5cc1bf792c72dac181c07793"
+}

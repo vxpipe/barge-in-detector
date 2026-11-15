@@ -1,0 +1,6 @@
+[submodule "huggingface/model"]
+	path = huggingface/model
+	url = https://huggingface.co/HashNuke/barge-in-detector
+[submodule "huggingface/dataset"]
+	path = huggingface/dataset
+	url = https://huggingface.co/datasets/HashNuke/barge-in-detector-data

@@ -1,0 +1,21 @@
+{
+  "source_commit": "db838c3c48051a18db753a01ad6d01a5171786c9",
+  "working_tree_dirty": true,
+  "packages": {
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "tokenizers": "0.23.3"
+  },
+  "files_sha256": {
+    "experiments/compare_lexical_features.py": "064c22e06eed92cc3ffcdc03d43d1011711b4286f71430f30ce1f8432ab7f25b",
+    "experiments/verify_lexical.py": "26a1f4859f97263efbbe6fc75910fc1f8185ded62d61453b1fdea0ffa26ea451",
+    "barge_in_detector/training/lexical.py": "835531bd89420f9ada20868d6947edfa2c20aadf63f635e2db5c28516ab88209",
+    "data/evaluation/reviews/english-challenge-v1.json": "ee6e07c3218ab0412d179e73b8e7457d550447a7ae08db2a005f37d794b855fa",
+    "data/splits/train.csv": "aab224bd0526eee915295e6f5c52076e29bb751cd0d664eefb4321843ad22533",
+    "data/splits/validation.csv": "c6b4c526fb4b1df96754119e409cedc8c7e85c77659e1fc1c3829da70084edc1",
+    "data/splits/test.csv": "8b630782362b05249b3be94b0213850258422be5ddeb62fcf703817b0bf9e11a"
+  },
+  "compute": "local CPU; no paid compute",
+  "status": "experimental development candidate; not released"
+}

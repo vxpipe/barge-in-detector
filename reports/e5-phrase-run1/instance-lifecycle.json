@@ -1,0 +1,17 @@
+{
+  "destroyed": true,
+  "download_verified": true,
+  "verified_artifact_files": 55,
+  "model_files": 20,
+  "downloaded_model_bytes": 2845430023,
+  "local_load_checks": [
+    "PyTorch",
+    "FP32 ONNX",
+    "INT8 ONNX"
+  ],
+  "rental_seconds_upper_bound": 1114.9296653270721,
+  "hourly_compute_storage_usd": 0.509537037037037,
+  "estimated_compute_storage_usd_upper_bound": 0.1578049883820699,
+  "network_cost": "Separately metered; not included in compute/storage estimate",
+  "private_operational_details": "Kept only in gitignored local records"
+}
