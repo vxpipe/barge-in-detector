@@ -83,7 +83,7 @@ def _hints(cat: Catalogue, intent: str, language: str) -> str:
     return "No example hints: rely on the intent description."
 
 
-UTTERANCE_TEMPLATE = "generator_utterances_v4"
+UTTERANCE_TEMPLATE = "generator_utterances_v5"
 UTTERANCE_REQUEST_KIND = "generate_utterances"
 
 _UTTERANCE_FIELDS: dict[str, Any] = {

@@ -278,6 +278,18 @@ validation and the table (schema 9); the system prompt now asks for
 utterances "as long as a caller would naturally say it". Full plan: 1,480
 combinations, 7,400 utterances, about $47; 85% barge-in.
 
+## Development removed, judge restates the criteria, top-up
+
+User decisions: development is not a dimension (a text that turns into a
+barge-in is barge_in); the judge's questions restate the request's criteria
+only (one per language line, one for the intent). The stopped full run's
+6,012 accepted samples were re-keyed without development; 5 per combination
+kept (2,932 retired as over the count). 666 combinations; a top-up filled
+most of the 99 short ones, leaving 69 short (178 utterances), mostly
+gratitude_token (36) and continuer (20): the intent question failed on
+descriptions about the conversation. gratitude_token's description became
+"Thanks in passing that doesn't ask for anything" (prompt v5).
+
 ## Checks
 
 `ruff format --check`, `ruff check`: clean. `pytest`: 106 passed, 1

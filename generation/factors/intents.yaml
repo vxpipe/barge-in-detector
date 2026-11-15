@@ -17,7 +17,7 @@
 # examples are hints for prompts and reviewers, not word lists. The generator
 # must produce natural, varied wording. Kannada and Tamil hints are unverified.
 #
-version: 0.6.0
+version: 0.7.0
 
 intents:
   # ---------------- backchannel ----------------
@@ -62,7 +62,7 @@ intents:
 
   - id: gratitude_token
     label: backchannel
-    description: Thanks said in passing while the speaker continues.
+    description: Thanks in passing that doesn't ask for anything.
     examples:
       en: ["thanks", "thank you"]
       hi: ["shukriya", "dhanyavaad", "thank you ji"]

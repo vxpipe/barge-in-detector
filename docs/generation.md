@@ -14,7 +14,7 @@ pipeline (2-3 line windows) was removed on 2026-11-15; it is in git history.
 - **One request per criterion**, asking for up to `batch_size` (10)
   utterances, each said over a speaker who is still talking.
 - **Two parts per call**:
-  1. **System prompt** `generator_utterances_v4` (cached in an explicit
+  1. **System prompt** `generator_utterances_v5` (cached in an explicit
      Gemini context cache per model and prompt hash; needs API `v1beta`): the
      task, the track's intents with their labels, script form and
      code-switching meanings, writing rules, output
