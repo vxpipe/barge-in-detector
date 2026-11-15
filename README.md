@@ -41,8 +41,9 @@ Speech after the agent finishes belongs to the voice runtime.
 The [E5 phrase-coverage release](https://huggingface.co/HashNuke/barge-in-detector)
 includes FP32 PyTorch, FP32 ONNX and INT8 ONNX, trained on the combined original
 and supplement dataset. See [matched results and limits](docs/e5-phrase-results.md).
-The root checkpoint is the selected combined-data model. Pin tag `v0.2.0` or a
-full commit SHA to reproduce this release; `v0.1.0` preserves the original baseline.
+The root checkpoint is the selected combined-data model. Tag `v0.2.0` identifies
+this release; use a full commit SHA for immutable reproduction. Tag `v0.1.0`
+preserves the original baseline.
 
 ## Try the model on your CPU
 
@@ -67,7 +68,7 @@ lowercase, punctuation removed, native scripts optionally mixed with English.
 
 ## Explore the data and review examples
 
-The repo includes **3,304 accepted synthetic utterances**, split into 2,640
+The original dataset includes **3,304 accepted synthetic utterances**, split into 2,640
 training, 333 validation, and 331 test examples. A separate **98-example English
 challenge** has been owner-reviewed. Rejected samples stay in the source export
 for audit, and are excluded from training.
@@ -112,33 +113,41 @@ uv run --group train python -m barge_in_detector.training.evaluate --model model
 Model outputs remain gitignored. Publish selected weights to the HF model repo
 and data releases to the HF dataset repo, retaining code/data revision pins.
 
-## What the first release tells us
+## Current release results
 
-| Measurement | Result |
-| --- | --- |
-| Synthetic test accuracy, 331 examples | 100% |
-| Reviewed English challenge accuracy, 98 examples | 73.5% |
-| Short interruptions detected in the challenge | 5 / 30 |
-| Warm CPU latency, typical utterance | 13.1 ms median / 25.3 ms p99 |
-| Warm CPU latency, full 64-token budget | 26.8 ms median / 37.9 ms p99 |
-| Fresh Python process to first label | 4.22 s median |
+| Measurement | FP32 ONNX | INT8 ONNX, batch one |
+| --- | ---: | ---: |
+| Combined synthetic test | 899 / 908 (99.0%) | 899 / 908 (99.0%) |
+| Reviewed English development cases | 93 / 98 (94.9%) | 94 / 98 (95.9%) |
+| False interruptions | 0 / 50 | 0 / 50 |
+| Missed interruptions | 5 / 48 | 4 / 48 |
+| Short interruptions detected | 26 / 30 | 27 / 30 |
+| Typical model-path CPU p99 | 10.62 ms | 5.69 ms |
+| Full 64-token model-path CPU p99 | 20.82 ms | 18.85 ms |
 
-Timing uses four virtual AMD EPYC Genoa cores, four threads, eager fp32 PyTorch,
-batch one. Warm figures include tokenization through label output. Cold start
-includes imports and local model loading; OS file cache may be warm. HTTP,
-network, queueing, and the Vxpipe boundary are excluded. These are local results,
-not reference-CPU acceptance measurements; ONNX/int8 is unmeasured.
+Timing uses the owner-designated AMD EPYC-Genoa CPU, four threads, warmed batch
+one, 100 warmups and 1,000 measured calls. Figures include tokenization through
+probability. INT8 meets the 20 ms model-path p99 target in this measurement;
+FP32 misses it at the full token budget. The Vxpipe boundary and its 50 ms
+whole-path target remain unmeasured. Current-release cold start is unmeasured.
 
 The synthetic test score does not establish real-world accuracy. Criteria overlap
 between splits, and template/semantic leakage remains unaudited. The challenge
-is now a development/regression set. Fresh human-reviewed English/Hindi evidence,
-better short-interruption coverage, calibration, and latency work remain ahead.
+is a reused development/regression set, with pre-existing original-data overlaps.
+Fresh human-reviewed English/Hindi evidence, realistic-prior calibration and
+Vxpipe integration measurements remain necessary. Quantized outputs may differ
+from FP32 and with batch composition.
+
+The original `v0.1.0` baseline scored 72/98 on the same reviewed cases. Its
+historical results remain in [first-run reports](reports/e5-small-run1/).
+See [the matched comparison](docs/e5-phrase-results.md) for all candidates and limits.
 
 ## Help improve it
 
 Good next contributions include reviewing fresh English/Hindi examples,
-strengthening short-interruption coverage, auditing near duplicates, and comparing
-a character n-gram baseline. Read [AGENTS.md](AGENTS.md) and the
+strengthening short-interruption coverage, auditing near duplicates, and measuring
+the Vxpipe integration. Character/word baselines have already been compared in the
+[current results](docs/e5-phrase-results.md). Read [AGENTS.md](AGENTS.md) and the
 [milestones index](labnotes/milestones/index.md) before starting. Record research
 and implementation checkpoints with `bin/create-labnotes`.
 

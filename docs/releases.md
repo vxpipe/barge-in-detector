@@ -24,8 +24,11 @@ artifacts.sha256.json
 release.json
 ```
 
-Publish updates to these files, then create an immutable release tag such as
-`v0.2.0` at the verified commit. Consumers may pin a tag or full commit SHA.
+Publish updates to these files, then create a release tag such as `v0.2.0` at the
+verified commit. The owner may authorize moving a tag to include release
+corrections, including documentation updates. Verify the new target and refresh
+both submodule pins after such an update. Consumers use tags to select releases;
+full commit SHAs provide immutable reproduction even when a tag moves.
 Previous model versions remain accessible through Git history and tags; do not
 retain `run1`, `run2`, training seeds or historical candidate folders in the
 current HF model tree merely to version them. Multiple model directories are
@@ -38,7 +41,9 @@ or Hub `repo_info(..., revision=TAG).sha`) for submodule and provenance pins.
 
 Dataset configurations are separate: preserve the original dataset and the
 standalone supplement alongside the derived combined splits. Tag dataset
-releases too, and pin the exact dataset commit in each model release.
+releases too, and pin the exact training dataset commit in each model release.
+Documentation-only commits do not change the model's training provenance or
+dataset content pins; record the documentation source revision separately.
 
 After verified publication, fetch and update **both** HF submodule checkouts,
 retain local model weights, and commit/push the corresponding GitHub gitlink

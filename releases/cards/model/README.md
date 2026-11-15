@@ -22,8 +22,8 @@ and phrase supplement, across all 14 languages.
 | Format | Download |
 | --- | --- |
 | Unquantized fine-tune, FP32 PyTorch | [model.safetensors](model.safetensors) |
-| FP32 ONNX | [onnx/model-fp32.onnx](onnx/model.onnx) |
-| Quantized INT8 ONNX | [onnx/model-int8.onnx](onnx/model_int8.onnx) |
+| FP32 ONNX | [onnx/model.onnx](onnx/model.onnx) |
+| Quantized INT8 ONNX | [onnx/model_int8.onnx](onnx/model_int8.onnx) |
 
 Tokenizer/configuration accompany the checkpoint. The ONNX directory includes
 its tokenizer and input/output metadata. Quantization applies to matrix
@@ -49,7 +49,8 @@ with torch.inference_mode():
     p_barge_in = model(**inputs).logits.softmax(-1)[0, 1].item()
 ```
 
-Pin a release tag or full commit SHA for reproducibility. Clean inputs using the
+Use a release tag to select a version, or a full commit SHA for immutable
+reproduction; release tags may be updated for authorized corrections. Clean inputs using the
 [source transcript contract](https://github.com/vxpipe/barge-in-detector/blob/main/docs/transcript-format.md).
 ONNX Runtime CPU inference uses int64 `input_ids` and `attention_mask`; apply
 softmax to the two output logits and read index 1. Serving code lives in the

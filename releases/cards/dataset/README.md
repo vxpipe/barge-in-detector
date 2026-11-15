@@ -75,16 +75,21 @@ Run this in Python (`python`) or a notebook using that environment:
 from datasets import load_dataset
 
 repo = "HashNuke/barge-in-detector-data"
-splits = load_dataset(repo, "utterances")
-combined = load_dataset(repo, "original-plus-phrase-v1")  # New E5 training dataset
-phrases = load_dataset(repo, "phrase-coverage-v1")
-challenge = load_dataset(repo, "challenge", split="test")
+revision = "v0.2.0"
+splits = load_dataset(repo, "utterances", revision=revision)
+combined = load_dataset(repo, "original-plus-phrase-v1", revision=revision)
+phrases = load_dataset(repo, "phrase-coverage-v1", revision=revision)
+challenge = load_dataset(repo, "challenge", split="test", revision=revision)
 
 sample = splits["train"][0]
 print(sample["text_clean"], sample["label"])
 ```
 
-Use `revision=DATASET_COMMIT` to pin a snapshot for training or evaluation.
+Tag `v0.2.0` includes the original, supplement and combined configurations;
+`v0.1.0` preserves the original dataset release. Use `revision=DATASET_COMMIT`
+with a full commit SHA for immutable training or evaluation inputs, since release
+tags may be updated for authorized corrections. The combined configuration is
+the dataset used by the new E5 model.
 The [model release metadata](https://huggingface.co/HashNuke/barge-in-detector/blob/main/release.json)
 identifies the exact dataset revision used for the published checkpoint.
 
@@ -168,11 +173,11 @@ Local request logs and API credentials are not published.
 
 ## Evaluation limits
 
-> **Experimental checkpoint.** The first model misses 25 of 30 short
-> interruptions in the reviewed English challenge. Use it for research and
-> evaluation; its probabilities are not calibrated.
+> **Synthetic data and development evaluation.** Neither synthetic test scores
+> nor the reused English challenge establish independent multilingual accuracy.
+> Fresh human evaluation and realistic-prior calibration remain necessary.
 
-The first model scored 100% on the 331-example synthetic test split but 73.5%
+The original `v0.1.0` model scored 100% on its 331-example synthetic test split but 73.5%
 on the reviewed English challenge. Synthetic backchannels tend to be shorter
 than interruptions. Criteria overlap between train and validation/test; exact
 accepted cleaned-text duplicates do not cross splits, but template/semantic

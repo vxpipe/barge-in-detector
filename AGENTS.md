@@ -39,7 +39,9 @@ changes back to HF.
 
 **Model versioning:** publish the selected model at stable filenames in the HF
 repository, with FP32 PyTorch at the root and FP32/INT8 ONNX under `onnx/`.
-Use Git commits and immutable release tags to version releases. Do not keep
+Use Git commits and release tags to version releases. Tags may be moved when
+the owner authorizes release corrections; use full commit SHAs for immutable
+provenance and submodule pins. Do not keep
 historical models or training seeds in `run1`, `run2`, `candidates/<run>` or
 similar directories in the current HF tree. Separate model directories are only
 for intentionally parallel model development. Local experiment/checkpoint names

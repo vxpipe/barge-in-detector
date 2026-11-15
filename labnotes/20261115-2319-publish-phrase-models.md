@@ -98,3 +98,18 @@ policy, exact release manifests, remote verification and the submodule gitlinks.
 
 Evidence: `releases/published-v0.2.0.json` and
 `reports/e5-phrase-run1/tagged-release-verification.json`.
+
+## README follow-up and authorized tag correction
+
+The owner asked whether all repository READMEs were current. Remote contents
+matched the checkouts, but GitHub still led its results section with original
+metrics and called ONNX unmeasured. Updated it to the published FP32/INT8 results,
+corrected model-card ONNX link labels, and made dataset configuration/tag examples
+explicit. No weights, data or training parameters changed. README Python snippets
+parse and artifact download paths exist.
+
+The owner explicitly authorized updating release tags. Updated AGENTS.md and the
+release guide accordingly: tags can move for authorized release corrections;
+full commit SHAs keep provenance and submodule pins immutable. Apply these README
+corrections to v0.2.0 in both HF repositories; retain v0.1.0 unchanged. Record
+documentation source separately from the actual training source/dataset pins.
