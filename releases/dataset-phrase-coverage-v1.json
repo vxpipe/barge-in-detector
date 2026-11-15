@@ -59,5 +59,6 @@
   "generation": {
     "original": "Gemini generation plus criterion judge",
     "phrase_supplement": "Gemini generation, no judge; deterministic validation"
-  }
+  },
+  "documentation_source_revision": "351fc62359378753ab2f7b598e9fd2fccdffc952"
 }

@@ -41,32 +41,5 @@
     "tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
     "tokenizer_config.json": "13660843154d3fde0f9954ad198b5a8bbf0d21cd4fc83aa4f37678d224c8481f"
   },
-  "remove_paths": [
-    "candidates/e5-phrase-run1/LICENSE",
-    "candidates/e5-phrase-run1/NOTICE",
-    "candidates/e5-phrase-run1/README.md",
-    "candidates/e5-phrase-run1/artifacts.sha256.json",
-    "candidates/e5-phrase-run1/checkpoint/config.json",
-    "candidates/e5-phrase-run1/checkpoint/model.safetensors",
-    "candidates/e5-phrase-run1/checkpoint/tokenizer.json",
-    "candidates/e5-phrase-run1/checkpoint/tokenizer_config.json",
-    "candidates/e5-phrase-run1/onnx/metadata.json",
-    "candidates/e5-phrase-run1/onnx/model-fp32.onnx",
-    "candidates/e5-phrase-run1/onnx/model-int8.onnx",
-    "candidates/e5-phrase-run1/onnx/tokenizer.json",
-    "candidates/e5-phrase-run1/provenance.json",
-    "candidates/e5-phrase-run1/seed-20261115/config.json",
-    "candidates/e5-phrase-run1/seed-20261115/model.safetensors",
-    "candidates/e5-phrase-run1/seed-20261115/tokenizer.json",
-    "candidates/e5-phrase-run1/seed-20261115/tokenizer_config.json",
-    "candidates/e5-phrase-run1/seed-20261116/config.json",
-    "candidates/e5-phrase-run1/seed-20261116/model.safetensors",
-    "candidates/e5-phrase-run1/seed-20261116/tokenizer.json",
-    "candidates/e5-phrase-run1/seed-20261116/tokenizer_config.json",
-    "candidates/e5-phrase-run1/seed-20261117/config.json",
-    "candidates/e5-phrase-run1/seed-20261117/model.safetensors",
-    "candidates/e5-phrase-run1/seed-20261117/tokenizer.json",
-    "candidates/e5-phrase-run1/seed-20261117/tokenizer_config.json",
-    "releases/e5-small-run1.json"
-  ]
+  "documentation_source_revision": "351fc62359378753ab2f7b598e9fd2fccdffc952"
 }
