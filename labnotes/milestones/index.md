@@ -3,6 +3,12 @@
 This checklist owns implementation order. Check an entry only when the
 milestone's acceptance gates pass.
 
+- [ ] [Dataset release and coverage audit](dataset-release-and-coverage-audit.md)
+  — active dataset work after separating model ownership.
+
+Historical cross-project milestones follow; new model-specific work lives in
+the Hugging Face model repo's own milestone index.
+
 - [ ] [Utterance-first backchannel classifier](utterance-first-backchannel-classifier.md)
   — classify only the caller's overlapping utterance (user decision,
   2026-11-15); supersedes the first milestone's 2-3 turn input contract.

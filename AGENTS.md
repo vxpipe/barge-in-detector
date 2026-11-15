@@ -6,6 +6,21 @@ keep speaking) or a genuine barge-in (stop the agent and give the caller the
 floor). It is trained on synthetic utterances generated with Google Gemini and
 is consumed by Vxpipe's speech runtime.
 
+## Repository ownership
+
+This checkout is the dataset and generation repository, published as
+`HashNuke/barge-in-detector-data` on Hugging Face, with the existing GitHub
+remote retained. It owns generated/accepted/rejected utterances, language and
+factor manifests, cleaning, deterministic splits, human review, generation
+scripts, tests, and historical project labnotes/milestones.
+
+`HashNuke/barge-in-detector` is the separate Hugging Face model repository.
+It owns weights, tokenizer, training, inference, evaluation, CPU benchmarks,
+model tests, model-specific labnotes and milestones. Do not commit model weights
+or training implementations here. Link model checkpoints to immutable dataset
+revisions and source hashes. Fetch datasets in the model repo instead of
+copying data into it. Keep these ownership instructions current in both repos.
+
 ## Project brief
 
 Voice agents currently treat any caller transcript during agent playback as an
@@ -117,8 +132,9 @@ probability that it is a barge-in (user decision, 2026-11-15; see
   handled upstream, so generate clean text and do not simulate ASR noise
   (misrecognitions, garbled words, missing punctuation). Script mixing and
   code-switching are part of how callers speak and stay in scope.
-- Split train/validation/test by **criterion**, never by row, and deduplicate on
-  the cleaned text, so the same utterance never lands in two splits.
+- Spread every criterion's samples over train, validation and test (user
+  decision, 2026-11-15; [docs/training.md](docs/training.md)), and deduplicate
+  on the cleaned text, so the same utterance never lands in two splits.
 - Measure the latency of the *whole* path on the *reference* CPU, warmed, at
   p50/p95/p99. Laptop numbers do not count. Vocabulary/embedding size dominates
   model size for multilingual encoders; account for memory too.
@@ -145,7 +161,7 @@ the LLM. Gemini only writes text that satisfies a given specification.
    (`generation/factors/constraints.yaml` and the track's own rules).
 3. **The plan file** (`generation/plans/*.yaml`) and a seeded, deterministic,
    prefix-stable builder give the **criteria**: factor combinations, each with
-   a required sample count and a split. The plan file in git is the only record
+   a required sample count. The plan file in git is the only record
    of the criteria (user decision, 2026-11-15).
 4. **IDs**: a criterion's `combination_id` is a UUIDv5 of its factor values;
    samples and requests get UUIDv7s. See
@@ -200,6 +216,13 @@ bump recorded in the data format doc.
 
 ## Tooling
 
+- **Model-repo training policy (shared):** run training and remote setup/work commands inside the tmux
+  session named `gpubox` so work survives SSH disconnects. Create it if absent;
+  reconnect with `tmux attach -t gpubox`. Keep logs and model artifacts on disk.
+  Always rent an **RTX 5090 (32 GB VRAM)**: one GPU on one datacenter
+  instance, below $0.65/hour, with good internet connectivity and the Vast.ai
+  PyTorch image. Do not substitute another GPU model or rent multiple instances.
+
 - Python project managed with `uv` (`uv sync`, `uv run ...`). Add dependencies
   with `uv add` and commit `uv.lock` with dependency changes.
 - Always source `~/.zshrc` or run commands through `zsh -lc` to get the
@@ -218,13 +241,17 @@ bump recorded in the data format doc.
   `responses.py`: response validation; `utterance_criteria.py`: per-language
   prompt lines and the judge questions; `llm.py`: Gemini client;
   `utterance_runner.py`: the fill-to-count runner), `storage/` (DuckDB schema,
-  the storage module, CSV export and import), `cli.py`. Prompt templates live
+  the storage module, CSV export and import), `splitting.py` (dataset split assignment and CSV IO), `review/` (binary
+  owner annotation UI), `cli.py`. Training/evaluation code lives in the
+  separate model repo. Prompt templates live
   in `generation/prompts/`, plans in `generation/plans/`, run settings in
   `generation/config.yaml`.
 - Data commands run through `uv run python -m barge_in_detector …`:
   `check-catalogue`, `plan`, `generate` (`--plan`, `--dry-run`, `--limit`,
   `--languages`, `--budget-usd`, `--concurrency`), `status`, `show-prompt`,
-  `export`, `import`. See [docs/generation.md](docs/generation.md).
+  `split`, `export`, `import`. See [docs/generation.md](docs/generation.md).
+  Training and evaluation run in the Hugging Face model repo;
+  [docs/training.md](docs/training.md) records the boundary and split contract.
 
 ## Related repositories
 
@@ -253,6 +280,10 @@ definitions, input contract, export runtime), add a focused document under
 verification evidence.
 
 ### Labnotes
+
+Each repository has its own `AGENTS.md`, `bin/create-labnotes`, and milestone
+index. Existing project labnotes and milestones remain here; record new
+model-only work in the model repo and link across repos as needed.
 
 - For research and implementation tasks, create a labnotes file with
   `bin/create-labnotes` and a two-to-four-word hyphenated task name, e.g.

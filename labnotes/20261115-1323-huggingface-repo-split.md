@@ -1,0 +1,38 @@
+# Hugging Face repository split
+
+## Decision and ownership
+
+Owner decision: model artifacts plus training/evaluation/benchmark scripts belong
+in HashNuke/barge-in-detector (model). Training data, generation/split/review tools
+and all historical labnotes belong in HashNuke/barge-in-detector-data (dataset).
+Existing GitHub source remote remains. No model artifacts enter its Git history.
+Both repos have scoped AGENTS.md, milestone indexes and bin/create-labnotes.
+Owner approved the two HashNuke repo names. Existing authenticated login used;
+no credential values are printed or stored in project files.
+
+## Implementation and evidence
+
+- Copied model artifacts and code to a sibling model checkout, verified training
+  on a tiny local CPU model (train, save, reload, evaluate) and actual checkpoint
+  inference reproducing p=0.0134437 for stop before removing original scripts.
+- Dataset splitter moved to barge_in_detector/splitting.py; CLI and focused tests
+  updated. Dataset repo has no torch/transformers dependency group.
+- Model dataset loader resolves Hub references to immutable commits and records
+  the revision; supports local split paths. Four focused model tests cover CSV
+  IO, missing splits, immutable download revision and evaluation metrics.
+- Weights/config/tokenizer are unchanged. Full original run source manifest is
+  retained with model reports; original run predates this repository separation.
+- Source export comparison: all 12,414 rows unchanged except dropped split
+  column. Accepted splits remain 2,640/333/331 and contain 3,304 unique texts.
+- Root dataset card excludes rejected samples from training configs; challenge
+  has a separate config. All 98 owner reviews are binary, after authorized
+  reconciliation; they match the frozen expected labels.
+- Both repos use MIT licensing, consistent with the required permissive release;
+  base-model card verified MIT and attribution retained in model NOTICE.
+- Small JSON metadata uses plain Git in the dataset; model weights/tokenizer use
+  Hub large-file storage. Working logs, environments, local DBs and caches excluded.
+
+## Verification and publication
+
+Record final commits and Hub artifact checks below. The migration does not
+change model accuracy or satisfy uncompleted model acceptance gates.
