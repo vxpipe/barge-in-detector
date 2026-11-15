@@ -20,7 +20,7 @@ def allowed_path(kind, name):
     if path.is_absolute() or ".." in path.parts or str(path) != name or "\\" in name:
         return False
     if kind == "model":
-        if name == ".gitattributes":
+        if name in {".gitattributes", "provenance.json", "artifacts.sha256.json"}:
             return True
         candidate = re.fullmatch(r"candidates/[a-z0-9][a-z0-9-]*/(.+)", name)
         if candidate:
@@ -133,6 +133,12 @@ def build_release(kind, *, root, manifest_path, artifacts=None, verify_hashes=Tr
     if (cards / "NOTICE").exists():
         files["NOTICE"] = checked_file(cards, "NOTICE")
     files[MANIFEST_NAMES[kind]] = manifest_path
+    cleanup = metadata.get("remove_paths", [])
+    if not isinstance(cleanup, list) or any(
+        not isinstance(name, str) or not allowed_path(kind, name) or name in files
+        for name in cleanup
+    ):
+        raise ValueError("Invalid cleanup paths or overlap with uploaded files")
     return Release(kind, REPOS[kind], metadata, files)
 
 
@@ -175,6 +181,12 @@ def publish_release(release, *, api=None):
         CommitOperationAdd(path_in_repo=name, path_or_fileobj=path)
         for name, path in sorted(release.files.items())
     ]
+    if release.metadata.get("remove_paths"):
+        from huggingface_hub import CommitOperationDelete
+
+        operations.extend(
+            CommitOperationDelete(path_in_repo=name) for name in release.metadata["remove_paths"]
+        )
     result = api.create_commit(
         repo_id=release.repo_id,
         repo_type=release.kind,
@@ -225,6 +237,8 @@ def main(argv=None):
         print(f"{release.kind}: {release.repo_id}")
         for name, path in sorted(release.files.items()):
             print(f"  {sha256(path)}  {path.stat().st_size:>12}  {name}")
+        for name in release.metadata.get("remove_paths", []):
+            print(f"  REMOVE from current tree (history retained): {name}")
         if args.publish:
             verify_source(release, ROOT)
             print(f"Published revision: {publish_release(release)}")

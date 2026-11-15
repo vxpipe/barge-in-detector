@@ -76,14 +76,18 @@ memory and realistic concurrency still need measurement.
 
 ## Files, verification and limits
 
-The local HF staging directory is
-`huggingface/model/candidates/e5-phrase-run1/`: selected FP32 PyTorch checkpoint,
-FP32 ONNX, INT8 ONNX, all three seed checkpoints, tokenizer/configuration,
-checksums, card, licence and provenance. The old release at the root is preserved.
-No code, datasets, training logs or research reports are included there.
-The source/dataset changes are not yet committed or published: provenance records
-their actual snapshot hashes and leaves the new HF dataset revision unset.
-Complete those exact revision pins before publishing this candidate.
+The HF model repository and local `huggingface/model/` submodule use stable
+filenames: selected FP32 `model.safetensors`, FP32 `onnx/model.onnx`, INT8
+`onnx/model_int8.onnx`, tokenizer/configuration, checksums, card and provenance.
+Release tag `v0.2.0` identifies the combined-data model. The original baseline is
+available at `v0.1.0`; history supplies versioning, without historical model
+directories or seed checkpoints in the current tree. All seeds remain local.
+No code, datasets, training logs or research reports are included in the model repo.
+
+The source and dataset are published. `releases/model-v0.2.0.json` pins source
+and dataset revision `02114f9cbdeed78c86dcd58ad13011425d010f8e`, with configuration
+`original-plus-phrase-v1`. Both HF submodules track the published release commits.
+See also `releases/dataset-phrase-coverage-v1.json` and `docs/releases.md`.
 
 All 55 downloaded artifacts/reports passed SHA-256 verification, including 20
 model files. All three selected inference formats loaded locally before the
@@ -95,6 +99,11 @@ Evidence: `reports/e5-phrase-run1/{selection,gpu-report,original-e5-comparison,
 export-verification,cpu-verification,instance-lifecycle}.json` and
 `reports/lightweight-v2/{selection,report}.json`. Predictions are retained beside
 the reports. Infrastructure identifiers remain only in gitignored private records.
+Publication verification downloaded and checked all 16 dataset files, confirmed
+all four dataset configurations/counts, verified model entries against downloaded
+bytes or Hub content hashes, and loaded downloaded FP32 PyTorch, FP32 ONNX and
+INT8 ONNX files on CPU. Stable-layout publication preserves those weight hashes;
+the original baseline remains available through its tag and history.
 
 The 98 reviewed English cases are a development/regression set. Three exact texts
 occur in original training and one in original validation; the supplement adds

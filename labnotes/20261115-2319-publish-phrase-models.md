@@ -46,3 +46,31 @@ unchanged, with separate supplement and combined configurations. Model metadata
 now pins this exact dataset and the published source; reviewed 27 selected model
 artifacts/metadata files, including FP32/INT8 ONNX and preserved legacy provenance.
 Full completion checks after LFS support: **182 passed, one deselected**, Ruff clean.
+
+## Owner correction: Git versions and stable paths
+
+The owner rejected retaining `run1`/candidate directories for historical versions.
+Use stable root FP32 and `onnx/` artifact paths, with Git commits and immutable
+tags for releases. Only intentionally parallel model development warrants
+separate model directories. Added this policy to `docs/releases.md` and AGENTS.md.
+The intermediate candidate-layout publication is superseded, while its Git history
+is retained. No history rewriting or force-push is used.
+
+Prepared the selected checkpoint at stable filenames, preserving all seed
+checkpoints locally. Extended the manifest tool with explicit allowlisted
+remove_paths, applied atomically with uploads at a pinned parent. Five focused
+tests first failed, then passed for root provenance/checksums and explicit cleanup;
+unsafe paths and simultaneous upload/delete overlaps are rejected.
+
+The intermediate remote publication passed checks for all 16 dataset inputs and
+27 model files, plus downloaded CPU loads of all three inference formats.
+The new layout changes filenames/metadata only; model weights are unchanged.
+Plan tags v0.1.0 for the prior baseline and v0.2.0 for this selected combined-data
+release, on both model and dataset repositories. Do not overwrite existing tags.
+
+Stable-layout checks: full suite **186 passed, one integration test deselected**;
+Ruff format/check pass. The verification script now accepts explicit FP32/INT8
+filenames so the same parity/benchmark workflow can use the public stable paths.
+Parity was rechecked using the renamed files; weight contents did not change.
+Initialized the model submodule's local Git LFS filters and refreshed its index
+with the verified files; no model-content commit was created by that refresh.

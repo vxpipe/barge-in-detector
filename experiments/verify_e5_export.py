@@ -23,6 +23,8 @@ def main():
     parser.add_argument("--benchmark", action="store_true")
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--reports", type=Path, help="Prediction inputs and verification output")
+    parser.add_argument("--fp32-file", default="model-fp32.onnx")
+    parser.add_argument("--int8-file", default="model-int8.onnx")
     args = parser.parse_args()
     reports = args.reports or args.run / "reports"
     selection = json.loads((reports / "selection.json").read_text())
@@ -48,10 +50,9 @@ def main():
             if line.startswith("model name")
         )
     for precision in ("fp32", "int8"):
+        model_file = args.fp32_file if precision == "fp32" else args.int8_file
         started = time.perf_counter()
-        model = OnnxClassifier(
-            args.run / "onnx", threads=args.threads, model_file=f"model-{precision}.onnx"
-        )
+        model = OnnxClassifier(args.run / "onnx", threads=args.threads, model_file=model_file)
         result = {
             "load_seconds_excluded": time.perf_counter() - started,
             "prediction_batch_size": 1 if args.benchmark else 32,
@@ -108,7 +109,8 @@ def main():
                         strict=True,
                     )
                 )
-        result["model_bytes"] = (args.run / "onnx" / f"model-{precision}.onnx").stat().st_size
+        result["model_file"] = model_file
+        result["model_bytes"] = (args.run / "onnx" / model_file).stat().st_size
         report["runtimes"][precision] = result
         del model
         gc.collect()

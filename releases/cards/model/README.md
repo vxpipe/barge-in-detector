@@ -21,18 +21,18 @@ and phrase supplement, across all 14 languages.
 
 | Format | Download |
 | --- | --- |
-| Unquantized fine-tune, FP32 PyTorch | [checkpoint/model.safetensors](candidates/e5-phrase-run1/checkpoint/model.safetensors) |
-| FP32 ONNX | [onnx/model-fp32.onnx](candidates/e5-phrase-run1/onnx/model-fp32.onnx) |
-| Quantized INT8 ONNX | [onnx/model-int8.onnx](candidates/e5-phrase-run1/onnx/model-int8.onnx) |
+| Unquantized fine-tune, FP32 PyTorch | [model.safetensors](model.safetensors) |
+| FP32 ONNX | [onnx/model-fp32.onnx](onnx/model.onnx) |
+| Quantized INT8 ONNX | [onnx/model-int8.onnx](onnx/model_int8.onnx) |
 
 Tokenizer/configuration accompany the checkpoint. The ONNX directory includes
 its tokenizer and input/output metadata. Quantization applies to matrix
-operations; embeddings remain FP32. See the [candidate card](candidates/e5-phrase-run1/README.md)
-and [verified hashes](candidates/e5-phrase-run1/artifacts.sha256.json).
+operations; embeddings remain FP32. See [verified hashes](artifacts.sha256.json) and [provenance](provenance.json).
 
-**The root checkpoint remains the original baseline.** Load the subfolder below
-to use the new fine-tune. Original provenance is preserved in
-[releases/e5-small-run1.json](releases/e5-small-run1.json); old weights remain intact.
+**The root checkpoint is the new combined-data fine-tune.** Release `v0.2.0`
+contains the FP32 checkpoint and both ONNX formats at stable paths. The original
+baseline is available at tag `v0.1.0`; Git history preserves earlier versions.
+Training seeds and historical model directories are not part of the current tree.
 
 ## Load the new FP32 model on CPU
 
@@ -41,15 +41,15 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 repo = "HashNuke/barge-in-detector"
-subfolder = "candidates/e5-phrase-run1/checkpoint"
-tokenizer = AutoTokenizer.from_pretrained(repo, subfolder=subfolder)
-model = AutoModelForSequenceClassification.from_pretrained(repo, subfolder=subfolder).cpu().eval()
+revision = "v0.2.0"
+tokenizer = AutoTokenizer.from_pretrained(repo, revision=revision)
+model = AutoModelForSequenceClassification.from_pretrained(repo, revision=revision).cpu().eval()
 inputs = tokenizer("please wait", return_tensors="pt", truncation=True, max_length=64)
 with torch.inference_mode():
     p_barge_in = model(**inputs).logits.softmax(-1)[0, 1].item()
 ```
 
-Pin `revision=MODEL_COMMIT` for reproducibility. Clean inputs using the
+Pin a release tag or full commit SHA for reproducibility. Clean inputs using the
 [source transcript contract](https://github.com/vxpipe/barge-in-detector/blob/main/docs/transcript-format.md).
 ONNX Runtime CPU inference uses int64 `input_ids` and `attention_mask`; apply
 softmax to the two output logits and read index 1. Serving code lives in the
@@ -99,7 +99,7 @@ This is an experimental release.
 ## Provenance and source
 
 [release.json](release.json) pins the published source and dataset revisions and
-artifact hashes. [Training provenance](candidates/e5-phrase-run1/provenance.json)
+artifact hashes. [Training provenance](provenance.json)
 retains the actual source snapshot, base revision and selection.
 
 Code, tests, research reports and labnotes live in

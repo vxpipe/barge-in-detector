@@ -60,6 +60,45 @@ def test_additive_dataset_paths_are_allowed(name):
 def test_model_lfs_attributes_can_be_selected_explicitly():
     assert allowed_path("model", ".gitattributes")
     assert not allowed_path("model", "candidates/run/.git/config")
+    assert allowed_path("model", "provenance.json")
+    assert allowed_path("model", "artifacts.sha256.json")
+
+
+def test_explicit_cleanup_is_atomic_with_the_model_update(tmp_path, monkeypatch):
+    monkeypatch.setitem(
+        sys.modules,
+        "huggingface_hub",
+        SimpleNamespace(
+            CommitOperationAdd=lambda **kw: SimpleNamespace(action="add", **kw),
+            CommitOperationDelete=lambda **kw: SimpleNamespace(action="delete", **kw),
+            HfApi=lambda: None,
+        ),
+    )
+    root, artifacts, manifest = fixture_release(tmp_path)
+    data = json.loads(manifest.read_text())
+    old_path = "candidates/old-run/checkpoint/model.safetensors"
+    data["remove_paths"] = [old_path]
+    manifest.write_text(json.dumps(data))
+    release = build_release("model", root=root, manifest_path=manifest, artifacts=artifacts)
+    calls = []
+    api = SimpleNamespace(
+        repo_info=lambda **kw: SimpleNamespace(sha="c" * 40),
+        create_commit=lambda **kw: calls.append(kw) or SimpleNamespace(oid="d" * 40),
+    )
+    publish_release(release, api=api)
+    deletes = [x.path_in_repo for x in calls[0]["operations"] if x.action == "delete"]
+    assert deletes == [old_path]
+    assert calls[0]["parent_commit"] == "c" * 40
+
+
+@pytest.mark.parametrize("name", ["../secret.json", "README.md", "config.json"])
+def test_cleanup_rejects_unsafe_or_simultaneously_uploaded_paths(tmp_path, name):
+    root, artifacts, manifest = fixture_release(tmp_path)
+    data = json.loads(manifest.read_text())
+    data["remove_paths"] = [name]
+    manifest.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="cleanup"):
+        build_release("model", root=root, manifest_path=manifest, artifacts=artifacts)
 
 
 @pytest.mark.parametrize(

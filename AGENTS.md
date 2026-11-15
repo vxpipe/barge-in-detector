@@ -37,6 +37,16 @@ from a manifest are preserved; obsolete artifacts require explicit cleanup.
 Downloading releases for inference, training or evaluation does not sync local
 changes back to HF.
 
+**Model versioning:** publish the selected model at stable filenames in the HF
+repository, with FP32 PyTorch at the root and FP32/INT8 ONNX under `onnx/`.
+Use Git commits and immutable release tags to version releases. Do not keep
+historical models or training seeds in `run1`, `run2`, `candidates/<run>` or
+similar directories in the current HF tree. Separate model directories are only
+for intentionally parallel model development. Local experiment/checkpoint names
+can remain under gitignored `models/`. Keep the original dataset and additive
+supplements alongside their derived combined data as already specified.
+After publishing, update both HF submodule checkouts and commit their gitlink pins.
+
 HF release repositories are tracked as Git submodules at `huggingface/model` and
 `huggingface/dataset`. Keep these as tracked submodules so the links remain
 portable across machines and visible online; do not replace them with local

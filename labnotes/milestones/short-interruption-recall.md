@@ -24,7 +24,7 @@ coordinate data changes with the dataset coverage-audit milestone in this source
   selecting each architecture using validation only.
 - [x] Evaluate short interruptions, longer backchannels, prefix transitions and
   per-language errors. Preserve old checkpoint and use validation for selection.
-- [ ] Record immutable dataset/source revisions, parameters and costs.
+- [x] Record immutable dataset/source revisions, parameters and costs.
 - [ ] Calibrate on realistic validation priors.
 - [ ] Measure ONNX/int8 parity and reference-CPU latency/memory; measure Vxpipe
   serialization/queue/boundary overhead for the whole-path budget.
@@ -69,4 +69,9 @@ interruptions. INT8 model-path p99 is 5.69 ms typical / 18.85 ms full 64 tokens.
 All variants and seed checkpoints are verified in the HF model submodule staging
 directory. The GPU instance was destroyed. Exact published source/data pins,
 fresh human evaluation, realistic-prior calibration and whole-path latency remain
-open; neither the milestone nor a production release is complete.
+open; neither the milestone nor production acceptance is complete.
+
+The experimental HF release is published with exact source/dataset pins and
+both HF submodules updated. See [publication verification](../20261115-2319-publish-phrase-models.md).
+Fresh human evaluation, realistic-prior calibration and whole-path acceptance
+remain open despite publication.

@@ -5,6 +5,41 @@ portable inspection/staging; these commands do not read or update their working
 trees or pinned commits. Existing sibling clones remain optional. This replaces manual file copying for routine releases. Publishing remains
 an explicit action; there is no background or CI sync.
 
+## Model filenames and release versions
+
+Owner decision, 2026-11-15: **Git history and release tags version models.** The
+current HF tree contains the selected model at stable paths:
+
+```text
+model.safetensors          selected unquantized FP32 checkpoint
+config.json
+tokenizer.json
+tokenizer_config.json
+onnx/model.onnx           FP32 ONNX
+onnx/model_int8.onnx       INT8 ONNX
+onnx/tokenizer.json
+onnx/metadata.json
+provenance.json
+artifacts.sha256.json
+release.json
+```
+
+Publish updates to these files, then create an immutable release tag such as
+`v0.2.0` at the verified commit. Consumers may pin a tag or full commit SHA.
+Previous model versions remain accessible through Git history and tags; do not
+retain `run1`, `run2`, training seeds or historical candidate folders in the
+current HF model tree merely to version them. Multiple model directories are
+appropriate only for models intentionally being developed in parallel. Keep
+experimental checkpoints locally under gitignored `models/`.
+
+Dataset configurations are separate: preserve the original dataset and the
+standalone supplement alongside the derived combined splits. Tag dataset
+releases too, and pin the exact dataset commit in each model release.
+
+After verified publication, fetch and update **both** HF submodule checkouts,
+retain local model weights, and commit/push the corresponding GitHub gitlink
+updates. A remote HF update alone does not update the submodules.
+
 ## Portable HF subdirectories
 
 Both HF release repositories are Git submodules. `.gitmodules` records their
@@ -149,12 +184,11 @@ the supplement's split CSVs and README, and `data/experiments/<name>/splits/*.cs
 plus README. Keep the original paths/configuration intact and add explicit Hub
 dataset configurations for the new inputs in the card.
 
-To preserve an existing root model, set `model_subdirectory` in the new manifest
-to `candidates/<run>/checkpoint`. Select fully qualified candidate paths from
-an artifact root containing `candidates/`: checkpoint/seed safetensors and
-tokenizers, FP32/INT8 ONNX, ONNX metadata, candidate card, licence and provenance.
-The root card must point readers to the new subfolder. Previous release metadata
-can be retained at `releases/<run>.json`. This does not move or replace root weights.
+For intentionally parallel model development only, `model_subdirectory` may
+select `candidates/<name>/checkpoint`. That support must not be used to retain
+historical versions or every training seed. Normal releases use the stable root
+layout above and tags. The versioned manifest still records the training run and
+source hashes even when public artifact filenames stay stable.
 
 Both commands upload exactly the validated manifest-selected files, plus the
 versioned card, root MIT `LICENSE`, optional card-directory `NOTICE`, and manifest
@@ -166,11 +200,14 @@ main commit. A concurrent update causes failure rather than silently overwriting
 it; review and retry. Repeated identical uploads rely on the Hub’s handling of
 unchanged content. No release tags or new repositories are created.
 
-This is an additive file sync: selected paths are replaced, and other remote
-files are preserved, including `.gitattributes` and release-only guidance. When
-changing artifact layouts, explicitly inspect and remove obsolete remote weights
-or shards separately. Existing release metadata and model weights are not edited
-by dry runs. Never change local release inputs while an upload is running.
+By default, selected paths are replaced and omitted remote files are preserved.
+For an explicitly requested layout cleanup, list exact obsolete paths in the
+manifest's `remove_paths`. The dry run shows every deletion; publication applies
+the uploads and removals in the same parent-pinned Hub commit. Cleanup paths must
+pass the release allowlist and cannot overlap uploaded files. This removes files
+only from the current tree; Git history and tags remain. There is no force-push or
+history rewrite. Existing metadata and weights are not edited by dry runs.
+Never change local release inputs while an upload is running.
 
 These commands verify packaging, hashes and revision pins. They do not train,
 calibrate, evaluate, benchmark or certify model quality. Run the relevant model

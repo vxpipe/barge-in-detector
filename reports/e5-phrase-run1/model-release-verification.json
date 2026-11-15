@@ -1,0 +1,140 @@
+{
+  "repo": "HashNuke/barge-in-detector",
+  "revision": "a9a2b83d9d257fdc7bfe4d289b13b94e0dbc155f",
+  "verified_manifest_files": 27,
+  "checks": {
+    "candidates/e5-phrase-run1/LICENSE": {
+      "sha256": "50872f75ca036fc8e1a76621f7b997a6c669d80a5976de8b2bdff7570f3f966f",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/NOTICE": {
+      "sha256": "0103913575e359c247d367d0a0197d1d7f3165ea83ba9ffa0e5d2a584fb695c9",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/README.md": {
+      "sha256": "94b875dfb1f485b63a27ad439245292c4309956161c062d4c3ee59a61ce6c733",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/artifacts.sha256.json": {
+      "sha256": "58a94b54dc8ca36c7e436ff259efd85f4c7d9b7dd5ba32a6ed61f446e5981519",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/checkpoint/config.json": {
+      "sha256": "e37f926b37b69e1ae223add18a9b0e993d6000cfe87c44f2dd42ce157654d93b",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/checkpoint/model.safetensors": {
+      "sha256": "e83219c637d2c179f87fbf67749dd48fbc1561f569fa741fbab56c224cef9959",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/checkpoint/tokenizer.json": {
+      "sha256": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/checkpoint/tokenizer_config.json": {
+      "sha256": "13660843154d3fde0f9954ad198b5a8bbf0d21cd4fc83aa4f37678d224c8481f",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/onnx/metadata.json": {
+      "sha256": "5a1a8d27a010860f9395d4c02488f1da2c8bc4ab54cddd7b9d8210123815a0d1",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/onnx/model-fp32.onnx": {
+      "sha256": "185596eb5d57ffaac87334ca842a96894ff1cbfb3914f4056d73fa3c84f68ceb",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/onnx/model-int8.onnx": {
+      "sha256": "d8b8f606e5fda9ef9b64c908c222402e3385d9d46f4ff00f2841aa7493845c6b",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/onnx/tokenizer.json": {
+      "sha256": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/provenance.json": {
+      "sha256": "d1bf86951b685b20961d92924adb4d356aea0ba4da484fc7202fd658fa5c6492",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261115/config.json": {
+      "sha256": "e37f926b37b69e1ae223add18a9b0e993d6000cfe87c44f2dd42ce157654d93b",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261115/model.safetensors": {
+      "sha256": "c2f087ba8db2b387d269a3ddf8130d42ef954f33ce2c0a2f6fe52eafa9234d80",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261115/tokenizer.json": {
+      "sha256": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261115/tokenizer_config.json": {
+      "sha256": "13660843154d3fde0f9954ad198b5a8bbf0d21cd4fc83aa4f37678d224c8481f",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261116/config.json": {
+      "sha256": "e37f926b37b69e1ae223add18a9b0e993d6000cfe87c44f2dd42ce157654d93b",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261116/model.safetensors": {
+      "sha256": "252b4e6d30d797313c0151e9d5e0a6afb13f36d55363946ef037ebf4da595f07",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261116/tokenizer.json": {
+      "sha256": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261116/tokenizer_config.json": {
+      "sha256": "13660843154d3fde0f9954ad198b5a8bbf0d21cd4fc83aa4f37678d224c8481f",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261117/config.json": {
+      "sha256": "e37f926b37b69e1ae223add18a9b0e993d6000cfe87c44f2dd42ce157654d93b",
+      "verification": "Downloaded SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261117/model.safetensors": {
+      "sha256": "e83219c637d2c179f87fbf67749dd48fbc1561f569fa741fbab56c224cef9959",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261117/tokenizer.json": {
+      "sha256": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+      "verification": "Hub LFS content SHA-256"
+    },
+    "candidates/e5-phrase-run1/seed-20261117/tokenizer_config.json": {
+      "sha256": "13660843154d3fde0f9954ad198b5a8bbf0d21cd4fc83aa4f37678d224c8481f",
+      "verification": "Downloaded SHA-256"
+    },
+    ".gitattributes": {
+      "sha256": "44402d83165e9763dc772d363f5cc6ef4265f71b62ef71769d20ab4dac1d9609",
+      "verification": "Downloaded SHA-256"
+    },
+    "releases/e5-small-run1.json": {
+      "sha256": "4605d2e1cac8869d35de2049f4aeab0f032b8e5e1acde2015e7373a20c4eb66e",
+      "verification": "Downloaded SHA-256"
+    }
+  },
+  "original_root_weights_preserved": true,
+  "dataset_revision": "02114f9cbdeed78c86dcd58ad13011425d010f8e",
+  "code_revision": "6ef9558efcd96b3ef4c53f5b15988653581dbd26",
+  "downloaded_format_smoke_test": {
+    "texts": [
+      "please wait",
+      "yes yes okay"
+    ],
+    "p_barge_in": {
+      "pytorch": [
+        0.9956585168838501,
+        0.004978824872523546
+      ],
+      "fp32": [
+        0.9956585497364255,
+        0.004978821995392817
+      ],
+      "int8": [
+        0.9956595482624754,
+        0.004982218906940871
+      ]
+    },
+    "all_formats_loaded": true
+  },
+  "downloaded_model_files_verified": 8
+}

@@ -12,7 +12,7 @@ reviewed challenge and historical CPU/evaluation labnotes.
 - [x] Retain dataset generation/cleaning, move model scripts to the model repo.
 - [x] Keep all existing labnotes and milestones in this repository.
 - [x] Dataset card with split counts, source export, leakage and review limitations.
-- [ ] Publish and verify HashNuke/barge-in-detector-data.
+- [x] Publish and verify HashNuke/barge-in-detector-data.
 - [x] Audit coverage by label, language, intent and length; inspect near duplicates.
 - [x] Propose short-interruption and long-backchannel generation changes with
   matched-length examples; preserve the reviewed challenge outside training.
@@ -28,10 +28,10 @@ reviewed challenge and historical CPU/evaluation labnotes.
 
 ## Acceptance gates
 
-- [ ] Published split counts and hashes match source; no exact cross-split duplicates.
+- [x] Published split counts and hashes match source; no exact cross-split duplicates.
 - [ ] CLI split/review/generation work without model or torch dependencies.
-- [ ] Focused tests, Ruff formatting and lint pass; credentials and local state excluded.
-- [ ] Coverage findings and revised generation plan are recorded with evidence.
+- [x] Focused tests, Ruff formatting and lint pass; credentials and local state excluded.
+- [x] Coverage findings and revised generation plan are recorded with evidence.
 
 New model-specific milestones live in the model repository. This dataset milestone
 stays unchecked until the coverage work and release gates are complete.
@@ -46,3 +46,9 @@ Coverage checkpoint: [review audit and baseline](../20261115-1529-reviewed-error
 with [findings and generation proposal](../../docs/review-followup.md).
 Follow-up: [phrase coverage generation](../20261115-1654-phrase-coverage-generation.md)
 implements the owner-authorized additive workflow and preserves the original data.
+
+Publication evidence: [HF dataset/model release verification](../20261115-2319-publish-phrase-models.md).
+All 16 selected dataset files match their pinned source hashes; the original,
+supplement, combined and challenge configurations have the documented counts.
+The dataset submodule is pinned to the published release. Fresh owner review
+remains pending, so the overall milestone stays open.

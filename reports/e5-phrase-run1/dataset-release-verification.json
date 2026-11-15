@@ -1,0 +1,43 @@
+{
+  "repo": "HashNuke/barge-in-detector-data",
+  "revision": "02114f9cbdeed78c86dcd58ad13011425d010f8e",
+  "downloaded_files_verified": 16,
+  "sha256": {
+    "data/evaluation/english-challenge-v1.csv": "3d46b9e024f4d3bedd69f07603cde934e85ec2272988e90d2acebc30d5e99519",
+    "data/evaluation/reviews/english-challenge-v1.json": "ee6e07c3218ab0412d179e73b8e7457d550447a7ae08db2a005f37d794b855fa",
+    "data/export/utterances.csv": "556a2820e4a24ac13bab44321fb32b464c5fb225750d41a5a10ebcde7cdbab8a",
+    "data/splits/test.csv": "8b630782362b05249b3be94b0213850258422be5ddeb62fcf703817b0bf9e11a",
+    "data/splits/train.csv": "aab224bd0526eee915295e6f5c52076e29bb751cd0d664eefb4321843ad22533",
+    "data/splits/validation.csv": "c6b4c526fb4b1df96754119e409cedc8c7e85c77659e1fc1c3829da70084edc1",
+    "metadata/languages.yaml": "c5f0a5b753c588782c536108184b12615a54c9b8f4b4cbf0073c0d8aec1a376e",
+    "data/supplements/phrase-coverage-v1/README.md": "52ef0e5e9d62197e78bfca98215ec53512007a056e42afccd333896b8f4e9eb0",
+    "data/supplements/phrase-coverage-v1/splits/test.csv": "b4d8ca14a49b9b799df7608ec4236feea7d0b949ff1cbfd2e35441c24b567ea4",
+    "data/supplements/phrase-coverage-v1/splits/train.csv": "4825babe5704fd5b9fef8a8c81c0d05291cdaf0d7eb4469266b582a95bb8ddc3",
+    "data/supplements/phrase-coverage-v1/splits/validation.csv": "b8492ad9375c4628872bd2e75ad4cf33f9d3a662d32809c6371a08cd7b6cc134",
+    "data/supplements/phrase-coverage-v1/utterances.csv": "23eb64a5369c31cd3f9bd9fa1e2642690715f379ca6e40280f25a914e786b32f",
+    "data/experiments/original-plus-phrase-v1/README.md": "746f15b3cbc3c01065a938fdd5d51d51e43e101840fd9accc45f769d7c647790",
+    "data/experiments/original-plus-phrase-v1/splits/test.csv": "9e5315c163b0a4f0151bbf3609013f328a99e89aa0a192ce6f13bddc60bf33a9",
+    "data/experiments/original-plus-phrase-v1/splits/train.csv": "8ea73a4c9c22d9ef1b38ee64221c1e322c3b84ae457916080b13cf9c5a7cf751",
+    "data/experiments/original-plus-phrase-v1/splits/validation.csv": "2aff187ae2de0fd48d1b2bade5e8b4097a3fc008e9c52a8ff1065fda66816ad7"
+  },
+  "config_counts": {
+    "utterances": {
+      "train": 2640,
+      "validation": 333,
+      "test": 331
+    },
+    "challenge": {
+      "test": 98
+    },
+    "phrase-coverage-v1": {
+      "train": 2278,
+      "validation": 582,
+      "test": 577
+    },
+    "original-plus-phrase-v1": {
+      "train": 4918,
+      "validation": 915,
+      "test": 908
+    }
+  }
+}

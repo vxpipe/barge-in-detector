@@ -116,16 +116,18 @@ regressions. It has not replaced the published model.
 The additive-data experiment fine-tunes E5 on all 4,918 combined training rows
 and compares 27 sparse configurations on the same validation/test splits.
 See [E5 and lightweight results](e5-phrase-results.md). The E5 candidate retains
-PyTorch safetensors, FP32 ONNX and dynamic INT8 ONNX, plus all three seed
-checkpoints, in `huggingface/model/candidates/e5-phrase-run1/`. This local staging
-does not publish to HF. Source and dataset revision pins remain required.
+PyTorch safetensors at the HF repository root, with FP32 ONNX at `onnx/model.onnx`
+and dynamic INT8 ONNX at `onnx/model_int8.onnx`. Release tag `v0.2.0` identifies
+the combined-data model; `v0.1.0` identifies the original baseline. Exact source,
+dataset and artifact pins are in `releases/model-v0.2.0.json`. All training seeds
+remain local; historical versions are accessed through Git tags/history.
 
 CPU export verification is separate from training and uses the export group:
 
 ```shell
 uv sync --group export
 uv run --no-sync python -m experiments.verify_e5_export \
-  --run huggingface/model/candidates/e5-phrase-run1 \
+  --run huggingface/model --fp32-file model.onnx --int8-file model_int8.onnx \
   --reports reports/e5-phrase-run1 --benchmark
 ```
 

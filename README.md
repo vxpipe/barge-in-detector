@@ -34,9 +34,15 @@ Speech after the agent finishes belongs to the voice runtime.
 - **A reproducible research workflow.** Deterministic generation criteria,
   versioned cleaning/splits, owner review, training, and evaluation live together.
 
-> **Experimental checkpoint.** The first model misses 25 of 30 short
-> interruptions in the reviewed English challenge. Use it for research and
-> evaluation; its probabilities are not calibrated.
+> **Experimental model.** Reviewed results are development evidence, and
+> probabilities are not calibrated. Fresh human evaluation and Vxpipe
+> whole-path latency remain open acceptance gates.
+
+The [E5 phrase-coverage release](https://huggingface.co/HashNuke/barge-in-detector)
+includes FP32 PyTorch, FP32 ONNX and INT8 ONNX, trained on the combined original
+and supplement dataset. See [matched results and limits](docs/e5-phrase-results.md).
+The root checkpoint is the selected combined-data model. Pin tag `v0.2.0` or a
+full commit SHA to reproduce this release; `v0.1.0` preserves the original baseline.
 
 ## Try the model on your CPU
 
