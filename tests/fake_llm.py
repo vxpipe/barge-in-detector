@@ -64,18 +64,12 @@ class FakeLlm:
         lines = user_prompt.splitlines()
         count = int(re.search(r"Write (\d+) utterances?\b", user_prompt).group(1))
         length = LENGTH[_factor(lines, "Length")]
-        development = _factor(lines, "Development")
         label = self.label_override or _label(lines)
         samples = []
         for _ in range(count):
             uid = next(_IDS)
-            word = None
-            if label == "barge_in":
-                word = 0 if development == "stable" else 1
             text = " ".join([self.fixed_text or f"u{uid}", *["x"] * (length - 1)])
-            samples.append(
-                {"text": text, "label": label, "barge_in_from_word": word, "rationale": "fake"}
-            )
+            samples.append({"text": text, "label": label, "rationale": "fake"})
         text = json.dumps({"samples": samples})
         usage = {"input_tokens": 1000, "cached_input_tokens": 800, "output_tokens": 200}
         return LlmResult(text=text, response={"text": text, "usage": usage}, usage=usage)

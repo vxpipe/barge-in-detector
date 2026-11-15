@@ -38,10 +38,6 @@ class UtteranceSample:
     def label(self) -> str:
         return self.data["label"]
 
-    @property
-    def barge_in_from_word(self) -> int | None:
-        return self.data["barge_in_from_word"]
-
 
 @dataclass
 class ParsedUtterances:
@@ -56,16 +52,11 @@ def _check_utterance(
     s: Mapping[str, Any],
     labels: Sequence[str] = UTTERANCE_LABELS,
 ) -> str | None:
-    """The first problem with one utterance, or None. Lengths and
-    barge_in_from_word count cleaner.words."""
+    """The first problem with one utterance, or None. Lengths count
+    cleaner.words."""
     for key, kind in _UTTERANCE_KEYS.items():
         if not isinstance(s.get(key), kind):
             return "malformed_sample"
-    if "barge_in_from_word" not in s:
-        return "malformed_sample"
-    word = s["barge_in_from_word"]
-    if word is not None and (not isinstance(word, int) or isinstance(word, bool)):
-        return "malformed_sample"
     if s["label"] not in labels:
         return "unknown_label"
     text = s["text"]
@@ -75,20 +66,10 @@ def _check_utterance(
         return "ellipsis_used"
     if any(mark in text for mark in _TAG_MARKS):
         return "tag_used"
-    tokens = words(text)
     if not _unspaced(cat, spec):
         low, high = LENGTH_BOUNDS[spec["length_bucket"]]
-        if not low <= len(tokens) <= high:
+        if not low <= len(words(text)) <= high:
             return "length_bucket_mismatch"
-    if s["label"] == "barge_in":
-        if word is None:
-            return "barge_in_word_missing"
-        if not 0 <= word < max(len(tokens), 1):
-            return "barge_in_word_out_of_range"
-        if (word == 0) != (spec["development"] == "stable"):
-            return "development_word_mismatch"
-    elif word is not None:
-        return "barge_in_word_not_allowed"
     return None
 
 

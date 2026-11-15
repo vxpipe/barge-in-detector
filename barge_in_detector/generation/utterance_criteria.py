@@ -20,11 +20,9 @@ from typing import Any
 import yaml
 
 from barge_in_detector.catalogue import Catalogue
-from barge_in_detector.cleaner import words
 from barge_in_detector.generation.prompts import PROMPT_DIR, SCRIPT_NAMES
 
-JUDGE_TEMPLATE = "judge_utterances_v3"
-_PUNCTUATION = ".,!?;:\"'()،。、，！？"
+JUDGE_TEMPLATE = "judge_utterances_v4"
 JUDGE_KIND = "judge_utterance"
 YES = 0.5
 
@@ -181,7 +179,7 @@ def _template() -> dict[str, Any]:
 
 
 def judge_questions(
-    cat: Catalogue, spec: Mapping[str, str], text: str, barge_in_from_word: int | None
+    cat: Catalogue, spec: Mapping[str, str], text: str
 ) -> tuple[str, dict[str, Any]]:
     """The Decisions API input ({"text": ...}) and one question per criterion."""
     q = _template()["questions"]
@@ -205,13 +203,7 @@ def judge_questions(
         questions["switching"] = ask(q["switching"][switching])
     intent = " ".join(cat.intents[spec["caller_intent"]]["description"].split())
     questions["intent"] = ask(q["intent"], description=intent)
-    development = spec["development"]
-    if development == "stable":
-        questions["development"] = ask(q["development"]["stable"])
-    else:
-        tokens = words(text)
-        word = tokens[min(barge_in_from_word or 0, len(tokens) - 1)] if tokens else ""
-        questions["development"] = ask(q["development"][development], word=word.strip(_PUNCTUATION))
+    questions["development"] = ask(q["development"][spec["development"]])
     questions["repetition"] = ask(q["repetition"][spec["repetition"]])
     return json.dumps({"text": text}, ensure_ascii=False), questions
 

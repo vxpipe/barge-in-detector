@@ -117,8 +117,8 @@ def test_request_keeps_the_factor_lines():
 # ---------------------------------------------------------------- judge questions
 
 
-def keys(s, text="Umm, wait wait, hold on a second please, I need to check.", word=1):
-    judge_input, questions = judge_questions(CAT, s, text, word)
+def keys(s, text="Umm, wait wait, hold on a second please, I need to check."):
+    judge_input, questions = judge_questions(CAT, s, text)
     assert json.loads(judge_input) == {"text": text}
     for q in questions.values():
         assert q["type"] == "noul" and q["instructions"]
@@ -126,7 +126,7 @@ def keys(s, text="Umm, wait wait, hold on a second please, I need to check.", wo
 
 
 def test_one_question_per_criterion_and_one_per_language():
-    assert keys(HINDI_MIX, "Haan bilkul, सही, exactly.", None) == {
+    assert keys(HINDI_MIX, "Haan bilkul, सही, exactly.") == {
         "language_hi",
         "language_en",
         "script_hi",
@@ -140,36 +140,36 @@ def test_one_question_per_criterion_and_one_per_language():
 
 def test_a_regional_variant_is_a_criterion_of_its_own():
     assert "variant" in keys(URDU)
-    assert "variant" not in keys(HINDI_MIX, "Haan bilkul, सही, exactly.", None)
+    assert "variant" not in keys(HINDI_MIX, "Haan bilkul, सही, exactly.")
 
 
 def test_judge_questions_are_plain_one_line_questions():
-    _, questions = judge_questions(CAT, URDU, "ہاں ہاں، hold on", 2)
+    _, questions = judge_questions(CAT, URDU, "ہاں ہاں، hold on")
     assert questions["script_ur"]["instructions"] == (
         "Are the Urdu words in this text written in Urdu (Perso-Arabic) script?"
     )
     assert questions["language_en"]["instructions"] == "Does this text contain English words?"
-    _, questions = judge_questions(CAT, INDIAN_ENGLISH_HINDI, "हाँ हाँ, but not this one", 2)
+    _, questions = judge_questions(CAT, INDIAN_ENGLISH_HINDI, "हाँ हाँ, but not this one")
     assert questions["script_hi"]["instructions"] == (
         "Are the Hindi words in this text written in Devanagari script?"
     )
     assert questions["language_hi"]["instructions"] == "Does this text contain Hindi words?"
-    _, questions = judge_questions(CAT, URDU, "ہاں ہاں، hold on", 2)
+    _, questions = judge_questions(CAT, URDU, "ہاں ہاں، hold on")
     assert questions["language_ur"]["instructions"] == "Does this text contain Urdu words?"
 
 
-def test_development_question_names_the_turning_word():
+def test_development_question_names_no_turning_point():
     s = spec(
         caller_intent="correction",
         development="backchannel_then_barge_in",
         repetition="repeated",
         length_bucket="w9_plus",
     )
-    _, questions = judge_questions(CAT, s, "Sure sure, but that is not my email address.", 2)
+    _, questions = judge_questions(CAT, s, "Sure sure, but that is not my email address.")
     assert questions["development"]["instructions"] == (
-        'Does this text start as a backchannel and become an interruption at the word "but"?'
+        "Does this text start as a backchannel and then become an interruption?"
     )
-    _, questions = judge_questions(CAT, spec(), "Got it.", None)
+    _, questions = judge_questions(CAT, spec(), "Got it.")
     assert questions["development"]["instructions"] == (
         "Does this text keep the same intent from start to end?"
     )

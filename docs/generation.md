@@ -14,7 +14,7 @@ pipeline (2-3 line windows) was removed on 2026-11-15; it is in git history.
 - **One request per criterion**, asking for up to `batch_size` (10)
   utterances, each said over a speaker who is still talking.
 - **Two parts per call**:
-  1. **System prompt** `generator_utterances_v3` (cached in an explicit
+  1. **System prompt** `generator_utterances_v4` (cached in an explicit
      Gemini context cache per model and prompt hash; needs API `v1beta`): the
      task, the track's intents with their labels, development, repetition,
      length, script form and code-switching meanings, writing rules, output
@@ -33,7 +33,9 @@ pipeline (2-3 line windows) was removed on 2026-11-15; it is in git history.
      numbers. Then the intent with its intended label and example hints,
      development, repetition (with its meaning) and length.
 - **Structured output** (`UTTERANCE_SCHEMA`): `text`, `label` (`backchannel`
-  or `barge_in`), `barge_in_from_word`, `rationale`. Validated in code;
+  or `barge_in`), `rationale`. An utterance that starts as a backchannel and
+  turns into a barge-in is simply `barge_in`; where it turns is not recorded
+  (user decision, 2026-11-15). Validated in code;
   rejected, never repaired.
 - **Indian languages** appear alone or mixed with English; Indian English
   mixes one Indian language (user decision, 2026-11-15; manifest 0.7.0).
@@ -44,9 +46,7 @@ In order; the first failure is the row's `reason`:
 
 1. **schema**: fields present, label `backchannel` or `barge_in`, not empty
    after cleaning, no ellipsis, no bracket tags, word count in the length
-   bucket (skipped for unspaced native scripts), `barge_in_from_word` null for
-   a backchannel, 0 for a stable barge-in, greater than 0 for a developing
-   one and inside the text. Extra samples are rejected.
+   bucket (skipped for unspaced native scripts). Extra samples are rejected.
 2. **label_mismatch**: the generator's label equals the intended label.
 3. **dedupe**: the cleaned text is not already accepted (or waiting for the
    judge).
@@ -62,7 +62,7 @@ the input is `{"text": ...}` only. The questions are built from that sample's
 criterion: **one plain yes/no question per criterion, nothing else, and no
 question about the label** (user decision, 2026-11-15). Language and script
 ask one question per language. Questions are in
-`generation/prompts/judge_utterances_v3.yaml`, rendered by
+`generation/prompts/judge_utterances_v4.yaml`, rendered by
 `generation/utterance_criteria.py`. For Urdu (India) with English mixed in:
 
 | Key | Question |
@@ -73,7 +73,7 @@ ask one question per language. Questions are in
 | `variant` | Could this be Urdu as spoken in India? (only for languages with variants) |
 | `switching` | Does this text switch languages within a sentence? |
 | `intent` | Does this describe the text: <intent description> |
-| `development` | Does this text keep the same intent from start to end? / … start with a filler and become an interruption at the word "<word>"? |
+| `development` | Does this text keep the same intent from start to end? / … start as a backchannel (with a filler) and then become an interruption? |
 | `repetition` | Does this text repeat a word, as in "yes yes"? / Is this text free of repeated words like "yes yes"? |
 
 Length is checked in code. Every answer must have P(yes) ≥ 0.5; otherwise the

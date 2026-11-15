@@ -1,6 +1,7 @@
 # Data format and storage
 
-Status: decided 2026-11-15 (user decisions); schema version 6. Replaces the
+Status: decided 2026-11-15 (user decisions); schema version 7 (6 without
+`barge_in_from_word`). Replaces the
 earlier ten-table design of the conversation track (in git history).
 
 ## Decision
@@ -55,7 +56,6 @@ One row per generated sample, ordered by `utterance_id`.
 | `text` | VARCHAR | exactly as generated |
 | `text_clean`, `cleaner_version` | VARCHAR | the model input after the cleaner |
 | `label` | VARCHAR | the generator's label (the training label when accepted) |
-| `barge_in_from_word` | INTEGER | 0-based word where it becomes a barge-in; null for a backchannel |
 | `raw_sample` | JSON | the sample object exactly as Gemini returned it |
 | `judge_answers` | JSON | the judge's raw answers (question key → `noul`, `confidence`); null when not judged |
 | `text_hash` | VARCHAR | SHA-256 of `text_clean`; an accepted text is never accepted again |

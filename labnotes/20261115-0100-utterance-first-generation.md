@@ -249,9 +249,19 @@ Mandarin in Chinese characters only (user decision, 2026-11-15:
 then no pinyin anywhere: Singaporean English mixes in Mandarin as
 characters only. Urdu: Indian Urdu (ur-IN) only. Spanish: Spain and Mexico (es-ES, es-MX) only. French: France only; German: Germany only; Mandarin: mainland China only (Simplified characters). Indian languages in native script only, alone or mixed with English (no romanized or mixed-script forms; manifest 0.9.0). Indian English mixes Indian words in their native script. `turn_continuation` excluded (track 0.4.0): it needs an earlier turn.
 
+## No turning point
+
+User decision: an utterance that starts as a backchannel and turns into a
+barge-in is just barge_in; where it turns is not recorded. Removed
+`barge_in_from_word` (schema 7, generator prompt v4, judge v4: "Does this text
+start as a backchannel and then become an interruption?"), its checks and the
+Chinese/Japanese bug they caused (15 good Mandarin samples had been rejected as
+`barge_in_word_out_of_range`), plus two leftover conversation settings
+(`barge_in_word_tolerance`, `judge_hard_checks`).
+
 ## Checks
 
-`ruff format --check`, `ruff check`: clean. `pytest`: 108 passed, 1
+`ruff format --check`, `ruff check`: clean. `pytest`: 107 passed, 1
 deselected (integration). No test calls Gemini.
 
 ## Next

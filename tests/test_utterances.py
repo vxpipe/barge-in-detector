@@ -131,8 +131,8 @@ EN = {
 }
 
 
-def sample(text="Yeah, wait, hold on.", label="barge_in", word=1):
-    return {"text": text, "label": label, "barge_in_from_word": word, "rationale": "r"}
+def sample(text="Yeah, wait, hold on.", label="barge_in"):
+    return {"text": text, "label": label, "rationale": "r"}
 
 
 def parse(*samples, count=None, spec=EN):
@@ -152,10 +152,8 @@ def test_valid_utterance_passes():
         (sample("Wait."), "length_bucket_mismatch"),
         (sample("Yeah, wait... hold on."), "ellipsis_used"),
         (sample("Yeah [laughs] wait hold on."), "tag_used"),
-        (sample(word=0), "development_word_mismatch"),
-        (sample(label="backchannel", word=1), "barge_in_word_not_allowed"),
         (sample(label="maybe"), "unknown_label"),
-        (sample(label="ambiguous", word=None), "unknown_label"),
+        (sample(label="ambiguous"), "unknown_label"),
         ({"text": "x"}, "malformed_sample"),
     ],
 )

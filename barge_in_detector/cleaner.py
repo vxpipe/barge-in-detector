@@ -55,8 +55,8 @@ def clean_text(text: str) -> str:
 
 def words(text: str) -> list[str]:
     """Words as speakers count them: whitespace tokens that keep some text after
-    cleaning. "Mm-hmm," is one word; a lone dash is none. Lengths and
-    barge_in_from_word are counted in these words."""
+    cleaning. "Mm-hmm," is one word; a lone dash is none. Lengths are
+    counted in these words."""
     return [token for token in text.split() if clean_text(token)]
 
 

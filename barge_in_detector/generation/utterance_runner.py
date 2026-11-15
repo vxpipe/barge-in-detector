@@ -386,15 +386,11 @@ class UtteranceRunner:
         """One sample row: the raw sample as Gemini wrote it, and the verdict."""
         sample = raw if isinstance(raw, dict) else {}
         text = sample.get("text") if isinstance(sample.get("text"), str) else None
-        word = sample.get("barge_in_from_word")
         return {
             "status": status,
             "reason": reason,
             "text": text,
             "label": sample.get("label") if isinstance(sample.get("label"), str) else None,
-            "barge_in_from_word": word
-            if isinstance(word, int) and not isinstance(word, bool)
-            else None,
             "raw_sample": json.dumps(raw, ensure_ascii=False),
             "judge_answers": (
                 judge_req["response"].get("answers") if judge_req is not None else None
@@ -489,7 +485,7 @@ class UtteranceRunner:
                 screened.judged[sample.index] = stored[sample.index]
                 continue
             judge_input, questions = judge_questions(
-                self.cat, self._spec(target), sample.data["text"], sample.barge_in_from_word
+                self.cat, self._spec(target), sample.data["text"]
             )
             judge_id = self.store.insert_request(
                 kind=JUDGE_KIND,
@@ -545,9 +541,7 @@ class UtteranceRunner:
         if not screened.failed:
             for sample, _ in screened.candidates:
                 judge_req = screened.judged[sample.index]
-                _, questions = judge_questions(
-                    self.cat, self._spec(target), sample.data["text"], sample.barge_in_from_word
-                )
+                _, questions = judge_questions(self.cat, self._spec(target), sample.data["text"])
                 try:
                     verdicts[sample.index] = parse_verdict(judge_req["response"], list(questions))
                 except JudgementError as exc:

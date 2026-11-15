@@ -19,24 +19,12 @@ class GenerationConfig:
     thinking_level: str | None = None
     explicit_cache: bool = True
     cache_ttl_seconds: int = 3600
-    barge_in_word_tolerance: int = 1
-    # Judge questions that reject a sample when answered no; see
-    # responses.HARD_CHECKS. All other questions are recorded only.
-    judge_hard_checks: tuple[str, ...] = (
-        "language_ok",
-        "script_ok",
-        "cut_ok",
-        "factor_listener_intent",
-    )
     # model -> {input, cached_input, output} in USD per million tokens.
     prices_usd_per_million_tokens: dict[str, dict[str, float | None]] = field(default_factory=dict)
 
     @classmethod
     def from_file(cls, path: Path = DEFAULT_PATH) -> GenerationConfig:
-        data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
-        if "judge_hard_checks" in data:
-            data["judge_hard_checks"] = tuple(data["judge_hard_checks"])
-        return cls(**data)
+        return cls(**yaml.safe_load(Path(path).read_text(encoding="utf-8")))
 
     def _prices(self, model: str) -> dict[str, float | None]:
         return self.prices_usd_per_million_tokens.get(model) or {}

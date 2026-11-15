@@ -40,8 +40,8 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
   (the runtime's job). No ambiguous class: the plan, the prompt schema and
   validation accept only these two.
 - **Data**: one row per generated sample (accepted or rejected) with its
-  factor columns, original and cleaned text, the generator's label,
-  `barge_in_from_word`, the raw sample and the judge's raw answers, in one CSV
+  factor columns, original and cleaned text, the generator's label, the
+  raw sample and the judge's raw answers, in one CSV
   (`data/export/utterances.csv`); the plan file is the only record of the
   criteria ([data format](../../docs/data-format.md)).
 
@@ -59,8 +59,7 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
   Tests first.
 - [x] Generator prompt `generator_utterances_v1` and per-request rendering,
   with rendering tests.
-- [x] Response validation: schema, length bucket, `barge_in_from_word` against
-  development, no ellipses or tags, label equal to the intended label,
+- [x] Response validation: schema, length bucket, no ellipses or tags, label equal to the intended label,
   deduplication on the cleaned text. Tests first.
 - [x] Fill-to-count runner without a judge (`generate-utterances`): need =
   required − accepted, attempt budget, resume of stored responses, dry run,
@@ -85,9 +84,6 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 
 - [ ] English and Hindi plan with realistic counts (start at a few thousand
   utterances per language), all script forms and code-switching sets.
-- [ ] Prefix expansion for utterances (interim prefixes with per-prefix
-  labels, from `barge_in_from_word`), derived at training time from
-  `utterances.csv`.
 - [ ] Deduplication and split audit on the cleaned text: the same text never
   appears in two splits; report how many cleaned texts appear with both labels
   (the ceiling for any utterance-only model).

@@ -83,7 +83,7 @@ def _hints(cat: Catalogue, intent: str, language: str) -> str:
     return "No example hints: rely on the intent description."
 
 
-UTTERANCE_TEMPLATE = "generator_utterances_v3"
+UTTERANCE_TEMPLATE = "generator_utterances_v4"
 _REPETITION = {
     "repeated": 'say a key word or short phrase two or more times ("wait wait", "haan haan").',
     "single": 'no word or phrase is said twice (not "yes yes").',
@@ -93,7 +93,6 @@ UTTERANCE_REQUEST_KIND = "generate_utterances"
 _UTTERANCE_FIELDS: dict[str, Any] = {
     "text": {"type": "string"},
     "label": {"type": "string", "enum": ["backchannel", "barge_in"]},
-    "barge_in_from_word": {"type": ["integer", "null"]},
     "rationale": {"type": "string"},
 }
 

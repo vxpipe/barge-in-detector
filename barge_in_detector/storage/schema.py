@@ -15,8 +15,9 @@ Changing a column needs a SCHEMA_VERSION bump recorded in docs/data-format.md.
 from dataclasses import dataclass
 
 # 6: two tables, utterances (every sample) and requests (local); the
-# conversation track's tables, runs and plan revisions are gone.
-SCHEMA_VERSION = "6"
+# conversation track's tables, runs and plan revisions are gone. 7: no
+# barge_in_from_word (a backchannel that turns into a barge-in is barge_in).
+SCHEMA_VERSION = "7"
 
 # Factors of an utterance criterion (generation/factors/utterances.yaml).
 UTTERANCE_FACTORS = (
@@ -65,7 +66,6 @@ UTTERANCES = Table(
         ("text_clean", "VARCHAR"),
         ("cleaner_version", "VARCHAR"),
         ("label", "VARCHAR"),
-        ("barge_in_from_word", "INTEGER"),
         ("raw_sample", "JSON"),
         ("judge_answers", "JSON"),
         ("text_hash", "VARCHAR"),

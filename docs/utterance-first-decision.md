@@ -94,7 +94,9 @@ keep talking) or a real interruption (stop and give the caller the floor)?
   milestone's Checkpoint A contract are superseded for the model input. The
   conversation tables and their exports stay; nothing generated is deleted.
 - Partial transcripts still matter: "yes yes" must score low and "yes yes but"
-  high, so `barge_in_from_word` and prefix expansion carry over.
+  high. The data does not record where a developing utterance turns (user
+  decision, 2026-11-15): such an utterance is simply barge_in, and short
+  backchannels such as "yes yes" are samples of their own.
 - Duplicates matter more: "ok" will be generated thousands of times. Splits and
   deduplication work on the cleaned text.
 - Calibration uses realistic priors: most overlapping speech is backchannel.

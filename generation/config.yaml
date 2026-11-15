@@ -31,18 +31,6 @@ thinking_level: null
 explicit_cache: true
 cache_ttl_seconds: 3600
 
-# Allowed difference between the generator's and the judge's
-# barge_in_from_word for a developing utterance.
-barge_in_word_tolerance: 1
-
-# Judge questions that reject a sample when answered no (P(yes) < 0.5). The
-# label questions (backchannel or barge-in) and the turning-point questions
-# always decide the label. Every other question is a variety factor
-# (repetition, mood, register, scenario, speaker activity, development) or
-# naturalness: its P(yes) is recorded in judge_notes and the raw response,
-# but it never rejects a sample (user decision, 2026-11-14).
-judge_hard_checks: [language_ok, script_ok, cut_ok, factor_listener_intent]
-
 # USD per million tokens, per model. Fill these in from Google's current price
 # list to enable cost tracking and --budget-usd; null means unknown, and tokens
 # are still recorded. The Decisions API bills input tokens only (output is 0).

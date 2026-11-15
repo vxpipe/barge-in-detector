@@ -43,8 +43,7 @@ Rules that decide the label:
 - A bare "ok", "yes", "haan", "right" (or its equivalent) said over someone
   who is still talking is a backchannel.
 - An utterance that starts like a backchannel or filler and then turns into a
-  barge-in is barge_in ("yes yes, but change the time"). `barge_in_from_word`
-  is the 0-based index of the first word from which it is a barge-in.
+  barge-in is barge_in ("yes yes, but change the time").
 
 # Factor meanings
 
@@ -105,13 +104,9 @@ ${code_switching}
    one-sentence rationale. If what you wrote does not carry the intended label,
    report the label it really has: a rejected utterance is better than a
    mislabelled one.
-   - `barge_in_from_word` is 0 for a barge-in from its first word, the index of
-     the first barge-in word for one that develops, and null for a
-     backchannel. Count words the same way as for length ("Uh-huh, wait" has
-     "wait" at index 1).
 
 # Output
 
 Return JSON only, matching the response schema: an object with a `samples`
 list holding exactly the number of utterances requested, each with `text`,
-`label`, `barge_in_from_word` and `rationale`.
+`label` and `rationale`.

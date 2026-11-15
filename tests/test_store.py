@@ -34,8 +34,7 @@ def row(text, status="accepted", **extra):
         "reason": None if status == "accepted" else "judge script_hi=0.1",
         "text": text,
         "label": "barge_in",
-        "barge_in_from_word": 2,
-        "raw_sample": {"text": text, "label": "barge_in", "barge_in_from_word": 2},
+        "raw_sample": {"text": text, "label": "barge_in"},
         "judge_answers": {"script_hi": {"noul": 0.9}} if status == "accepted" else None,
         "text_hash": f"h-{text}",
         "request_id": None,
@@ -85,9 +84,7 @@ def test_export_writes_one_csv_of_utterances_only(store, tmp_path):
 def test_export_round_trips_and_is_stable(store, tmp_path):
     awkward = 'He said "ok, ok",\nthen: हाँ, wait'
     store.insert_utterance(TARGET, row(awkward))
-    store.insert_utterance(
-        TARGET, row("Hmm.", status="rejected", barge_in_from_word=None, judge_answers=None)
-    )
+    store.insert_utterance(TARGET, row("Hmm.", status="rejected", judge_answers=None))
     out = tmp_path / "export"
     assert store.export(out) == [out / "utterances.csv"]
     before = (out / "utterances.csv").stat().st_mtime_ns
@@ -102,7 +99,8 @@ def test_export_round_trips_and_is_stable(store, tmp_path):
         assert copy[0]["text"] == awkward
         assert copy[0]["locales"] == ["hi-Latn-IN", "en-IN"]
         assert json.loads(copy[0]["judge_answers"]) == {"script_hi": {"noul": 0.9}}
-        assert copy[1]["barge_in_from_word"] is None and copy[1]["judge_answers"] is None
+        assert copy[1]["judge_answers"] is None
+        assert "barge_in_from_word" not in copy[0]
     finally:
         rebuilt.close()
 
@@ -143,4 +141,4 @@ def test_an_older_database_is_refused_with_a_clear_message(tmp_path):
     con.close()
     with pytest.raises(RuntimeError, match="schema 5.*delete"):
         Store.open(path)
-    assert SCHEMA_VERSION == "6"
+    assert SCHEMA_VERSION == "7"

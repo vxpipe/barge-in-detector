@@ -2,10 +2,8 @@
 # question per criterion of the specification, nothing else (user decision,
 # 2026-11-15). Language and script ask one question per language. Length is
 # checked in code. The input is {"text": "..."}; every answer must be yes.
-# Earlier versions v1 and v2 (longer questions) were used for the runs of
-# 2026-11-15 before this one; see the labnotes.
 
-version: judge_utterances_v3
+version: judge_utterances_v4
 
 questions:
   language: Does this text contain ${name} words?
@@ -17,8 +15,8 @@ questions:
   intent: "Does this describe the text: ${description}"
   development:
     stable: Does this text keep the same intent from start to end?
-    backchannel_then_barge_in: Does this text start as a backchannel and become an interruption at the word "${word}"?
-    filler_then_barge_in: Does this text start with a filler and become an interruption at the word "${word}"?
+    backchannel_then_barge_in: Does this text start as a backchannel and then become an interruption?
+    filler_then_barge_in: Does this text start with a filler and then become an interruption?
   repetition:
     repeated: Does this text repeat a word, as in "yes yes"?
     single: Is this text free of repeated words like "yes yes"?

@@ -47,9 +47,7 @@ def test_generate_two_utterances_and_judge_them():
         assert parsed.fatal is None
         assert parsed.samples, parsed.problems
         for s in parsed.samples:
-            judge_input, questions = judge_questions(
-                cat, SPEC, s.data["text"], s.barge_in_from_word
-            )
+            judge_input, questions = judge_questions(cat, SPEC, s.data["text"])
             decided = client.decide(
                 model=config.judge_model, input=judge_input, questions=questions
             )
