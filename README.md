@@ -3,8 +3,8 @@
 **Give acknowledgments room. Give interruptions the floor.**
 
 [![GitHub source](https://img.shields.io/badge/GitHub-source-181717?logo=github&logoColor=white)](https://github.com/vxpipe/barge-in-detector)
-[![Hugging Face model](https://img.shields.io/badge/Hugging%20Face-model-FFD21E?logo=huggingface&logoColor=black)](https://huggingface.co/HashNuke/barge-in-detector)
-[![Hugging Face dataset](https://img.shields.io/badge/Hugging%20Face-dataset-FFD21E?logo=huggingface&logoColor=black)](https://huggingface.co/datasets/HashNuke/barge-in-detector-data)
+[![Hugging Face model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-model-FFD21E)](https://huggingface.co/HashNuke/barge-in-detector)
+[![Hugging Face dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-dataset-FFD21E)](https://huggingface.co/datasets/HashNuke/barge-in-detector-data)
 [![MIT licence](https://img.shields.io/badge/license-MIT-3DA639)](https://github.com/vxpipe/barge-in-detector/blob/main/LICENSE)
 
 Voice agents hear callers say “uh-huh”, “yes”, and “okay” while they are still
