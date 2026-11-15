@@ -432,3 +432,18 @@ def test_a_plan_can_limit_factor_values():
     assert {t.spec["language"] for t in plan} == {"en"}
     full = build_utterance_plan(CAT, TRACK, replace(english, only={}))
     assert {t.combination_id for t in plan} < {t.combination_id for t in full}
+
+
+def test_dry_run_plans_and_estimates_without_calls(store):
+    client = FakeLlm()
+    settings = replace(
+        SETTINGS,
+        prices_usd_per_million_tokens={
+            SETTINGS.generator_model: {"input": 1.0, "cached_input": 0.1, "output": 2.0},
+            SETTINGS.judge_model: {"input": 0.1, "cached_input": 0.0, "output": 0.0},
+        },
+    )
+    report = run(store, client, settings, dry_run=True)
+    assert report.planned_requests == 24 and report.planned_samples == 72
+    assert report.estimated_cost_usd > 0
+    assert client.calls == {"generate": 0, "judge": 0}

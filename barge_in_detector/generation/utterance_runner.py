@@ -225,9 +225,7 @@ class UtteranceRunner:
         )
         judge_input = 0
         for job in jobs:
-            text, questions = judge_questions(
-                self.cat, self._spec(job.target), _TEXT_FOR_ESTIMATE, None
-            )
+            text, questions = judge_questions(self.cat, self._spec(job.target), _TEXT_FOR_ESTIMATE)
             size = len(text) + len(json.dumps(questions, ensure_ascii=False))
             judge_input += job.count * size // _CHARS_PER_TOKEN
         usage = {
