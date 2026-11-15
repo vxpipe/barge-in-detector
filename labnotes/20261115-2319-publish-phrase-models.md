@@ -34,3 +34,8 @@ Publish source first, then dataset, then model pinned to the returned dataset
 revision. Verify remote checksums/loadability and dataset configurations before
 advancing both submodule gitlinks. Preserve local weights while reconciling the
 model staging checkout; do not rewrite history or force-push.
+
+Source snapshot published as `064ea7f` on GitHub main. Added explicit support
+for manifest-selected model Git LFS attributes so nested tokenizer and ONNX
+files behave correctly in Git submodule checkouts. Focused red/green test covers
+that addition while continuing to reject `.git` configuration paths.

@@ -20,6 +20,8 @@ def allowed_path(kind, name):
     if path.is_absolute() or ".." in path.parts or str(path) != name or "\\" in name:
         return False
     if kind == "model":
+        if name == ".gitattributes":
+            return True
         candidate = re.fullmatch(r"candidates/[a-z0-9][a-z0-9-]*/(.+)", name)
         if candidate:
             name = candidate[1]

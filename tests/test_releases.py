@@ -57,6 +57,11 @@ def test_additive_dataset_paths_are_allowed(name):
     assert allowed_path("dataset", name)
 
 
+def test_model_lfs_attributes_can_be_selected_explicitly():
+    assert allowed_path("model", ".gitattributes")
+    assert not allowed_path("model", "candidates/run/.git/config")
+
+
 @pytest.mark.parametrize(
     "kind,name",
     [
