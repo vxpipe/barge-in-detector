@@ -3,6 +3,7 @@
 /data/work/
 /models/
 /checkpoints/
+/data/evaluation/reviews/*.lock
 
 # Python
 .venv/

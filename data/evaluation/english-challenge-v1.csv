@@ -1,0 +1,99 @@
+case_id,category,group,language,label,text,text_clean,review_status
+en-001,short_interruption,,en,barge_in,Stop,stop,pending
+en-002,short_interruption,,en,barge_in,Wait,wait,pending
+en-003,short_interruption,,en,barge_in,Pause,pause,pending
+en-004,short_interruption,,en,barge_in,Cancel,cancel,pending
+en-005,short_interruption,,en,barge_in,Wrong,wrong,pending
+en-006,short_interruption,,en,barge_in,Repeat,repeat,pending
+en-007,short_interruption,,en,barge_in,Slower,slower,pending
+en-008,short_interruption,,en,barge_in,Restart,restart,pending
+en-009,short_interruption,,en,barge_in,Enough,enough,pending
+en-010,short_interruption,,en,barge_in,Stop talking,stop talking,pending
+en-011,short_interruption,,en,barge_in,Wait please,wait please,pending
+en-012,short_interruption,,en,barge_in,Not that,not that,pending
+en-013,short_interruption,,en,barge_in,Wrong date,wrong date,pending
+en-014,short_interruption,,en,barge_in,Wrong person,wrong person,pending
+en-015,short_interruption,,en,barge_in,Go back,go back,pending
+en-016,short_interruption,,en,barge_in,Say again,say again,pending
+en-017,short_interruption,,en,barge_in,Speak slower,speak slower,pending
+en-018,short_interruption,,en,barge_in,Start over,start over,pending
+en-019,short_interruption,,en,barge_in,Let me finish,let me finish,pending
+en-020,short_interruption,,en,barge_in,You misunderstood,you misunderstood,pending
+en-021,short_interruption,,en,barge_in,Cancel it,cancel it,pending
+en-022,short_interruption,,en,barge_in,Change it,change it,pending
+en-023,short_interruption,,en,barge_in,Which one,which one,pending
+en-024,short_interruption,,en,barge_in,Why not,why not,pending
+en-025,short_interruption,,en,barge_in,How much,how much,pending
+en-026,short_interruption,,en,barge_in,What time,what time,pending
+en-027,short_interruption,,en,barge_in,What address,what address,pending
+en-028,short_interruption,,en,barge_in,Tuesday instead,tuesday instead,pending
+en-029,short_interruption,,en,barge_in,The second one,the second one,pending
+en-030,short_interruption,,en,barge_in,That is wrong,that is wrong,pending
+en-031,long_backchannel,,en,backchannel,Yes yes yes yes yes,yes yes yes yes yes,pending
+en-032,long_backchannel,,en,backchannel,Okay okay okay okay okay,okay okay okay okay okay,pending
+en-033,long_backchannel,,en,backchannel,Right right right I see,right right right i see,pending
+en-034,long_backchannel,,en,backchannel,Mm hmm yes mm hmm yes,mm hmm yes mm hmm yes,pending
+en-035,long_backchannel,,en,backchannel,Oh wow oh wow yeah,oh wow oh wow yeah,pending
+en-036,long_backchannel,,en,backchannel,Yeah I see I see,yeah i see i see,pending
+en-037,long_backchannel,,en,backchannel,Yes I understand what you mean,yes i understand what you mean,pending
+en-038,long_backchannel,,en,backchannel,Right that makes sense to me,right that makes sense to me,pending
+en-039,long_backchannel,,en,backchannel,Okay I am following you so far,okay i am following you so far,pending
+en-040,long_backchannel,,en,backchannel,Yes yes that sounds right,yes yes that sounds right,pending
+en-041,long_backchannel,,en,backchannel,Ah I see what you mean now,ah i see what you mean now,pending
+en-042,long_backchannel,,en,backchannel,Mm hmm I understand yes,mm hmm i understand yes,pending
+en-043,long_backchannel,,en,backchannel,Oh dear that sounds really difficult,oh dear that sounds really difficult,pending
+en-044,long_backchannel,,en,backchannel,Wow that must have been exciting,wow that must have been exciting,pending
+en-045,long_backchannel,,en,backchannel,That is interesting yes I see,that is interesting yes i see,pending
+en-046,long_backchannel,,en,backchannel,Fair enough I understand that,fair enough i understand that,pending
+en-047,long_backchannel,,en,backchannel,Yes absolutely I agree with that,yes absolutely i agree with that,pending
+en-048,long_backchannel,,en,backchannel,Right okay yes that makes sense,right okay yes that makes sense,pending
+en-049,long_backchannel,,en,backchannel,Oh no that is really sad,oh no that is really sad,pending
+en-050,long_backchannel,,en,backchannel,Ha ha that is funny,ha ha that is funny,pending
+en-051,long_backchannel,,en,backchannel,Mmm yes okay I hear you,mmm yes okay i hear you,pending
+en-052,long_backchannel,,en,backchannel,Sure sure I am with you,sure sure i am with you,pending
+en-053,long_backchannel,,en,backchannel,Got it yes understood,got it yes understood,pending
+en-054,long_backchannel,,en,backchannel,Uh huh uh huh right,uh huh uh huh right,pending
+en-055,ordinary_backchannel,,en,backchannel,Okay,okay,pending
+en-056,ordinary_backchannel,,en,backchannel,Yes,yes,pending
+en-057,ordinary_backchannel,,en,backchannel,Yeah,yeah,pending
+en-058,ordinary_backchannel,,en,backchannel,Mm hmm,mm hmm,pending
+en-059,ordinary_backchannel,,en,backchannel,Uh huh,uh huh,pending
+en-060,ordinary_backchannel,,en,backchannel,Right,right,pending
+en-061,ordinary_backchannel,,en,backchannel,I see,i see,pending
+en-062,ordinary_backchannel,,en,backchannel,Got it,got it,pending
+en-063,ordinary_backchannel,,en,backchannel,Oh wow,oh wow,pending
+en-064,ordinary_backchannel,,en,backchannel,I understand,i understand,pending
+en-065,ordinary_interruption,,en,barge_in,I need to change my delivery address,i need to change my delivery address,pending
+en-066,ordinary_interruption,,en,barge_in,You have the wrong customer on the line,you have the wrong customer on the line,pending
+en-067,ordinary_interruption,,en,barge_in,Can you explain what that fee is for,can you explain what that fee is for,pending
+en-068,ordinary_interruption,,en,barge_in,Please stop reading and let me speak,please stop reading and let me speak,pending
+en-069,ordinary_interruption,,en,barge_in,Actually I already paid that invoice,actually i already paid that invoice,pending
+en-070,ordinary_interruption,,en,barge_in,I want to speak to someone else,i want to speak to someone else,pending
+en-071,ordinary_interruption,,en,barge_in,No I said Thursday and not Tuesday,no i said thursday and not tuesday,pending
+en-072,ordinary_interruption,,en,barge_in,Before you continue I have a question,before you continue i have a question,pending
+en-073,ordinary_interruption,,en,barge_in,That is not what I was asking about,that is not what i was asking about,pending
+en-074,ordinary_interruption,,en,barge_in,I cannot hear you please say that again,i cannot hear you please say that again,pending
+en-075,prefix,prefix-1,en,backchannel,Yes,yes,pending
+en-076,prefix,prefix-1,en,backchannel,Yes yes,yes yes,pending
+en-077,prefix,prefix-1,en,barge_in,Yes yes but change the time,yes yes but change the time,pending
+en-078,prefix,prefix-2,en,backchannel,Okay,okay,pending
+en-079,prefix,prefix-2,en,backchannel,Okay okay,okay okay,pending
+en-080,prefix,prefix-2,en,barge_in,Okay okay wait that is the wrong address,okay okay wait that is the wrong address,pending
+en-081,prefix,prefix-3,en,backchannel,Right,right,pending
+en-082,prefix,prefix-3,en,backchannel,Right right,right right,pending
+en-083,prefix,prefix-3,en,barge_in,Right right but I meant the other account,right right but i meant the other account,pending
+en-084,prefix,prefix-4,en,backchannel,Mm hmm,mm hmm,pending
+en-085,prefix,prefix-4,en,backchannel,Mm hmm yes,mm hmm yes,pending
+en-086,prefix,prefix-4,en,barge_in,Mm hmm yes can you repeat the price,mm hmm yes can you repeat the price,pending
+en-087,prefix,prefix-5,en,backchannel,I see,i see,pending
+en-088,prefix,prefix-5,en,backchannel,I see yes,i see yes,pending
+en-089,prefix,prefix-5,en,barge_in,I see yes but I need to cancel,i see yes but i need to cancel,pending
+en-090,prefix,prefix-6,en,backchannel,Sure,sure,pending
+en-091,prefix,prefix-6,en,backchannel,Sure sure,sure sure,pending
+en-092,prefix,prefix-6,en,barge_in,Sure sure stop there please,sure sure stop there please,pending
+en-093,prefix,prefix-7,en,backchannel,Got it,got it,pending
+en-094,prefix,prefix-7,en,backchannel,Got it okay,got it okay,pending
+en-095,prefix,prefix-7,en,barge_in,Got it okay now let me explain,got it okay now let me explain,pending
+en-096,prefix,prefix-8,en,backchannel,Yeah,yeah,pending
+en-097,prefix,prefix-8,en,backchannel,Yeah yeah,yeah yeah,pending
+en-098,prefix,prefix-8,en,barge_in,Yeah yeah no that will not work for me,yeah yeah no that will not work for me,pending

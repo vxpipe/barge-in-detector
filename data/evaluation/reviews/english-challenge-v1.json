@@ -1,0 +1,594 @@
+{
+  "schema_version": 1,
+  "source_sha256": "3d46b9e024f4d3bedd69f07603cde934e85ec2272988e90d2acebc30d5e99519",
+  "reviews": {
+    "en-001": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:40:04.962143+00:00"
+    },
+    "en-002": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:40:24.317136+00:00"
+    },
+    "en-003": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:40:26.363588+00:00"
+    },
+    "en-004": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:40:37.481516+00:00"
+    },
+    "en-005": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:40:46.137609+00:00"
+    },
+    "en-006": {
+      "decision": "barge_in",
+      "notes": "The agent would stop, but would continue again by repeating the information. in essence this is barge-in.",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:41:40.728864+00:00"
+    },
+    "en-007": {
+      "decision": "barge_in",
+      "notes": "The agent would stop, but would try to repeat the info again slowly.",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:42:21.846858+00:00"
+    },
+    "en-008": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:42:30.091955+00:00"
+    },
+    "en-009": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:42:35.479072+00:00"
+    },
+    "en-010": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:42:42.110402+00:00"
+    },
+    "en-011": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:42:43.541830+00:00"
+    },
+    "en-012": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:42:59.857294+00:00"
+    },
+    "en-013": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:02.306250+00:00"
+    },
+    "en-014": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:03.308933+00:00"
+    },
+    "en-015": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:06.558350+00:00"
+    },
+    "en-016": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:07.522170+00:00"
+    },
+    "en-017": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:09.108448+00:00"
+    },
+    "en-018": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:10.758437+00:00"
+    },
+    "en-019": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:12.357648+00:00"
+    },
+    "en-020": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:14.189346+00:00"
+    },
+    "en-021": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:15.489408+00:00"
+    },
+    "en-022": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:19.403862+00:00"
+    },
+    "en-023": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:21.890477+00:00"
+    },
+    "en-024": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:23.903863+00:00"
+    },
+    "en-025": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:27.574965+00:00"
+    },
+    "en-026": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:28.359300+00:00"
+    },
+    "en-027": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:31.193555+00:00"
+    },
+    "en-028": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:31.967740+00:00"
+    },
+    "en-029": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:43:34.121878+00:00"
+    },
+    "en-030": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:43:48.747281+00:00"
+    },
+    "en-031": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: repeated yes could convey impatience, but text alone does not establish a floor claim.\nOwner clarification: context is unavailable and only two labels are allowed. Final decision: backchannel; repeated acknowledgments with no textual floor claim.",
+      "revision": 3,
+      "updated_at": "2026-11-15T12:58:24.529950+00:00"
+    },
+    "en-032": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:44:12.573307+00:00"
+    },
+    "en-033": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:04.809523+00:00"
+    },
+    "en-034": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:15.708866+00:00"
+    },
+    "en-035": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:19.315027+00:00"
+    },
+    "en-036": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:27.845480+00:00"
+    },
+    "en-037": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:30.673999+00:00"
+    },
+    "en-038": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:33.558057+00:00"
+    },
+    "en-039": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:45:19.781968+00:00"
+    },
+    "en-040": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:39.579423+00:00"
+    },
+    "en-041": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:45.642901+00:00"
+    },
+    "en-042": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:44:53.146327+00:00"
+    },
+    "en-043": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.521734+00:00"
+    },
+    "en-044": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.524286+00:00"
+    },
+    "en-045": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.527472+00:00"
+    },
+    "en-046": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.530220+00:00"
+    },
+    "en-047": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.532753+00:00"
+    },
+    "en-048": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.534817+00:00"
+    },
+    "en-049": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.536989+00:00"
+    },
+    "en-050": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.539156+00:00"
+    },
+    "en-051": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.541298+00:00"
+    },
+    "en-052": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.544567+00:00"
+    },
+    "en-053": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.547545+00:00"
+    },
+    "en-054": {
+      "decision": "backchannel",
+      "notes": "Reconsidered with owner authorization; previous decision: barge_in. Owner authorized reconsideration: acknowledgment, empathy, surprise or laughter without an explicit floor claim; backchannel under current label definitions.",
+      "revision": 2,
+      "updated_at": "2026-11-15T12:57:18.551243+00:00"
+    },
+    "en-055": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:47:48.657124+00:00"
+    },
+    "en-056": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:16.544212+00:00"
+    },
+    "en-057": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:19.095160+00:00"
+    },
+    "en-058": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:24.422141+00:00"
+    },
+    "en-059": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:25.421786+00:00"
+    },
+    "en-060": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:29.143946+00:00"
+    },
+    "en-061": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:34.924521+00:00"
+    },
+    "en-062": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:37.956626+00:00"
+    },
+    "en-063": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:40.607531+00:00"
+    },
+    "en-064": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:44.311824+00:00"
+    },
+    "en-065": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:48.058900+00:00"
+    },
+    "en-066": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:52.409979+00:00"
+    },
+    "en-067": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:54.257926+00:00"
+    },
+    "en-068": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:56.341824+00:00"
+    },
+    "en-069": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:48:58.241723+00:00"
+    },
+    "en-070": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:00.028288+00:00"
+    },
+    "en-071": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:09.255964+00:00"
+    },
+    "en-072": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:11.755411+00:00"
+    },
+    "en-073": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:14.742934+00:00"
+    },
+    "en-074": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:18.108830+00:00"
+    },
+    "en-075": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:23.825200+00:00"
+    },
+    "en-076": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:25.057485+00:00"
+    },
+    "en-077": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:28.317249+00:00"
+    },
+    "en-078": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:30.999841+00:00"
+    },
+    "en-079": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:33.311348+00:00"
+    },
+    "en-080": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:35.150318+00:00"
+    },
+    "en-081": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:44.757171+00:00"
+    },
+    "en-082": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:46.044517+00:00"
+    },
+    "en-083": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:48.019722+00:00"
+    },
+    "en-084": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:49.524614+00:00"
+    },
+    "en-085": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:49:58.577452+00:00"
+    },
+    "en-086": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:03.212511+00:00"
+    },
+    "en-087": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:06.724106+00:00"
+    },
+    "en-088": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:09.828389+00:00"
+    },
+    "en-089": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:15.642485+00:00"
+    },
+    "en-090": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:32.971196+00:00"
+    },
+    "en-091": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:34.391284+00:00"
+    },
+    "en-092": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:35.911656+00:00"
+    },
+    "en-093": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:37.774780+00:00"
+    },
+    "en-094": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:40.832396+00:00"
+    },
+    "en-095": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:42.593702+00:00"
+    },
+    "en-096": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:44.743292+00:00"
+    },
+    "en-097": {
+      "decision": "backchannel",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:46.847983+00:00"
+    },
+    "en-098": {
+      "decision": "barge_in",
+      "notes": "",
+      "revision": 1,
+      "updated_at": "2026-11-15T12:50:50.759392+00:00"
+    }
+  }
+}
