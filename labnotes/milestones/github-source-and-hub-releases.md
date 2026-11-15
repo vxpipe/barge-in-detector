@@ -14,11 +14,11 @@ model releases, and the earlier repository-split notes retained as history.
 - [x] Consolidate model/dataset labnotes and active milestones in this repository.
 - [x] Keep source dataset copies and optional model dependencies with uv.lock.
 - [x] Update source instructions and check the combined 118-test suite.
-- [ ] Publish canonical source code to GitHub before trimming HF code trees.
-- [ ] HF dataset main contains only dataset files, card, licence and release metadata.
-- [ ] HF model main contains only weights/tokenizer/config, card, licence and provenance.
-- [ ] Verify unchanged artifact/data hashes, loading and exact code/dataset release pins.
-- [ ] Point the review service back to this canonical source checkout.
+- [x] Publish canonical source code to GitHub before trimming HF code trees.
+- [x] HF dataset main contains only dataset files, card, licence and release metadata.
+- [x] HF model main contains only weights/tokenizer/config, card, licence and provenance.
+- [x] Verify unchanged artifact/data hashes, loading and exact code/dataset release pins.
+- [x] Point the review service back to this canonical source checkout.
 
 Use ordinary additive/deletion commits; preserve prior histories. No history
 rewrite, branch deletion or force-push. Release-only AGENTS files point to this

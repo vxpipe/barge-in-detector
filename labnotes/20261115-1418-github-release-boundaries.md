@@ -25,3 +25,17 @@ HF development scripts, test suites, helpers and labnotes move back here.
   commits; earlier history remains recoverable. Weights/data contents stay intact.
 
 Publication checks and commit references follow after completion.
+
+## Verified publication
+
+- source_commit: `836de6924c3da68cd871e6e08da34291e9778432`.
+- model_revision: `e5336e80d2829cab9a78842e0a807ac3174c5914`.
+- dataset_revision: `9e914ce8b50aa12ebd3fe212bb183e09a1dee370`.
+- Source published to GitHub before HF deletions. All original histories retained.
+- Current HF model tree has 11 artifact/config/card/provenance files; no scripts, reports, labnotes or data. HF dataset tree has 13 data/card/metadata/config files; no development scripts.
+- Anonymous Hub CPU load reproduces stop probability 0.0134437. Model/tokenizer and dataset file hashes unchanged.
+- Release-only dataset loads through datasets.load_dataset: 2640/333/331 plus challenge 98. The source model loader resolves the new dataset revision and loads it correctly.
+- Tiny CPU train/save/reload/evaluate smoke passed after source relocation. Default source inference CLI loads the HF model correctly. Combined 118 tests, Ruff format/lint passed.
+- Source snapshots of release metadata are under releases/. Model weights remain ignored and absent from GitHub Git history.
+- Review UI now runs from this canonical GitHub checkout in tmux review-ui on the existing Tailscale endpoint; 98 binary reviews remain intact (50 backchannel, 48 barge-in).
+- No GPU usage, model retraining or data regeneration. Existing classifier-quality and reference-CPU gates remain open.

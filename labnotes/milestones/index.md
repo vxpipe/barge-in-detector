@@ -3,7 +3,7 @@
 This checklist owns implementation order. Check an entry only when the
 milestone's acceptance gates pass.
 
-- [ ] [GitHub source and Hugging Face releases](github-source-and-hub-releases.md)
+- [x] [GitHub source and Hugging Face releases](github-source-and-hub-releases.md)
   — current ownership and publication boundary.
 
 - [ ] [Dataset release and coverage audit](dataset-release-and-coverage-audit.md)
