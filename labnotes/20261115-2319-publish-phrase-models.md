@@ -74,3 +74,27 @@ filenames so the same parity/benchmark workflow can use the public stable paths.
 Parity was rechecked using the renamed files; weight contents did not change.
 Initialized the model submodule's local Git LFS filters and refreshed its index
 with the verified files; no model-content commit was created by that refresh.
+
+## Published tagged release and submodules
+
+- Model v0.2.0: `9a227cdbdabf0f30476cb00905989f5962ea5219`.
+- Dataset v0.2.0: `02114f9cbdeed78c86dcd58ad13011425d010f8e`.
+- Model v0.1.0 preserves baseline `1994527ac2dbd91d7b858f3f94349914ded5ae6a`.
+- Dataset v0.1.0 preserves `a2cc9dd3349ddcec0426bfa873fba6c1bce1614f`.
+
+The current model tree has stable root FP32 and FP32/INT8 ONNX files; all 26
+obsolete candidate/archive paths were removed in the same upload commit. Previous
+versions remain in Git history. All 11 manifest-selected files were downloaded
+from the tagged release and matched SHA-256; all three inference formats loaded
+on CPU and FP32 probabilities matched within 1e-4. Both dataset/model tags resolve
+to the intended commits. The initial tag check compared annotated tag-object
+IDs rather than resolved commits; corrected verification uses repo_info.sha.
+
+Both submodules are checked out at their v0.2.0 commits. Restored large model
+files from verified local artifacts with hardlinks; Git LFS filters keep the
+working trees clean. Other seed checkpoints remain under gitignored models/.
+No additional GPU time or generation calls. Source records the new versioning
+policy, exact release manifests, remote verification and the submodule gitlinks.
+
+Evidence: `releases/published-v0.2.0.json` and
+`reports/e5-phrase-run1/tagged-release-verification.json`.

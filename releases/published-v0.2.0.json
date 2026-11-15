@@ -1,0 +1,18 @@
+{
+  "release": "v0.2.0",
+  "repositories": {
+    "model": {
+      "repo": "HashNuke/barge-in-detector",
+      "v0.1.0": "1994527ac2dbd91d7b858f3f94349914ded5ae6a",
+      "v0.2.0": "9a227cdbdabf0f30476cb00905989f5962ea5219"
+    },
+    "dataset": {
+      "repo": "HashNuke/barge-in-detector-data",
+      "v0.1.0": "a2cc9dd3349ddcec0426bfa873fba6c1bce1614f",
+      "v0.2.0": "02114f9cbdeed78c86dcd58ad13011425d010f8e"
+    }
+  },
+  "source_revision": "0c8099fb262cbc058872c34a6a275df5ae7dd1de",
+  "model_manifest": "releases/model-v0.2.0.json",
+  "dataset_manifest": "releases/dataset-phrase-coverage-v1.json"
+}

@@ -1,0 +1,64 @@
+{
+  "release": "v0.2.0",
+  "repositories": {
+    "model": {
+      "repo": "HashNuke/barge-in-detector",
+      "v0.1.0": "1994527ac2dbd91d7b858f3f94349914ded5ae6a",
+      "v0.2.0": "9a227cdbdabf0f30476cb00905989f5962ea5219"
+    },
+    "dataset": {
+      "repo": "HashNuke/barge-in-detector-data",
+      "v0.1.0": "a2cc9dd3349ddcec0426bfa873fba6c1bce1614f",
+      "v0.2.0": "02114f9cbdeed78c86dcd58ad13011425d010f8e"
+    }
+  },
+  "stable_model_paths": [
+    ".gitattributes",
+    ".gitignore",
+    "AGENTS.md",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "artifacts.sha256.json",
+    "config.json",
+    "model.safetensors",
+    "onnx/metadata.json",
+    "onnx/model.onnx",
+    "onnx/model_int8.onnx",
+    "onnx/tokenizer.json",
+    "provenance.json",
+    "release.json",
+    "tokenizer.json",
+    "tokenizer_config.json"
+  ],
+  "downloaded_model_files_verified": {
+    ".gitattributes": "44402d83165e9763dc772d363f5cc6ef4265f71b62ef71769d20ab4dac1d9609",
+    "artifacts.sha256.json": "6dbc49efb0f53a391a9695ff772121e52024d330d24725e6b4032fa6805038a4",
+    "config.json": "e37f926b37b69e1ae223add18a9b0e993d6000cfe87c44f2dd42ce157654d93b",
+    "model.safetensors": "e83219c637d2c179f87fbf67749dd48fbc1561f569fa741fbab56c224cef9959",
+    "onnx/metadata.json": "1f2c89bde0e795dd768c6875e29ba40a9be8435056ed014fd04f03bc60a225f7",
+    "onnx/model.onnx": "185596eb5d57ffaac87334ca842a96894ff1cbfb3914f4056d73fa3c84f68ceb",
+    "onnx/model_int8.onnx": "d8b8f606e5fda9ef9b64c908c222402e3385d9d46f4ff00f2841aa7493845c6b",
+    "onnx/tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+    "provenance.json": "9bf7b1b71ce40cf4bca876e79ba50acd7b8ea7422191b6073d249d5ca9391331",
+    "tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+    "tokenizer_config.json": "13660843154d3fde0f9954ad198b5a8bbf0d21cd4fc83aa4f37678d224c8481f"
+  },
+  "historical_model_directories_in_current_tree": false,
+  "cpu_load_verification": {
+    "formats": [
+      "FP32 PyTorch",
+      "FP32 ONNX",
+      "INT8 ONNX"
+    ],
+    "passed": true,
+    "inputs": [
+      "please wait",
+      "yes yes okay"
+    ],
+    "fp32_max_probability_difference_gate": 0.0001,
+    "note": "Passed before tag verification; initial tag assertion compared annotated tag-object IDs. Corrected to resolve tags through repo_info.sha; no weights changed."
+  },
+  "source_revision": "0c8099fb262cbc058872c34a6a275df5ae7dd1de",
+  "dataset_verification": "reports/e5-phrase-run1/dataset-release-verification.json"
+}

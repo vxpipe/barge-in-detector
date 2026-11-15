@@ -32,6 +32,10 @@ current HF model tree merely to version them. Multiple model directories are
 appropriate only for models intentionally being developed in parallel. Keep
 experimental checkpoints locally under gitignored `models/`.
 
+Verify each tag resolves to the intended commit before recording it. An annotated
+tag object has its own SHA; use the resolved commit (`git rev-parse TAG^{commit}`
+or Hub `repo_info(..., revision=TAG).sha`) for submodule and provenance pins.
+
 Dataset configurations are separate: preserve the original dataset and the
 standalone supplement alongside the derived combined splits. Tag dataset
 releases too, and pin the exact dataset commit in each model release.
