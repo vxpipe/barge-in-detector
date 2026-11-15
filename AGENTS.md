@@ -49,6 +49,22 @@ can remain under gitignored `models/`. Keep the original dataset and additive
 supplements alongside their derived combined data as already specified.
 After publishing, update both HF submodule checkouts and commit their gitlink pins.
 
+### Release documentation and tags
+
+- Before publishing a release, update the GitHub `README.md` and the versioned
+  HF model/dataset cards under `releases/cards/`. Keep usage examples, artifact
+  filenames, dataset configurations/counts, evaluation results, latency and
+  limitations current. Clearly label any retained historical results.
+- Publish the updated READMEs to both HF repositories as part of the release.
+  Verify the actual remote README contents before declaring publication complete.
+- Create the release tag in both HF repositories at the verified release commits.
+  When the owner authorizes correcting an existing release, update its tags to
+  include the corrections. Verify resolved commit SHAs; preserve unrelated tags
+  and branch history. Full SHAs remain the immutable provenance references.
+- Refresh both HF submodule checkouts and commit/push their gitlink pins along
+  with the source documentation and release records. Confirm GitHub is pushed,
+  the submodules are clean, and their pins match the intended published commits.
+
 HF release repositories are tracked as Git submodules at `huggingface/model` and
 `huggingface/dataset`. Keep these as tracked submodules so the links remain
 portable across machines and visible online; do not replace them with local

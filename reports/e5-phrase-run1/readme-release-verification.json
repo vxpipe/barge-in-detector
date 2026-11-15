@@ -1,0 +1,27 @@
+{
+  "release": "v0.2.0",
+  "changes": {
+    "model": {
+      "previous_v0.2.0": "9a227cdbdabf0f30476cb00905989f5962ea5219",
+      "updated_v0.2.0": "28177ae331b8ee751ab2a1bb62da5c5632b8473f",
+      "changed_files": [
+        "README.md",
+        "release.json"
+      ],
+      "readme_sha256": "a310755116592c4c358fae55ba3ae43ca560d74130b6f28d8cf6b882af7d7e58",
+      "weights_or_dataset_changed": false
+    },
+    "dataset": {
+      "previous_v0.2.0": "02114f9cbdeed78c86dcd58ad13011425d010f8e",
+      "updated_v0.2.0": "570c04c7c8f3d1ae27360b06c92e03bf6c55d335",
+      "changed_files": [
+        "README.md",
+        "dataset-release.json"
+      ],
+      "readme_sha256": "83fbe1b9b2d35c2097b9d31ffd14376d353e71312e7524b8154a4184861e625c",
+      "weights_or_dataset_changed": false
+    }
+  },
+  "v0.1.0_unchanged": true,
+  "training_source_and_dataset_pins_unchanged": true
+}

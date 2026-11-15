@@ -4,15 +4,17 @@
     "model": {
       "repo": "HashNuke/barge-in-detector",
       "v0.1.0": "1994527ac2dbd91d7b858f3f94349914ded5ae6a",
-      "v0.2.0": "9a227cdbdabf0f30476cb00905989f5962ea5219"
+      "v0.2.0": "28177ae331b8ee751ab2a1bb62da5c5632b8473f"
     },
     "dataset": {
       "repo": "HashNuke/barge-in-detector-data",
       "v0.1.0": "a2cc9dd3349ddcec0426bfa873fba6c1bce1614f",
-      "v0.2.0": "02114f9cbdeed78c86dcd58ad13011425d010f8e"
+      "v0.2.0": "570c04c7c8f3d1ae27360b06c92e03bf6c55d335"
     }
   },
   "source_revision": "0c8099fb262cbc058872c34a6a275df5ae7dd1de",
   "model_manifest": "releases/model-v0.2.0.json",
-  "dataset_manifest": "releases/dataset-phrase-coverage-v1.json"
+  "dataset_manifest": "releases/dataset-phrase-coverage-v1.json",
+  "documentation_source_revision": "351fc62359378753ab2f7b598e9fd2fccdffc952",
+  "tag_update_authorization": "Owner explicitly authorized release-tag corrections for updated READMEs"
 }

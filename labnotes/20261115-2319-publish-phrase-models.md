@@ -113,3 +113,12 @@ release guide accordingly: tags can move for authorized release corrections;
 full commit SHAs keep provenance and submodule pins immutable. Apply these README
 corrections to v0.2.0 in both HF repositories; retain v0.1.0 unchanged. Record
 documentation source separately from the actual training source/dataset pins.
+
+All three README corrections are published. Verified each HF change contains
+only README.md and its release metadata; model weights and dataset files are
+unchanged. Moved both v0.2.0 tags under the explicit owner authorization, verified
+resolved target commits, and retained both v0.1.0 tags. Both submodules now follow
+the corrected releases with clean working trees. Added the requested AGENTS.md
+checklist for README updates, tag creation/correction, remote verification and
+submodule/source publication. Evidence: readme-release-verification.json under
+reports/e5-phrase-run1/ and the updated releases/published-v0.2.0.json receipt.
