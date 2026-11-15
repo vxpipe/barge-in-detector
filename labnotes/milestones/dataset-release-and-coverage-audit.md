@@ -30,3 +30,7 @@ New model-specific milestones live in the model repository. This dataset milesto
 stays unchecked until the coverage work and release gates are complete.
 
 Checkpoint evidence: [repository split labnotes](../20261115-1323-huggingface-repo-split.md).
+
+Ownership note: the earlier repository split is superseded by
+github-source-and-hub-releases.md. Development and milestones now live in GitHub;
+HF repositories are release-only. Historical checkpoint evidence remains valid.

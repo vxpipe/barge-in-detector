@@ -1,0 +1,438 @@
+{
+  "challenge_sha256": "3d46b9e024f4d3bedd69f07603cde934e85ec2272988e90d2acebc30d5e99519",
+  "model_sha256": "bddb65c08f6260cfc9d320e65b4229229ec9f3ca95204aed98ab5ae45ff758d3",
+  "threshold": 0.5,
+  "runtime": {
+    "device": "cpu",
+    "torch": "2.15.0+cpu",
+    "transformers": "5.23.0",
+    "threads": 4
+  },
+  "batch_vs_single_max_probability_difference": 8.285045623779297e-06,
+  "batch_vs_single_label_disagreements": 0,
+  "review_status": "Owner reviewed all 98 cases; 13 subsequent revisions explicitly authorized; final binary labels match authored v1 labels. Diagnostic development set, not independent representative evaluation.",
+  "all": {
+    "count": 98,
+    "accuracy": 0.7346938775510204,
+    "macro_f1": 0.7111111111111111,
+    "false_interruption_rate": 0.0,
+    "missed_interruption_rate": 0.5416666666666666,
+    "per_class": {
+      "backchannel": {
+        "precision": 0.6578947368421053,
+        "recall": 1.0,
+        "f1": 0.7936507936507937,
+        "count": 50
+      },
+      "barge_in": {
+        "precision": 1.0,
+        "recall": 0.4583333333333333,
+        "f1": 0.6285714285714286,
+        "count": 48
+      }
+    },
+    "per_language": {
+      "en": {
+        "accuracy": 0.7346938775510204,
+        "count": 98
+      }
+    }
+  },
+  "by_category": {
+    "long_backchannel": {
+      "count": 24,
+      "accuracy": 1.0,
+      "macro_f1": 0.5,
+      "false_interruption_rate": 0.0,
+      "missed_interruption_rate": 0.0,
+      "per_class": {
+        "backchannel": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "count": 24
+        },
+        "barge_in": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count": 0
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 1.0,
+          "count": 24
+        }
+      }
+    },
+    "ordinary_backchannel": {
+      "count": 10,
+      "accuracy": 1.0,
+      "macro_f1": 0.5,
+      "false_interruption_rate": 0.0,
+      "missed_interruption_rate": 0.0,
+      "per_class": {
+        "backchannel": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "count": 10
+        },
+        "barge_in": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count": 0
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 1.0,
+          "count": 10
+        }
+      }
+    },
+    "ordinary_interruption": {
+      "count": 10,
+      "accuracy": 1.0,
+      "macro_f1": 0.5,
+      "false_interruption_rate": 0.0,
+      "missed_interruption_rate": 0.0,
+      "per_class": {
+        "backchannel": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count": 0
+        },
+        "barge_in": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "count": 10
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 1.0,
+          "count": 10
+        }
+      }
+    },
+    "prefix": {
+      "count": 24,
+      "accuracy": 0.9583333333333334,
+      "macro_f1": 0.9515151515151515,
+      "false_interruption_rate": 0.0,
+      "missed_interruption_rate": 0.125,
+      "per_class": {
+        "backchannel": {
+          "precision": 0.9411764705882353,
+          "recall": 1.0,
+          "f1": 0.9696969696969697,
+          "count": 16
+        },
+        "barge_in": {
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "count": 8
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 0.9583333333333334,
+          "count": 24
+        }
+      }
+    },
+    "short_interruption": {
+      "count": 30,
+      "accuracy": 0.16666666666666666,
+      "macro_f1": 0.14285714285714285,
+      "false_interruption_rate": 0.0,
+      "missed_interruption_rate": 0.8333333333333334,
+      "per_class": {
+        "backchannel": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count": 0
+        },
+        "barge_in": {
+          "precision": 1.0,
+          "recall": 0.16666666666666666,
+          "f1": 0.2857142857142857,
+          "count": 30
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 0.16666666666666666,
+          "count": 30
+        }
+      }
+    }
+  },
+  "overlap_counts": {
+    "train": 3,
+    "validation": 2,
+    "test": 0
+  },
+  "cross_split_exact_overlap": {
+    "train/validation": 0,
+    "train/test": 0,
+    "validation/test": 0
+  },
+  "unseen": {
+    "count": 93,
+    "accuracy": 0.7204301075268817,
+    "macro_f1": 0.702216748768473,
+    "false_interruption_rate": 0.0,
+    "missed_interruption_rate": 0.5416666666666666,
+    "per_class": {
+      "backchannel": {
+        "precision": 0.6338028169014085,
+        "recall": 1.0,
+        "f1": 0.7758620689655172,
+        "count": 45
+      },
+      "barge_in": {
+        "precision": 1.0,
+        "recall": 0.4583333333333333,
+        "f1": 0.6285714285714286,
+        "count": 48
+      }
+    },
+    "per_language": {
+      "en": {
+        "accuracy": 0.7204301075268817,
+        "count": 93
+      }
+    }
+  },
+  "prefix_groups": {
+    "prefix-1": [
+      {
+        "text": "yes",
+        "label": "backchannel",
+        "p_barge_in": 0.013361463323235512
+      },
+      {
+        "text": "yes yes",
+        "label": "backchannel",
+        "p_barge_in": 0.013298917561769485
+      },
+      {
+        "text": "yes yes but change the time",
+        "label": "barge_in",
+        "p_barge_in": 0.9880699515342712
+      }
+    ],
+    "prefix-2": [
+      {
+        "text": "okay",
+        "label": "backchannel",
+        "p_barge_in": 0.013304519467055798
+      },
+      {
+        "text": "okay okay",
+        "label": "backchannel",
+        "p_barge_in": 0.01330505684018135
+      },
+      {
+        "text": "okay okay wait that is the wrong address",
+        "label": "barge_in",
+        "p_barge_in": 0.988145112991333
+      }
+    ],
+    "prefix-3": [
+      {
+        "text": "right",
+        "label": "backchannel",
+        "p_barge_in": 0.013306460343301296
+      },
+      {
+        "text": "right right",
+        "label": "backchannel",
+        "p_barge_in": 0.01329006627202034
+      },
+      {
+        "text": "right right but i meant the other account",
+        "label": "barge_in",
+        "p_barge_in": 0.988115668296814
+      }
+    ],
+    "prefix-4": [
+      {
+        "text": "mm hmm",
+        "label": "backchannel",
+        "p_barge_in": 0.013299750164151192
+      },
+      {
+        "text": "mm hmm yes",
+        "label": "backchannel",
+        "p_barge_in": 0.013292054645717144
+      },
+      {
+        "text": "mm hmm yes can you repeat the price",
+        "label": "barge_in",
+        "p_barge_in": 0.9881290793418884
+      }
+    ],
+    "prefix-5": [
+      {
+        "text": "i see",
+        "label": "backchannel",
+        "p_barge_in": 0.013295376673340797
+      },
+      {
+        "text": "i see yes",
+        "label": "backchannel",
+        "p_barge_in": 0.013287578709423542
+      },
+      {
+        "text": "i see yes but i need to cancel",
+        "label": "barge_in",
+        "p_barge_in": 0.9879875183105469
+      }
+    ],
+    "prefix-6": [
+      {
+        "text": "sure",
+        "label": "backchannel",
+        "p_barge_in": 0.013307417742908001
+      },
+      {
+        "text": "sure sure",
+        "label": "backchannel",
+        "p_barge_in": 0.013290559872984886
+      },
+      {
+        "text": "sure sure stop there please",
+        "label": "barge_in",
+        "p_barge_in": 0.013294538483023643
+      }
+    ],
+    "prefix-7": [
+      {
+        "text": "got it",
+        "label": "backchannel",
+        "p_barge_in": 0.01331440731883049
+      },
+      {
+        "text": "got it okay",
+        "label": "backchannel",
+        "p_barge_in": 0.013302822597324848
+      },
+      {
+        "text": "got it okay now let me explain",
+        "label": "barge_in",
+        "p_barge_in": 0.6444560885429382
+      }
+    ],
+    "prefix-8": [
+      {
+        "text": "yeah",
+        "label": "backchannel",
+        "p_barge_in": 0.013312126509845257
+      },
+      {
+        "text": "yeah yeah",
+        "label": "backchannel",
+        "p_barge_in": 0.013376967050135136
+      },
+      {
+        "text": "yeah yeah no that will not work for me",
+        "label": "barge_in",
+        "p_barge_in": 0.9878116250038147
+      }
+    ]
+  },
+  "prefix_groups_all_labels_correct": 7,
+  "english_length_baseline": {
+    "cutoff_words": 6,
+    "validation": {
+      "count": 81,
+      "accuracy": 0.9753086419753086,
+      "macro_f1": 0.9716783216783216,
+      "false_interruption_rate": 0.07407407407407407,
+      "missed_interruption_rate": 0.0,
+      "per_class": {
+        "backchannel": {
+          "precision": 1.0,
+          "recall": 0.9259259259259259,
+          "f1": 0.9615384615384615,
+          "count": 27
+        },
+        "barge_in": {
+          "precision": 0.9642857142857143,
+          "recall": 1.0,
+          "f1": 0.9818181818181818,
+          "count": 54
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 0.9753086419753086,
+          "count": 81
+        }
+      }
+    },
+    "test": {
+      "count": 81,
+      "accuracy": 0.9382716049382716,
+      "macro_f1": 0.9268556980314249,
+      "false_interruption_rate": 0.18518518518518517,
+      "missed_interruption_rate": 0.0,
+      "per_class": {
+        "backchannel": {
+          "precision": 1.0,
+          "recall": 0.8148148148148148,
+          "f1": 0.8979591836734693,
+          "count": 27
+        },
+        "barge_in": {
+          "precision": 0.9152542372881356,
+          "recall": 1.0,
+          "f1": 0.9557522123893806,
+          "count": 54
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 0.9382716049382716,
+          "count": 81
+        }
+      }
+    },
+    "challenge": {
+      "count": 98,
+      "accuracy": 0.5510204081632653,
+      "macro_f1": 0.5315080399826162,
+      "false_interruption_rate": 0.26,
+      "missed_interruption_rate": 0.6458333333333334,
+      "per_class": {
+        "backchannel": {
+          "precision": 0.5441176470588235,
+          "recall": 0.74,
+          "f1": 0.6271186440677965,
+          "count": 50
+        },
+        "barge_in": {
+          "precision": 0.5666666666666667,
+          "recall": 0.3541666666666667,
+          "f1": 0.4358974358974359,
+          "count": 48
+        }
+      },
+      "per_language": {
+        "en": {
+          "accuracy": 0.5510204081632653,
+          "count": 98
+        }
+      }
+    }
+  }
+}

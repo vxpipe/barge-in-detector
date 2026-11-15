@@ -1,0 +1,81 @@
+{
+  "count": 333,
+  "accuracy": 0.993993993993994,
+  "macro_f1": 0.9932432432432432,
+  "false_interruption_rate": 0.009009009009009009,
+  "missed_interruption_rate": 0.0045045045045045045,
+  "per_class": {
+    "backchannel": {
+      "precision": 0.990990990990991,
+      "recall": 0.990990990990991,
+      "f1": 0.990990990990991,
+      "count": 111
+    },
+    "barge_in": {
+      "precision": 0.9954954954954955,
+      "recall": 0.9954954954954955,
+      "f1": 0.9954954954954955,
+      "count": 222
+    }
+  },
+  "per_language": {
+    "de": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "en": {
+      "accuracy": 1.0,
+      "count": 81
+    },
+    "es": {
+      "accuracy": 1.0,
+      "count": 36
+    },
+    "fil": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "fr": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "hi": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "id": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "it": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "ja": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "kn": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "ml": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "ta": {
+      "accuracy": 0.9444444444444444,
+      "count": 18
+    },
+    "te": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "zh": {
+      "accuracy": 0.9444444444444444,
+      "count": 18
+    }
+  },
+  "split": "validation",
+  "threshold": 0.5
+}

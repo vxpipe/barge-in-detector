@@ -1,0 +1,81 @@
+{
+  "count": 331,
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "false_interruption_rate": 0.0,
+  "missed_interruption_rate": 0.0,
+  "per_class": {
+    "backchannel": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "count": 109
+    },
+    "barge_in": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "count": 222
+    }
+  },
+  "per_language": {
+    "de": {
+      "accuracy": 1.0,
+      "count": 17
+    },
+    "en": {
+      "accuracy": 1.0,
+      "count": 81
+    },
+    "es": {
+      "accuracy": 1.0,
+      "count": 36
+    },
+    "fil": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "fr": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "hi": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "id": {
+      "accuracy": 1.0,
+      "count": 17
+    },
+    "it": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "ja": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "kn": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "ml": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "ta": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "te": {
+      "accuracy": 1.0,
+      "count": 18
+    },
+    "zh": {
+      "accuracy": 1.0,
+      "count": 18
+    }
+  },
+  "split": "test",
+  "threshold": 0.5
+}

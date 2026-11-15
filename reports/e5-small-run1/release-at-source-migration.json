@@ -1,0 +1,34 @@
+{
+  "model_id": "HashNuke/barge-in-detector",
+  "status": "experimental, uncalibrated, short-interruption failures",
+  "base_model": "intfloat/multilingual-e5-small",
+  "dataset_repo": "HashNuke/barge-in-detector-data",
+  "dataset_revision": "dda7115ace1fe7b07c49139860131f39910521ad",
+  "dataset_files_sha256": {
+    "data/export/utterances.csv": "556a2820e4a24ac13bab44321fb32b464c5fb225750d41a5a10ebcde7cdbab8a",
+    "data/splits/train.csv": "aab224bd0526eee915295e6f5c52076e29bb751cd0d664eefb4321843ad22533",
+    "data/splits/validation.csv": "c6b4c526fb4b1df96754119e409cedc8c7e85c77659e1fc1c3829da70084edc1",
+    "data/splits/test.csv": "8b630782362b05249b3be94b0213850258422be5ddeb62fcf703817b0bf9e11a",
+    "data/evaluation/english-challenge-v1.csv": "3d46b9e024f4d3bedd69f07603cde934e85ec2272988e90d2acebc30d5e99519",
+    "data/evaluation/reviews/english-challenge-v1.json": "ee6e07c3218ab0412d179e73b8e7457d550447a7ae08db2a005f37d794b855fa"
+  },
+  "artifacts_sha256": {
+    "model.safetensors": "bddb65c08f6260cfc9d320e65b4229229ec9f3ca95204aed98ab5ae45ff758d3",
+    "config.json": "e37f926b37b69e1ae223add18a9b0e993d6000cfe87c44f2dd42ce157654d93b",
+    "tokenizer.json": "255f5e32cb320b4dc2b31e0f203832fecafe87ca4cc87c3c41eb8ccae73f441a",
+    "tokenizer_config.json": "33b75086cc783ee5d78cab4dae0762d9cab1c40a8e0feb6e65d60c8d69a6afc1"
+  },
+  "original_training_source": {
+    "git_base_commit": "5ce0ed1283401f8c73bafcf5a7dbd2101c4bbee6",
+    "overlay_manifest": "reports/source-manifest.json"
+  },
+  "migration_source_git_commit": "1f92917a59908e320c3a3489c3e5de413a3e4672",
+  "labels": {
+    "0": "backchannel",
+    "1": "barge_in"
+  },
+  "max_length": 64,
+  "default_diagnostic_threshold": 0.5,
+  "selected_epoch": 5,
+  "training_metrics": "reports/training-metrics.json"
+}

@@ -1,0 +1,194 @@
+{
+  "model": "models/e5-small-run1",
+  "runtime": "PyTorch eager fp32, CPU only",
+  "model_sha256": "bddb65c08f6260cfc9d320e65b4229229ec9f3ca95204aed98ab5ae45ff758d3",
+  "python": "3.14.4",
+  "torch": "2.15.0+cpu",
+  "transformers": "5.23.0",
+  "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.43",
+  "cpuinfo": "AMD EPYC-Genoa Processor",
+  "load_seconds_excluded": 3.1383294460829347,
+  "iterations": 1000,
+  "warmup_per_scenario": 100,
+  "batch_size": 1,
+  "max_length": 64,
+  "interop_threads": 1,
+  "parameter_bytes": 470618120,
+  "corpus_sha256": "8b630782362b05249b3be94b0213850258422be5ddeb62fcf703817b0bf9e11a",
+  "corpus_rows": 331,
+  "languages": [
+    "de",
+    "en",
+    "es",
+    "fil",
+    "fr",
+    "hi",
+    "id",
+    "it",
+    "ja",
+    "kn",
+    "ml",
+    "ta",
+    "te",
+    "zh"
+  ],
+  "corpus_token_lengths": {
+    "p50": 13.0,
+    "p95": 19.0,
+    "max": 26
+  },
+  "measurements": [
+    {
+      "threads": 1,
+      "scenario": "multilingual_test",
+      "model_path": {
+        "p50_ms": 20.395149500000002,
+        "p95_ms": 25.477123599999995,
+        "p99_ms": 28.2604041,
+        "mean_ms": 20.432651312,
+        "max_ms": 46.969913
+      },
+      "tokenization": {
+        "p50_ms": 0.23074050000000002,
+        "p95_ms": 0.29089349999999997,
+        "p99_ms": 0.33883417,
+        "mean_ms": 0.234400798,
+        "max_ms": 0.640549
+      },
+      "forward_and_probability": {
+        "p50_ms": 20.162170500000002,
+        "p95_ms": 25.207171749999997,
+        "p99_ms": 28.02515483,
+        "mean_ms": 20.198250514,
+        "max_ms": 46.709714
+      }
+    },
+    {
+      "threads": 1,
+      "scenario": "full_64_tokens",
+      "model_path": {
+        "p50_ms": 44.6955575,
+        "p95_ms": 50.545173899999995,
+        "p99_ms": 53.76246217,
+        "mean_ms": 45.379929543,
+        "max_ms": 57.243489
+      },
+      "tokenization": {
+        "p50_ms": 0.6161775,
+        "p95_ms": 0.7613426,
+        "p99_ms": 0.84228681,
+        "mean_ms": 0.631765294,
+        "max_ms": 0.891216
+      },
+      "forward_and_probability": {
+        "p50_ms": 44.084312499999996,
+        "p95_ms": 49.9083266,
+        "p99_ms": 53.07674325,
+        "mean_ms": 44.748164249,
+        "max_ms": 56.405244
+      }
+    },
+    {
+      "threads": 2,
+      "scenario": "multilingual_test",
+      "model_path": {
+        "p50_ms": 19.406584000000002,
+        "p95_ms": 23.1596329,
+        "p99_ms": 25.6503671,
+        "mean_ms": 19.536068109,
+        "max_ms": 28.630568
+      },
+      "tokenization": {
+        "p50_ms": 0.23920799999999998,
+        "p95_ms": 0.31088855,
+        "p99_ms": 0.36521733999999995,
+        "mean_ms": 0.244807045,
+        "max_ms": 0.475011
+      },
+      "forward_and_probability": {
+        "p50_ms": 19.154210499999998,
+        "p95_ms": 22.828605549999995,
+        "p99_ms": 25.33145532,
+        "mean_ms": 19.291261064,
+        "max_ms": 28.31147
+      }
+    },
+    {
+      "threads": 2,
+      "scenario": "full_64_tokens",
+      "model_path": {
+        "p50_ms": 38.023134999999996,
+        "p95_ms": 45.51507395,
+        "p99_ms": 53.98291254,
+        "mean_ms": 38.847798787,
+        "max_ms": 62.944328
+      },
+      "tokenization": {
+        "p50_ms": 0.636223,
+        "p95_ms": 0.8138672499999998,
+        "p99_ms": 0.9455087999999999,
+        "mean_ms": 0.659222932,
+        "max_ms": 1.44213
+      },
+      "forward_and_probability": {
+        "p50_ms": 37.383997,
+        "p95_ms": 44.81712879999999,
+        "p99_ms": 53.05854066,
+        "mean_ms": 38.188575855,
+        "max_ms": 61.995607
+      }
+    },
+    {
+      "threads": 4,
+      "scenario": "multilingual_test",
+      "model_path": {
+        "p50_ms": 13.1820115,
+        "p95_ms": 19.21180095,
+        "p99_ms": 24.81463212999999,
+        "mean_ms": 13.731945525,
+        "max_ms": 89.107149
+      },
+      "tokenization": {
+        "p50_ms": 0.2276755,
+        "p95_ms": 0.30882,
+        "p99_ms": 0.3798859499999996,
+        "mean_ms": 0.23842783,
+        "max_ms": 4.009645
+      },
+      "forward_and_probability": {
+        "p50_ms": 12.937595,
+        "p95_ms": 18.841387699999995,
+        "p99_ms": 24.56872725999999,
+        "mean_ms": 13.493517695,
+        "max_ms": 88.911056
+      }
+    },
+    {
+      "threads": 4,
+      "scenario": "full_64_tokens",
+      "model_path": {
+        "p50_ms": 26.392652,
+        "p95_ms": 32.489633899999994,
+        "p99_ms": 41.04232582999999,
+        "mean_ms": 27.24307507,
+        "max_ms": 93.673078
+      },
+      "tokenization": {
+        "p50_ms": 0.614555,
+        "p95_ms": 0.7339711499999999,
+        "p99_ms": 0.9166563899999999,
+        "mean_ms": 0.624646764,
+        "max_ms": 2.092334
+      },
+      "forward_and_probability": {
+        "p50_ms": 25.7561225,
+        "p95_ms": 31.824941300000003,
+        "p99_ms": 40.46172110999999,
+        "mean_ms": 26.618428306,
+        "max_ms": 93.090937
+      }
+    }
+  ],
+  "scope": "Local virtual CPU; reference CPU unspecified. Excludes Vxpipe boundary and queueing; no whole-path acceptance claim.",
+  "peak_process_rss_mib": 1168.8125
+}

@@ -8,22 +8,22 @@ is consumed by Vxpipe's speech runtime.
 
 ## Repository ownership
 
-This checkout is the dataset and generation repository, published as
-`HashNuke/barge-in-detector-data` on Hugging Face, with the existing GitHub
-remote retained. It owns generated/accepted/rejected utterances, language and
-factor manifests, cleaning, deterministic splits, human review, generation
-scripts, tests, and historical project labnotes/milestones.
+This GitHub repository is the canonical development workspace for dataset
+creation, cleaning, splitting/review, training, inference, evaluation, CPU
+benchmarks, tests, documentation, labnotes and milestones. Keep a versioned copy
+of the dataset here. Model weights and local checkpoints stay gitignored.
 
-`HashNuke/barge-in-detector` is the separate Hugging Face model repository.
-It owns weights, tokenizer, training, inference, evaluation, CPU benchmarks,
-model tests, model-specific labnotes and milestones. Do not commit model weights
-or training implementations here. Link model checkpoints to immutable dataset
-revisions and source hashes. Fetch datasets in the model repo instead of
-copying data into it. Keep these ownership instructions current in both repos.
+Hugging Face repositories are release destinations:
+- `HashNuke/barge-in-detector`: model weights, tokenizer/configuration, model
+  card, licence and provenance only; no scripts or datasets.
+- `HashNuke/barge-in-detector-data`: versioned data, dataset card, licence and
+  metadata only; no generation/training code, tests or labnotes.
 
-The active Hugging Face checkouts are `../barge-in-detector-data` and
-`../barge-in-detector-model`. Use those for new dataset/model work. This
-GitHub checkout retains the original history and migration checkpoints.
+The sibling HF checkouts are release staging directories, not development
+workspaces. Link every model release to the exact dataset revision and GitHub
+code commit. Publish source code before removing code from release repositories.
+All implementation/research uses this repo's AGENTS.md, bin/create-labnotes and
+labnotes/milestones/index.md. No history rewriting or force-push is needed.
 
 ## Project brief
 
@@ -220,13 +220,15 @@ bump recorded in the data format doc.
 
 ## Tooling
 
-- **Model-repo training policy (shared):** run training and remote setup/work commands inside the tmux
+- **Vast.ai:** run training and remote setup/work commands inside the tmux
   session named `gpubox` so work survives SSH disconnects. Create it if absent;
   reconnect with `tmux attach -t gpubox`. Keep logs and model artifacts on disk.
   Always rent an **RTX 5090 (32 GB VRAM)**: one GPU on one datacenter
   instance, below $0.65/hour, with good internet connectivity and the Vast.ai
   PyTorch image. Do not substitute another GPU model or rent multiple instances.
 
+- Use installed `agent-browser` for browser checks. Do not install or use
+  Playwright or disable browser sandboxing as a workaround.
 - Python project managed with `uv` (`uv sync`, `uv run ...`). Add dependencies
   with `uv add` and commit `uv.lock` with dependency changes.
 - Always source `~/.zshrc` or run commands through `zsh -lc` to get the
@@ -246,16 +248,17 @@ bump recorded in the data format doc.
   prompt lines and the judge questions; `llm.py`: Gemini client;
   `utterance_runner.py`: the fill-to-count runner), `storage/` (DuckDB schema,
   the storage module, CSV export and import), `splitting.py` (dataset split assignment and CSV IO), `review/` (binary
-  owner annotation UI), `cli.py`. Training/evaluation code lives in the
-  separate model repo. Prompt templates live
+  owner annotation UI), `training/` (model data loading, metrics, train,
+  evaluate and infer), `cli.py`. Benchmark scripts live in `experiments/`.
+  Model dependencies use `uv sync --group train`. Prompt templates live
   in `generation/prompts/`, plans in `generation/plans/`, run settings in
   `generation/config.yaml`.
 - Data commands run through `uv run python -m barge_in_detector …`:
   `check-catalogue`, `plan`, `generate` (`--plan`, `--dry-run`, `--limit`,
   `--languages`, `--budget-usd`, `--concurrency`), `status`, `show-prompt`,
   `split`, `export`, `import`. See [docs/generation.md](docs/generation.md).
-  Training and evaluation run in the Hugging Face model repo;
-  [docs/training.md](docs/training.md) records the boundary and split contract.
+  Training and evaluation run here with `python -m barge_in_detector.training.train`
+  and `.evaluate`; see [docs/training.md](docs/training.md).
 
 ## Related repositories
 
@@ -285,9 +288,10 @@ verification evidence.
 
 ### Labnotes
 
-Each repository has its own `AGENTS.md`, `bin/create-labnotes`, and milestone
-index. Existing project labnotes and milestones remain here; record new
-model-only work in the model repo and link across repos as needed.
+All dataset and model labnotes/milestones live here. HF release repos link to
+these instructions and contain no labnotes helper scripts or development history
+in their current release trees. Earlier ownership decisions in historical notes
+are superseded by the current Repository ownership section.
 
 - For research and implementation tasks, create a labnotes file with
   `bin/create-labnotes` and a two-to-four-word hyphenated task name, e.g.

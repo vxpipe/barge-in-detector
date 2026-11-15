@@ -26,11 +26,10 @@ Frozen v1 SHA256:
 Run from the repo root:
 
 ```shell
-# Run in the separate Hugging Face model checkout:
-uv run python -m experiments.evaluate_english_challenge --dataset-dir /path/to/dataset
+uv run --no-sync python -m experiments.evaluate_english_challenge --dataset-dir .
 ```
 
-The model-repo experiment writes `challenge-report.json` and
+The source-repo experiment writes `challenge-report.json` and
 `challenge-predictions.csv` beside its checkpoint, without changing the checkpoint or original test
 reports. It uses the existing 64-token budget and 0.5 threshold. Its length
 baseline chooses a cutoff on English validation macro F1 only. This baseline

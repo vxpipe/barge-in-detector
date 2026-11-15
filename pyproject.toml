@@ -17,6 +17,11 @@ dev = [
     "pytest>=9.2.0",
     "ruff>=0.17.5",
 ]
+train = [
+    "huggingface-hub>=2.4.0",
+    "torch>=2.15.0",
+    "transformers>=5.23.0",
+]
 
 [tool.uv]
 package = false  # a project, not an installable package

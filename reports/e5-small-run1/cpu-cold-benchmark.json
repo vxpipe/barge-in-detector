@@ -1,0 +1,33 @@
+{
+  "cold_process_seconds": [
+    4.768154836,
+    4.810785561,
+    4.136632718,
+    4.255589102,
+    3.847660745,
+    4.045793715,
+    3.973606716,
+    4.190341404,
+    4.387973674,
+    4.28136222
+  ],
+  "loaded_to_first_label_ms": [
+    26.506046,
+    40.193806,
+    18.425675,
+    22.50301,
+    23.081508,
+    40.155708,
+    16.969254,
+    23.919822,
+    23.060476,
+    24.334184
+  ],
+  "loaded_to_first_label_median_ms": 23.500664999999998,
+  "median_seconds": 4.222965253,
+  "min_seconds": 3.847660745,
+  "max_seconds": 4.810785561,
+  "runs": 10,
+  "threads": 4,
+  "scope": "Python process creation through reading first flushed label. Includes imports, tokenizer/model load, first inference. Local files only; OS file cache may be warm. Excludes process shutdown, downloads and HTTP/network boundary."
+}
