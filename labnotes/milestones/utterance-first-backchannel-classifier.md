@@ -101,6 +101,13 @@ the reference CPU, as in [AGENTS.md](../../AGENTS.md).
 
 ## Checkpoint D — Baselines, training and the ablation
 
+- [x] Splits spread every combination over train / validation / test
+  (user decision, 2026-11-15) and the PyTorch train and evaluate scripts
+  ([docs/training.md](../../docs/training.md)); smoke-tested on CPU.
+- [x] First fine-tune of multilingual-e5-small on the GPU machine; record
+  validation and test metrics.
+  Remote setup and run evidence: [Vast.ai training labnotes](../20261115-1211-vastai-model-training.md).
+
 - [ ] Benchmark candidate encoders on the reference CPU at the 64-token input
   budget (fp32 and int8 ONNX), with memory, and report the token-length
   distribution of the generated utterances per language and script form. If
